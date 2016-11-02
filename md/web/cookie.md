@@ -1,6 +1,6 @@
 # js 管理cookie
 
-```
+```javascript
 // 设置Cookie
 function setCookie(name,value,expires_seconds){
 >---var cookieString = name + "=" + escape(value);
