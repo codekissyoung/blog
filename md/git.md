@@ -11,9 +11,27 @@
 
 > 名词解释
 - **Workspace**：工作区
-- **Index / Stage**：暂存区
+- **Index / Stage**：暂存区域是一个文件，保存了下次将提交的文件列表信息，一般在 Git 仓库目录中。 有时候也被称作　索引　，不过一般说法还是叫暂存区域。
 - **Repository**：仓库区（或本地仓库）
 - **Remote**：远程仓库,可能会有好多个,有些可以写,有些你只能读。对于远程库的工作包括:推送或拉取数据,分享各自的工作进展,包括添加远程库,移除废弃的远程库,管理各式远程库分支,定义是否跟踪这些分支
+
+# git 配置
+- `git config --global user.name "John Doe"`　写的文件：`~/.gitconfig` 或 `~/.config/git/config`
+- `git config user.name "codekissyoung"` 写的文件`项目目录/.git/config`
+- `git config --global core.editor vim` 设置默认编辑器
+- `git config --list` 列出当前库所有配置选项，配置变量会重复，值取最后获取到的
+```
+➜  ~ cat ~/.gitconfig
+[user]
+	email = cky951010@163.com
+	name = caokaiyan
+[push]
+	default = simple
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[core]
+	quotepath = false
+```
 
 # 新建代码库
 ```
