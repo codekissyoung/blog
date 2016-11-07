@@ -33,48 +33,84 @@
 	quotepath = false
 ```
 
+# .gitignore
+```
+# no .a files
+*.a
+
+# but do track lib.a, even though you're ignoring .a files above
+!lib.a
+
+# only ignore the TODO file in the current directory, not subdir/TODO
+/TODO
+
+# ignore all files in the build/ directory
+build/
+
+# ignore doc/notes.txt, but not doc/server/arch.txt
+doc/*.txt
+
+# ignore all .pdf files in the doc/ directory
+doc/**/*.pdf
+```
+
 # 新建代码库
 ```
 # 在当前目录新建一个Git代码库
 $ git init
-
 # 新建一个目录，将其初始化为Git代码库
 $ git init [project-name]
-
 # 下载一个项目和它的整个代码历史
 $ git clone [url]
 ```
 
-`在github上新建一个仓库git_test`
-* 本地有仓库`test_git`
-`git remote add git_test git://github.com/codekissyoung/git_test.git` 为本地仓库添加远程仓库,名字为git_test
-`git remote -v`列出每一个远程仓库和它们的地址
-`git fetch git_test` 将git_test仓库拉取到本地
-`git fetch <远程主机名> <分支名>` 获取某个主机下的某个分支
-`git branch -a` 显示所有的分支,包括远程的
-`git checkout <远程分支名>` 切换到远程分支
-`git remote show git_test` 查看远程仓库的详细信息
-`git remote rm git_test` 删除远程仓库
-`git remote rename <原主机名> <新主机名>` 改名
+# 本地操作
+```
+$ git diff # 查看未暂存的所有修改
+$ git add . #　将所有修改的文件暂存
+$ git reset file # 将暂存区文件撤回,回到修改状态
+$ git checkout -- file ＃　将文件恢复到修改之前,等于是丢弃了对这个文件的修改
+$ git diff --staged # 查看已经暂存起来的变化,同--cached
+$ git commit -m "提交说明"　# 提交暂存区里的文件快照　，产生一个commit
+$ git commit --amend # 将最后一次提交再次提交，最终你只会有一个提交 ，第二次提交将代替第一次提交的结果，重写提交说明
+$ git rm PROJECTS.md # 只从库里移除一个文件,不会物理删除
+$ git rm --cached README  # 想让文件保留在磁盘，但是并不想让 Git 继续跟踪
+$ git mv file_from file_to # 重命名
+$ git log # 查看日志
+$ git log -p -2 # 显示最近两次提交的内容差异
+```
 
-* 本地没仓库,而是直接clone的github上的仓库
-`git clone git_url [文件夹名]` 克隆一个github上项目
+# 远程仓库的使用
+```
+$ git remote add [remote_name] git://github.com/codekissyoung/[project-name].git 为本地库添加远程库,并取名为remote_name
+$ git clone https://github.com/codekissyoung/git.git 克隆远程库为本地库，并取名为origin(默认推送的库)
+$ git remote -v　# 列出所有的远程库
+$ git remote show [remote-name] # 查看一个远程库的详细信息
+$ git push -u origin master # 将当前分支与远程origin库的master分支关联起来
+$ git branch -a　# 列出所有分支，包括远程和本地的
+$ git fetch --all # 将全部远程仓库的更新获取到本地
+$ git merge origin/master # 当前分支合并远程分支
+$ git push origin test # 将当前分支推送到origin的test分支,如果远程库没有该分支，则创建
+$ git remote rm git_test 删除远程仓库
+$ git remote rename [remote_name] [new_remote_name] 修改远程库名字
+$ git checkout branch_name # 切换到某一分支　，若该分支为远程分支,则以该分支为基础，在本地新建一个与之同名的分支，并设置为跟踪该远程分支　
+$ git branch --set-upstream-to=github/master # 设置当前分支跟踪远程的github/master分支
+$ git checkout -b newBrach origin/master # 在origin/master的基础上，创建一个新分支
+```
 
-直接克隆远程仓库,形成自己的本地仓库后,远程仓库的命名为`origin`,这是默认命名的
-`git clone -o jQuery https://github.com/jquery/jquery.git`也可以在clone时自己设置名字(不推荐)
-`git fetch` 默认是只获取origin主机上master分支？
-`git checkout -b newBrach origin/master` 在origin/master的基础上，创建一个新分支
-`git merge origin/master` 或 `git rebase origin/master` 在当前分支上，合并origin/master
+# git commit　产生的对象(commit对象　tree对象 blob快照对象)
+![分支](https://git-scm.com/book/en/v2/book/03-git-branching/images/commit-and-tree.png)
 
-## pull
-`git pull <远程主机名> <远程分支名>:<本地分支名>` 取回远程主机某个分支的更新，再与本地的指定分支合并
-`git pull origin next` 取回origin/next分支，再与当前分支合并
-`git pull` 相当与 `git fetch origin next` + `git merge orgin/next`
+# 分支运用
+`git rebase origin/master` 在当前分支上，合并origin/master
 
-## 追踪关系
-`git branch --set-upstream master origin/next` 指定master分支追踪origin/next分支
-`git pull origin` 当前分支与远程分支存在追踪关系，git pull就可以省略远程分支名
-`git pull`如果当前分支只有一个追踪分支，连远程主机名都可以省略
+# 别名
+```
+$ git config --global alias.co checkout
+$ git config --global alias.br branch
+$ git config --global alias.ci commit
+$ git config --global alias.st status
+```
 
 #git rebase
 http://blog.csdn.net/hudashi/article/details/7664631
