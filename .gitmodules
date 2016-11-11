@@ -1,3 +1,6 @@
 [submodule "HyperDown"]
 	path = HyperDown
 	url = https://github.com/SegmentFault/HyperDown.git
+[submodule "highlight.js"]
+	path = highlight.js
+	url = https://github.com/isagalaev/highlight.js.git
