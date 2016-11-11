@@ -1,0 +1,3 @@
+[submodule "HyperDown"]
+	path = HyperDown
+	url = https://github.com/SegmentFault/HyperDown.git
