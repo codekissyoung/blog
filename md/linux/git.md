@@ -1,113 +1,144 @@
-# git 配置文件
-`/etc/gitconfig` 文件：系统中对所有用户都普遍适用的配置。`git config --system` 读写的就是这个文件。
+# 参考
+[阮一峰的网络日志 / 常用 Git 命令清单](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html)
 
-`~/.gitconfig `文件：用户目录下的配置文件只适用于该用户。`git config --global` 读写的就是这个文件。
+[阮一峰的网络日志 / Git 使用规范流程](http://www.ruanyifeng.com/blog/2015/08/git-use-process.html)
 
-工作目录中`.git/config `文件：这里的配置仅仅针对当前项目有效。
+[阮一峰的网络日志 / Git远程操作详解](http://www.ruanyifeng.com/blog/2014/06/git_remote.html)
 
-每一个级别的配置都会覆盖上层的相同配置
+[阮一峰的网络日志 / Git 工作流程](http://www.ruanyifeng.com/blog/2015/12/git-workflow.html)
 
-`git  config   --global   user.name     "your name "`
+![阮一峰的网络日志 / git示意图](http://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png)
 
-`git  config   --global    user.email   "email@example.com"`
+> 名词解释
+- **Workspace**：工作区
+- **Index / Stage**：暂存区域是一个文件，保存了下次将提交的文件列表信息，一般在 Git 仓库目录中。 有时候也被称作　索引　，不过一般说法还是叫暂存区域。
+- **Repository**：仓库区（或本地仓库）
+- **Remote**：远程仓库,可能会有好多个,有些可以写,有些你只能读。对于远程库的工作包括:推送或拉取数据,分享各自的工作进展,包括添加远程库,移除废弃的远程库,管理各式远程库分支,定义是否跟踪这些分支
 
+# git 配置
+- `git config --global user.name "John Doe"`　写的文件：`~/.gitconfig` 或 `~/.config/git/config`
+- `git config user.name "codekissyoung"` 写的文件`项目目录/.git/config`
+- `git config --global core.editor vim` 设置默认编辑器
+- `git config --list` 列出当前库所有配置选项，配置变量会重复，值取最后获取到的
+```
+➜  ~ cat ~/.gitconfig
+[user]
+	email = cky951010@163.com
+	name = caokaiyan
+[push]
+	default = simple
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[core]
+	quotepath = false
+```
 
-# git本地操作
+# .gitignore
+```
+# no .a files
+*.a
 
-在仓库目录执行 `git init`创建一个新仓库
+# but do track lib.a, even though you're ignoring .a files above
+!lib.a
 
-`git add <file>` 将新建/改动后的文件 从工作区移动到暂存区
+# only ignore the TODO file in the current directory, not subdir/TODO
+/TODO
 
-`git rm --cached <文件>` 撤出暂存区
+# ignore all files in the build/ directory
+build/
 
-`git checkout <file>` 从版本库取出这个文件的最新版本 ，替换掉改动了的文件
+# ignore doc/notes.txt, but not doc/server/arch.txt
+doc/*.txt
 
-`git commit -m"提交说明"` 将暂存区里的所有文件提交到版本库,形成一个版本
+# ignore all .pdf files in the doc/ directory
+doc/**/*.pdf
+```
 
-`git status` 查看当前  git  仓库状态
+# 新建代码库
+```
+# 在当前目录新建一个Git代码库
+$ git init
+# 新建一个目录，将其初始化为Git代码库
+$ git init [project-name]
+# 下载一个项目和它的整个代码历史
+$ git clone [url]
+```
 
-`git  diff file_dir` 查看当前仓库某个文件与前一个版本的差异
+# 本地操作
+```
+$ git diff # 查看未暂存的所有修改
+$ git add . #　将所有修改的文件暂存
+$ git reset file # 将暂存区文件撤回,回到修改状态
+$ git checkout -- file ＃　将文件恢复到修改之前,等于是丢弃了对这个文件的修改
+$ git diff --staged # 查看已经暂存起来的变化,同--cached
+$ git commit -m "提交说明"　# 提交暂存区里的文件快照　，产生一个commit
+$ git commit --amend # 将最后一次提交再次提交，最终你只会有一个提交 ，第二次提交将代替第一次提交的结果，重写提交说明
+$ git rm PROJECTS.md # 只从库里移除一个文件,不会物理删除
+$ git rm --cached README  # 想让文件保留在磁盘，但是并不想让 Git 继续跟踪
+$ git mv file_from file_to # 重命名
+$ git log # 查看日志
+$ git log -p -2 # 显示最近两次提交的内容差异
+```
 
-`git  log` 提交日志的查看，就看每次 commit 的备注,以及其版本号(一个散列字符串,一个字符串为一个版本)
+# 远程仓库的使用
+```
+$ git remote add [remote_name] git://github.com/codekissyoung/[project-name].git 为本地库添加远程库,并取名为remote_name
+$ git clone https://github.com/codekissyoung/git.git 克隆远程库为本地库，并取名为origin(默认推送的库)
+$ git remote -v　# 列出所有的远程库
+$ git remote show [remote-name] # 查看一个远程库的详细信息
+$ git push -u origin master # 将当前分支与远程origin库的master分支关联起来
+$ git branch -a　# 列出所有分支，包括远程和本地的
+$ git fetch --all # 将全部远程仓库的更新获取到本地
+$ git merge origin/master # 当前分支合并远程分支
+$ git push origin test # 将当前分支推送到origin的test分支,如果远程库没有该分支，则创建
+$ git remote rm git_test 删除远程仓库
+$ git remote rename [remote_name] [new_remote_name] 修改远程库名字
+$ git checkout branch_name # 切换到某一分支　，若该分支为远程分支,则以该分支为基础，在本地新建一个与之同名的分支，并设置为跟踪该远程分支　
+$ git branch --set-upstream-to=github/master # 设置当前分支跟踪远程的github/master分支
+$ git checkout -b newBrach origin/master # 在origin/master的基础上，创建一个新分支
+```
 
-`git reset --hard 版本号` 切换版本
+# git commit　产生的对象(commit对象　tree对象 blob快照对象)
+![分支](https://git-scm.com/book/en/v2/book/03-git-branching/images/commit-and-tree.png)
 
-`git  reflog`记录每一次commit/reset命令的日志,可以通过它找回版本号
+# 分支运用
+`git rebase origin/master` 在当前分支上，合并origin/master
 
+# 别名
+```
+$ git config --global alias.co checkout
+$ git config --global alias.br branch
+$ git config --global alias.ci commit
+$ git config --global alias.st status
+```
 
-# 分支功能
+#git rebase
+http://blog.csdn.net/hudashi/article/details/7664631
 
-`git branch <name>` 创建分支
+# 将一台服务器作为远程仓库(类似github)
+http://blog.csdn.net/wangjia55/article/details/8802490
+实现的效果是,我们可以通过`git clone ssh://software@172.16.0.30/~/yafeng/.git`拿到那台服务器上的代码,那台服务器可以代替github使用了
 
-`git branch` 查看分支
+# 一个牛逼的git分支模型的使用
+http://www.oschina.net/translate/a-successful-git-branching-model
+查看附件,有模型的图
 
-`git checkout <name>` 切换分支
+# git 获取远程分支
+通过`Git clone` 获取的远端git库，只包含了远端git库的当前工作分支。
+如果想获取其它分支信息，需要使用`git branch –r`来查看， 如果需要将远程的其它分支代码也获取过来，可以使用命令：
 
-`git branch ‐d <name>`删除分支
+```
+git checkout -b 本地分支名 远程分支名
+```
+其中，远程分支名为`git branch –r`所列出的分支名， 一般是诸如`origin/分支名`的样子
+如果本地分支名已经存在， 则不需要`-b`参数
 
-`git merge --no-ff -m "合并dev分支" <name>` 用普通模式合并,合并后的历史有分支,能看出来曾经做过合并,而 fast forward 合并就看不出来曾经做过合并。
-
-`git merge <name>` 合并name分支到当前分支
-
-`git log --graph --pretty=oneline --abbrev-commit` 用带参数的 git log 也可以看到分支的合并情况
-
-
-# 标签功能
-
-tag就是在某次commit上打一个标记而已，方便你记忆识别这个commit,以及回退到这一次commit的版本中来
-
-`git tag -a v1.01 -m "Relase version 1.01"` 当前分支的最近一个commit打一个v1.01标签
-
-`git tag -a v0.1.1 9fbc3d0` 给指定的commit加tag
-
-`git tag -d v1.01`删除标签
-
-`git tag` 当前分支下标签列表
-
-`git checkout <tag>` 切换到某一个标签
-
-`git show v0.1.2` 查看标签的详细信息
-
-`git push origin v0.1.2`将v0.1.2标签提交到git服务器
-
-`git push origin –tags`将本地所有标签一次性提交到git服务器
-
-
-# 修复bug流程
-
-当你接到一个修复一个代号101的bug的任务时,很自然地,你想创建一个分支`issue‐101`来修复它,但是,等等,当前正在`dev` 上进行的工作还没有提交,并不是你不想提交,而是工作只进行到一半,还没法提交,预计完成还需1天时间。但是,必须在两个小时内修复该bug,怎么办?
-
-1. `git stash` 在dev上执行,把当前分支的工作现场保存起来
-
-1. `git status` 查看工作区,就是干净的( 除非存在没有被Git管理的文件 )
-
-1. `git checkout master` 切换到master分支(假设bug在`master`分支上)
-
-1. `git pull` 先获取最新代码到本地
-
-1. `git checkout -b issue-101` 新建一个解决bug的分支
-
-1. `git add --all` 在 issue-101 分支下修改完bug：
-
-1. `git commit -m"修复好issue-101bug"` 提交
-
-1. `git checkout master`  切换回master
-
-1. `git merge --no-ff -m "merged bug fix 101" issue-101` 合并issue-101分支到master分支
-
-1. `git branch -d issue-101` 合并完后删除issue-101分支
-
-1. `git checkout dev` 切换回dev分支上继续干活儿
-
-1. `git stash list` 查看在dev上保存的工作现场
-
-1. `git stash apply` 恢复现场,恢复后,stash内容并不删除,你需要用`git stash drop `来删除
-
-1. `git stash pop` 恢复现场,恢复的同时把stash内容也删了
-
-
-# github 项目
-
-`ssh-keygen -t rsa`生成密钥对,将ssh公钥(.ssh/id_rsa.pub里面)放到github服务器
-
-`github.com->settings->Personal access tokens`生成一个用于访问GitHub API的秘钥,记下它
+# 中文支持
+在日志里正确显示中文 shell 里执行
+```
+export LESSCHARSET=utf-8
+```
+中文名称正确显示(utf-8下) shell 里执行
+```
+git config --global core.quotepath false
+```
