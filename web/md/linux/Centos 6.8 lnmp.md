@@ -1,6 +1,4 @@
 > 修改日期:16.11.10
-
-
 # 查看系统状态
 ```
 ➜  html uname -a
@@ -84,11 +82,6 @@ Disk identifier: 0x00078f9c
     Device Boot      Start         End      Blocks   Id  System
 /dev/xvda1   *           1        5222    41940992   83  Linux
 ```
-
-
-
-
-
 
 # 新建用户
 ```
