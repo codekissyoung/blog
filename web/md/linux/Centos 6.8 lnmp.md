@@ -1,5 +1,95 @@
 > 修改日期:16.11.10
 
+
+# 查看系统状态
+```
+➜  html uname -a
+Linux iZ252e1zy6zZ 2.6.32-573.22.1.el6.x86_64 #1 SMP Wed Mar 23 03:35:39 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
+```
+内存 `free -m` 以MB为单位 `free -g`以GB为单位
+```
+➜  html free
+             total       used       free     shared    buffers     cached
+Mem:       1018508     628632     389876        176      58600     454232
+-/+ buffers/cache:     115800     902708
+Swap:            0          0          0
+```
+cpu负载
+```
+➜  ~ uptime
+ 11:52:46 up 44 days, 11:01,  1 user,  load average: 0.18, 0.25, 0.19 //系统的平均负载，1分钟，5分钟，15分钟
+```
+实时负载 `top`
+```
+[root@linuxprobe ~]# top
+top - 20:15:41 up 49 min,  3 users,  load average: 0.41, 0.38, 0.21
+Tasks: 236 total,   1 running, 235 sleeping,   0 stopped,   0 zombie
+Cpu(s):  0.2%us,  0.5%sy,  0.0%ni, 98.8%id,  0.5%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:   5228872k total,   671136k used,  4557736k free,    28324k buffers
+Swap:  4194296k total,        0k used,  4194296k free,   267360k cached
+
+   PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+     1 root      20   0 19360 1536 1224 S  0.0  0.0   0:05.37 init
+     2 root      20   0     0    0    0 S  0.0  0.0   0:00.02 kthreadd
+     3 root      RT   0     0    0    0 S  0.0  0.0   0:00.07 migration/0
+```
+cpu 信息
+```
+➜  ~ cat /proc/cpuinfo
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 62
+model name	: Intel(R) Xeon(R) CPU E5-2650 v2 @ 2.60GHz
+stepping	: 4
+microcode	: 1064
+cpu MHz		: 2593.778
+cache size	: 20480 KB
+physical id	: 0
+siblings	: 1
+core id		: 0
+cpu cores	: 1
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat clflush mmx fxsr sse sse2 ht syscall nx rdtscp lm constant_tsc up rep_good unfair_spinlock pni ssse3 cx16 sse4_1 sse4_2 popcnt aes hypervisor lahf_lm
+bogomips	: 5187.55
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+```
+硬盘使用情况
+```
+➜  ~ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/xvda1       40G  2.8G   35G   8% /
+tmpfs           498M     0  498M   0% /dev/shm
+```
+查看分区情况
+```
+➜  ~ sudo fdisk -l
+[sudo] password for cky:
+
+Disk /dev/xvda: 42.9 GB, 42949672960 bytes
+255 heads, 63 sectors/track, 5221 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00078f9c
+
+    Device Boot      Start         End      Blocks   Id  System
+/dev/xvda1   *           1        5222    41940992   83  Linux
+```
+
+
+
+
+
+
 # 新建用户
 ```
 [root@iZ252e1zy6zZ ~]# useradd cky

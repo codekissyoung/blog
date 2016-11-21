@@ -1,29 +1,29 @@
-[TOC]
 # 基础概念
-* 客户端的代码一定是可以被看见的,js是直接可看,java等编译语言可以反编译看!
-* 存在客户端的数据一定是不安全的
-* 网络上的包是一定可以被截获的,也就是你的请求一定是可以被别人拿到并看见的!
+客户端的代码一定是可以被看见的,js是直接可看,java等编译语言可以反编译看!
+存在客户端的数据一定是不安全的
+网络上的包是一定可以被截获的,也就是你的请求一定是可以被别人拿到并看见的!
 
 # 跨域访问api问题
-最好的方法是限定几个可以访问api的域名,其他域名全部拒绝。但是`Access-Control-Allow-Origin`只能设置一个值
-所以要多端共用,只有`header("Access-Control-Allow-Origin:*");`
+最好的方法是限定几个可以访问api的域名,其他域名全部拒绝。
+但是`Access-Control-Allow-Origin`只能设置一个值，所以要多端共用,只有`header("Access-Control-Allow-Origin:*");`
 
 
 
-##Ajax跨域请求带上COOKIE
-前端：`'xhrFields': {'withCredentials': true}`(jquery ajax设置)　注意：Access-Control-Allow-Origin:*　与这个有冲突：`A wildcard '*' cannot be used in the 'Access-Control-Allow-Origin' header when the credentials flag is true`
+## Ajax跨域请求带上COOKIE
+前端：`'xhrFields': {'withCredentials': true}`(jquery ajax设置)，注意：`Access-Control-Allow-Origin:*　` 与这个有冲突
+`A wildcard '*' cannot be used in the 'Access-Control-Allow-Origin' header when the credentials flag is true`
 后端：`header("Access-Control-Allow-Credentials: true");`跨域请求允许带cookie
 
 ## web客户端储存数据
-* 前提：读写的数据必须要同域
-* 使用cookie存储和读取
-* Web Storage (IE 789无法使用)
-* IndexedDB 优点：支持事务，支持索引，可以存入对象，效率也不错。上手难
-* FileAPI 这个API可以结合File表单和Formdata 从而实现异步上传文件。
+前提：读写的数据必须要同域
+使用cookie存储和读取
+Web Storage (IE 789无法使用)
+IndexedDB 优点：支持事务，支持索引，可以存入对象，效率也不错。上手难
+FileAPI 这个API可以结合File表单和Formdata 从而实现异步上传文件。
 
 ## 如何保证只有自己的客户端才可以调用接口
 
-#api ajax调用思考
+# api ajax调用思考
 如何保证多个客户端调用api接口时都是合法的(不是我们自己的客户端不能调用api接口拿数据),人为的(不是机器),数据安全的(不会被别人窃取数据),
 首先要明白几点：
 get数据不可信,post数据不可信,referer数据不可信,host域名DNS不可信,明文传输容易被抓包截取,cookie可能被盗用!
@@ -48,12 +48,9 @@ Ajax网站如何识别伪造请求？
 
 1. 服务端生成唯一key防止地址多次使用(甚至加上时间,过期无效)
 2. 有效图形验证码防止机器人
-3. 服务端生成唯一key禁止多端登陆(同一用户不同客户端同会话时间段多次登陆,
-                              key不同则后登陆key有效,先登陆key强制注销).
-
+3. 服务端生成唯一key禁止多端登陆(同一用户不同客户端同会话时间段多次登陆,key不同则后登陆key有效,先登陆key强制注销).
 4. 服务端脚本+图形验证码 联合认证.例如如果一个下载页面同时js展示广告.
    为了展示广告同时要防止盗链,那么在js展示广告逻辑同时还用js调处图形验证码.
-
 5. 看一些当前流行的文件分享类站点,看他们的策略.例如 xxx网盘.
 
 
