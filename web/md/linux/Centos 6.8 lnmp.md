@@ -83,6 +83,26 @@ Disk identifier: 0x00078f9c
 /dev/xvda1   *           1        5222    41940992   83  Linux
 ```
 
+# 支持中文
+安装中文语言包
+```
+yum groupinstall chinese-support
+```
+`vim /etc/sysconfig/i18n`
+```
+➜  md git:(master) cat /etc/sysconfig/i18n
+LANG="zh_CN.UTF-8"
+SUPPORTED="zh_CN.UTF-8:zh_CN:zh:en_US.UTF-8:en_US:en"
+SYSFONT="latarcyrheb-sun16"
+```
+LANG变量，设置系统语言
+SUPPORTED变量决定系统支持的语言，即系统能够显示的语言
+SYSFONT变量表示系统字体
+```
+sudo reboot
+```
+
+
 # 新建用户
 ```
 [root@iZ252e1zy6zZ ~]# useradd cky
