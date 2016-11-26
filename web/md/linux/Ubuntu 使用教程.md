@@ -1,4 +1,3 @@
-[TOC]
 # 查看系统版本和环境
 `uname -a` 查看所用的linux版本号
 `cat /etc/issue` 查看所用的linux版本号
@@ -97,7 +96,7 @@ memcached -d -m 50 -p 11211 -u root #启动一个memcached服务
 $ telnet localhost 11211 Trying 127.0.0.1...Connected to localhost.
 
 # ubuntu 16.04 搭建Ubuntu(16.04) + Apache(2.4) + Mysql(5.7) + PHP(7.0)环境
-##搭建目标
+## 搭建目标
 ```
 cky@cky-pc:~/worksapce$ apache2 -v
 Server version: Apache/2.4.18 (Ubuntu)
@@ -109,7 +108,7 @@ Copyright (c) 1997-2016 The PHP Group
 Zend Engine v3.0.0, Copyright (c) 1998-2016 Zend Technologies
 with Zend OPcache v7.0.6-dev, Copyright (c) 1999-2016, by Zend Technologies
 ```
-##安装并配置apache2.4
+## 安装并配置apache2.4
 ```
 sudo apt-get install apache2
 ```
@@ -124,7 +123,7 @@ sudo vim /etc/apache2/sites-available/000-default.conf
 ```
 sudo /etc/init.d/apache2 restart
 ```
-##安装php7.0
+## 安装php7.0
 ```
 sudo apt-get install php7.0
 sudo apt-get install libapache2-mod-php7.0
@@ -133,18 +132,18 @@ sudo apt-get install libapache2-mod-php7.0
 ```
 sudo apt-get install php7.0[tab]
 ```
-##安装数据库
+## 安装数据库
 ```
 sudo apt-get install mysql-server mysql-client
 sudo apt-get install php7.0-mysql
 ```
-##操作数据库
+## 操作数据库
 ```
 /etc/init.d/mysql start｜stop|restart
 ```
 
 
-#搭建lamp开发环境
+# 搭建lamp开发环境
 sudo apt-get install apache2 memcached php5 mysql-server mysql-client php5-memcached curl php5-curl
 sudo apt-get install php5-gd php5-mcrypt php5-imagick php5-intl php5-apcu php5-sqlite php5-pgsql php5-mysqlnd
 开启 Mcrypt 模块
@@ -154,25 +153,25 @@ sudo service apache2 restart
 http://blog.csdn.net/u013178760/article/details/45393183    Apache 2.4 Rewrite 模块
 http://blog.csdn.net/u013178760/article/details/48436777    Apache2 虚拟主机配置
 
-#安装apache
+# 安装apache
 ```
 sudo apt-get install apache2
 ```
-#开启和关闭模块
+# 开启和关闭模块
 ```
 sudo a2enmod rewrite #启用rewrite模块 
 sudo a2dismod rewrite #禁用rewrite模块
 ```
-#开启和关闭站点
+# 开启和关闭站点
 ```
 sudo a2ensite sitename ＃启用站点 
 sudo a2dissite sitename ＃停用站点
 ```
-#允许使用.htaccess
+# 允许使用.htaccess
 ```
 AllowOverride None 改为 AllowOverride  All
 ```
-#重启|开启｜关闭apache 
+# 重启|开启｜关闭apache 
 ```
 sudo service apache2 restart|start|stop             重启|开启｜关闭apache 
 sudo  /etc/init.d/apache2 restart|start|stop     　　重启｜开启｜关闭apache
@@ -182,27 +181,27 @@ sudo  /etc/init.d/apache2 restart|start|stop     　　重启｜开启｜关�
 ```
 http://www.example.com/USA/California/San_Diego  
 “/USA/California/San_Diego” 是能够Rewrite的字符串！
-重写：就是实现URL的跳转和隐藏真实地址，基于Perl语言的正则表达式规范。平时帮助我们实现拟静态，拟目录，域名跳转，防止盗链等 
+重写：就是实现URL的跳转和隐藏真实地址，基于Perl语言的正则表达式规范。平时帮助我们实现拟静态，拟目录，域名跳转，防止盗链等
 ```
 ## .htaccess ##
 ```
-RewriteEnine on 
+RewriteEnine on
 RewriteRule  ^/t_(.*).html$  /test.php?id = $1#当访问任何以t_开头，以.html结尾的文件时，将$1用与(.*)匹配的字符替换后，访问相应的test.php页面RewriteRule ^/test([0-9]*).html$ /test.php?id=$1RewriteRule ^/new([0-9]*)/$ /new.php?id=$1 [R]#当我们访问的地址不是以www.163.com开头的，那么执行下一条规则RewriteCond %{HTTP_HOST} !^www.163.com [NC]RewriteRule ^/(.*) http://www.163.com/ [L]
 ```
 
 ## Apache Rewrite规则修正符  ##
 ```
-1) R 强制外部重定向 
-2) F 禁用URL,返回403HTTP状态码。 
-3) G 强制URL为GONE，返回410HTTP状态码。 
-4) P 强制使用代理转发。 
-5) L 表明当前规则是最后一条规则，停止分析以后规则的重写。 
-6) N 重新从第一条规则开始运行重写过程。 
-7) C 与下一条规则关联 如果规则匹配则正常处理，以下修正符无效 
-8) T=MIME-type(force MIME type) 强制MIME类型 
-9) NS 只用于不是内部子请求 
-10) NC 不区分大小写 
-11) QSA 追加请求字符串 
+1) R 强制外部重定向
+2) F 禁用URL,返回403HTTP状态码。
+3) G 强制URL为GONE，返回410HTTP状态码。
+4) P 强制使用代理转发。
+5) L 表明当前规则是最后一条规则，停止分析以后规则的重写。
+6) N 重新从第一条规则开始运行重写过程。
+7) C 与下一条规则关联 如果规则匹配则正常处理，以下修正符无效
+8) T=MIME-type(force MIME type) 强制MIME类型
+9) NS 只用于不是内部子请求
+10) NC 不区分大小写
+11) QSA 追加请求字符串
 12) NE 不在输出转义特殊字符 \%3d$1 等价于 =$1
 ```
 
@@ -211,6 +210,7 @@ RewriteRule  ^/t_(.*).html$  /test.php?id = $1#当访问任何以t_开头，�
 core_module,so_module,http_module,mpm
 ```
 ## 全局配置指令 ##
+
 ```
 #表示apache2这个软件安装的目录
 ServerRoot  "/usr/local/apache2"
@@ -236,15 +236,15 @@ ServerAdmin 1162097842@qq.com
 ServerName pms.com
 
 #设置主机所有文档的根目录
-DocumentRoot "/var/www/html" 
-# 默认目录访问的文件 
+DocumentRoot "/var/www/html"
+# 默认目录访问的文件
 DirectoryIndex index.html index.htm index.php
 
-添加默认字符集  AddDefaultCharset GB2312  
+添加默认字符集  AddDefaultCharset GB2312
 监听ip是192.168.1.1的地址和端口为80创建虚拟目录
 Alias /down    "/sofТWare /download"   创建名为down的虚拟目录，它对应的物理路径是：/sofТWare /download
 设置目录权限<Directory "目录路径">    此次写设置目录权限的语句        
-Options FollowSymLinks  允许符号链接 Options Indexes         允许用户浏览网页目录，（不安全的设置，建议删除）       
+Options FollowSymLinks  允许符号链接 Options Indexes         允许用户浏览网页目录，（不安全的设置，建议删除）      
 AllowOverride None      不允许 .htaccess 重写这个目录，改为 All 则能重写
 </Directory>
 ```
@@ -265,7 +265,7 @@ PING a.lingyunstrong.com (183.16.2.95) 56(84) bytes of data.
 --- a.lingyunstrong.com ping statistics ---
 8 packets transmitted, 8 received, 0% packet loss, time 6997ms
 rtt min/avg/max/mdev = 0.595/0.657/0.683/0.036 ms
-cky@cky-pc:~$ 
+cky@cky-pc:~$
 cky@cky-pc:~$ ping cky
 PING cky.lingyunstrong.com (10.10.10.19) 56(84) bytes of data.
 64 bytes from 10.10.10.19: icmp_seq=1 ttl=64 time=0.026 ms
@@ -328,3 +328,5 @@ traceroute to m.dev.yunchongba.com (120.25.71.101), 30 hops max, 60 byte packets
 12  42.120.253.6 (42.120.253.6)  50.913 ms  51.081 ms 42.120.253.2 (42.120.253.2)  54.589 ms
 13  42.120.253.6 (42.120.253.6)  50.205 ms * *
 ```
+# 截图
+自带的截图软件,使用 `shift + printscreen` 截图
