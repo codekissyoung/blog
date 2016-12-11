@@ -10,7 +10,6 @@ use HyperDown\Paser;
 	<head>
 		<title>Codekissyoung</title>
 		<link href="/css/common.css" rel="stylesheet"/>
-		<!-- <link href="http://github.com/yrgoldteeth/darkdowncss/raw/master/darkdown.css" rel="stylesheet"></link> -->
 		<link href="/highlight.js/src/styles/github.css" rel="stylesheet">
 		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
 	</head>
