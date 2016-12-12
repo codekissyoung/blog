@@ -3,7 +3,6 @@
 
 ## 初始化
 ```
+git submodule init
 git submodule update
 ```
-
-
