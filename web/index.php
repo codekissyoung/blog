@@ -14,7 +14,7 @@ use HyperDown\Paser;
 		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
 	</head>
 	<body>
-	<nav class="main_category">
+	<nav id="main_category">
 		<?=file_tree_print(file_tree(MD_ROOT))?>
 	</nav>
 	<?php if(isset($_GET['a'])):?>
@@ -35,16 +35,12 @@ use HyperDown\Paser;
 	<script>
 		hljs.initHighlightingOnLoad();
 		var as = document.getElementsByTagName('a');
-		// console.log(as);
-		console.log();
 		for(var x in as ){
 			if(location.href == as[x].href){
 				console.log(as[x].href);
 				as[x].className = "active";
 			}
-
 		}
-
 	</script>
 	</body>
 </html>

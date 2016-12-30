@@ -5,4 +5,20 @@ ul, li {
   letter-spacing: 0.25;
 }
 
+#main_category {
+  position: fixed;
+  overflow: scroll;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  width: 500px;
+}
+
+#article {
+  position: absolute;
+  top: 0px;
+  left: 500px;
+  padding: 20px;
+}
+
 /*# sourceMappingURL=common.css.map */

@@ -3,5 +3,18 @@ ul,li{
 	list-style:none;
 	line-height:1.5;
 	letter-spacing:0.25;
-
+}
+#main_category{
+	position: fixed;
+	overflow:scroll;
+	height: 100%;
+	top:0px;
+	left: 0px;
+	width: 500px;
+}
+#article{
+	position: absolute;
+	top: 0px;
+	left: 500px;
+	padding:20px;
 }
