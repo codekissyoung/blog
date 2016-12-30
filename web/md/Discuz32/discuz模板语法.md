@@ -26,7 +26,6 @@ css书写时也可以按条件进行判断设置设置例如
 <td class="fl_g"{if $forumcolwidth} width="$forumcolwidth"{/if}>
 ```
 
-
 # 循坏
 ```
 带有数组键的循环写法

@@ -1,29 +1,103 @@
-[TOC]
-###连接数据库
-`mysql -uroot -hlocalhost -p951010`
-###管理数据库
-`show databases;`  列出数据库
-`use db_name;`     使用哪个数据库
-`show create database db_name;`
-`show status `
-`show errors`
-`show warnings`
-`show variables like %character_set_%;`查看编码
-  Character_set_client 客户端使用的编码
-  Character_set_connection 数据库连接使用的编码
-  Character_set_results 返回结果使用的编码
-`Set character_set_client = utf8;`设置编码
-`set names utf8;`设置所有编码为utf8
-`source /var/www/mysql.sql;`选则一个数据库后，执行一个sql文件
-`mysql -h localhost -u root -p mydb2 < \var\www\mydb2.sql` 导入数据
-`mysqldump -h localhost -u root -p mydb_dbname > \var\www\mydb.sql `导出数据库
-自动备份mysql中数据库的脚本
+# 连接数据库
+```sql
+$ mysql -hlocalhost -uroot -p951010
+```
+
+# 管理数据库
+```sql
+mysql > show databases; # 列出数据库
+mysql > use db_name;    # 使用哪个数据库
+mysql > show create database db_name; # 查看这个数据库的创建消息
+mysql > show status; # 查查运行状态
+mysql > show errors; #
+mysql > show warnings; #
+
+mysql > show variables like %character_set_%; # 查看编码
+# Character_set_client 客户端使用的编码
+# Character_set_connection 数据库连接使用的编码
+# Character_set_results 返回结果使用的编码
+mysql > set character_set_client = utf8; # 设置编码
+mysql > set names utf8; # 设置所有编码为utf8
+
+mysql > source /var/www/mysql.sql; # 选则一个数据库后，执行一个sql文件
+mysql -hlocalhost -uroot -pCky951010 mydb2 < \var\www\mydb2.sql  # 导入数据到mydb2库
+
+mysqldump -hlocalhost -uroot -pmydb_dbname > \var\www\mydb.sql  # 导出数据库mydb_dbname到文件
+
+# 查看状态
+mysql > select user(),now(),version();
++----------------+---------------------+-----------------------------+
+| user()         | now()               | version()                   |
++----------------+---------------------+-----------------------------+
+| root@localhost | 2016-12-28 13:07:31 | 5.7.16-0ubuntu0.16.04.1-log |
++----------------+---------------------+-----------------------------+
+mysql> select database(); # 当前数据库
++------------+
+| database() |
++------------+
+| ycb        |
++------------+
+
+```
+### 自动备份mysql中数据库的脚本
 ```
 #!/bin/sh
 today=`date +%Y%m%d`
 filename=${today}_fleamarket_backup.sql
 mysqldump -uroot -pCky951010 fleamarket > ./fleamarket-back-up/${filename}
 ```
+
+# 数据表
+```sql
+create [temporary]  table [if not exists] table_name（[字段名 字段类型 字段约束 注释] ，[字段名 字段类型 字段约束 注释]);
+
+create tabel article (article_id int(10) primary key ); # 主键
+create tabel article (article_id int(10),[...],primary key(article_id)); # 主键
+
+primary key (article_id , time); # 组合主键
+
+create table article (...owner SMALLINT UNSIGNED NOT NULL REFERENCES person(id)); # 外键
+foreign key (article_id) references main_table_name (category) [On update][On delete]; # 外键
+
+# 主表主键更新时，会报冲突，表示你主表的主键是不允许更新的
+foreign key (article_id) references main_table_name(category) On update restrict;
+
+# 在删除主表的记录时，将与该记录有关的从表记录的那个foreign字段设置为 null
+foreign key (article_id) references main_table_name(category) On update On delete set null;
+# 删主表记录时，将从表记录(与主表记录有关的)也删除
+on delete cascade
+
+# 给表设定数据库引擎和编码
+create table article (...)ENGINE = InnoDB DEfAULT CHARSET = utf8 default character set utf8;
+# 给字段设定校对集
+nikename varchar(25) character set utf8
+
+show tables; # 列出表
+desc table_name; # 查看表结构
+show create table tb_name; # 查看创建表的语句
+
+LOAD DATA LOCAL INFILE “D:/mysql.txt” INTO TABLE my_table; # 导入数据到表
+select name,age,city,salary into outfile "c:/data_out.txt" lines terminated by “/r/n” from person; # 导出到txt文件
+
+drop [temporary] table [if exists] table_name [, table_name];# 删除表
+
+```
+
+## 更新表
+`alter table table_name change 旧字段名+新字段名 + 新字段的属性`
+改变表明里的字段
+`alter table table_name add 字段名+字段属性  after/before 字段名;`
+添加字段
+`alter table 表名 drop 字段名;`
+删除字段
+`alter table table_name +　新的字符集和校对规则;`
+修改表的表选项
+`rename table  old_table_name to new_name , old_table_name2 to new_name2;`
+修改表的名字
+`Alter table tbl_name add foreign key (class_id) references main_tbl_name(class_id) on delete set null;`
+添加一个外键
+`Alter table tbl_name drop foreign key 外键名称(mysql帮我们生成的，需要使用show create table tbl_name 去查看);`
+删除外键
 
 
 ### 数据类型
@@ -54,56 +128,20 @@ mysqldump -uroot -pCky951010 fleamarket > ./fleamarket-back-up/${filename}
 %i 分钟, 数字(00……59)
 %s 秒(00……59)
 
-### 创建表
-`create [temporary]  table [if not exists] table_name（[字段名 字段类型 字段约束 注释] ，[字段名 字段类型 字段约束 注释]);`
 
-###管理表
-`show tables;`    列出表
-`desc table_name;`    查看表结构
-`show create table tb_name; `查看创建表的语句
-`LOAD DATA LOCAL INFILE “D:/mysql.txt” INTO TABLE my_table; `导入数据到表
-`select name,age,city,salary into outfile "c:/data_out.txt" lines terminated by “/r/n” from person;`
-导出到txt文件
-`drop [temporary] table [if exists] table_name [, table_name];` 删除表
-主键
-`create tabel article (article_id int(10) primary key );`
-`create tabel article (article_id int(10),[...],primary key(article_id));`
-组合主键
-primary key (article_id[,time]);
-外键
-`create table article (...owner SMALLINT UNSIGNED NOT NULL REFERENCES person(id));`
-或
-`foreign key (article_id) references main_table_name (category) [On update][On delete];`
 
-`foreign key (article_id) references main_table_name(category) On update restrict;`
-主表主键更新时，会报冲突，表示你主表的主键是不允许更新的。
-`foreign key (article_id) references main_table_name(category) On update On delete set null;`
-在删除主表的记录时，将与该记录有关的从表记录的那个foreign字段设置为 null
-`on delete cascade`
-删主表记录时，将从表记录(与主表记录有关的)也删除。
-`create table article (...)ENGINE = InnoDB DEfAULT CHARSET = utf8 default character set utf8;`
-设定数据库引擎和编码
-`nikename varchar(25) character set utf8`
-给字段设定校对集
+# 管理用户
+```
+mysql > create user 'cky'@'dadishe.com' identified by 'secret'; # 创建用户,该用户可从dadishe.com主机访问数据
+mysql > show grants; #  查看当前用户权限
++---------------------------------------------------------------------+
+| Grants for root@localhost                                           |
++---------------------------------------------------------------------+
+| GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION |
+| GRANT PROXY ON ''@'' TO 'root'@'localhost' WITH GRANT OPTION        |
++---------------------------------------------------------------------+
 
-### 更新表
-`alter table table_name change 旧字段名+新字段名 + 新字段的属性`
-改变表明里的字段
-`alter table table_name add 字段名+字段属性  after/before 字段名;`
-添加字段
-`alter table 表名 drop 字段名;`
-删除字段
-`alter table table_name +　新的字符集和校对规则;`
-修改表的表选项
-`rename table  old_table_name to new_name , old_table_name2 to new_name2;`
-修改表的名字
-`Alter table tbl_name add foreign key (class_id) references main_tbl_name(class_id) on delete set null;`
-添加一个外键
-`Alter table tbl_name drop foreign key 外键名称(mysql帮我们生成的，需要使用show create table tbl_name 去查看);`
-删除外键
-
-###管理用户
-* show grants
+```
 
 ### mysql 日志管理
 版本 `5.7.13`

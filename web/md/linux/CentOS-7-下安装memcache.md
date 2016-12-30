@@ -1,8 +1,7 @@
-[TOC]
 # memcache 官网下载最新版本的源代码
 ```
 wget http://www.memcached.org/files/memcached-1.4.30.tar.gz
-``` 
+```
 
 # 正常解压编译
 ```
@@ -10,17 +9,17 @@ tar -zxvf memcached-1.4.30.tar.gz
 cd memcached-1.4.30
 sudo ./configure   # 这里有个报错 [1]
 sudo make
-sudo make install 
+sudo make install
 ```
 
 # 报错
 [1]
 ```
-checking for libevent directory... configure: error: libevent is required. You can get it from     
+checking for libevent directory... configure: error: libevent is required. You can get it from
 http://www.monkey.org/~provos/libevent/
 If it's already installed, specify its path using --with-libevent=/dir/
 ```
-遇到这种问题,有两种情况,解决方案 
+遇到这种问题,有两种情况,解决方案
 意思是libevent不存在，可以从上面网址下载，如果存在的话，编译时可以加上libevent的路径；，
 
 1.没有安装libevent,查看libevent是否安装，如下命令：
@@ -37,7 +36,7 @@ If it's already installed, specify its path using --with-libevent=/dir/
 
 # 安装memcached 客户端
 ```
-wget 
+wget
 https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz
 ```
 编译
@@ -57,7 +56,7 @@ wget https://github.com/websupport-sk/pecl-memcache/archive/php7.zip
 正常编译:
 ```
 sudo ./configure  --with-php-config=/usr/local/php/bin/php-config
-sudo make 
+sudo make
 sudo make install
 ```
 修改`php.ini`文件,添加上该拓展
@@ -70,7 +69,7 @@ extension = "memcache.so"
 sudo /etc/init.d/php-fpm  restart
 ```
 
-# 启动 Memcache 
+# 启动 Memcache
 启动例子：memcached -u root -d
 启动参数说明：
 -d 选项是启动一个守护进程。

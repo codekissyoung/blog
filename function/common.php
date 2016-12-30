@@ -19,6 +19,10 @@ function file_tree_print($tree,$title_i = false,$path = false){
 	$html = "<ul>"; // 要生成的html代码
 	foreach($tree as $key => $leaf){
 		if(is_string($leaf)){
+			if(!preg_match("/md$/",$leaf))
+			{
+				continue;
+			}
 			$html .= $title_i ? "<li><a href='/?a=$path/$leaf'>$title_i.$i $leaf</a></li>":"<li><a href='/?a=$leaf'>$i $leaf</a></li>";
 		}else{
 			$html .= $title_i ? "<li><h2>$title_i.$i $key</h2>".file_tree_print($leaf,$title_i.'.'.$i,$path."/".$key)."</li>":
