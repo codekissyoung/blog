@@ -1,7 +1,7 @@
 <?php
 // $path 路径 返回目录树数组
 function file_tree($path){
-	$tree = scandir($path);
+	$tree = scandir($path,1);
 	foreach($tree as $key => $leaf){
 		if($leaf == "." || $leaf == ".."){
 			unset($tree[$key]);
