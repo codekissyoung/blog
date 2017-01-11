@@ -6,7 +6,6 @@
 测试环境 host : http://m.dev.yunchongba.com
 曹开彦 host : http://ycb.cky.lingyunstrong.com (只有内网可以访问)
 ```
-
 1. 所有接口调用推荐使用 `post` 请求(ps:get请求也可以)
 
 1. **`api` 地址格式** : `host/index.php?mod=api&act=模块&opt=操作`
@@ -37,7 +36,6 @@
     'mac' => 'cc79cf231ef6', // 机器的mac地址
 }
 ```
-
 ```
 {
     "data":{
