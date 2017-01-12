@@ -35,7 +35,7 @@ $response = $youzikuClient -> GetFontFace($param);
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title><?=isset($article) ? $article.' ' :'';?>Codekissyoung Blog</title>
+		<title><?=isset($article) ? $article :'';?>Codekissyoung Blog</title>
 		<link href="/css/common.css?time=<?=time();?>" rel="stylesheet"/>
 		<link href="/highlight.js/src/styles/github.css" rel="stylesheet">
 		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
@@ -63,7 +63,7 @@ $response = $youzikuClient -> GetFontFace($param);
 		}
 
 		console.log(window.location);
-		console.log(document.title);
+		console.log(document.url);
 	</script>
 	</body>
 </html>

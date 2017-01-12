@@ -1,18 +1,13 @@
-body{
+.main-title{
+	text-align:center;
+	letter-spacing:3px;
+	font-size:36px;
 }
-a{
-	text-decoration:none;
-}
-ul,li{
-	text-decoration:none;
-	list-style:none;
-	line-height:1.5;
-	letter-spacing:0.25;
-}
-
-
-
 #main_category{
+	.head-tag{
+		display:inline-block;
+		width:50px;
+	}
 	position: fixed;
 	overflow:scroll;
 	height: 100%;
@@ -20,7 +15,20 @@ ul,li{
 	left: 0px;
 	width: 20%;
 	a{
+		text-decoration:none;
 		letter-spacing:3px;
+	}
+	a:link,a:visited{
+		color:black;
+	}
+	a.active{
+		color:green;
+	}
+	ul,li{
+		text-decoration:none;
+		list-style:none;
+		line-height:1.5;
+		letter-spacing:0.25;
 	}
 	h2{
 		margin-top:10px;
@@ -33,17 +41,9 @@ ul,li{
 	left:20%;
 	padding:1%;
 	width:78%;
+	code{
+		font-style:normal;
+		letter-spacing:2px;
+	}
 }
-code{
-	font-style:normal;
-	letter-spacing:1px;
-}
-.main-title{
-	text-align:center;
-	letter-spacing:3px;
-	font-size:36px;
-}
-.head-tag{
-	display:inline-block;
-	width:50px;
-}
+
