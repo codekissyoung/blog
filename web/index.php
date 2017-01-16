@@ -37,6 +37,7 @@ $response = $youzikuClient -> GetFontFace($param);
         <link href="//cdn.bootcss.com/normalize/5.0.0/normalize.min.css" rel="stylesheet">
 		<link href="/css/common.css?time=<?=time();?>" rel="stylesheet"/>
 		<link href="/highlight.js/src/styles/github.css" rel="stylesheet">
+        <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
         <script src="/js/common.js"></script>
 		<style>
@@ -46,6 +47,55 @@ $response = $youzikuClient -> GetFontFace($param);
 	<body>
 	<nav id="main_category">
 		<h1 class="main-title">Codekissyoung Blog</h1>
+        <input type="button" value="按钮" id="btn" />
+        <button id="btn2">按钮2</button>
+        <input type="button" value="按钮3" id="btn3" />
+        <script type="text/javascript">
+            var eventUtil = {
+                // 添加事件
+                add:function(e,t,h){
+                    if(e.addEventListener){
+                        e.addEventListener(t,h,false);
+                    }else if(e.attachEvent){
+                        e.attachEvent('on'+t,h);
+                    }else {
+                        e['on'+type] = h;
+                    }
+                },
+                // 删除事件
+                delete:function(e,t,h){
+                    if(e.removeEventListener){
+                        e.removeEventListener(t,h,false);
+                    }else if(e.detachEvent){
+                        e.detachEvent('on'+t,h);
+                    }else{
+                        e['on'+t] = null;
+                    }
+                }
+            }
+            function showMsg(event){
+                console.log(event.type); // 事件类型
+                console.log(event.target);　// 该事件的dom
+                console.log(event.srcElement); // 该事件的dom ie
+                if(event.stopPropagation){
+                    event.stopPropagation(); // 阻止事件冒泡
+                }else{
+                    event.cancelBubble = true;  // 阻止事件冒泡 ie
+                }
+                if(event.preventDefault){
+                    event.preventDefault(); // 阻止默认事件行为
+                }else{
+                    event.returnValue=false;   // 阻止默认事件行为 ie 
+                }
+            }
+            eventUtil.add(document.getElementById('btn'),'click',showMsg);
+            eventUtil.add(document.getElementById('btn2'),'click',function(){
+                console.log(this);
+            });
+            eventUtil.add(document.getElementById('btn3'),'click',function(){
+                console.log(this);
+            });
+        </script>
 		<?=$category?>
 	</nav>
 	<div id="article">
