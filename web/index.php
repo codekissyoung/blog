@@ -2,7 +2,7 @@
 include_once '../HyperDown/Parser.php';
 include_once '../config.php';
 include_once '../function/common.php';
-include_once 'youziku-sdk-php-master/sdk/lib/YouzikuServiceClient.php';
+include_once '../youziku-sdk-php-master/sdk/lib/YouzikuServiceClient.php';
 use HyperDown\Paser;
 
 extract($_GET);
@@ -16,7 +16,7 @@ if(isset($a)){
 	$content = file_get_contents(MD_ROOT.'/'.$article);
 	$parser = new HyperDown\Parser;
 	$html = $parser -> makeHtml($content);
-	
+
 }
 
 // 使用有字库字体
@@ -29,16 +29,16 @@ $param = [
 	"content"=> $category . $html,
 	"tag"=>"*"];
 $response = $youzikuClient -> GetFontFace($param);
-
-
 ?>
 <!DOCTYPE HTML>
 <html>
 	<head>
 		<title><?=isset($article) ? $article.' ' :'';?>Codekissyoung Blog</title>
+        <link href="//cdn.bootcss.com/normalize/5.0.0/normalize.min.css" rel="stylesheet">
 		<link href="/css/common.css?time=<?=time();?>" rel="stylesheet"/>
 		<link href="/highlight.js/src/styles/github.css" rel="stylesheet">
 		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+        <script src="/js/common.js"></script>
 		<style>
 		 <?=$response -> FontFace;?>
 		</style>
@@ -61,9 +61,6 @@ $response = $youzikuClient -> GetFontFace($param);
 				as[x].className = "active";
 			}
 		}
-
-		console.log(window.location);
-		console.log(document.title);
 	</script>
 	</body>
 </html>
