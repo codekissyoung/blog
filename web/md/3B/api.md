@@ -12,7 +12,7 @@
 ```
  // 传参参考,格式为`json`字符串描述,调用时替换为`post`请求格式
 {
-    'mac' => 'cc79cf231ef6', // 机器的mac地址
+    'mac' : 'cc79cf231ef6', // 机器的mac地址
 }
 ```
 ```
@@ -24,130 +24,101 @@
 }
 ```
 
-
 # 充电站相关接口
 
-## `station / menu_category_list` 充电站商品类目列表
+## `mod=api&act=station&opt=menu_category_list` 充电站商品类目列表
 ```
-{
-    'mac' => 'cc79cf231ef6', // 机器的mac地址
-}
+{sid:5014}
 ```
 ```
 {
-    "data":{
-        "categorys":[
-            {
-                "id":"1",
-                "name":"日用品",
-                "pre_category_id":"0",
-                "icon":[
-                    "\/data\/attachment\/forum\/1609\/08\/img\/rTHM1473321391kIeg.jpg"
-                ],
-                "status":"0"
-            },
-            ...
-        ]
-    },
-    "code":0,
-    "msg":"成功"
+  "data": {
+    "categorys": [
+      {
+        "id": "1",
+        "name": "默认商品",
+        "pre_category_id": "0",
+        "icon": "http://ycb.cky.lingyunstrong.com/data/attachment/forum/1701/10/img/qoI01484030440iDRW.png",
+        "status": "0"
+      },
+      ...
+    ]
+  },
+  "code": 0,
+  "msg": "成功"
 }
 ```
 
-## `station/menu_list` 充电站商品列表
+## `mod=api&act=station&opt=menu_list` 充电站商品列表
 ```
 {
-    'mac' => 'cc79cf231ef6', // 机器的mac地址
-    'category_id' => 52     // 目录id
+    sid:5014,
+    category_id:3
 }
 ```
 ```
 {
-    "data":{
-        "menus":{
-            "3":{
-                "id":"4",
-                "station_id":"39",
-                "menu_id":"35",     // 商品id
-                "slot_3b":"22",     // 商品所在卡槽
-                "mount":"0",        // 商品剩余数量
-                "price":"12.34",    // 商品售价
-                "update_time":"2016-09-14 18:23:30",
-                "status":"0",
-                "category_id":"52",
-                "carousel":[
-                    "http:\/\/ycb.cky.lingyunstrong.com\/data\/attachment\/forum\/201609\/13\/182520w6x6ioikyh63355h.jpg"   //商品轮播图
-                ],
-                "subject":"新增商品",   // 商品名称
-                "descri":"描绘问下商品"   // 商品描述
-            },
-            ...
-    },
-    "code":0,
-    "msg":"success"
+  "data": {
+    "menus": [
+      {
+        "menu_id": "5",
+        "hook_number": "1118",
+        "price": "2.00",
+        "amount": "0",
+        "subject": "纸巾",
+        "carousel": "http://ycb.cky.lingyunstrong.com/data/attachment/forum/201609/20/180344ji2xsxfzys81p3ip.jpg",
+        "category_id": "3",
+        "update_time": "2017-01-09 16:30:40",
+        "buy_url": "http://ycb.cky.lingyunstrong.com/index.php?mod=wechat&act=shop&opt=pay&sid=5014&menu_id=5&hook_number=1118"
+      },
+      ...
+    ],
+    "count": 6
+  },
+  "code": 0,
+  "msg": "成功"
 }
+
 ```
 
-## 充电站详情列表
+## `mod=api&act=station&opt=shipments` 充电站详情列表
 ```
 {
-    station_ids : [23,123,45,67] // 充电站id数组
+    orderid:MCS-20170110-142618-05270,
+    status:2
 }
 ```
+这是一个多用途接口：根据status的值表示不同的操作
+
+// 2 表示该商品正在出货中, 订单状态　1 -----> 2
+
+// 3 表示该商品已经出货完成,订单状态　2 ------> 3
+
+// 4 以上表示出货失败状态    1 , 2 ----> 4 以上
 ```
 {
-    "111": {
-        "id": "111",
-        "mac": "7cc709e365e9",
-        "channelid": "4271168128305628464",
-        "lbsid": "1708761035",
-        "shopid": "15",
-        "total": "0",
-        "usable": "13",
-        "empty": "14",
-        "battery_adapter": "1",
-        "slotstatus": "00060020000000000000000000b000",
-        "sportstatus": "00000000",
-        "colorcount": "银:13",
-        "machine": "1",
-        "sdcard": "1",
-        "adaptercount": "0",
-        "adaptercount2": "0",
-        "cable": "3",
-        "maincontrol": "0",
-        "sync_time": "1476873309",
-        "title": "宝安天虹",
-        "desc": "undefined",
-        "address": "广东省深圳市宝安区西乡大道",
-        "bgimg": "",
-        "version": "32",
-        "device_ver": "1",
-        "fee_settings": "5",
-        "seller_id": "40",
-        "station_setting_id": "0",
-        "status": "0",
-        "error_man": "",
-        "network_status": 1,
-        "shopname": "Face酒吧",
-        "shoplogo": [
-            "/data/attachment/forum/1609/27/img/oW6y1474965233PlAV.jpg"
-        ],
-        "shoplocate": "广东省深圳市南山区科技路9号",
-        "shopcost": "500",
-        "shopphone": "0755-82666699",
-        "shopstime": "21:00",
-        "shopetime": "05:30",
-        "shopcarousel": [
-            "http://m.dev.yunchongba.com/data/attachment/forum/201609/27/162938z3xvgx1xxb6tsw37.jpg",
-            "http://m.dev.yunchongba.com/data/attachment/forum/201609/27/162938w5xudldxws50xmjo.jpg",
-            "http://m.dev.yunchongba.com/data/attachment/forum/201609/27/162938g4q344411aq2hna1.jpg",
-            "http://m.dev.yunchongba.com/data/attachment/forum/201609/27/162937gs9pqpqnpnr7hzp7.jpg",
-            "http://m.dev.yunchongba.com/data/attachment/forum/201609/27/162937hwcen3ktfnk44xge.jpg",
-            "http://m.dev.yunchongba.com/data/attachment/forum/201609/27/162937l2t0280h22merrr8.jpg"
-        ]
-    },
-    ...
+  "data": {
+    "menus": {
+      "MCS-20170110-142618-05270": {
+        "orderid": "MCS-20170110-142618-05270",
+        "menu": "iphone充电线",
+        "menu_id": "10",
+        "hook_number": "1116",
+        "sid": "5014",
+        "openid": "oMKCQw3qHAwuFbr-w7BZlL60qp64",
+        "uid": "122",
+        "pay_amount": "0.01",
+        "pay_time": "1484029578",
+        "status": "1",
+        "create_time": "1484029578",
+        "update_time": "1484029583"
+      }
+    }
+  },
+  "code": 0,
+  "msg": "成功"
 }
+
 ```
 
 
