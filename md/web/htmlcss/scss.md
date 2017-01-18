@@ -47,7 +47,8 @@ div {
 
 `1px 2px, 5px 6px` 是包含 1px 2px 与 5px 6px 两个值列表的值列表,等价于`(1px 2px) (5px 6px)`
 
-# 算数运算
+
+## 算数运算
 减法|加法|乘法|除法：数字之间,颜色之间
 
 除法：`(100px / 2)` 括号是必须的,不加会当做css处理 如`font: 10px/8px;`
@@ -76,7 +77,8 @@ div {
     @extend .class1;
 }
 ```
-##插值
+
+## 插值
 ```
 $properties: (margin, padding);
 @mixin set-value($side, $value) {
