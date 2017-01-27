@@ -2,7 +2,8 @@
   /*{{{*/
   text-align: center;
   letter-spacing: 3px;
-  font-size: 36px;
+  font-size: 24px;
+  color: green;
 }
 
 /*}}}*/
@@ -53,6 +54,12 @@
 }
 #article code {
   font-style: normal;
+  letter-spacing: 2px;
+}
+#article code {
+  background-color: #f8f8f8;
+  padding: 3px;
+  border-radius: 3px;
   letter-spacing: 2px;
 }
 
