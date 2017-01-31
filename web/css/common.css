@@ -1,3 +1,12 @@
+@charset "UTF-8";
+body {
+  font-family: "微软雅黑";
+}
+
+img {
+  width: 100%;
+}
+
 .main-title {
   /*{{{*/
   text-align: center;
