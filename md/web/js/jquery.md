@@ -1,36 +1,40 @@
 # 选择器
-id选择器：`$("#my_id")`
-标签选择器：`$("p")`
-类选择器：`$(".class")`
-全选选择器：`$("*")`
-多选:`$("#my_id,p,.class")`
-层次选择器：`$("ance[空格]desc");`
-子选择器:`$("parent>child")`
-下一个选择器：`$("prev+next")`
-选择prev之后所有同一层级的元素 ：$("prev~siblings")
-过滤出第一个li：`$("li:first");`
-过滤出最后一个li :`$("li:last");`
-过滤出任意第三个li:`$("li:eq(2)")`
-过滤出节点的包含"土豪"文本的li:`$("li:contains('土豪')")`
-过滤出含有p的li元素：`$("li:has('p')")`  格式：`:has(selector)`
-过滤出不可见元素：`$("li:hidden")` 过滤可见：`:visible`
-过滤出含有某属性的元素 :`$("li[title]");`
-属性过滤选择器：`$("li[title='我最爱']")` 和`$("li[title!='我最爱']")`
-属性值包含选择器：`$("li[title*='最']")`
-选择第一个子元素：`$("li:first-child")` 可能li里面就是文本了,那么就是文本节点 ,`:last-child`是最后一个子元素
+```javascript
+$("*"); // 全选选择器
+$("#my_id"); // id选择器
+$("p"); //  标签选择器
+$(".class"); // 类选择器
+$("#my_id,p,.class"); // 多选
+$("ance[空格]desc"); // 后代选择器
+$("parent>child"); // 子类选择器
+$("prev+next"); // 下一个元素选择器
+$("prev~siblings"); // 选择prev之后所有同一层级的元素
+$("li:first"); // 过滤出第一个li
+$("li:last"); // 过滤出最后一个li
+$("li:eq(2)"); // 过滤出任意第三个li
+$("li:contains('土豪')"); // 过滤出节点的包含"土豪"文本的li
+$("li:has('p')"); // 过滤出含有p的li元素 格式 :has(selector)
+$("li:hidden"); // 过滤出不可见元素 过滤可见:visible
+$("li[title]"); // 过滤出含有某属性的元素
+$("li[title='我最爱']"); $("li[title!='我最爱']"); //  属性过滤选择器
+$("li[title*='最']"); // 属性值包含选择器
+$("li:first-child"); // 选择第一个子元素 可能li里面就是文本了,那么就是文本节点 ,`:last-child`是最后一个子元素
+```
 
 # 表单元素选择器
-获取input表单：`$("#frmTest :input").addClass("bg_blue");`
-获取type是text的表单：`$("#frmTest :text").addClass("bg_blue");`
-获取type是password的表单：`$("#frmTest :password").addClass("bg_red");`
-获取radio元素：`$("#frmTest :radio").attr("disabled","true");`
-获取checkbox元素：`$("#frmTest :checkbox").attr("disabled","true");`
-获取submit提交按钮：` $("#frmTest input:submit").addClass("bg_red");`
-获取图像域的图片 `$(":image").addClass("bg_red");`
-图像域：`<input type="image" src="http://img.mukewang.com/52b284ea00016b2902590070.jpg"/>`
-获取`type=button`的`input`和`<button>`：`$("#frmTest :button").addClass("bg_blue");`
-获取已经checked的元素：`$("#frmTest :checked").attr("disabled", true);`
-获取下拉框中被选中的元素：`$txtOpt = $("#frmTest :selected")`
+```javascript
+$("#frmTest :input").addClass("bg_blue"); // 获取input表单
+$("#frmTest :text").addClass("bg_blue"); // 获取type是text的表单
+$("#frmTest :password").addClass("bg_red"); // 获取type是password的表单
+$("#frmTest :radio").attr("disabled","true"); // 获取radio元素
+$("#frmTest :checkbox").attr("disabled","true"); // 获取checkbox元素
+$("#frmTest input:submit").addClass("bg_red"); // 获取submit提交按钮
+// <input type="image" src="http://img.mukewang.com/52b284ea00016b2902590070.jpg"/>
+$("#frmTest :image").addClass("bg_red"); // 获取图像域的图片 
+$("#frmTest :button").addClass("bg_blue"); // 获取type=button的input和<button>
+$("#frmTest :checked").attr("disabled", true); // 获取已经checked的元素
+$("#frmTest :selected"); // 获取下拉框中被选中的元素
+```
 
 # dom 操作
 ```javascript
@@ -104,7 +108,8 @@ $("#mydiv")
 
 # 事件类型
 blur(表单失去焦点)focus(表单获取焦点),resize,change(元素的value改变时)
-scroll,unload,click,dblclick,mousedown,mouseup,mousemove,mouseout,mouseenter,mouseleave,,select,submit,keydown,keypress,keyup,error
+scroll,unload,click,dblclick,mousedown,mouseup,mousemove,mouseout
+mouseenter,mouseleave,,select,submit,keydown,keypress,keyup,error
 
 # 自定义事件
 ```javascript
@@ -114,9 +119,9 @@ $("div").bind("change-color", function () {
 $("div").trigger("change-color");
 ```
 
-# data-* 自定义属性
+# data-xxx 自定义属性
 
-jquery的data()方法存取data-*自定义属性，方法允许我们在DOM元素上绑定任意类型的数据,避免了循环引用的内存泄漏风险。
+jquery的data()方法存取data-xxx 定义属性，方法允许我们在DOM元素上绑定任意类型的数据,避免了循环引用的内存泄漏风险。
 
 ```javascript
 .data( key, value )
