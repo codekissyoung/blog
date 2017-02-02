@@ -14,6 +14,7 @@ $html = 'blog';
 if(isset($a)){
 	$article = $_GET['a'];
 	$content = file_get_contents(MD_ROOT.'/'.$article);
+	// $content = preg_replace('/[TOC]/',$content);
 	$parser = new HyperDown\Parser;
 	$html = $parser -> makeHtml($content);
 }else{
