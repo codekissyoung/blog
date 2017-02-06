@@ -51,15 +51,17 @@ img{
 #article{/*{{{*/
 	h1{
 		font-size:24px;
-		color:#339933;
+		color:black;
 		font-weight:200px;
 	}
 	h2{
 		font-size:20px;
-		color:#99cc00;
+		color:black;
+		margin:20px 0px 5px 0px;
 	}
 	p{
 		line-height:1.5;
+		margin:0px;
 	}
 	position: absolute;
 	top: 0px;
