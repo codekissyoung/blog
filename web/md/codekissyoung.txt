@@ -1,0 +1,74 @@
+# 已离职　2月底项目交接完
+
+手机 ：18101361802
+
+邮箱 ：cky951010@163.com
+
+微信 ：codekissyoung
+
+QQ  ：1162097842
+
+# 个人信息
+
+本科 / 中国地质大学(211) 地质学 遥感方向
+
+Github : `https://github.com/codekissyoung`
+
+项目演示 : 微信关注公众号 codekissyoung
+
+期望职位 : PHP工程师
+
+# 技能清单
+OS平台 ：CentOS / Ubuntu
+
+Web开发：PHP / JS / HTML / CSS / SCSS
+
+PHP框架：codeigniter / Yii2 advanced
+
+前端框架：Bootstrap / jquery / zepto.js / layer / lib-flexible
+
+数据库：MySQL
+
+版本管理和自动化部署工具：Svn / Git / Composer ／ npm / gem
+
+开发平台：微信公众平台
+
+个人开发习惯：linux + tmux + vim + git
+
+# 研发经历
+## 2016 / 5 / 1 至 2016 / 6 / 3  地质笔记系统  个人项目
+该项目基于微信服务号开发出了一个方便学生出野外记录观察点信息的笔记系统。
+该系统主要的功能有主动获取微信用户自动登录，记录／修改／分享／搜索观察点(观察点信息包含实时地理位置,观察点图片,观察点文字信息)。
+该系统主要运用的一些框架和服务有:Yii2 Advanced框架,zepto.js框架，微信WeUI样式库,微信JS-SDK(图片上传,获取地理位置等接口),腾讯地图SDK等。
+
+## 2015 / 1 / 1至2016 / 5 / 1  极致玩家电影节  php研发实习生
+项目基于微信服务号开发,完成的模块如下有微信用户自动注册登录模块,微信文章管理模块,记录片／主人公／电影节展示模块。
+
+## 2015 / 11 / 10 —— 2015 / 12 / 8　水稻汽车B2B平台  php研发实习生
+项目地址:http: //shuidao.com/
+项目采用Yii2 advanced作为web开发框架,lnmp架构,代码托管在github
+我负责设计编码的模块有
+快速注册流程api接口
+微信朋友圈悬赏寻车工具api接口
+后台定时任务,定时分析业务数据,生成报表,发送邮件
+用户行为日志分析,shell + awk 编程实现
+
+## 2015 / 09 / 1 —— 2015 / 11 / 1　逛街导购产品街报研发
+微信关注 jiebao_smart
+项目为 LAMP 架构,版本控制工具为SVN
+用到的框架有codeigniter bootstrap jquery layer
+我负责设计编码的模块有
+街报系统交互接口api的开发
+街报后台管理ERP系统
+
+## 2014 / 10 / 10 —— 2015 / 08 / 30 北京七星惠智网络科技有限公司 php研发实习生
+惠生活电子商务系统开发  www.100hl.com
+项目为 LAMP 架构,版本控制工具为SVN
+用到的框架有codeigniter bootstrap jquery layer
+我参与设计编码的部分有
+功能流程的测试
+系统前端和后端bug的修复
+前端直接访问数据库改为访问api接口的一次升级优化
+
+# 致谢
+感谢您花时间阅读我的简历，期待能有机会和您共事

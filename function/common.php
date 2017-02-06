@@ -7,10 +7,9 @@ function file_tree($path){
 			unset($tree[$key]);
 		}elseif(is_dir($path.'/'.$leaf)){
 			unset($tree[$key]);
-			$tree[$leaf] = array_reverse(file_tree($path.'/'.$leaf));
+			$tree[$leaf] = file_tree($path.'/'.$leaf);
 		}
 	}
-	// error_log(var_export($tree,true));
 	return $tree;
 }
 
@@ -19,10 +18,9 @@ function file_tree_print($tree,$title_i = false,$path = false){
 	$i = 1; // 计数
 	$html = "<ul>"; // 要生成的html代码
 	foreach($tree as $key => $leaf){
-        error_log($key);
-        if($key === 'img'){ // 过滤　img 文件夹
-            continue;
-        }
+		if($key === 'img'){ // 过滤　img 文件夹
+			continue;
+		}
 		if(!is_string($leaf)){
 			$html .= $title_i ? "<li><h2>$title_i.$i $key</h2>".file_tree_print($leaf,$title_i.'.'.$i,$path."/".$key)."</li>":
 			"<li><h2>$i $key</h2>".file_tree_print($leaf,$i,$key)."</li>";
