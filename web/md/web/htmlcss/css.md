@@ -5,8 +5,6 @@
 @import url('only-screen.css');
 ```
 
-
-
 # css选择器
 
 ```css
@@ -102,8 +100,9 @@ p span.warning{color:purple;} /*权值为1+1+10=12*/
 # 继承
 - 子元素继承父元素css属性的特性
 - 可继承的css 元素如下
+
 ```css
-color:#eee
+color:#eee;
 font:
 font-style
 font-variant:
@@ -147,13 +146,8 @@ text-size-adjust 检索或设置移动端页面中对象文本的大小调整
 
 cursor:
 zoom:
-direction:ltr|rtl
-```
+direction:ltr|rtl;
 
-# 注释风格
-```css
-/*　首页样式
---------------------------------------------------------------------------------------------------- */
 ```
 
 # 设计好css代码的结构
@@ -236,3 +230,11 @@ nav li.home a{
 }
 
 ```
+
+
+## 隐性改变display类型
+有一个有趣的现象就是当为元素（不论之前是什么类型元素，display:none 除外）设置以下 2 个句之一：
+position : absolute
+float : left 或 float:right
+元素会自动变为以 display:inline-block 的方式显示，当然就可以设置元素的 width 和 height 了且默认宽度不占满父元素。
+如下面的代码，小伙伴们都知道 a 标签是行内元素，所以设置它的 width 是 没有效果的，但是设置为 position:absolute 以后，就可以了。
