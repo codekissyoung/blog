@@ -49,7 +49,9 @@ if(isset($a)){
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title><?=isset($article) ? $article.' ' :'';?>Codekissyoung Blog</title>
+        <meta charset="utf-8">
+        <title><?=isset($article) ? $article.' ' :'';?>Codekissyoung Blog</title>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 		<link href="//cdn.bootcss.com/normalize/5.0.0/normalize.min.css" rel="stylesheet">
 		<link href="/css/common.css?time=<?=time();?>" rel="stylesheet"/>
 		<link href="/highlight.js/src/styles/github.css" rel="stylesheet">
@@ -75,7 +77,7 @@ if(isset($a)){
 	<script>
 		// 代码高亮
 		hljs.initHighlightingOnLoad();
-		
+
 		// 异步加载文章
 		$('#main_category a').on('click',function(){
 			$("#main_category a").removeClass('active');
@@ -98,4 +100,3 @@ if(isset($a)){
 	</script>
 	</body>
 </html>
-
