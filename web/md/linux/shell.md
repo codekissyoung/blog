@@ -1,6 +1,3 @@
-[TOC]
-
-[TOC]
 # 命令行快捷键
 ```
 [Tab] 自动补充
@@ -354,11 +351,6 @@ echo -e "\e[1;34mThis is a blue text.\e[0m"
 ```
 参考 [Bash: Using Colors](http://webhome.csc.uvic.ca/~sae/seng265/fall04/tips/s265s047-tips/bash-using-colors.html)
 
-
-
-
-
-[TOC]
 # 排序
 http://www.cnblogs.com/51linux/archive/2012/05/23/2515299.html
 `sort -n`           将0-9识别为数字进行排序

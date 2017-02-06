@@ -1,4 +1,3 @@
-[TOC]
 # 类内部的动态成员变量
 ```
 class TestClass{

@@ -1,4 +1,3 @@
-[TOC]
 # 双向链表
 SplDoublyLinkedList类
 当前节点操作：rewind(移动到bottom节点) current(获取当前节点) next()下一个节点 prev()前一个节点 valid()判断当前节点是否是有效节点

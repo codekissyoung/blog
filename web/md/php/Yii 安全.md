@@ -1,4 +1,3 @@
-[TOC]
 # XSS 攻击
 Cross Site Scripting 简称XSS
 

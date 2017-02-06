@@ -1,4 +1,3 @@
-[TOC]
 # 添加一个应用
 frontend,backend等称为一个应用,使用init命令初始化的
 ```
