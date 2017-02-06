@@ -1,9 +1,4 @@
-# html css js
-html是网页的载体
-css是载体的衣服
-js可以修改载体
-
-#`<strong>`
+# `<strong>`
 用于修饰强调的文本 ，比如打折后的价格
 
 #`<span>`
