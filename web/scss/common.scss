@@ -1,5 +1,6 @@
 body{
-	font-family:"微软雅黑";
+	font-family:'Ubuntu',"Microsoft Yahei";
+	font-weight:100;
 }
 img{
 	width:100%;
@@ -53,20 +54,21 @@ img{
 		color:green;
 		font-weight:200px;
 	}
+	p{
+		line-height:1.5;
+	}
 	position: absolute;
 	top: 0px;
 	left:25%;
 	padding:1%;
 	width:73%;
 	code{
-		font-style:normal;
-		letter-spacing:2px;
-	}
-	code{
 		background-color:#f8f8f8;
-		padding:3px;
+		padding:10px;
 		border-radius:3px;
-		letter-spacing:2px;
+	}
+	img{
+		width:50%;
 	}
 }/*}}}*/
 

@@ -57,7 +57,7 @@ if(isset($a)){
 		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
 		<script src="/js/common.js"></script>
 		<style>
-		 <?=$response -> FontFace;?>
+		 <?php // echo $response -> FontFace;?>
 		</style>
 	</head>
 	<body>

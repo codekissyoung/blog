@@ -1,6 +1,6 @@
-@charset "UTF-8";
 body {
-  font-family: "微软雅黑";
+  font-family: 'Ubuntu',"Microsoft Yahei";
+  font-weight: 100;
 }
 
 img {
@@ -66,15 +66,16 @@ img {
   color: green;
   font-weight: 200px;
 }
-#article code {
-  font-style: normal;
-  letter-spacing: 2px;
+#article p {
+  line-height: 1.5;
 }
 #article code {
   background-color: #f8f8f8;
-  padding: 3px;
+  padding: 10px;
   border-radius: 3px;
-  letter-spacing: 2px;
+}
+#article img {
+  width: 50%;
 }
 
 /*}}}*/
