@@ -54,6 +54,12 @@ if(isset($a)){
 		<script src="/js/common.js"></script>
 		<style>
 		 <?php // echo $response -> FontFace;?>
+         .hide{
+             display: none;
+         }
+         .show{
+             display: block;
+         }
 		</style>
 	</head>
 	<body>
@@ -91,6 +97,16 @@ if(isset($a)){
 			});
 			return false; // 阻止冒泡 阻止事件
 		});
+
+        // 目录折叠
+        $("#main_category>ul h2").on('click',function () {
+            if($(this).next().hasClass('hide')){
+                $(this).next().removeClass('hide').hasClass('show');
+            }else{
+                $(this).next().removeClass('show').addClass('hide');
+            }
+        });
+
 	</script>
 	</body>
 </html>
