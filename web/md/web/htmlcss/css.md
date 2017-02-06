@@ -5,10 +5,7 @@
 @import url('only-screen.css');
 ```
 
-# 高效的css选择器
-1. `div #myid` 错误 ，改为 `#myid`,解释：id选择器为唯一的,前面加上标签反而累赘
 
-2. 使用class代替层级关系
 
 # css选择器
 
@@ -61,10 +58,14 @@ input[type="text"]:read-only{} /* 只读属性选择器　*/
 input[type='text']:read-write{} /* 可读写属性选择器　*/
 ```
 
+# 高效的css选择器
+1. `div #myid` 错误 ，改为 `#myid`,解释：id选择器为唯一的,前面加上标签反而累赘
+2. 使用class代替层级关系
+
 # ::before 和 ::after 在元素内部的前后插入内容
 - 清除浮动
 ```css
-.clearfix::before,.clearfix::after {
+.clearfix:before,.clearfix:after {
     content: ".";
     display: block;
     height: 0;
@@ -129,19 +130,19 @@ text-underline-position 检索或设置对象中的下划线的位置。
 text-shadow         设置或检索对象中文本的文字是否有阴影及模糊效果
 
 text-transform 检索或设置对象中的文本的大小写
-white-space 设置或检索对象内空格的处理方式
-tab-size        检索或设置对象中的制表符的长度
-word-wrap 设置或检索当内容超过指定容器的边界时是否断行
-overflow-wrap 设置或检索当内容超过指定容器的边界时是否断行
-word-break 设置或检索对象内文本的字内换行行为
-text-align        设置或检索对象中内容的水平对齐方式
+white-space    设置或检索对象内空格的处理方式
+tab-size       检索或设置对象中的制表符的长度
+word-wrap      设置或检索当内容超过指定容器的边界时是否断行
+overflow-wrap  设置或检索当内容超过指定容器的边界时是否断行
+word-break     设置或检索对象内文本的字内换行行为
+text-align     设置或检索对象中内容的水平对齐方式
 text-align-last 设置或检索一个块内的最后一行 包括块内仅有一行文本的情况，这时既是第一行也是最后一行,或者被强制打断的行的对齐方式
-text-justify 设置或检索对象内调整文本使用的对齐方式
-word-spacing 检索或设置对象中的单词之间的最小，最大和最佳间隙
+text-justify   设置或检索对象内调整文本使用的对齐方式
+word-spacing   检索或设置对象中的单词之间的最小，最大和最佳间隙
 letter-spacing 检索或设置对象中的字符之间的最小，最大和最佳间隙
-text-indent 检索或设置对象中的文本的缩进
+text-indent    检索或设置对象中的文本的缩进
 vertical-align 设置或检索对象内容的垂直对其方式
-line-height 检索或设置对象的行高。即字体最底端与字体内部顶端之间的距离
+line-height    检索或设置对象的行高。即字体最底端与字体内部顶端之间的距离
 text-size-adjust 检索或设置移动端页面中对象文本的大小调整
 
 cursor:
@@ -219,10 +220,7 @@ direction:ltr|rtl
 }
 ```
 
-# 背景图像
-```
-background:url(/img/default.jpg) no-repeat right center;
-```
+
 
 # a 链接
 1. 只能用于GET请求，绝对不要用于POST请求
@@ -238,49 +236,3 @@ nav li.home a{
 }
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

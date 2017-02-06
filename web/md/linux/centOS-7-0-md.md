@@ -1,5 +1,4 @@
-[TOC]
-#安装lnmp架构
+# 安装lnmp架构
 ###配置 YUM 源
 CentOS 7 的 默认 YUM 源里的软件包版本可能不是最新的，如果要安装最新的软件包就得配置下 YUM 源。
 配置 YUM 源可以通过直接安装 RPM (Red Hat Package Manager) 包，或者修改 Repository，本文讲解通过安装 RPM 方式。
