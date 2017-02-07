@@ -1,102 +1,84 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+	<meta charset="UTF-8">
 </head>
 <body>
-<h1>Hello world 你好世界!</h1>
-<h2>Hello world 你好世界!</h2>
-<h3>Hello world 你好世界!</h3>
-<h4>Hello world 你好世界!</h4>
-<h5>Hello world 你好世界!</h5>
+    <h1>我的第一个标题</h1>
+    <p>我的第一个段落。</p>
+    <a href="http://www.runoob.com">这是一个链接</a>
+    <a href="http://www.runoob.com/" target="_blank">新窗口打开　访问菜鸟教程!</a>
+    <img src="img/linyicheng.jpg" width="100" height="100">
+    <hr>
+    <!--
+        -----  注释　------
+        测试下！！
+    -->
+    <p>这个<br>段落<br>演示了分行的效果</p>
+
+    <b>加粗文本</b><br><br>
+    <i>斜体文本</i><br><br>
+    <code>电脑自动输出</code><br><br>
+    这是 <sub> 下标</sub> 和 <sup> 上标</sup>
+    <pre>
+    此例演示如何使用 pre 标签
+    对空行和    空格
+    进行控制
+    </pre>
+    <code>计算机输出</code>
+    <br />
+    <kbd>键盘输入</kbd>
+    <br />
+    <tt>打字机文本</tt>
+    <br />
+    <samp>计算机代码样本</samp>
+    <br />
+    <var>计算机变量</var>
+    <br />
+
+    <p>
+    <b>注释：</b>这些标签常用于显示计算机/编程代码。
+    </p>
+    <p>just for p tag 强调字体 <strong>strong 强调</strong></p>
+    <q>我测试下引用</q>
+    <blockquote>长引用测试长引用测试长引用测试长引用测试长引用测试长引用测试长引用测试长引用测试长引用测试长引用测试长引用测试长引用测试</blockquote>
+    <address>文档编写：lilian 北京市西城区德外大街10号</address>
+    <address> 本文的作者：<a href="mailto:lilian@imooc.com">lilian</a></address>
+    <p>My favorite color is <del>blue</del> <ins>red</ins>!</p>
 
 
-<ul>
-	<li>列表1</li>
-	<li>列表1</li>
-	<li>列表1</li>
-	<li>列表1</li>
-</ul>
+    <p><a href="#C4">查看章节 4</a></p>
 
-<ol>
-	<li>列表1</li>
-	<li>列表1</li>
-	<li>列表1</li>
-	<li>列表1</li>
-</ol>
+    <h2>章节 1</h2>
+    <p>这边显示该章节的内容……</p>
 
-<table>
-	<thead>
-		<tr>
-			<th>项目1</th>
-			<th>项目2</th>
-			<th>项目3</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td> 111 </td>
-			<td> 222 </td>
-			<td> 333 </td>
-		</tr>
-		<tr>
-			<td> 111 </td>
-			<td> 222 </td>
-			<td> 333 </td>
-		</tr>
-		<tr>
-			<td> 111 </td>
-			<td> 222 </td>
-			<td> 333 </td>
-		</tr>
-	</tbody>
-</table>
+    <h2>章节 2</h2>
+    <p>这边显示该章节的内容……</p>
 
-<dl>
-	<dt>dt dt</dt>
-	<dd>dd dd dd</dd>
-	<dd>dd dd dd</dd>
-</dl>
+    <h2>章节 3</h2>
+    <p>这边显示该章节的内容……</p>
 
-<p>just for p tag 强调字体 <strong>strong 强调</strong></p>
-<q>我测试下引用</q>
-<blockquote>长引用测试长引用测试长引用测试长引用测试长引用测试长引用测试长引用测试长引用测试长引用测试长引用测试长引用测试长引用测试</blockquote>
-<address>文档编写：lilian 北京市西城区德外大街10号</address>
-<address> 本文的作者：<a href="mailto:lilian@imooc.com">lilian</a></address>
+    <h2><a id="C4">章节 4</a></h2>
+    <p>这边显示该章节的内容……</p>
+
+    <h2>章节 5</h2>
+    <p>这边显示该章节的内容……</p>
+
+    <h2>章节 6</h2>
+    <p>这边显示该章节的内容……</p>
+
+    <h2>章节 7</h2>
+    <p>这边显示该章节的内容……</p>
+
+    <h2>章节 8</h2>
+    <p>这边显示该章节的内容……</p>
 
 
 
-<form method="传送方式"   action="服务器文件" enctype=multipart/form-data>
-	<label for="username" autofocus>用户名:</label>
-	<input type="text"  name="username" id="username" value="" />
-	<label for="pass" >密码:</label>
-	<input type="password"  name="pass" id="pass" value="" required/>
-	<input type="submit" value="确定"  name="submit" />
-	<input type="reset" value="重置" name="reset" />
-	<textarea  rows="行数" cols="列数">文本</textarea>
-	<span>男</span><input id=man type=radio name=sex value=male checked>
-	<span>女</span><input id=women type=radio name=sex value=female>
-	<!-- name 属性作为键名，value 是值,checkbox 传给服务器的是一name为名的数组(在php中) -->
-	<input type=checkbox name=vehicle[] value=Bike>自行车 
-	<input type=checkbox name=vehicle[] value=Car checked>汽车
-	<input type=checkbox name=vehicle[] value=air>飞机 
-	<select name="hobby">
-      <option value="看书" selected="selected">看书</option>
-      <option value="旅游">旅游</option>
-      <option value="运动">运动</option>
-      <option value="购物">购物</option>
-    </select>
-	<select name="hobby" multiple="multiple">
-      <option value="看书" selected="selected">看书</option>
-      <option value="旅游">旅游</option>
-      <option value="运动">运动</option>
-      <option value="购物">购物</option>
-    </select>
-</form>
 <style>
 	.test-inline{
 		color:red;
-		
+
 	}
 	.test-inline span{
 		padding-left:100px;
@@ -110,6 +92,3 @@
 
 </body>
 </html>
-
-
-

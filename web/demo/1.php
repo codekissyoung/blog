@@ -1,7 +1,7 @@
 <style>
 .box{
-    width: 1200px;
-    height: 1200px;       /* 决定显示框的大小 */
+    width: 500px;
+    height: 500px;       /* 决定显示框的大小 */
     margin: 50px;
     border: 50px solid rgba(1,1,1,0.5);
     padding: 50px;
