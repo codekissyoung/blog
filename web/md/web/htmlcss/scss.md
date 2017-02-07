@@ -1,3 +1,13 @@
+# html-js社区
+http://www.html-js.com
+# w3c plus 大漠
+http://www.w3cplus.com
+# MDN 开发文档
+https://developer.mozilla.org/zh-CN/docs/Web
+# 前端代码收集
+http://snippets.barretlee.com
+# H-ui
+http://www.h-ui.net
 # scss 环境
 `https://ruby.taobao.org/` 先将ruby安装源换为淘宝源
 
