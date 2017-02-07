@@ -18,7 +18,7 @@ function file_tree_print($tree,$title_i = false,$path = false){
 	$i = 1; // 计数
 	$html = "<ul>"; // 要生成的html代码
 	foreach($tree as $key => $leaf){
-		if($key === 'img'){ // 过滤　img 文件夹
+		if($key === 'img'){ // 过滤用于存放图片的img 文件夹
 			continue;
 		}
 		if(!is_string($leaf)){
