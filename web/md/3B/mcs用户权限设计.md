@@ -1,18 +1,18 @@
 # 表设计
 ## 管理员表 ycb_mcs_admin
 ```
-  `id` int(11) NOT NULL,
-  `nickname` varchar(255) NOT NULL COMMENT '昵称',
-  `name` varchar(255) NOT NULL COMMENT '真实姓名',
-  `pwd` varchar(255) NOT NULL COMMENT '加密后密码',
-  `salt` char(8) NOT NULL COMMENT '加密随机盐值',
-  `email` varchar(255) NOT NULL COMMENT '公司邮箱',
-  `company` varchar(255) NOT NULL COMMENT '所属公司',
-  `role_id` int(11) NOT NULL COMMENT '用户角色',
-  `login_error` int(11) NOT NULL COMMENT '登录错误次数 (超过失败次数锁定账户，成功就刷新为0)',
-  `create_time` datetime NOT NULL COMMENT '注册时间',
-  `update_time` datetime NOT NULL COMMENT '更新时间',
-  `status` int(11) NOT NULL COMMENT '状态(-1删除，0申请，1申请通过,2账户被锁定)'
+`id` int(11) NOT NULL,
+`username` varchar(255) NOT NULL COMMENT '用户名(唯一)',
+`name` varchar(127) NOT NULL COMMENT '真实姓名',
+`pwd` varchar(255) NOT NULL COMMENT '加密后密码',
+`salt` varchar(255) NOT NULL COMMENT '盐值',
+`email` varchar(127) NOT NULL COMMENT '邮箱',
+`company` varchar(255) NOT NULL COMMENT '公司',
+`role_id` int(11) NOT NULL COMMENT '角色id',
+`login_error` mediumint(9) NOT NULL COMMENT '错误登录次数',
+`create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+`status` mediumint(9) NOT NULL COMMENT '状态(-1删除，0申请，1申请通过，２账户被锁定)'
 ```
 
 ## 管理员登录表 ycb_mcs_admin_session
@@ -23,7 +23,35 @@
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间(每次访问操作均更新)'
 ```
-﻿
+
+## 管理员负责城市表　ycb_mcs_admin_city
+```
+`id` int(11) NOT NULL,
+`admin_id` int(11) NOT NULL COMMENT '管理员id',
+`city` varchar(255) NOT NULL COMMENT '管理员所负责的城市'
+```
+
+## 管理员负责商铺表　ycb_mcs_admin_shop
+```
+`id` int(11) NOT NULL,
+`admin_id` int(11) NOT NULL COMMENT '管理员id',
+`shop_id` int(11) NOT NULL COMMENT '管理员负责的商铺id'
+```
+
+## 管理员角色表　ycb_mcs_admin_role
+```
+`id` int(11) NOT NULL COMMENT 'id',
+`role` varchar(255) NOT NULL COMMENT '管理员角色',
+`create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '角色创建时间'
+```
+
+## 管理员权限角色关系表 ycb_mcs_admin_role_access_rel
+```
+`id` int(11) NOT NULL,
+`role_id` int(11) NOT NULL COMMENT '管理员角色id',
+`access` varchar(255) NOT NULL COMMENT '权限'
+```
+
 
 # 管理员注册
 1. 先判断用户名是否已经注册过,保证用户名的唯一性
