@@ -16,7 +16,7 @@ img{
 #main_category{/*{{{*/
 	.head-tag{
 		display:inline-block;
-		width:50px;
+//		width:50px;
 	}
 	position: fixed;
 	overflow:scroll;
@@ -40,10 +40,13 @@ img{
 		text-decoration:none;
 		list-style:none;
 		line-height:1.5;
-		padding-left:10px;
+	}
+	ul{
+		padding-left:20px;
 	}
 	h2{
 		margin-top:10px;
+		text-align:left;
 		margin-bottom:10px;
 	}
 }/*}}}*/
@@ -53,12 +56,19 @@ img{
 		font-size:24px;
 		color:black;
 		font-weight:200px;
+		border-bottom:1px solid grey;
+		padding-bottom:10px;
+		font-weight:normal;
 	}
 	h2{
 		font-size:18px;
 		font-weight:bold;
 		color:black;
 		margin:20px 0px 5px 0px;
+		font-weight:normal;
+	}
+	h3,h4,h5{
+		font-weight:normal;
 	}
 	p{
 		line-height:1.5;
