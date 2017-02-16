@@ -1,6 +1,5 @@
 body {
   font-family: 'Ubuntu',"Microsoft Yahei";
-  font-weight: 100;
 }
 
 img {
@@ -86,7 +85,7 @@ img {
   margin: 0px;
 }
 #article code {
-  font-family: Ubuntu,Monaco,Consolas,"Microsoft Yahei";
+  font-family: Menlo,Monaco,ubuntu,Consolas,"Andale Mono","Microsoft Yahei","lucida console","Courier New",monospace;
   background-color: #f8f8f8;
   padding: 1px;
   border-radius: 3px;
