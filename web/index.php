@@ -90,7 +90,6 @@ if(isset($a)){
 				dataType:'text',
 				timeout:5000,
 				success:function(data){
-                    console.log(data);
 					$("#article").empty().append($(data)).find('pre code').each(function(i,block){
 						hljs.highlightBlock(block);
 					});
