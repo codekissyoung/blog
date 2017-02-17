@@ -16,6 +16,7 @@ img{
 
 #main_category{/*{{{*/
     position: fixed;
+	z-index:1;
     overflow:scroll;
     height: 100%;
     top:0px;
@@ -23,7 +24,6 @@ img{
     width: 350px;
 	.head-tag{
 		display:inline-block;
-//		width:50px;
 	}
 	a{
 		text-decoration:none;
@@ -55,9 +55,10 @@ img{
 #article{/*{{{*/
     position: absolute;
     top: 0px;
-    left:350px;
-    padding:1%;
-    // width:73%;
+    padding:20px;
+	box-sizing:border-box;
+	padding-left:370px;
+	width:100%;
 	h1{
 		font-size:24px;
 		color:black;
