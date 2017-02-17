@@ -109,3 +109,31 @@ selectors 是一个字符串，包含一个或是多个 CSS 选择器 ，多个�
 # elementList = document.querySelectorAll(selectors)
 elementList 是一个non-live的 NodeList 类型的对象
 selectors 是一个由逗号连接的包含一个或多个CSS选择器的字符串.
+
+
+```js
+// 圆形icons 事件
+// console.log(window); // 整个浏览器窗口
+// console.log(document); // 整个html文档
+// console.log(window.location === document.location); //true
+
+// window 的宽高
+// console.log(window.outerWidth);
+// console.log(window.outerHeight);
+//
+// console.log(window.innerWidth);
+// console.log(window.innerHeight);
+//
+// console.log(screen.width);
+// console.log(screen.height);
+//
+// console.log(screen.availWidth);
+// console.log(screen.availHeight);
+//
+// console.log(screenTop);
+// console.log(screenLeft);
+
+// document
+// console.log(document.body.clientWidth);
+// console.log(document.body.clientHeight);
+```
