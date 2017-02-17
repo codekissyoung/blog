@@ -1,6 +1,5 @@
 body {
   font-family: 'Ubuntu',"Microsoft Yahei";
-  font-weight: 100;
 }
 
 img {
@@ -23,11 +22,10 @@ img {
   height: 100%;
   top: 0px;
   left: 0px;
-  width: 25%;
+  width: 350px;
 }
 #main_category .head-tag {
   display: inline-block;
-  width: 50px;
 }
 #main_category a {
   text-decoration: none;
@@ -45,10 +43,13 @@ img {
   text-decoration: none;
   list-style: none;
   line-height: 1.5;
-  padding-left: 10px;
+}
+#main_category ul {
+  padding-left: 20px;
 }
 #main_category h2 {
   margin-top: 10px;
+  text-align: left;
   margin-bottom: 10px;
 }
 
@@ -57,29 +58,37 @@ img {
   /*{{{*/
   position: absolute;
   top: 0px;
-  left: 25%;
+  left: 350px;
   padding: 1%;
-  width: 73%;
 }
 #article h1 {
   font-size: 24px;
   color: black;
   font-weight: 200px;
+  border-bottom: 1px solid grey;
+  padding-bottom: 10px;
+  font-weight: normal;
 }
 #article h2 {
   font-size: 18px;
   font-weight: bold;
   color: black;
   margin: 20px 0px 5px 0px;
+  font-weight: normal;
+}
+#article h3, #article h4, #article h5 {
+  font-weight: normal;
 }
 #article p {
   line-height: 1.5;
   margin: 0px;
 }
 #article code {
+  font-family: Menlo,Monaco,ubuntu,Consolas,"Andale Mono","Microsoft Yahei","lucida console","Courier New",monospace;
   background-color: #f8f8f8;
   padding: 1px;
   border-radius: 3px;
+  letter-spacing: 1px;
 }
 #article img {
   width: 50%;
