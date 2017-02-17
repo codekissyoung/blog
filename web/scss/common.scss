@@ -12,17 +12,19 @@ img{
 	color:green;
 }/*}}}*/
 
+// $main_category
+
 #main_category{/*{{{*/
+    position: fixed;
+    overflow:scroll;
+    height: 100%;
+    top:0px;
+    left: 0px;
+    width: 350px;
 	.head-tag{
 		display:inline-block;
 //		width:50px;
 	}
-	position: fixed;
-	overflow:scroll;
-	height: 100%;
-	top:0px;
-	left: 0px;
-	width: 25%;
 	a{
 		text-decoration:none;
 		letter-spacing:1px;
@@ -51,6 +53,11 @@ img{
 }/*}}}*/
 
 #article{/*{{{*/
+    position: absolute;
+    top: 0px;
+    left:350px;
+    padding:1%;
+    // width:73%;
 	h1{
 		font-size:24px;
 		color:black;
@@ -73,11 +80,6 @@ img{
 		line-height:1.5;
 		margin:0px;
 	}
-	position: absolute;
-	top: 0px;
-	left:25%;
-	padding:1%;
-	width:73%;
 	code{
         font-family: Menlo,Monaco,ubuntu,Consolas,"Andale Mono","Microsoft Yahei","lucida console","Courier New",monospace;
 		background-color:#f8f8f8;
