@@ -154,22 +154,40 @@
     ```
 如果创建的对象有很多属性，我们只需要传递需要的某些属性，剩下的属性可以用默认值。由于参数是一个Object，我们无需记忆参数的顺序。如果恰好从JSON拿到了一个对象，就可以直接创建出xiaoming。
 
-
-
-
-
 # 继承 基于原型
+- 算了吧,太绕
+- 我们必须借助一个中间对象来实现正确的原型链，这个中间对象的原型要指向Student.prototype
 ```js
-function Student(props) {
-    this.name = props.name || 'Unnamed';
-}
-Student.prototype.hello = function () {
-    alert('Hello, ' + this.name + '!');
-}
-
-function PrimaryStudent(props) {
-    // 调用Student构造函数，绑定this变量:
-    Student.call(this, props);
-    this.grade = props.grade || 1;
-}
+new PrimaryStudent() ----> PrimaryStudent.prototype ----> Student.prototype ----> Object.prototype ----> null
 ```
+
+# 使用 class ES6
+- class
+    ```js
+    class Student {
+        constructor(name) {
+            this.name = name;
+        }
+
+        hello() {
+            alert('Hello, ' + this.name + '!');
+        }
+    }
+    var xiaoming = new Student('小明');
+    xiaoming.hello();
+    ```
+
+- extends
+    ```js
+    class PrimaryStudent extends Student {
+        constructor(name, grade) {
+            super(name); // 记得用super调用父类的构造方法!
+            this.grade = grade;
+        }
+
+        myGrade() {
+            alert('I am at grade ' + this.grade);
+        }
+    }
+    ```
+就需要一个工具把class代码转换为传统的prototype代码，可以试试**Babel**这个工具
