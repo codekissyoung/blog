@@ -1,8 +1,6 @@
 # 其他语言的面向对象
 - 类：类是对象的类型模板，例如，定义Student类来表示学生，类本身是一种类型，Student表示学生类型，但不表示任何具体的某个学生；
-
 - 实例：实例是根据类创建的对象，例如，根据Student类可以创建出xiaoming、xiaohong、xiaojun等多个实例，每个实例表示一个具体的学生，他们全都属于Student类型。
-
 
 # JS 的面向对象
 - JavaScript不区分类和实例的概念，而是通过原型（prototype）来实现面向对象编程
@@ -75,7 +73,6 @@
     xiaoming.__proto__ === Student; // true
     ```
 
-
 # 原型链
 - 每个创建的对象都会设置一个原型，指向它的原型对象
 - 当我们用obj.xxx访问一个对象的属性时，JavaScript引擎先在当前对象上查找该属性，如果没有找到，就到其原型对象上找，如果还没有找到，就一直上溯到Object.prototype对象，最后，如果还没有找到，就只能返回undefined
@@ -85,11 +82,11 @@
     ```
     Array.prototype定义了indexOf()、shift()等方法，因此你可以在所有的Array对象上直接调用这些方法
 - Function 的原型链
-```js
-function foo() {
-    return 0;
-} // foo ----> Function.prototype ----> Object.prototype ----> null
-```
+    ```js
+    function foo() {
+        return 0;
+    } // foo ----> Function.prototype ----> Object.prototype ----> null
+    ```
 由于Function.prototype定义了apply()等方法，因此，所有函数都可以调用apply()方法
 
 # 构造函数
@@ -114,11 +111,65 @@ function foo() {
     ```
 
 - 用new Student()创建的对象还从原型上获得了一个constructor属性，它指向函数Student本身：
+    ```js
+    xiaoming.constructor === Student.prototype.constructor; // true
+    Student.prototype.constructor === Student; // true
+
+    Object.getPrototypeOf(xiaoming) === Student.prototype; // true
+
+    xiaoming instanceof Student; // true
+    ```
+
+- 通过new Student()创建了很多对象，这些对象的hello函数实际上只需要共享同一个函数就可以了,只要把hello函数移动到xiaoming、xiaohong这些对象共同的原型
+    ```js
+    function Student(name) {
+        this.name = name;
+    }
+
+    Student.prototype.hello = function () {
+        alert('Hello, ' + this.name + '!');
+    };
+    ```
+- 照约定，构造函数首字母应当大写，而普通函数首字母应当小写
+
+- 编写一个createStudent()函数，在内部封装所有的new操作
+    ```js
+    function Student(props) {
+        this.name = props.name || '匿名'; // 默认值为'匿名'
+        this.grade = props.grade || 1; // 默认值为1
+    }
+
+    Student.prototype.hello = function () {
+        alert('Hello, ' + this.name + '!');
+    };
+
+    function createStudent(props) {
+        return new Student(props || {})
+    }
+    var xiaoming = createStudent({
+        name: '小明'
+    });
+
+    xiaoming.grade; // 1
+    ```
+如果创建的对象有很多属性，我们只需要传递需要的某些属性，剩下的属性可以用默认值。由于参数是一个Object，我们无需记忆参数的顺序。如果恰好从JSON拿到了一个对象，就可以直接创建出xiaoming。
+
+
+
+
+
+# 继承 基于原型
 ```js
-xiaoming.constructor === Student.prototype.constructor; // true
-Student.prototype.constructor === Student; // true
+function Student(props) {
+    this.name = props.name || 'Unnamed';
+}
+Student.prototype.hello = function () {
+    alert('Hello, ' + this.name + '!');
+}
 
-Object.getPrototypeOf(xiaoming) === Student.prototype; // true
-
-xiaoming instanceof Student; // true
+function PrimaryStudent(props) {
+    // 调用Student构造函数，绑定this变量:
+    Student.call(this, props);
+    this.grade = props.grade || 1;
+}
 ```
