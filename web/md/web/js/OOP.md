@@ -74,3 +74,20 @@
     xiaoming.run(); // 小明 is running...
     xiaoming.__proto__ === Student; // true
     ```
+
+
+# 原型链
+- 每个创建的对象都会设置一个原型，指向它的原型对象
+- 当我们用obj.xxx访问一个对象的属性时，JavaScript引擎先在当前对象上查找该属性，如果没有找到，就到其原型对象上找，如果还没有找到，就一直上溯到Object.prototype对象，最后，如果还没有找到，就只能返回undefined
+- Array 的原型链
+    ```js
+    var arr = [1, 2, 3]; // arr ----> Array.prototype ----> Object.prototype ----> null
+    ```
+    Array.prototype定义了indexOf()、shift()等方法，因此你可以在所有的Array对象上直接调用这些方法
+- Function 的原型链
+```js
+function foo() {
+    return 0;
+} // foo ----> Function.prototype ----> Object.prototype ----> null
+```
+由于Function.prototype定义了apply()等方法，因此，所有函数都可以调用apply()方法
