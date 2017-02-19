@@ -112,3 +112,13 @@ function foo() {
     xiaohong -→ Student.prototype ----> Object.prototype ----> null
     xiaojun  ↗
     ```
+
+- 用new Student()创建的对象还从原型上获得了一个constructor属性，它指向函数Student本身：
+```js
+xiaoming.constructor === Student.prototype.constructor; // true
+Student.prototype.constructor === Student; // true
+
+Object.getPrototypeOf(xiaoming) === Student.prototype; // true
+
+xiaoming instanceof Student; // true
+```
