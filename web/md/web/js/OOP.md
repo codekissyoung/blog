@@ -91,3 +91,24 @@ function foo() {
 } // foo ----> Function.prototype ----> Object.prototype ----> null
 ```
 由于Function.prototype定义了apply()等方法，因此，所有函数都可以调用apply()方法
+
+# 构造函数
+- 用于创建一个对象
+    ```js
+    function Student(name) {
+        this.name = name;
+        this.hello = function () {
+            alert('Hello, ' + this.name + '!');
+        }
+    }
+    var xiaoming = new Student('小明');
+    xiaoming.name; // '小明'
+    xiaoming.hello(); // Hello, 小明!
+    ```
+如果不写new，这就是一个普通函数，它返回undefined。但是，如果写了new，它就变成了一个构造函数，它绑定的this指向新创建的对象，并默认返回this，也就是说，不需要在最后写return this;
+- 使用它创建出来的对象的原型链
+    ```js
+    xiaoming ↘
+    xiaohong -→ Student.prototype ----> Object.prototype ----> null
+    xiaojun  ↗
+    ```
