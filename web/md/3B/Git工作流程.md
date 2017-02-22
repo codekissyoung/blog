@@ -1,5 +1,4 @@
-# mcs代码提交工作流
-该工作流的目的：
+# 目的
 1. 是为了保证并行开发，成员之间代码彼此没有影响；
 1. 可选择性的完整上线某几个功能分支，而不是夹杂着不明确的commit;
 1. 使团队成员对代码管理部署有一个统一的认识
@@ -25,19 +24,18 @@
 例如: 16.1.0 表示16年第一个版本, 若在此下一个版本前有需要合并紧急修复的版本则版本号更新为 16.1.1 16.1.2...., 下一个大版本号则为16.2.0, 以此类推
 
 # 新功能流程
-> 不限定从哪个环境的(运营环境除外)git库切出分支,假如是本地环境，开发完毕后，需推送至测试环境进行验证
-
-> 参考代码`git push --set-upstream origin caokaiyan-feature2-new`
-
-> 参考代码
-
-`git(master):` 为`oh my zsh`为`git`配置的标识，可以显示当前`git`处于哪个分支上
-
-```
+```shell
 git(master): git checkout -b qqm-feature1-new # 以master为基础，切出新分支，并切换到该分支
 ```
 
-> 假设
+> `git(master):` 为`oh my zsh`为`git`配置的标识，可以显示当前`git`处于哪个分支上
+
+```shell
+git push --set-upstream origin caokaiyan-feature2-new
+```
+
+# 开发协作需求
+## 假设
 - `qqm` 从 `master`　切出分支 `qqm-feature1-new`
 - `caokaiyan` 从 `master`　切出分支 `caokaiyan-feature2-new`
 - `ouhui` 从 `master`　切出分支 `ouhui-bug1-bug`
