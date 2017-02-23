@@ -1,3 +1,22 @@
+# MySQL
+```sql
+select s.id,s.mac,ss.shopid,ss.station_id,sh.name,sh.city from ycb_mcs_station as s left join ycb_mcs_shop_station as ss on s.id = ss.station_id  left join ycb_mcs_shop as sh on ss.shopid = sh.id
+```
+
+# 查询参考
+```
+/**
+ * sample:
+ *      C::t('#mcs#mcs_user')
+ *      ->select('id, uid')
+ *      ->where(['id' => 1,  'ids' => [1,2,3], 'update_time' => ['value' => $time, 'glue' => 'like']])
+ *      ->group('status, type')
+ *      ->order('id desc')
+ *      ->limit(1, 20)
+ *      ->get()/first()/count()/getResAndCount()
+ */
+```
+
 # 文件命名规范
 - 被普通程序文件，或引用程序文件引用的函数库或类库，以 .func.php(函数库) 或 .class.php(类库) 后缀命名。
 - 模板文件，以 .htm 后缀命名，插件模板文件存在于 source/plugin/identifier/template/ 目录中，手机版插件模板存在于 source/plugin/identifier/template/mobile/目录中
