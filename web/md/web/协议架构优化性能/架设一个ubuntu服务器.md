@@ -1,9 +1,10 @@
-本部署方案以运行 Ubuntu 14.04 Server 版的阿里云服务器（ECS）为例，主要讲解 Web 应用在服务端的通用部署步骤，按照部署流程的先后顺序主要分为 Ubuntu 安全配置、Apache 虚拟主机配置、MySQL数据库配置、域名配置几个部分。
-
-1、Ubuntu 安全配置
+# Ubuntu 安全配置
 虽然阿里云比起其他小服务商的虚拟服务器要安全很多，但是还是建议开启 ECS 实例的 UFW（Ubuntu Firewall），开启步骤如下：
-1.1、使用 sudo ufw status 查看当前防火墙状态，当 UFW 处于关闭状态时将显示如下信息：
-Status: inactive
+```shell
+sudo ufw status # 查看当前防火墙状态，当 UFW 处于关闭状态时将显示如下信息：Status: inactive
+```
+
+
 复制代码
 当 UFW 处于开启状态时将显示如下信息：
 Status: active
