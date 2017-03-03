@@ -1,5 +1,3 @@
-# 已离职　2月底项目交接完 3月１号可入职
-
 微信 ：codekissyoung
 
 邮箱 ：cky951010@163.com
@@ -10,7 +8,7 @@
 
 Github : `https://github.com/codekissyoung`
 
-期望职位 : Web研发工程师 
+期望职位 : Web研发工程师
 
 # 技能清单
 OS平台 ：CentOS / Ubuntu
