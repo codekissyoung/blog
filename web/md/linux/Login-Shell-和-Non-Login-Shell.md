@@ -5,7 +5,7 @@
 除过上面获取login shell的方式外，我们还可以通过在non-login shell中运行
 `bash --login`来得到一个login shell。
 login shell启动时的配置文件读取流程如下
-```
+```shell
 execute /etc/profile
 IF ~/.bash_profile exists THEN
     execute ~/.bash_profile
@@ -20,7 +20,7 @@ ELSE
 END IF
 ```
 当我们退出或者注销login shell时，也有需要执行如下流程：
-```
+```shell
 IF ~/.bash_logout exists THEN
     execute ~/.bash_logout
 END IF
