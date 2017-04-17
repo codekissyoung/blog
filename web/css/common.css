@@ -88,10 +88,16 @@ img {
   font-size: 14px;
   letter-spacing: 1px;
 }
-#article code {
+#article p code {
+  background-color: #C7FFEC;
+  margin: 0px 2px;
+  padding: 0px 2px;
+  border-radius: 3px;
+}
+#article pre code {
   font-family: Monaco,ubuntu,Consolas,"Microsoft Yahei","Courier New",monospace;
   background-color: #f8f8f8;
-  padding: 1px;
+  padding: 8px;
   border-radius: 3px;
   letter-spacing: 1px;
   word-spacing: 2px;
