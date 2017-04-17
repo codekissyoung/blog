@@ -1,13 +1,5 @@
 # 精简while
 ```c
-status = scanf("%ld",&num);
-while(status == 1){
-    // code
-    status = scanf("%ld",&num);
-}
-```
-精简为
-```c
 while(scanf("%ld",&num) == 1){ // 获取值和判断都成功
     // code
 }
@@ -18,7 +10,6 @@ while(scanf("%ld",&num) == 1){ // 获取值和判断都成功
 while(( ch = getchar()) != '\n'){
 }
 ```
-
 
 # 常量在左
 ```c
@@ -39,10 +30,8 @@ max = (a > b) ? a : b; // 获取较大值
 # 判断空字符串
 ```c
 while(*string){
-
 }
 ```
-
 
 # c代码组织形式
 - 函数分类,按模块划分功能

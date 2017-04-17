@@ -18,3 +18,137 @@
 # 指针
 
 # 结构
+```c
+struct book{
+    char title[40];
+    char author[40];
+    float value;
+}
+```
+
+# 使用结构声明变量
+```c
+struct book library = {
+    "Hello world",
+    "codekissyoung",
+    1.99
+};  // 声明变量 + 初始化
+struct book *pbook; // 声明指向book结构的指针
+pbook = &library;
+
+printf("%s\n",library.title); // 使用结构内变量
+```
+
+# 结构数组
+```c
+struct book library[10]; // book结构的数组
+library[2].title; // 使用结构数组内的变量
+```
+
+# 嵌套结构
+```c
+struct names{
+    char first[10];
+    char last[10];
+};
+
+struct guy{
+    struct names handle; // 嵌套结构
+    char favfood[10];
+    char job[10];
+    float income;
+};
+
+struct guy fellow = {
+    // 初始化代码
+};
+printf("%s\n",fellow.names.first); // 使用嵌套结构内变量
+```
+
+# 指向结构的指针
+- 和数组不同的是,结构名并不是结构的地址
+
+```c
+struct guy fellow[2] = {
+    {
+        {"code","kissyoung"},
+        "abcdefg",
+        "editor",
+        1000
+    },
+    {
+        // ...
+    }
+};
+
+struct guy *him; // 指向guy结构的指针
+him = &fellow[0]; // 该指针指向结构数组的第一个元素
+printf(" %s %s %s\n",him->income,(*him).income,him->handle.last); // 两种方法使用数组内的元素
+```
+
+# 使用指针向函数传递结构
+```c
+// 有const 保证函数不会修改结构的内容，如果需要修改则不用const
+double sum(const struct funds *money){
+    // code
+}
+```
+
+# 结构中的字符数组和字符指针
+```c
+struct names{
+    char first[20];
+    char last[20];
+};
+// vs
+struct names{
+    char *first;
+    char *last;
+}; // 在输入数据到　first 中时会有问题，因为该指针根本没有指向的内存地址以及它的大小
+```
+
+# 使用malloc()为字符指针申请内存
+储存数据到first时，先malloc申请一块内存存数据，然后将地址赋值给first，就可以解决上述问题
+
+# 处理结构数组的函数
+```c
+double sum(const struct funds money [],int n){
+    // code
+}
+```
+
+# typedef
+为类型定义别名
+```c
+typedef unsigned char BYTE;
+typedef struct {
+    double x;
+    double y;
+} rect; // 给结构命名时，可以省略该结构的标签
+
+rect r1 = {3.0,6.0};
+BYTE x,y[10],*z;
+```
+
+# 其他复杂的声明
+声明时，`*` 表示一个指针，`()`表示一个函数,`[]`表示一个数组
+优先级: `()` > `[]` > `*`
+```
+int board[8][8]; // 声明一个内含int数组的数组
+int **ptr; // 声明一个指向指针的指针
+int * risks[10]; // 声明一个内含10个元素的数组 每个数组都是一个指向int的指针
+int (* rusks)[10]; // 声明一个指向数组的指针，该数组内含有10个int类型的值
+int * oof[3][4]; // 声明一个3x4的二维数组，每个元素都是指向int的指针
+int (* uuf)[3][4]; // 声明一个指向3x4二维数组的指针
+int (* uof[3])[4]; // 申明一个内含３个指针元素的数组，每个指针指向内含4个int类型元素的数组
+```
+
+# 函数和指针
+- 声明一个指向函数的指针，函数指针常用作另一个函数的参数
+```c
+void ToUpper(char *); // 函数
+void (*pf)(char *); // 指向函数的指针
+
+// 区别于
+void *pf(char *); // pf 是一个函数，它返回字符指针
+```
