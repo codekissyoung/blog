@@ -80,13 +80,17 @@ img{
 	p{
 		line-height:1.5;
 		margin:0px;
+		font-size:14px;
+		letter-spacing:1px;
 	}
 	code{
-        font-family: Menlo,Monaco,ubuntu,Consolas,"Andale Mono","Microsoft Yahei","lucida console","Courier New",monospace;
+        font-family: Monaco,ubuntu,Consolas,"Microsoft Yahei","Courier New",monospace;
 		background-color:#f8f8f8;
 		padding:1px;
 		border-radius:3px;
         letter-spacing: 1px;
+		word-spacing:2px;
+		font-size:12px;
 	}
 	img{
 		width:50%;
