@@ -6,7 +6,7 @@
 
 本科 / 中国地质大学(北京) / 地质学 遥感方向
 
-Github : `https://github.com/codekissyoung`
+Github : https://github.com/codekissyoung
 
 期望职位 : Web研发工程师
 
@@ -46,7 +46,7 @@ PHP框架：codeigniter / Yii2 advanced
 - 记录位置地图预览
 
 ## 2015.11 - 2015.12 水稻汽车B2B平台 php研发实习生
-项目官网:`http://shuidao.com`
+项目官网:http://shuidao.com
 主要学习和使用到的技术:lnmp架构 / git 开发流程 / Yii2 advanced 框架 / shell脚本。实现的功能：
 - 快速注册流程api接口
 - 微信朋友圈悬赏寻车工具api接口
@@ -60,7 +60,7 @@ PHP框架：codeigniter / Yii2 advanced
 - 街报后台管理ERP系统
 
 ## 2014.10 - 2015.8 惠生活电子商务系统 php研发实习生
-项目地址: `http://www.100hl.com`
+项目地址: http://www.100hl.com
 主要学习和使用到的技术: SQL / codeigniter 框架　/ jquery 框架 / layer 框架。实现的功能:
 - 用户注册登录流程优化
 - 架构优化,前端业务直接访问数据库改为通过Api系统访问数据库
