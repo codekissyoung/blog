@@ -1,6 +1,7 @@
 body{
 	font-family:'monaco','Ubuntu',"Microsoft Yahei";
 }
+
 img{
 	width:100%;
 }
@@ -8,11 +9,9 @@ img{
 .main-title{/*{{{*/
 	text-align:center;
 	letter-spacing:3px;
-	font-size:24px;
+	font-size:20px;
 	color:green;
 }/*}}}*/
-
-// $main_category
 
 #main_category{/*{{{*/
     position: fixed;
