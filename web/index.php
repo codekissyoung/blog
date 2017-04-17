@@ -13,7 +13,7 @@ $html = 'blog';
 // 读取 md 文档
 if(isset($a)){
 	$article = $_GET['a'];
-	$content = file_get_contents(MD_ROOT.'/'.$article);
+	$content = file_get_contents(MD_ROOT.'/'.$article.'.md');
 	$parser = new HyperDown\Parser;
 	$html = $parser -> makeHtml($content);
 }else{
