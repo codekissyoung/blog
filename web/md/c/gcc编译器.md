@@ -16,7 +16,7 @@ gcc hello.c -o hello # 直接将hello.c 编译成 hello程序
 
 # 支持gdb调试
 ```shell
--g
+gcc -g hello.c -o cky
 ```
 
 # 编译优化
