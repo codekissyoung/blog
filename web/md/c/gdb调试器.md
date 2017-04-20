@@ -26,6 +26,7 @@ l 1,100 　# 列出1-100行
 # 运行程序
 ```
 r -a -b # 等价于 ./cky -a -b
+(gdb)show args #显示程序传入的参数
 ```
 
 # 打断点
@@ -37,7 +38,6 @@ b temp:10  #在temp.c中第10行设置断点
 b temp:func  #在temp.c中func函数处打个断点
 info break #显示当前断点信息
 enable breakpoint 1 #启用1号断点
-
 ```
 
 # 清除断点
@@ -51,6 +51,11 @@ Delete all breakpoints? (y or n) y
 (gdb)clear 12　# 清除12行的断点
 ```
 
+
+# 查看函数堆栈
+```
+(gdb)bt
+```
 
 # 执行下一行代码
 ```
