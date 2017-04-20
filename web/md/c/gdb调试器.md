@@ -10,13 +10,13 @@ gcc -g main.c -o cky
 ```
 # 开始调试
 1. `gdb <program>`
-     program也就是你的执行文件，一般在当然目录下。
+    program也就是你的执行文件，一般在当然目录下。
 
 1. `gdb <program> core`
-     用gdb同时调试一个运行程序和core文件，core是程序非法执行后core dump后产生的文件。
+    用gdb同时调试一个运行程序和core文件，core是程序非法执行后core dump后产生的文件。
 
 1. `gdb <program> <PID>`
-     如果你的程序是一个服务程序，那么你可以指定这个服务程序运行时的进程ID。gdb会自动attach上去，并调试他。program应该在PATH环境变量中搜索得到。
+    如果你的程序是一个服务程序，那么你可以指定这个服务程序运行时的进程ID。gdb会自动attach上去，并调试他。program应该在PATH环境变量中搜索得到。
 
 # 列出源文件
 ```
