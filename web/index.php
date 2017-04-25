@@ -17,7 +17,7 @@ if(isset($a)){
 	$parser = new HyperDown\Parser;
 	$html = $parser -> makeHtml($content);
 }else{
-	$content = file_get_contents(MD_ROOT.'/codekissyoung.txt');
+	$content = file_get_contents(MD_ROOT.'/codekissyoung.md');
 	$parser  = new HyperDown\Parser;
 	$html    = $parser -> makeHtml($content);
 }
