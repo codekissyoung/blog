@@ -28,6 +28,10 @@ function file_tree_print($tree,$title_i = false,$path = false){
 			if(!preg_match("/md$/",$leaf)) {
 				continue;  // 跳过不是md结尾的文件
 			}
+			// 跳过我自己的简历
+			if($leaf == "codekissyoung.md"){
+				continue;
+			}
 			$leaf = substr($leaf,0,-3);
 			$html .= $title_i ? "<li><a href='/?a=$path/$leaf'><span class='head-tag'></span>$leaf</a></li>":"<li><a href='/?a=$leaf'>$leaf</a></li>";
 		}
