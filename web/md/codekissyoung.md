@@ -39,7 +39,7 @@ PHP框架：codeigniter / Yii2 advanced
 
 ## 2016.5 - 2016.6 地质笔记系统 毕业设计
 项目地址 微信关注 codekissyoung (已停止运营)
-主要学习和使用到的技术有: Yii2 Advanced框架 / zepto.js框架 / 微信WeUI样式库 / 微信JS-SDK(图片上传,获取地理位置等接口) / 腾讯地图SDK等。
+主要学习和使用到的技术有: Yii2 advanced框架 / zepto.js框架 / 微信WeUI样式库 / 微信JS-SDK(图片上传,获取地理位置等接口) / 腾讯地图SDK等。
 实现的功能：
 - 微信用户自动注册登录
 - 图文笔记快速记录
