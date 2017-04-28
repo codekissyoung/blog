@@ -52,7 +52,7 @@ img {
   margin-top: 10px;
   text-align: left;
   margin-bottom: 10px;
-  font-size: 1.3em;
+  font-size: 1.1em;
 }
 
 /*}}}*/
@@ -66,7 +66,7 @@ img {
   width: 100%;
 }
 #article h1 {
-  font-size: 24px;
+  font-size: 22px;
   color: black;
   font-weight: 200px;
   border-bottom: 1px solid grey;
@@ -80,13 +80,16 @@ img {
   margin: 20px 0px 5px 0px;
   font-weight: normal;
 }
+#article h3 {
+  font-size: 16px;
+}
 #article h3, #article h4, #article h5 {
   font-weight: normal;
 }
 #article p {
   line-height: 1.5;
   margin: 0px;
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 1px;
 }
 #article p code {
