@@ -20,7 +20,7 @@ PHP框架：codeigniter / Yii2 advanced
 
 数据库：MySQL
 
-版本管理和自动化部署工具：Svn / Git / Composer / npm / gem
+版本管理和自动化部署工具：Svn / Git / Composer
 
 个人开发习惯：linux + tmux + vim + git
 
