@@ -13,7 +13,7 @@ img{
 	color:green;
 }/*}}}*/
 
-#main_category{/*{{{*/
+#main_category{ /*{{{*/
     position: fixed;
 	z-index:1;
     overflow:scroll;
@@ -50,9 +50,9 @@ img{
 		margin-bottom:10px;
 		font-size:1.1em;
 	}
-}/*}}}*/
+} /*}}}*/
 
-#article{/*{{{*/
+#article{
     position: absolute;
     top: 0px;
     padding:20px;
@@ -101,9 +101,19 @@ img{
 			letter-spacing: 1px;
 			word-spacing:2px;
 			font-size:12px;
+			.hljs-deletion{
+				background-color:none;
+			}
 		}
 	}
 	img{
 		width:50%;
 	}
-}/*}}}*/
+}
+
+
+
+
+
+
+
