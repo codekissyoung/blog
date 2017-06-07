@@ -5,6 +5,7 @@
 - 它的执行是由编译文件的依赖关系驱动的
 
 ```makefile
+
 # makefile for cky
 cky:func.o node.o main.o share.so libstatic_lib.a
 	gcc -L. -g -std=c11 -O2 -Wall func.o node.o main.c ./share.so -lstatic_lib  -o cky
