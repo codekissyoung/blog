@@ -1,4 +1,3 @@
-# stdio.h
 ```c
 EXIT_SUCCESS /* 正确退出　, main函数结尾常用：　return EXIT_SUCCESS;*/
 EXIT_FAILURE /* 错误退出　*/
