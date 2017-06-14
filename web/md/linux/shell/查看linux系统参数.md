@@ -187,3 +187,50 @@ crw--w---- 1 root tty     4, 14 6月  11 14:09 tty14
 # linux 桌面环境
 - X.org 软件包是 X Window的实现，是直接和PC的显卡以及显示器一起工作的底层软件
 - X Window 系统之上的桌面环境:KDE / GNOME / XFACE
+
+
+# 终端模拟器
+- 哑终端--->Linux控制台--->终端模拟包--->
+- 字符集：将二进制字符代码转化成字符发送给显示器显示，ascii ios unicode
+- 控制码: 控制光标在显示器上的显示位置，如回车 换行 水平制表符 方向键 翻页键 清空控制台
+- 块模式图形:
+- 矢量图形:
+- 显示缓冲: 1.滚动缓冲 2.替代缓冲
+- 色彩:
+- 键盘: 终端模拟包需要实现键盘模拟, 中断 ，滚动锁定 ， 重复 ，返回 ， 删除 ，方向键 ，功能键
+- terminfo数据库: 是一组文件，标识了各种可以用在linux系统上的终端的特性，常见路径`/usr/share/terminfo` `/etc/terminfo` `/lib/terminfo`
+```
+➜  ~ cd /lib/terminfo/v
+➜  v ls
+vt100  vt102  vt220  vt52
+➜  v infocmp vt100  列出终端定义的功能，以及用来模拟每个功能的控制码
+#	Reconstructed via infocmp from file: /lib/terminfo/v/vt100
+vt100|vt100-am|dec vt100 (w/advanced video),
+	am, mc5i, msgr, xenl, xon,
+	cols#80, it#8, lines#24, vt#3,
+	acsc=``aaffggjjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~,
+	bel=^G, blink=\E[5m$<2>, bold=\E[1m$<2>,
+	clear=\E[H\E[J$<50>, cr=^M, csr=\E[%i%p1%d;%p2%dr,
+	cub=\E[%p1%dD, cub1=^H, cud=\E[%p1%dB, cud1=^J,
+	cuf=\E[%p1%dC, cuf1=\E[C$<2>,
+	cup=\E[%i%p1%d;%p2%dH$<5>, cuu=\E[%p1%dA,
+	cuu1=\E[A$<2>, ed=\E[J$<50>, el=\E[K$<3>, el1=\E[1K$<3>,
+	enacs=\E(B\E)0, home=\E[H, ht=^I, hts=\EH, ind=^J, ka1=\EOq,
+	ka3=\EOs, kb2=\EOr, kbs=^H, kc1=\EOp, kc3=\EOn, kcub1=\EOD,
+	kcud1=\EOB, kcuf1=\EOC, kcuu1=\EOA, kent=\EOM, kf0=\EOy,
+	kf1=\EOP, kf10=\EOx, kf2=\EOQ, kf3=\EOR, kf4=\EOS, kf5=\EOt,
+	kf6=\EOu, kf7=\EOv, kf8=\EOl, kf9=\EOw, lf1=pf1, lf2=pf2,
+	lf3=pf3, lf4=pf4, mc0=\E[0i, mc4=\E[4i, mc5=\E[5i, rc=\E8,
+	rev=\E[7m$<2>, ri=\EM$<5>, rmacs=^O, rmam=\E[?7l,
+	rmkx=\E[?1l\E>, rmso=\E[m$<2>, rmul=\E[m$<2>,
+	rs2=\E>\E[?3l\E[?4l\E[?5l\E[?7h\E[?8h, sc=\E7,
+	sgr=\E[0%?%p1%p6%|%t;1%;%?%p2%t;4%;%?%p1%p3%|%t;7%;%?%p4%t;5%;m%?%p9%t\016%e\017%;$<2>,
+	sgr0=\E[m\017$<2>, smacs=^N, smam=\E[?7h, smkx=\E[?1h\E=,
+	smso=\E[7m$<2>, smul=\E[4m$<2>, tbc=\E[3g,
+```
+- 查看shell会话使用哪个终端模拟设置
+```
+➜  v echo $TERM
+xterm-256color   说明终端类型设置为了 terminfo 数据库中的xterm条目
+```
+- 虚拟控制台: 现代Linux启动时，会自动创建几个虚拟控制台，它是Linux内存中的终端会话，`Ctrl + Alt + [F1~F8]`来切换各个虚拟控制台
