@@ -234,3 +234,4 @@ vt100|vt100-am|dec vt100 (w/advanced video),
 xterm-256color   说明终端类型设置为了 terminfo 数据库中的xterm条目
 ```
 - 虚拟控制台: 现代Linux启动时，会自动创建几个虚拟控制台，它是Linux内存中的终端会话，`Ctrl + Alt + [F1~F8]`来切换各个虚拟控制台
+- X Window 终端模拟包: Xterm Konsole Gnome-Terminal
