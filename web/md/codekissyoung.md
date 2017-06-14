@@ -3,18 +3,18 @@
 
 邮箱 ：cky951010@163.com
 
-本科 / 中国地质大学(北京) / 地质学 遥感方向
+学历 : 本科 / 中国地质大学 / 遥感
 
 Github : https://github.com/codekissyoung
 
-期望职位 : Web研发工程师
+博客 : blog.dadishe.com
 
 # 技能清单
-OS平台 ：CentOS / Ubuntu
+OS ：熟悉Linux 熟悉GNU系统工具链
 
 Web开发：PHP / JS / HTML / CSS / SCSS
 
-PHP框架：codeigniter / Yii2 advanced
+PHP框架：codeigniter / Yii2 advanced / Discuz X32 内核
 
 前端框架：Bootstrap / jquery / zepto.js / layer / lib-flexible
 
@@ -22,15 +22,13 @@ PHP框架：codeigniter / Yii2 advanced
 
 版本管理和自动化部署工具：Svn / Git / Composer
 
-个人开发习惯：linux + tmux + vim + git
-
 # 研发经历
-## 2016.7 - 2017.2 云充吧充电宝共享租赁项目 php研发
+## 2016.7 - 2017.2 共享充电宝项目 云充吧
 项目地址: 微信关注 云充吧驿站
 项目采用Discuz!X3.2的内核,构建后台业务系统,移动端Web系统,对接了微信开发平台和支付宝生活号平台
 参与实现的功能:
 - 引入composer自动加载机制
-- 代码治理，将几千行的php文件按模块拆分,抽象出控制器、模型、视图,增强Discuz自带的数据库查询类
+- 代码重构，将几千行的php文件按模块拆分,抽象出控制器、模型、视图,增强Discuz自带的数据库查询类
 - 引入rbac权限控制
 - git协作开发流程设定
 - 日常开发文档编写
@@ -38,7 +36,7 @@ PHP框架：codeigniter / Yii2 advanced
 
 ## 2016.5 - 2016.6 地质笔记系统 个人项目
 项目地址: 微信关注 codekissyoung
-技术栈: Yii2 advanced框架 / zepto.js框架 / 微信WeUI样式库 / 微信JS-SDK / 腾讯地图SDK等
+技术栈: Yii2 advanced框架 / zepto.js框架 / 微信WeUI样式库 / 微信JS-SDK / 腾讯地图SDK
 参与实现的功能：
 - 微信用户自动注册登录
 - 图文笔记快速记录
@@ -46,7 +44,7 @@ PHP框架：codeigniter / Yii2 advanced
 - 分享搜索收藏他人地质笔记
 - 记录位置地图预览
 
-## 2015.11 - 2015.12 水稻汽车B2B平台 php研发
+## 2015.11 - 2015.12 水稻汽车B2B平台
 项目地址: http://shuidao.com
 技术栈: lnmp架构 / git 开发流程 / Yii2 advanced 框架 / shell脚本
 参与实现的功能：
