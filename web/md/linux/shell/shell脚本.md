@@ -52,7 +52,7 @@ var4=$[$var1 * ($var2 - $var3)]
 #!/bin/bash
 var1=100
 var2=45
-var3=`echo "scale=4; $var1 / $var2" | bc` # scale=4; 是设置bc计算器使用4位小数
+var3=`echo "scale=4; $var1 / $var2" | bc` # scale=4; #是设置bc计算器使用4位小数
 echo $var3
 ```
 
@@ -85,16 +85,16 @@ exit 5
 #!/bin/bash
 # date 命令执行成功了 $? = 0
 if date > /dev/null; then
->---echo "date 命令执行成功了"
+    echo "date 命令执行成功了"
 fi
 
 # grep 没有搜寻到用户 $? = 1
 if grep codekissyoung /etc/passwd;then
->---echo "用户codekissyoung存在";
+    echo "用户codekissyoung存在";
 elif grep cky /etc/passwd > /dev/null;then
->---echo "cky 存在";
+    echo "cky 存在";
 else
->---echo "用户codekissyoung不存在";
+    echo "用户codekissyoung不存在";
 fi
 
 # 判断数字大小 只限于整数
@@ -113,20 +113,20 @@ fi
 
 # 判断字符串相等
 if [ "code" = "cky" ]; then  # 记住是用一个 = 来判断是否相等
->---echo "code 不等于　cky";
+    echo "code 不等于　cky";
 fi
 
 # 判断字符存在
 var="变量var"
 if [ -n $var ]; then
->---echo "$var存在";
+    echo "$var存在";
 fi
 
 # 字符串比较大小
 var1="abd"
 var2="abc"
 if [ $var1 \> $var2 ];then
->---echo "$var1 大于 $var2";
+    echo "$var1 大于 $var2";
 fi
 
 # 判断文件
@@ -138,14 +138,14 @@ fi
 # -O 判断执行者是否是文件的属主
 # file1 -nt file2  ,file1 是否比 file2 更新, 镜像: file1 -ot file2
 if [ -d "$HOME" ]; then
->---echo "$HOME 存在";
+    echo "$HOME 存在";
 fi
 ```
 
 # && 与 || 组合条件
 ```
 if [ -d $HOME ] && [ -w "$HOME" ]; then
->---echo "$HOME 存在并且可读";
+    echo "$HOME 存在并且可读";
 fi
 ```
 
@@ -189,6 +189,100 @@ code
 
 # case
 ```bash
-
-
+case variable in
+pattern | pattern1 | pattern2 )
+    command1 ;;
+pattern3)
+    command2 ;;
+*)
+    default commond ;;
+esac
 ```
+
+```bash
+#!/bin/bash
+a=code
+case $a in
+"codekissyoung" | "caokaiyan" | "hehe" )
+    echo "codekissyoung or caokaiyan or hehe";;
+"code" )
+    echo "a 是code";;
+*)
+    echo "其他";;
+esac
+```
+
+# for
+```bash
+for var in list
+do
+    commands
+done
+```
+- `list`变量是使用IFS环境变量的值来分割的，正常情况`IFS=' '$'\t'$'\n'`,表示list是使用\t \n 空格来分割的，忽略数量，一个空格和两个空格都是一样的,$符号修饰是不可少的
+    ```bash
+    IFS.OLD=$IFS
+    IFS=$'\n' # 修改IFS默认值
+    # commands with new IFS
+    IFS=$IFS.OLD # 恢复IFS默认值  
+    ```
+
+- list 可能的参数
+    ```bash
+    list="abc bcd cdf"
+    for var in $list ; do
+        echo "var : $var"
+    done
+
+    for var in `cat /etc/passwd`; do
+        echo "$var";
+    done
+
+    for script in /etc/*.d /etc/*.conf; do # 遍历 /etc/ 目录 , in 后面可以跟多个目录,它们是通配符，空格隔开就好
+        echo $script
+    done
+    ```
+
+
+# while
+- [] 里面的用法跟 if 的一样
+```bash
+while [];do
+    commands
+done
+```
+
+# until
+- 跟while相反，条件符合才停止
+```bash
+until [];do
+    commands
+done
+```
+
+# break
+- 用在　for ,while , until 里，跳出循环
+    ```bash
+    while [];do
+        if [];then
+            break;
+        fi
+        commands
+    done;
+    ```
+
+# continue
+- 跳过这次循环,将上例中的break换成continue就好
+
+# done
+- done 可以选择将循环里面的输出的内容重定向到文件，或者通过管道传递给其他命令
+
+    ```
+    for var in $lists; do
+        commands;
+    done > output.txt
+
+    for var in $lists;do
+        commands;
+    done | sort -nr
+    ```
