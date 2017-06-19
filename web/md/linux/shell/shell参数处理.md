@@ -1,4 +1,3 @@
-
 # $0 $1 $2 $3
 - `./my_shell_script 10 20` 执行后，脚本里面 ,$0的值是`./my_shell_script` ,$1 的值是10 ,$2的值是20,依次类推
 - 判断$1等是否存在， `if [ -n "$1" ]`
@@ -44,9 +43,9 @@ while [ -n "$1" ] ;do
 done
 ```
 
+
 # 依次处理每个带值的参数
 ```bash
-#!/bin/bash
 while [ -n "$1" ] ;do
     case "$1" in
         cut)
@@ -62,3 +61,45 @@ while [ -n "$1" ] ;do
     shift
 done
 ```
+
+
+getopt
+================================================================================
+- shell内置
+
+```
+➜  web git:(master) ✗ type getopts
+getopts is a shell builtin
+```
+
+```bash
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
