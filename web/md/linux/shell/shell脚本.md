@@ -11,7 +11,6 @@
 # . 与 source
 - 两者是等价的,从文件中读取并执行命令，无论该文件是否都有可执行权限都能够正确的执行,并且是在当前shell下执行，而不是产生一个子shell来执行
 - `./filename.sh`去执行一个文件是在当前shell下产生一个子shell去执行的
-
     ```bash
     for i in /etc/profile.d/*.sh ; do
         if [ -r "$i" ]; then
