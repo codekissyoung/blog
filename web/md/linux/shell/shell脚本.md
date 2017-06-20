@@ -1,3 +1,13 @@
+# 变量
+- `$` 是引用变量的意思
+- `=` 两边不能有空格
+- `>` 作为大于号时要转义，否则默认作为重定向处理
+```bash
+➜  shell git:(master) testing=`date`
+➜  shell git:(master) echo $testing
+2017年 06月 17日 星期六 16:31:47 CST
+```
+
 # . 与 source
 - 两者是等价的,从文件中读取并执行命令，无论该文件是否都有可执行权限都能够正确的执行,并且是在当前shell下执行，而不是产生一个子shell来执行
 - `./filename.sh`去执行一个文件是在当前shell下产生一个子shell去执行的
@@ -15,28 +25,13 @@
 if [ "$i" -ne 1 ];then
     : # 该命令什么都不做，但执行后会返回一个正确的退出代码，即exit 0
 else
-    echo "$i is not equal 1"
+    echo "$i is equal 1"
 fi
 ```
 
-
-# 变量
-- `$` 是引用变量的意思
-- `=` 两边不能有空格
-- ` 号里面执行的命令的结果，赋值给变量
-- `>` 作为大于号时要转义，否则默认作为重定向处理
-
-
-```bash
-➜  shell git:(master) testing=`date`
-➜  shell git:(master) echo $testing
-2017年 06月 17日 星期六 16:31:47 CST
-```
-
-
 # 数学运算
 - 数学计算对于shell来说是很麻烦的一件事情
-- `expr 1 + 5` `expr 5 \* 2` 太麻烦了(*是特殊字符 要转义)
+- `expr 1 + 5` 和 `expr 5 \* 2` 太麻烦了(`*`是特殊字符 要转义)
 - 推荐使用方`$[operation]`的方式使用
 - bash shell 只支持整数运算 , zsh 提供浮点数运算
 
@@ -277,12 +272,12 @@ done
 # done
 - done 可以选择将循环里面的输出的内容重定向到文件，或者通过管道传递给其他命令
 
-    ```
-    for var in $lists; do
-        commands;
-    done > output.txt
+```
+for var in $lists; do
+    commands;
+done > output.txt
 
-    for var in $lists;do
-        commands;
-    done | sort -nr
-    ```
+for var in $lists;do
+    commands;
+done | sort -nr
+```

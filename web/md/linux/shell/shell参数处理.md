@@ -63,7 +63,7 @@ done
 ```
 
 
-getopt
+getopts
 ================================================================================
 - shell内置
 
@@ -78,11 +78,44 @@ getopts is a shell builtin
 
 ```
 
+getopt
+================================================================================
+
+
+```bash
+```
 
 
 
 
+read
+================================================================================
+```
+read -p "提示语句" variable1 variable2 variableN 
+```
 
+- -t 参数来限制用户的输入时间
+- -s 参数可以不显示用户的输入
+
+```bash
+#!/bin/bash
+read -t 3 -p "do you love me ? ( Y / N ) : " answer
+
+if [ -n "$answer" ];then
+    :
+else
+    echo "... no answer!";
+fi
+
+case $answer in
+    Y | y)
+        echo "i love you too";;
+    N | n)
+        echo "fine , thank you ";;
+    *)
+        echo "unkown answer";;
+esac
+```
 
 
 

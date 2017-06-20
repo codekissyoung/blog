@@ -40,7 +40,7 @@ mysql> select database(); # 当前数据库
 
 ```
 ### 自动备份mysql中数据库的脚本
-```
+```bash
 #!/bin/sh
 today=`date +%Y%m%d`
 filename=${today}_fleamarket_backup.sql
@@ -131,7 +131,7 @@ drop [temporary] table [if exists] table_name [, table_name];# 删除表
 
 
 # 管理用户
-```
+```sql
 mysql > create user 'cky'@'dadishe.com' identified by 'secret'; # 创建用户,该用户可从dadishe.com主机访问数据
 mysql > show grants; #  查看当前用户权限
 +---------------------------------------------------------------------+
@@ -141,12 +141,15 @@ mysql > show grants; #  查看当前用户权限
 | GRANT PROXY ON ''@'' TO 'root'@'localhost' WITH GRANT OPTION        |
 +---------------------------------------------------------------------+
 
+# grant 命令,`test`.*是test库的所有表, TO 后面是用户，'localhost'是只允许本地，'*'的话则是允许用户远程登录
+mysql > GRANT SELECT, INSERT, UPDATE, REFERENCES, DELETE, CREATE, DROP, ALTER, INDEX, CREATE VIEW, SHOW VIEW ON `test`.* TO 'test02'@'localhost'
 ```
 
 ### mysql 日志管理
-版本 `5.7.13`
-`cat /etc/mysql/mysql.conf.d/mysqld.cnf`
-```
+版本 5.7.13
+```bash
+cat /etc/mysql/mysql.conf.d/mysqld.cnf`
+
 # 所有sql操作语句都会被纪录下来
 general_log_file = /var/log/mysql/mysql.log
 general_log = 1
@@ -157,3 +160,17 @@ log_slow_queries = /var/log/mysql/mysql-slow.log
 # 超过2s
 long_query_time  2
 ```
+
+免密码登录
+================================================================================
+```bash
+➜  ~ cat /home/cky/.my.cnf
+[client]
+host=localhost
+user='root'
+password='Cky951010'
+➜  ~ chmod 400 .my.cnf 
+```
+
+
+
