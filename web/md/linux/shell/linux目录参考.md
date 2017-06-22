@@ -122,10 +122,6 @@ fi
 ln -s /dev/null ~/.netscape/cookies  # 建立到/dev/null的软链接，这时所有该存到文件的输入都被丢入/dev/null了
 ```
 
-
-
-
-
 /dev/zero
 ================================================================================
 - 是一个特殊的文件，当你读它的时候，它会提供无限的空字符(NULL, ASCII NUL, 0x00)。
@@ -159,20 +155,19 @@ fi
       
     
 blocks=${1:-$MINBLOCKS}          # 如果命令行没有指定，则设置为默认的40块.    
-# 上面这句等同如：    
-# --------------------------------------------------    
-# if [ -n "$1" ]    
-# then    
-#   blocks=$1    
-# else    
-#   blocks=$MINBLOCKS    
-# fi    
-# --------------------------------------------------    
-if [ "$blocks" -lt $MINBLOCKS ]    
-then    
+# 上面这句等同如：
+# --------------------------------------------------
+# if [ -n "$1" ]
+# then
+#   blocks=$1
+# else
+#   blocks=$MINBLOCKS
+# fi
+# --------------------------------------------------
+if [ "$blocks" -lt $MINBLOCKS ]
+then
   blocks=$MINBLOCKS              # 最少要有 40 个块长，如果带入参数比40小，将块数仍设置成40    
-fi     
-    
+fi
 echo "Creating swap file of size $blocks blocks (KB)."    
 dd if=/dev/zero of=$FILE bs=$BLOCKSIZE count=$blocks # 把零写入文件.    
     
@@ -190,8 +185,7 @@ exit $SUCCESS
 # "ramdisk"是系统RAM内存的一段，它可以被当成是一个文件系统来操作.    
 # 优点：存取速度非常快 (包括读和写).    
 # 缺点: 易失性, 当计算机重启或关机时会丢失数据.    
-#       会减少系统可用的RAM.    
-#    
+# 会减少系统可用的RAM.    
 # 那么ramdisk有什么作用呢?    
 # 保存一个较大的数据集在ramdisk, 比如一张表或字典,这样可以加速数据查询, 因为在内存里查找比在磁盘里查找快得多.    
     
@@ -229,6 +223,10 @@ echo """$MOUNTPT"" now available for use."
 # 如果加以改进, 这个脚本可以放在 /etc/rc.d/rc.local，以使系统启动时能自动设立一个ramdisk。这样很合适速度要求高的数据库服务器.    
 exit 0 
 ```
+
+
+
+
 
 
 

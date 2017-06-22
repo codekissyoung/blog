@@ -1,5 +1,106 @@
-# 命令行快捷键
+shell可以做什么
+================================================================================
+- 管理主机的任务有查询登录文件、追踪流量、监控用户使用主机状态、主机各项硬件设备状态、主机软件更新查询
+- 追踪和管理系统的重要工作
+- 简单入侵检测功能
+- 连续命令单一化
+- 简易的数据处理
+- 跨平台支持与学习历程较短
+- Linux启动中，各种服务的自动开启
+- 清除过期文件、机器老化、自动化测试等等的无人值守执行 
+- 软件开发的持续集成，提交代码后，迅速编译、打包、运行测试，给出反馈
+- 各种服务器、数据库的维护、备份
+
+shell编程要注意什么
+================================================================================
+- 命令从上而下，从左至右分析和执行
+- 命令、参数间的多个空白会被忽略
+- 空白行也会被忽略
+- 如果读取到一个Enter符号，就尝试执行该行命令
+- 如果一行代码太多，可以用[enter]来进行扩展
+- #作为注释
+
+
+如何执行shell脚本
+================================================================================
+- 绝对路径：/path/to/your/shell.sh
+- 相对路径: ./shell.sh
+- 将shell.sh存放在PATH指定的目录
+- 以bash进程来执行：bash shell.sh sh shell.sh
+- 利用直接执行的方式来执行script:该script会使用一个新的bash环境执行的脚本内容，中途产生的变量不会回传到父进程中
+- 利用source执行脚本，会在父进程中进行
+
+变量
+================================================================================
+```bash
+var=value # 定义变量并且赋值
+unset value # 删除变量
+echo $var # 显示变量
+declare [-aixr] var #声明变量类型 -a:数组，-i:整形，-x:效果同于export,-r:变量设置为readonly,变量定义后默认为字符型
+
+#通过交互获取用户输入的变量
+read -p "提示信息" 变量名
+
+#显示信息
+echo -e "输出信息 $变量名"
+
+# 将变量声明为环境变量(全局变量)
+export var
 ```
+
+函数
+================================================================================
+```bash
+# 定义函数
+function printit(){
+    echo -n "This is a simple test "
+}
+# 调用函数
+printit
+```
+
+判断语句
+================================================================================
+```bash
+#!/bin/bash
+if [判断1]; then
+    执行内容
+##多重判断
+elif [判断2]; then
+    执行内容
+else
+    执行内容
+#结束    
+fi
+```
+
+循环语句
+================================================================================
+```bash
+# while do... done循环
+while [condition]
+do #循环开始
+    程序段落
+done #循环结束
+#until do ...done循环
+until [condition]
+do 
+    程序段落
+done
+# for...do...done（固定循环)
+for var in cond1 cond2 cond3...
+do
+    执行语句
+done
+#或类似于C语言
+for ((i=1;i<=$num;i=i+1))
+do
+    echo $i
+done
+```
+
+# 命令行快捷键
+```bash
 [Tab] 自动补充
 [Ctrl] + a 到正在输入的命令行的头部
 [Ctrl] + e 到正在输入的命令行的尾部
@@ -8,7 +109,7 @@
 ```
 
 # 命令行可以使用通配符
-```
+```bash
 * 代表任意字符串
 ? 代表一个字符
 [abcd] 代表从a, b, c, d选字符
@@ -18,7 +119,7 @@
 ```
 
 # `&&` 与 `||` 控制程序执行流程
-```
+```bash
 # 前面命令执行成功后，才执行后面命令
 sudo service apache2  stop && sudo  service apache2  start
 # 前面命令执行失败后，后面命令才执行
@@ -26,7 +127,7 @@ service apache2 restart || sudo service apache2 restart
 ```
 
 # 命令的输入与输出
-```
+```bash
 ls -l /tmp > tmp.msg     # >表示覆盖重定向 将 ls -l /tmp 的输出纪录到 /tmp.msg 中
 date >> /tep.msg         # >>表示在末尾追加
 grep 127 < /etc/hosts    # <输入重定向
@@ -43,7 +144,6 @@ fg 将放入后台的程序切换回前台(出栈)
 ```
 
 # 文件访问
-
 **文件类型及其标志**
 ```
 - 普通文件  d 目录文件  l 链接文件(软链接和硬链接)  b 块设备文件
@@ -144,7 +244,7 @@ find /etc -size －20k -o -size ＋50k ＃找到小于20k 或者 大于50k的
 `wget -c file`  断点续传file
 
 # 源代码安装软件
-```
+```bash
 ./configure
 make
 make install
@@ -476,7 +576,7 @@ BEGIN{
 }
 
 awk 程序例子
-```
+```bash
 BEGIN{user_id="0";amount=0;register_day="unkown";login_days=0;last_login_day="unkown"}
 {
     if($1""!=user_id){
@@ -495,10 +595,6 @@ BEGIN{user_id="0";amount=0;register_day="unkown";login_days=0;last_login_day="un
 }
 END{print $1,register_day,last_login_day,login_days,amount;}
 ```
-
-# shell 例子
-## 看当前目录下文件大小，按升序排列产生个报表
-`du -s * |sort -nr >> $HOME/space_report.txt`
 
 参考：
 http://www.cnblogs.com/softwaretesting/archive/2012/02/02/2335332.html
