@@ -1,0 +1,249 @@
+内建命令与外建命令
+================================================================================
+- 外建命令的特点是，它们是作为一个可执行程序放在$PATH变量所包含的目录中的。bash在执行这些命令的时候，都会进行fork(),exec()并且wait()。就是用标准的打开子进程的方式处理外部命令
+- 但是内建命令不同，这些命令都是bash自身实现的命令，它们不依靠外部的可执行文件存在。只要有bash，这些命令就可以执行。典型的内建命令有cd、pwd等。
+
+
+alias
+================================================================================
+```bash
+alias ls='ls --color=auto'; 
+# 给命令取别名，`./xxx.sh`运行shell脚本,，alias别名无效，`source`和`.`方式是起有效的，因为是在当前shell运行
+# alias功能在交互打开的bash中是默认开启的，但是在bash脚本中是默认关闭的
+
+# shopt -s expand_aliases
+# 在脚本里开启上一行命令，启用alias功能
+```
+
+bg 在后台恢复暂停的作业
+================================================================================
+```bash
+cky@cky-pc:~/workspace/shell$ ./cky.sh 
+5540 : 1
+5540 : 2
+5540 : 3
+^Z # 按ctrl + z 暂停作业，存入后台
+[2]+  已停止               ./cky.sh
+cky@cky-pc:~/workspace/shell$ bg %2
+[2]+ ./cky.sh &
+5540 : 8
+cky@cky-pc:~/workspace/shell$ 5540 : 9
+5540 : 10
+5540 : 11
+```
+
+bind 将键盘序列绑定到一个readline函数或者宏
+================================================================================
+```bash
+bind -x '"\C-l":ls -l' #直接按 CTRL+L 就列出目录
+
+cky@cky-pc:~/workspace/shell/dir$ showkey -a　# 显示指定操作的键盘序列
+
+按任意键 - Ctrl-D 将结束这个程序
+
+^Z 	 26 0032 0x1a
+^X 	 24 0030 0x18
+^C 	  3 0003 0x03
+^V 	 22 0026 0x16
+^B 	  2 0002 0x02
+^N 	 14 0016 0x0e
+^M 	 13 0015 0x0d
+^L 	 12 0014 0x0c
+^K 	 11 0013 0x0b
+
+```
+- bind命令用于显示和设置命令行的键盘序列绑定功能。通过这一命令，可以提高命令行中操作效率。
+- 您可以利用bind命令了解有哪些按键组合与其功能，也可以自行指定要用哪些按键组合
+- -d：显示按键配置的内容； 
+- -f<按键配置文件>：载入指定的按键配置文件； 
+- -l：列出所有的功能； 
+- -m<按键配置>：指定按键配置； 
+- -q<功能>：显示指定功能的按键； 
+- -v：列出目前的按键配置与其功能。
+
+
+```bash
+break   # 退出for while select until
+builtin cd dir; # 执行指定的内建命令,shell命令执行时首先从函数开始，如果自定义了一个与内建命令同名的函数，那么就执行这个函数而非真正的内建命令
+cd # 进入目录
+command # command命令类似于builtin，也是为了避免调用同名的shell函数，命令包括shell内建命令和环境变量PATH中的命令。
+continue # for while select until 循环　进行下一次迭代
+```
+
+caller
+================================================================================
+- 将caller 命令放到函数中,将会在stdout 上打印出函数调用者的信息.
+- caller 命令也可以返回在一个脚本中被source 的另一个脚本的信息.象函数一样,这是一个， "子例程调用",你会发现这个命令在调试的时候特别有用.
+- ture一个返回成功(就是返回0)退出码的命令。flase一个返回失败(非0)退出码的命令。
+
+```bash
+#!/bin/bash
+# cky.sh
+bar(){
+	echo 'bar called';
+	caller 0 # 显示调用者信息
+}
+call_function(){
+	bar;
+}
+call_function;
+```
+```bash
+#!/bin/bash
+# cky_call.sh
+. cky.sh
+```
+```bash
+cky@cky-pc:~/workspace/shell$ ./cky_call.sh 
+bar called
+15 call_function cky.sh
+```
+
+compgen 为指定单词生成可能的补全匹配
+================================================================================
+
+
+complete 为指定的单词显示如何补全的
+================================================================================
+
+
+declare 声明一个变量/类型
+================================================================================
+
+```bash
+dirs # 显示当前目录
+disown -h %2 # 将后台作业[Ctrl + z生成的],屏蔽HUB信号
+echo 输出
+enable 启用
+eval 
+exec 用指定命令替换shell进程
+exit 退出
+export 声明为环境变量
+fc 从历史记录中选择一条命令
+fg %2 恢复后台作业到前台
+getopts 
+hash 内置hash表，建立到PATH路径下面的路径的直接链接
+help 显示帮助文件
+history 显示命令历史记录
+jobs  查看后台作业
+kill -n PID 向进程发送信号
+let 计算数学表达式
+local 在函数中申明一个局部变量，只能在函数中访问到
+logout 退出shell登录
+popd 从目录栈中删除记录
+printf 格式化打印
+pushd 向目录栈添加记录
+pwd 当前目录名
+readonly 声明只读变量
+return 强制函数以某值退出
+set 设置/显示环境变量　和 shell特性
+shift 将参数位置前移一位
+shopt 打开/关闭shell可选行为的变量值
+suspend 暂停shell的执行，直到收到SIGCONT
+test 测试条件
+times 显示累计的用户时间和系统时间
+trap 如果收到了指定的系统信号，执行指定的命令
+type 查看命令类型
+ulimit 给用户指定的资源设置上限
+umask 为新建的文件和目录设置默认权限
+unalias 删除别名
+unset 删除变量
+wait 等待指定进程完成，并返回退出状态码
+```
+
+
+Bash 外部命令
+================================================================================
+```bash
+bzip2
+cat
+chage
+chfn
+chgrp
+chmod
+chown
+chpasswd
+chsh
+compress
+cp
+date
+df
+du
+file
+find
+finger
+free
+grep
+groupadd
+groupmod
+gzip
+head
+killall
+less
+link
+ls
+mkdir
+more
+mount
+mv
+nice
+passwd
+ps
+pwd
+renice
+rm
+rmdir
+sort
+stat
+sudo
+tail
+touch
+top
+umount
+uptime
+useradd
+userdel
+usermod
+vmstat
+which
+zip
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
