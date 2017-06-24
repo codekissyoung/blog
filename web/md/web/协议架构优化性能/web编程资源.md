@@ -46,7 +46,7 @@ js 跨域问题                   http://segmentfault.com/a/1190000000718840
 ajax 异步上传文件              http://www.open-open.com/lib/view/open1417248655206.html
                              http://www.2cto.com/kf/201411/349708.html
 ECMAScript入门                http://es6.ruanyifeng.com/#docs/intro
-ubuntu下如何快速搭建 Node.js 开发环境    http://jingyan.baidu.com/article/046a7b3edebf38f9c27fa9bc.html
+ubuntu Node.js 开发环境    http://jingyan.baidu.com/article/046a7b3edebf38f9c27fa9bc.html
 coffeeScript                 http://coffee-script.org/
 
 #技术栈-后端
