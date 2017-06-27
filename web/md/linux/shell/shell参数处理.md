@@ -118,11 +118,68 @@ esac
 ```
 
 
+`$`符号
+================================================================================
+```bash
+cky@cky-pc:~$ var=abckefg
+cky@cky-pc:~$ echo ${#var} # 变量长度
+7
 
+cky@cky-pc:~$ echo $SHELL # 环境变量
+/bin/bash
 
+if [ $UID -eq 0 ];then # 环境变量 判断root用户
+    echo "root用户";
+fi
+```
 
+eval 将字符串当做命令执行
+================================================================================
+```bash
+cky@cky-pc:~/workspace/shell$ NAME=codekissyoung
+cky@cky-pc:~/workspace/shell$ eval echo $NAME # 等价于 echo $NAME
+codekissyoung
 
+cky@cky-pc:~/workspace/shell$ echo "hi code!" > hi.txt
+cky@cky-pc:~/workspace/shell$ cat hi.txt 
+hi code!
+cky@cky-pc:~/workspace/shell$ my_hi="cat hi.txt"
+cky@cky-pc:~/workspace/shell$ echo $my_hi
+cat hi.txt
+cky@cky-pc:~/workspace/shell$ eval $my_hi
+hi code!
 
+cky@cky-pc:~/workspace/shell$ cat test_eval.sh 
+#!/bin/bash
+echo "最后一个参数 : $( eval echo $# )"
+echo "最后一个参数 : $( eval echo \$$# )"
+
+cky@cky-pc:~/workspace/shell$ ./test_eval.sh 
+最后一个参数 : 0
+最后一个参数 : ./test_eval.sh
+cky@cky-pc:~/workspace/shell$ ./test_eval.sh a b c d
+最后一个参数 : 4
+最后一个参数 : d
+
+```
+
+$() 等价于反引号 ：命令替换
+================================================================================
+```bash
+cky@cky-pc:~/workspace/shell$ echo the last sunday is $(date -d "last sunday" +%Y-%m-%d)
+the last sunday is 2017-06-25
+```
+
+${} 用作变量替换
+================================================================================
+```bash
+cky@cky-pc:~/workspace/shell$ A=B
+cky@cky-pc:~/workspace/shell$ echo $AB
+
+cky@cky-pc:~/workspace/shell$ echo ${A}B
+BB
+
+```
 
 
 

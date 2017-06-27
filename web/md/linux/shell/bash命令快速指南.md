@@ -210,12 +210,35 @@ zip
 ```
 
 
+pgrep 查出带有某字符串的进程的进程号
+================================================================================
+```bash
+cky@cky-pc:~$ pgrep -l ssh
+1895 ssh-agent
+24486 sshd
+```
 
 
+tr 替换 去重 删除
+================================================================================
+```bash
+cky@cky-pc:~$ echo aaacccddd | tr -s [a-z] # 指定范围去重
+acd
+cky@cky-pc:~$ echo aaacccddd | tr -s [abc] # 指定字母去重
+acddd
+cky@cky-pc:~$ tr -s ["\n"] # 删除多余的空白行
 
+cky@cky-pc:~$ echo "Hello world i love you " |tr [a-z] [A-Z] # 小写换成大写
+HELLO WORLD I LOVE YOU 
+cky@cky-pc:~$ echo "HELLO GIRL I LOVE YOU" | tr [A-Z] [a-z] # 大写换成小写
+hello girl i love you
 
+cky@cky-pc:~$ echo "its 10:00 Now" | tr -c "[a-z][A-Z][: ]" "-" # -c 是反转,将不在参数1里的替换成参数2
+its --:-- Now-
 
-
+cky@cky-pc:~$ echo "its 10:00 Now" | tr -d "[0-9][:]" # 删除数字和冒号
+its  Now
+```
 
 
 
