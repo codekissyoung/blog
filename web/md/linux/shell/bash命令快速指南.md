@@ -9,10 +9,13 @@ alias
 ```bash
 alias ls='ls --color=auto'; 
 # 给命令取别名，`./xxx.sh`运行shell脚本,，alias别名无效，`source`和`.`方式是起有效的，因为是在当前shell运行
-# alias功能在交互打开的bash中是默认开启的，但是在bash脚本中是默认关闭的
 
-# shopt -s expand_aliases
-# 在脚本里开启上一行命令，启用alias功能
+# alias功能在交互打开的bash中是默认开启的，但是在bash脚本中是默认关闭的
+shopt -s expand_aliases # 在脚本里启用alias功能
+
+
+# 经典 alias 命令
+alias rm='rm() { mv $@ ~/backup;};rm' # 配合函数，使用alias命令,将危险的rm命令，替换成mv命令
 ```
 
 bg 在后台恢复暂停的作业

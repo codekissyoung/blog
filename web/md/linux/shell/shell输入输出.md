@@ -73,6 +73,34 @@ echo -e "\033[?25l 隐藏光标 \033[0m"
 echo -e "\033[?25h 显示光标 \033[0m" 
 ```
 
+# tee 将stdin复制一份
+- 它只能复制上一个命令的stdout,而忽视stderr,除非`2>&1`
+- 下列命令，`tee`将`cat`的stdout输出复制到out.txt,同时`cat`的stdout和stderr的输出都传给了下一个管道
+- `-a` 选项是追加，不加的话，每次会覆盖文件的值
+```bash
+cat a* | tee -a out.txt | cat -n
+```
+
+# 自定义文件描述符的使用
+```bash
+cky@cky-pc:~/workspace/shell$ exec 3<input.txt
+-bash: input.txt: 没有那个文件或目录
+cky@cky-pc:~/workspace/shell$ echo "test input" > input.txt
+cky@cky-pc:~/workspace/shell$ exec 3<input.txt # 定义文件描述符3 (读取)
+cky@cky-pc:~/workspace/shell$ cat <&3 # 使用
+test input
+
+cky@cky-pc:~/workspace/shell$ exec 4>output.txt  # 创建 截断写入模式 文件描述符
+cky@cky-pc:~/workspace/shell$ echo "test file disc 4" >&4 # 使用
+cky@cky-pc:~/workspace/shell$ cat output.txt 
+test file disc 4
+
+cky@cky-pc:~/workspace/shell$ exec 5>> input.txt # 创建 追加写入模式 文件描述符
+cky@cky-pc:~/workspace/shell$ echo "file disc 5 test" >&5 # 使用
+cky@cky-pc:~/workspace/shell$ cat input.txt 
+test input
+file disc 5 test
+```
 
 
 
