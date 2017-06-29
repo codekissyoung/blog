@@ -214,11 +214,21 @@ do
 done
 ```
 - `list`变量是使用IFS环境变量的值来分割的，正常情况`IFS=' '$'\t'$'\n'`,表示list是使用\t \n 空格来分割的，忽略数量，一个空格和两个空格都是一样的,$符号修饰是不可少的
+
     ```bash
     IFS.OLD=$IFS
     IFS=$'\n' # 修改IFS默认值
     # commands with new IFS
     IFS=$IFS.OLD # 恢复IFS默认值  
+    
+    # eg .
+    data="name,sex,rollno,location"; # CSV 数据
+    IFS.OLD=$IFS
+    IFS=, # 将IFS 设置为 ,
+    for item in $data;do
+        echo "item : $item";
+    done;
+    IFS=$IFS.OLD  # 恢复原值
     ```
 
 - list 可能的参数
@@ -236,6 +246,14 @@ done
         echo $script
     done
     ```
+
+- c 语言形式的for
+```bash
+    for (( i=0; i<10; i++ )){
+        commands;
+    }
+```
+
 
 
 # while
@@ -271,7 +289,7 @@ done
 # done
 - done 可以选择将循环里面的输出的内容重定向到文件，或者通过管道传递给其他命令
 
-```
+```bash
 for var in $lists; do
     commands;
 done > output.txt
@@ -280,3 +298,22 @@ for var in $lists;do
     commands;
 done | sort -nr
 ```
+
+# 生成序列
+```bash
+cky@cky-pc:~/workspace/blog/web/md/linux/shell$ echo {1..40}
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40
+cky@cky-pc:~/workspace/blog/web/md/linux/shell$ echo {a..z}
+a b c d e f g h i j k l m n o p q r s t u v w x y z
+```
+
+```bash
+for i in {a..z};do
+    commands;
+done;
+```
+
+
+
+
+
