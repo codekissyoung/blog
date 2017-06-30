@@ -72,33 +72,22 @@ getopts
 getopts is a shell builtin
 ```
 
-```bash
-
-
-
-```
 
 getopt
 ================================================================================
 
-
-```bash
-```
 
 
 
 
 read
 ================================================================================
-```
-read -p "提示语句" variable1 variable2 variableN 
-```
-
 - -t 参数来限制用户的输入时间
 - -s 参数可以不显示用户的输入
 
 ```bash
 #!/bin/bash
+# read -p "提示语句" variable1 variable2 variableN 
 read -t 3 -p "do you love me ? ( Y / N ) : " answer
 
 if [ -n "$answer" ];then
@@ -160,30 +149,33 @@ cky@cky-pc:~/workspace/shell$ ./test_eval.sh
 cky@cky-pc:~/workspace/shell$ ./test_eval.sh a b c d
 最后一个参数 : 4
 最后一个参数 : d
-
 ```
 
-$() 等价于反引号 ：命令替换
+`$()` 等价于反引号 命令替换
 ================================================================================
 ```bash
 cky@cky-pc:~/workspace/shell$ echo the last sunday is $(date -d "last sunday" +%Y-%m-%d)
 the last sunday is 2017-06-25
 ```
 
-${} 用作变量替换
+`${}` 用作变量替换
 ================================================================================
 ```bash
-cky@cky-pc:~/workspace/shell$ A=B
-cky@cky-pc:~/workspace/shell$ echo $AB
-
-cky@cky-pc:~/workspace/shell$ echo ${A}B
-BB
-
+A=B
+echo $AB # 空
+echo ${A}B # BB
 ```
 
-
-xargs 重新格式化参数
+xargs 将输入转化为命令行参数
 ================================================================================
+- 有些命令只能以命令行参数的形式接受收据，而无法通过stdin接受数据流。在这种情况下，我们没法用管道来提供那些只有通过命令行参数才能提供的数据
+- xargs擅长将标准输入数据转换成命令行参数
+- -d 选项，指明定界符
+- -n 选项，指明每行最大的参数数量
+- xargs默认将空格作为定界符。xargs没有指定参数时，默认能将换行符替换成空格。
+- 很多文件名中都可能会包含空格符，而xargs很可能会误认为它们是定界符(例如，hell text.txt会被xargs误认为hell和text.txt)
+- xargs 不能为多组命令提供参数
+
 ```bash
 cky@cky-pc:~/workspace/shell$ cat xargs.txt 
 12 22 3 3 56
@@ -207,6 +199,50 @@ cky@cky-pc:~/workspace/shell$ echo "splitXsplitXsplitXsplit" | xargs -d X -n2
 split split
 split split
 
+cky@cky-pc:~/workspace/shell$ cat cecho.sh 
+#!/bin/bash
+echo '处理' $* 
+cky@cky-pc:~/workspace/shell$ ./cecho.sh aaa bbb ccc
+处理 aaa bbb ccc 
+cky@cky-pc:~/workspace/shell$ cat args.txt 
+aaa
+bbb
+ccc
+
+cky@cky-pc:~/workspace/shell$ cat args.txt | xargs -n 1 ./cecho.sh 
+处理 aaa 
+处理 bbb 
+处理 ccc 
+
+cky@cky-pc:~/workspace/shell$ cat args.txt | xargs -I {} ./cecho.sh -p {} -l
+处理 -p aaa -l
+处理 -p bbb -l
+处理 -p ccc -l
+
+cky@cky-pc:~/workspace/shell$ find . -name '*.sh' | xargs -I {} cp {} sh_dir # 结合find和xargs使用
+cky@cky-pc:~/workspace/shell$ ls sh_dir/
+arg_exec.sh           arr.sh        bc.sh     cky_call.sh  color.sh    ifelse.sh  math.sh         prepend.sh  read.sh      son_shell.sh    test_eval.sh    update-shell.sh
+arg_with_val_exec.sh  assoc_arr.sh  cecho.sh  cky.sh       getopts.sh  let.sh     mysql_shell.sh  printf.sh   set_path.sh  test-ctrl-c.sh  update-blog.sh  var_exchange.sh
+
+# 定界符的例子
+cky@cky-pc:~/workspace/shell$ find -name '*.info'
+./test space.info
+cky@cky-pc:~/workspace/shell$ find -name '*.info' | xargs -n 1
+./test
+space.info
+cky@cky-pc:~/workspace/shell$ find -name '*.info' -print0 | xargs -n 1
+xargs: 警告: 输入中有个 NUL 字符。它不能在参数列表中传送。您是想用 --null 选项吗？
+./test
+space.info
+cky@cky-pc:~/workspace/shell$ find -name '*.info' -print0 | xargs -0 -n 1
+./test space.info
+cky@cky-pc:~/workspace/shell$ find -name '*.info' -print0 | xargs --null -n 1
+./test space.info
+
+
+# 在一条语句里执行命令组的例子
+cat files.txt | (while read arg;do cat $arg;done) # 等价 cat files.txt | xargs -I {} cat {}
+cmd0 | (cmd1;cmd2;cmd3) | cmd4 # 利用子shell
 
 ```
 
