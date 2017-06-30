@@ -184,40 +184,7 @@ c 字符设备文件   s 套接字文件socket   p 命名管道文件pipe
 > 你---->软链接`inode`--->软链接`block`---->原文件`inode`---->原文件`block`
 `ln -s  source.txt  /var/source_link.txt`  创建软连接（相当于快捷方式）
 
-# 文件搜寻
-`updatedb`  更新内置数据库 `/var/lib/mlocate`
-`locate  host`  基于内置文件数据库查找带有host字符的文件 遵循`/etc/updatedb.conf`配置文件规则
-```
-PRUNE_BIND_MOUNTS_ = "yes" # 开启搜索限制
-PRUNEFS = # 搜索时 不搜索的文件系统
-PRUNENAMES = # 搜索时 不搜索的文件类型
-PRUNEPATHS = # 搜索时 不搜索的文件路径
-```
-`find  /etc  -iname "*.log"`  通配符匹配,在`/etc`里面查找log结尾的文件
-```
-统配符是完全匹配 * 匹配任意多个字符 ?匹配单个字符 [abcd]匹配abcd任意一个字符
--iname  # 不区分大小写
--user "cky" # 过滤 只搜索该用户的文件
--nouser # 查找没有所有者的文件
--mtime -10 # 查找10天内修改的文件 +10是10天之前 10 就是10天前当天
--size -25k # 查找小于 25k 的文件 25k 是等于 +25k 是大于 如果是Mb 的话 就是 +25M
--inum 通过inode节点查找文件
--a # 同时满足
-find /etc -size +20k -a -size -50k # 找 20k到50k之间到文件
--o # 或者
-find /etc -size －20k -o -size ＋50k ＃找到小于20k 或者 大于50k的
--exec ls -al {} /;将搜索的结果使用 ls -al 执行
-```
-`which  ls` 搜索系统命令,定位到`ls`命令的绝对路径；提供命令别名信息
-`whereis  ls` 搜索系统命令,定位到`ls`命令的绝对路径；提供帮助文档信息
-`grep "size" file.txt`   在file.txt中找包含size的行 (使用正则表达式匹配)
-`grep -nr "size" ./` 递归搜索当前目录下的所有文件 ,过滤出含有 `size` 的行，并显示它们的行数
-```
--i 忽略大小写
--v 取反
--n 显示行
--r 递归
-```
+
 # 文件和目录命令
 `ls  -aldh  /root`  显示/root下所有文件
 `pwd`   显示当前目录

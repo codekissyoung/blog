@@ -102,6 +102,28 @@ test input
 file disc 5 test
 ```
 
+`-` 作为stdin文本的文件名
+================================================================================
+```bash
+cky@cky-pc:~/workspace/shell$ echo 'text from stdin' | cat hi.txt -
+hi code!
+text from stdin
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

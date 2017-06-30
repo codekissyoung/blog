@@ -182,7 +182,33 @@ BB
 ```
 
 
+xargs 重新格式化参数
+================================================================================
+```bash
+cky@cky-pc:~/workspace/shell$ cat xargs.txt 
+12 22 3 3 56
+32 23 45 6
+32 2 3
+4 5
+90
+cky@cky-pc:~/workspace/shell$ cat xargs.txt  | xargs 
+12 22 3 3 56 32 23 45 6 32 2 3 4 5 90
+cky@cky-pc:~/workspace/shell$ cat xargs.txt  | xargs -n3
+12 22 3
+3 56 32
+23 45 6
+32 2 3
+4 5 90
 
+cky@cky-pc:~/workspace/shell$ echo "splitXsplitXsplitXsplit" | xargs -d X
+split split split split
+
+cky@cky-pc:~/workspace/shell$ echo "splitXsplitXsplitXsplit" | xargs -d X -n2
+split split
+split split
+
+
+```
 
 
 
