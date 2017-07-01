@@ -77,7 +77,7 @@ DirectMap2M:     8087552 kB
 - 标准启动运行级别 3
 - 开心图形化界面的运行级别 5
 - ubuntu 开机启动脚本在 /etc/rcX.d/目录下， X 是运行级别, 标准Linux 在 /etc/inittab 文件中
-```
+```bash
 ➜  ~ ls -alh /etc/rc5.d
 总用量 16K
 drwxr-xr-x   2 root root 4.0K 5月  28 15:38 .
