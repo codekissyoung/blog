@@ -157,8 +157,9 @@ wait 等待指定进程完成，并返回退出状态码
 
 Bash 外部命令
 ================================================================================
+
 ```bash
-bzip2
+bzip2 # 加密
 cat
 chage
 chfn
@@ -212,7 +213,6 @@ which
 zip
 ```
 
-
 pgrep 查出带有某字符串的进程的进程号
 ================================================================================
 ```bash
@@ -220,7 +220,6 @@ cky@cky-pc:~$ pgrep -l ssh
 1895 ssh-agent
 24486 sshd
 ```
-
 
 tr 替换 去重 删除
 ================================================================================
@@ -230,6 +229,8 @@ acd
 cky@cky-pc:~$ echo aaacccddd | tr -s [abc] # 指定字母去重
 acddd
 cky@cky-pc:~$ tr -s ["\n"] # 删除多余的空白行
+cky@cky-pc:~/workspace/shell$ echo 'GNU is       not      UNIX' | tr -s ' ' # 删除多余的空格
+GNU is not UNIX
 
 cky@cky-pc:~$ echo "Hello world i love you " |tr [a-z] [A-Z] # 小写换成大写
 HELLO WORLD I LOVE YOU 
@@ -239,8 +240,23 @@ hello girl i love you
 cky@cky-pc:~$ echo "its 10:00 Now" | tr -c "[a-z][A-Z][: ]" "-" # -c 是反转,将不在参数1里的替换成参数2
 its --:-- Now-
 
+cky@cky-pc:~/workspace/shell$ echo hello 1 char 2 next 4 | tr -d -c '0-9 \n' # 常用于删除不在集合里的字符
+ 1  2  4
+
+
 cky@cky-pc:~$ echo "its 10:00 Now" | tr -d "[0-9][:]" # 删除数字和冒号
 its  Now
+
+cky@cky-pc:~/workspace/shell$ echo 12345 | tr '0-9' '9876543210' # 替换是一一对应的
+87654
+cky@cky-pc:~/workspace/shell$ echo 12345 | tr '0-9' '9876543210' | tr '9876543210' '0-9'
+12345
+
+# ROT13 : 使用同一个命令加密，解密
+cky@cky-pc:~/workspace/shell$ echo "tr came , tr saw ,tr conqurered." | tr 'a-zA-Z' 'n-za-nN-ZA-M'
+ge pnzr , ge fnj ,ge pbadhererq.
+cky@cky-pc:~/workspace/shell$ echo "tr came , tr saw ,tr conqurered." | tr 'a-zA-Z' 'n-za-nN-ZA-M' | tr 'a-zA-Z' 'n-za-nN-ZA-M'
+tr came , tr saw ,tr conqurered.
 ```
 
 
@@ -284,8 +300,118 @@ echo "var2 : $var2";
 
 # -p 以特定格式输出 -t 限定多少秒内输入
 read -t 3 -p "do you love me ? ( Y / N ) : " answer
-
 ```
+
+md5sum 和 sha1sum 单向散列加密
+================================================================================
+```bash
+cky@cky-pc:~/workspace/shell$ md5sum cky.sh 
+c225004cb6554e4ff84a31cc12204545  cky.sh
+cky@cky-pc:~/workspace/shell$ md5sum cky.sh > cky.md5 # 将校验值存入文件
+cky@cky-pc:~/workspace/shell$ cat cky.md5 
+c225004cb6554e4ff84a31cc12204545  cky.sh
+cky@cky-pc:~/workspace/shell$ md5sum -c cky.md5 # 检验文件是否完整
+cky.sh: 成功
+```
+
+md5deep
+================================================================================
+```bash
+cky@cky-pc:~/workspace/shell$ mkdir md5_dir
+cky@cky-pc:~/workspace/shell$ touch md5_dir/aaa.txt
+cky@cky-pc:~/workspace/shell$ touch md5_dir/bbb.txt
+cky@cky-pc:~/workspace/shell$ echo "asdf bb cc" > md5_dir/ccc.txt
+cky@cky-pc:~/workspace/shell$ md5deep -r1 md5_dir > md5_dir.md5
+cky@cky-pc:~/workspace/shell$ sudo apt-get install hashdeep 
+程序“md5deep”尚未安装。 您可以使用以下命令安装：
+sudo apt install hashdeep
+cky@cky-pc:~/workspace/shell$ md5deep -rl md5_dir > md5_dir.md5
+cky@cky-pc:~/workspace/shell$ cat md5_dir.md5 
+d41d8cd98f00b204e9800998ecf8427e  md5_dir/aaa.txt
+d41d8cd98f00b204e9800998ecf8427e  md5_dir/bbb.txt
+ae7a125ed9b9ea27e7d299386c48e816  md5_dir/ccc.txt
+
+cky@cky-pc:~/workspace/shell$ md5sum -c md5_dir.md5 # 计算校验和
+md5_dir/aaa.txt: 成功
+md5_dir/bbb.txt: 成功
+md5_dir/ccc.txt: 成功
+```
+
+crypt 加密
+================================================================================
+
+```bash
+cky@cky-pc:~/workspace/shell$ crypt cky951010 < cky.sh > cky_crypt
+程序“crypt”尚未安装。 您可以使用以下命令安装：
+sudo apt install mcrypt
+cky@cky-pc:~/workspace/shell$ sudo apt-get install mcrypt 
+
+crypt cky951010 < cky.sh > cky_crypt # 使用口令给文件内容加密，加密后的文件是密文
+crypt cky951010 -d <cky_crypt >cky_crypt_coutput.txt # 解密
+```
+
+gpg 生成签名
+================================================================================
+```bash
+gpg -c cky.sh # 生成签名，采用交互式读取口令
+cky@cky-pc:~/workspace/shell$ ls |grep gpg
+cky.sh.gpg
+
+cky@cky-pc:~/workspace/shell$ gpg cky.sh.gpg
+gpg: AES 加密过的数据
+gpg: 以 1 个密码加密
+File 'cky.sh' exists. 是否覆盖？(y/N) y
+```
+
+base64
+================================================================================
+
+```bash
+cky@cky-pc:~/workspace/shell$ base64 cky.sh > cky.sh.base64 # base64 加密
+cky@cky-pc:~/workspace/shell$ cat cky.sh.base64 
+IyEvYmluL2Jhc2gKIyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0jCiMg6L+Z5Liq
+6ISa5pys5YyF5ZCr5oiR5omA5a2m55qEc2hlbGznn6Xor4YKIyAtLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0jCiMg5b2T5YmN6L+b56iLUElECmVjaG8gIuW9k+WJjei/m+eoi1BJRCA6
+ICQkIjsKZWNobyAi54i26L+b56iLUElEIDogJFBQSUQiOwplY2hvICLnlKjmiLdJRCA6ICRVSUQi
+OwplY2hvICQhCmVjaG8gJF8KCmJhcigpewoJZWNobyAnYmFyIGNhbGxlZCc7CgljYWxsZXIgMAp9
+CgpjYWxsX2Z1bmN0aW9uKCl7CgliYXI7Cn0KCmNhbGxfZnVuY3Rpb247CgoK
+
+cky@cky-pc:~$ base64 -d cky.sh.base64 # base64 解密
+#!/bin/bash
+# ------------------------------------------------------------------------------------------#
+# 这个脚本包含我所学的shell知识
+# ------------------------------------------------------------------------------------------#
+# 当前进程PID
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
