@@ -115,7 +115,32 @@ text from stdin
 交互输入自动化
 ================================================================================
 ```bash
+cky@cky-pc:~/workspace/shell$ ./auto_input.sh 
+Enter your name:codekissyoung
+Enter your age 22
+your name is codekissyoung , you are 22 years old
+cky@cky-pc:~/workspace/shell$ echo 'codekissyoung\n22\n' | ./auto_input.sh 
+your name is codekissyoungn22n , you are  years old
 
+
+# 使用 expect
+cky@cky-pc:~/workspace/shell$ sudo apt-get install expect
+
+cky@cky-pc:~/workspace/shell$ cat ./expect.sh 
+#!/usr/bin/expect
+spawn ./auto_input.sh; # 指定要自动化哪一个命令
+expect "Enter your name:"; # 如果匹配这个提示，那就输入codekissyoung
+send "codekissyoung\n"; # 发送给命令的信息
+expect "Enter your age:" # 如果匹配这个提示，那就输入 22
+send "22\n"
+expect eof # 交互结束
+
+
+cky@cky-pc:~/workspace/shell$ ./expect.sh 
+spawn ./auto_input.sh
+Enter your name:codekissyoung
+Enter your age:22
+your name is codekissyoung , you are 22 years old
 ```
 
 
