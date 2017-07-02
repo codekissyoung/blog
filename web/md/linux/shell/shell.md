@@ -76,10 +76,7 @@ printit arg1 arg2
 
 echo $?; # 在调用函数后，马上使用 $? 获取函数 return 的值
 
-
 export -f printit ; # 导出函数为全局函数， 这样在子进程中，也能使用该函数了
-
-
 ```
 - shell命令执行时首先从函数开始，如果自定义了一个与内建命令同名的函数，那么就执行这个函数而非真正的内建命令
 - `:(){:|:&}:` 这个是fork炸弹, : 是函数名，递归在后台调用自身，不断的fork进程，直到拖垮系统
@@ -159,8 +156,8 @@ ps aux | grep  apache2   # 管道| 将左边命令的输出作为右边命令的
 ls  -l  `which touch`     # 命令替换符`` 将 which touch的输出作为 ls -l 的输入
 ```
 
-# `jobs` 程序栈管理
-```
+# jobs 程序栈管理
+```bash
 [Ctrl] ＋ z  将当前执行的命令放入后台栈中(入栈)
 tail -f /etc/bashrc & 直接丢进后台运行(入栈)
 jobs 查看后台栈中运行的程序,最前面的是它的序列号
@@ -272,19 +269,20 @@ make install
 
 # 挂载命令
 `mount` 直接回车 显示当前已经挂载的盘
-```
+
+```bash
 /dev/sda3 on / type ext4 (rw)
 proc on /proc type proc (rw)
 sysfs on /sys type sysfs (rw)
 devpts on /dev/pts type devpts (rw,gid=5,mode=620)
 tmpfs on /dev/shm type tmpfs (rw,rootcontext="system_u:object_r:tmpfs_t:s0")
 /dev/sda1 on /boot type ext4 (rw)
-
 none on /proc/sys/fs/binfmt_misc type binfmt_misc (rw)
 ```
+
 `mount -a` 将`/etc/fstab`自动挂载设备再挂载一遍
 开机自动挂载
-```
+```bash
 [cky@localhost ~]$ cat /etc/fstab
 
 # /etc/fstab
@@ -299,15 +297,11 @@ UUID=c56751cf-0688-4cdc-9304-749c886af943 swap                    swap    defaul
 tmpfs                   /dev/shm                tmpfs   defaults        0 0
 devpts                  /dev/pts                devpts  gid=5,mode=620  0 0
 sysfs                   /sys                    sysfs   defaults        0 0
-
 proc                    /proc                   proc    defaults        0 0
 ```
-
-`mount [-t] [-o] 设备文件名 挂载点`
-```
--t 文件系统 ext3 ext4 iso9660
--o 特殊选项
-```
+- `mount [-t] [-o] 设备文件名 挂载点`
+- -t 文件系统 ext3 ext4 iso9660
+- -o 特殊选项
 
 # 查看当前shell的所有变量
 `set`
@@ -343,251 +337,10 @@ yum makecache
 `yes n | rm -i *.txt`
 在上述示例中，当 rm -i 确认删除文件的时候，敲入n代表not不删除文件。
 
-# 变量
-`echo "I am good at ${skill}Script"` #引用变量要加{}
-
-# 环境变量
-普通用户启动shell加载的配置文件流程
-```
-/etc/profile
-/etc/profile.d/*.sh
-/etc/bashrc
-~/.bash_profile   # ~ 只对当前用户生效的配置文件
-~/.bashrc
-```
-`source .bashrc` 修改了配置文件，用这个命令重新使配置生效
-#PATH
-命令执行路径
-```
-export PATH=$PATH:/usr/locar/new/bin
-```
-给PATH增加一个路径
-
-# 特殊变量
-`$*` 和 `$@` 都表示传递给函数或脚本的所有参数，不被双引号`" "`包含时，都以`"$1" "$2" … "$n" `的形式输出所有参数。
-但是当它们被双引号`" "`包含时，`"$*"`会将所有的参数作为一个整体，以`"$1 $2 … $n"`的形式输出所有参数；`"$@"` 会将各个参数分开，以`"$1" "$2" … "$n" `的形式输出所有参数
-
-# 提示用户输入信息
-`read  [option] var_name`
-[option]
--t  等待用户输入的时间
--p  提示信息
--s  隐藏输入的数据
--n 2 接收到2个字符，shell就继续执行
-
-# 数值运算
-`dd=$(($a+$b))` 推荐使用
 
 
 
-# 通配符
-它是完全匹配，主要用于匹配文件名
-`*`  匹配任意字符
-`?`  匹配一个字符
-`[]` 匹配[]里面的一个字符
-
-# 正则表达式
-它是包含匹配，主要用于文件内容
-包含匹配的意思是：只要匹配到字符，这一整行都要列出来
 
 
-文件测试运算符列表
-操作符	说明	举例
--b file	检测文件是否是块设备文件，如果是，则返回 true。	[ -b $file ] 返回 false。
--c file	检测文件是否是字符设备文件，如果是，则返回 true。	[ -b $file ] 返回 false。
--d file	检测文件是否是目录，如果是，则返回 true。	[ -d $file ] 返回 false。
--f file	检测文件是否是普通文件（既不是目录，也不是设备文件），如果是，则返回 true。	[ -f $file ] 返回 true。
--g file	检测文件是否设置了 SGID 位，如果是，则返回 true。	[ -g $file ] 返回 false。
--k file	检测文件是否设置了粘着位(Sticky Bit)，如果是，则返回 true。	[ -k $file ] 返回 false。
--p file	检测文件是否是具名管道，如果是，则返回 true。	[ -p $file ] 返回 false。
--u file	检测文件是否设置了 SUID 位，如果是，则返回 true。	[ -u $file ] 返回 false。
--r file	检测文件是否可读，如果是，则返回 true。	[ -r $file ] 返回 true。
--w file	检测文件是否可写，如果是，则返回 true。	[ -w $file ] 返回 true。
--x file	检测文件是否可执行，如果是，则返回 true。	[ -x $file ] 返回 true。
--s file	检测文件是否为空（文件大小是否大于0），不为空返回 true。	[ -s $file ] 返回 true。
--e file	检测文件（包括目录）是否存在，如果是，则返回 true。	[ -e $file ] 返回 true。
 
 
-#查询某个文件的所有git提交记录详情
-```
-git log mcs_db_install.sql|grep commit|awk '{print "git show " $2}'|sh >> mcs_db_install-git-show-log
-```
-#统计某个文件夹下所有.php文件中代码行数
-```
-find ./ -name "*.php"|xargs cat|grep -v ^$|wc -l
-```
-#删除windows系统编辑文本产生的不可见字符`^M`
-```
-touch love_tmp.c
-sed 's/^M//' $1 > love_tmp.c
-mv love_tmp.c $1
-```
-`^M` 的输入方法为 `Ctrl + v` 再加上 `Ctrl + m`
-`cat -v love.c` 可用来查看一个文件，特殊字符也会显示出来
-
-# bash 控制台颜色
-打印全部颜色
-```
-#!/bin/bash
-for STYLE in 0 1 2 3 4 5 6 7; do
-  for FG in 30 31 32 33 34 35 36 37; do
-    for BG in 40 41 42 43 44 45 46 47; do
-      CTRL="\033[${STYLE};${FG};${BG}m";
-      echo -en "${CTRL}";
-      echo -n "${STYLE};${FG};${BG}";
-    done
-  done
-done
-echo -e "\e[1;34mThis is a blue text.\e[0m"
-```
-参考 [Bash: Using Colors](http://webhome.csc.uvic.ca/~sae/seng265/fall04/tips/s265s047-tips/bash-using-colors.html)
-
-# 排序
-http://www.cnblogs.com/51linux/archive/2012/05/23/2515299.html
-`sort -n`           将0-9识别为数字进行排序
-`sort -t':' -k 3`   -t指定分割的字段，-k 3 表示根据分割的第三段排序
-`sort -r`          逆序排列
-例子：
-我想让facebook.txt按照员工工资降序排序，如果员工人数相同的，则按照公司人数升序排序：
-`$ sort -n -t' ' -k 3r -k 2 facebook.txt`
-baidu     100     5000
-google    110     5000
-sohu      100     4500
-guge      50      3000
-从公司英文名称的第二个字母开始进行排序
-`$ sort -t ' ' -k 1.2 facebook.txt`
-baidu     100     5000
-sohu      100     4500
-google    110     5000
-guge      50      3000
-只针对公司英文名称的第二个字母进行排序，如果相同的按照员工工资进行降序排序
-`$ sort -t ' ' -k 1.2,1.2 -k 3,3nr facebook.txt`
-baidu  100  5000
-google 110  5000
-sohu   100  4500
-guge   50   3000
-
-# grep搜索文本
-`grep pattern files`  搜索匹配pattern的内容
-`grep -r pattern dir`  递归搜索dir中匹配parttern的内容
-`grep -v  file.txt`  输出没匹配到文本的行
-`grep -n  file.txt`  显示行号
-`grep -E '219|216' data.doc` 匹配带有 219 或者 216的行
-`egrep Posix_regexp file.txt` 使用POSIX拓展正则表达式
-`px aux |grep ngnix` 搜索匹配到ngnix的行
-
-# 去重
-这个命令读取输入文件，并比较相邻的行。在正常情况下，第二个及以后更多个重复行将被删去
-uniq  -c  显示输出中，在每行行首加上本行在文件中出现的次数
-
-# cut 提取列 :基本被awk替代
-cut -f 列数 -d 分割符 file.txt
-例子：grep "/bin/bash" /etc/passwd |grep -v "root" |cut -f 1 -t :
-
-# awk   文本操作的神器
-awk -F: -f awk_script  file.txt  以 : 分割字符段；每段依次以 $n 表示
-
-awk 内置环境变量
-ARGC               命令行参数个数
-ARGV               命令行参数排列
-ENVIRON            支持队列中系统环境变量的使用
-FILENAME           awk浏览的文件名
-FNR                浏览文件的记录数
-FS                 设置输入域分隔符，等价于命令行 -F选项
-NF                 浏览记录的域的个数
-NR                 已读的记录数
-OFS                输出域分隔符
-ORS                输出记录分隔符
-RS                 控制记录分隔符
-$0变量是指整条记录。$1表示当前行的第一个域,$2表示当前行的第二个域,......以此类推
-
-awk 编程
-基本写法
-awk '
-   BEGIN { actions }
-   /pattern/ { actions }
-   /pattern/ { actions }
-   END { actions }
-' files
-
-awk中的条件语句，循环语句都抄的c语言，支持while、do/while、for、break、continue，这些关键字的语义和C语言中的语义完全相同。
-数组：awk中数组的下标可以是数字和字母，数组的下标通常被称为关键字(key)。值和关键字都存储在内部的一张针对key/value应用hash的表格里。由于hash不是顺序存储，因此在显示数组内容时会发现，它们并不是按照你预料的顺序显示出来的。数组和变量一样，都是在使用时自动创建的，awk也同样会自动判断其存储的是数字还是字符串。一般而言，awk中的数组用来从记录中收集信息，可以用于计算总和、统计单词以及跟踪模板被匹配的次数等等。
-
-关系运算符：==( 相等) 、!=( 不等) 、<( 小于) 、<=( 小于等于) 、>( 大于) ，以及>=(大于等于》。
-1为真，0 为假,字符串较短的会定义为小于较长的那个，因此，"A"< "AA" 的值为真
-
-awk工作流程是这样的：先执行BEGING，然后读取文件，读入有/n换行符分割的一条记录，然后将记录按指定的域分隔符划分域，填充域，$0则表示所有域,$1表示第一个域,$n表示第n个域,随后开始执行模式所对应的动作action。接着开始读入第二条记录······直到所有的记录都读完，最后执行END操作。
-
-`awk 'BEGIN {count=0;print "[start]user count is ", count} {count=count+1;print $0;} END{print "[end]user count is ", count}' /etc/passwd`
-
-字符串转数字：变量通过"+"连接运算，自动强制将字符串转为整型，非数字变成0
-awk 'BEGIN{a=1;b=2;c=a+b;print c}'  #输出 3
-数字转字符串：只需要将变量与""符号连接起来
-awk 'BEGIN{a=1;b=2;c=a+b;print c}'  #输出 12
-
-例子
-显示最近登录的五个账号
-last -n 5 | awk  '{print $1}'
-
-如果只是显示/etc/passwd的账户
-`cat /etc/passwd |awk  -F ':'  '{print $1}'`
-
-搜索/etc/passwd有root关键字的所有行：pattern的使用示例，匹配了pattern(这里是root)的行才会执行action(没有指定action，默认输出每行的内容)
-`awk -F: '/root/' /etc/passwd`     # 输出 root:x:0:0:root:/root:/bin/bash
-
-搜索/etc/passwd有root关键字的所有行，并显示对应的shell
-`awk -F: '/root/{print $7}' /etc/passwd`
-/bin/bash
-
-显示/etc/passwd的账户
-`awk -F ':' 'BEGIN {count=0;} {name[count] = $1;count++;}; END{for (i = 0; i < NR; i++) print i, name[i]}' /etc/passwd`
-
-删除用户zdd的所有文件，注意-rf后面有一个空格
-`ls -l | awk '/zdd/{print "rm -rf " $9} | sh `
-
-将文件中的几行输出合并成一行显示
-awk '{if (NR%2==0){print $0} else {printf"%s ",$0}}' aa.txt
-之前：
-192.168.1.17
-down
-192.168.1.103
-open
-192.168.1.221
-之后：
-192.168.1.17  down
-192.168.1.103 open
-192.168.1.221 open
-
-BEGIN可以用来打印表头或者列名等，如下
-BEGIN{
-    -F":"
-    printf "----------------------------------------------------------------\n"
-    printf "%-20s%-16s  Jan  |  Feb  |  Mar  |Total Donated\n ","NAME","PHONE"
-    printf "----------------------------------------------------------------\n"
-}
-
-awk 程序例子
-```bash
-BEGIN{user_id="0";amount=0;register_day="unkown";login_days=0;last_login_day="unkown"}
-{
-    if($1""!=user_id){
-        if(user_id!=0){
-            print user_id,register_day,last_login_day,login_days,amount;
-        }
-        user_id = $1"";
-        register_day = $2;
-        amount = $3;
-        login_days = 1;
-    }else{
-        last_login_day = $2;
-        amount = amount + $3;
-        login_days++;
-    }
-}
-END{print $1,register_day,last_login_day,login_days,amount;}
-```
-
-参考：
-http://www.cnblogs.com/softwaretesting/archive/2012/02/02/2335332.html
-http://blog.csdn.net/wzhwho/article/details/5513791
-http://blog.sina.com.cn/s/blog_7b9ace5301014q8o.html
