@@ -1,16 +1,43 @@
-# 语句顺序select
-`select ... from ... where ... group by ... having ...order by ... limit`
-
+# 语句顺序
+```sql
+select ... from ... where ... group by ... having ...order by ... limit
+```
 # 返回不重复值
-`select distinct a,b,c from tb_name`  记录中，abc三个字段全相同才算重复
+```sql
+select distinct a,b,c from tb_name; # 记录中，abc三个字段全相同才算重复
+```
 
-# 返回几条
-`from tb_name limit 5`     从第一条起 返回 5 条
-
-`from tb_name limit 3,5`  从第 四 条起 返回 5 条
+# 返回条数
+```sql
+... from tb_name limit 5   # 第1条起,返回 5 条
+... from tb_name limit 3,5 # 跳过3条,返回 5 条
+```
 
 # 记录排列顺序
-`from tb_name order by A asc,B desc`  先按A升序排列，A列相同的再按B降序排列
+```sql
+... from tb_name order by A asc,B desc　# 先按A升序排列，A列相同的再按B降序排列
+
+# eg .
+mysql> select last_name ,first_name, death from president order by death desc,last_name;
++------------+---------------+------------+
+| last_name  | first_name    | death      |
++------------+---------------+------------+
+| Ford       | Gerald R.     | 2006-12-26 |
+| Reagan     | Ronald W.     | 2004-06-05 |
+# death 是死亡日期，为null的人说明没死，应该按death排序的时候排在前面的,所以要采用下列语句
+# if() 是函数，如果death is null 正确，则取值0,不正确则取值1,asc升序排列，0 在 1的前面
+mysql> select last_name ,first_name, death from president order by if(death is null,0,1) asc , death desc , last_name asc;
++------------+---------------+------------+
+| last_name  | first_name    | death      |
++------------+---------------+------------+
+| Bush       | George W.     | NULL       |
+| Bush       | George H.W.   | NULL       |
+| Carter     | James E.      | NULL       |
+| Clinton    | William J.    | NULL       |
+| Obama      | Barack H.     | NULL       |
+| Ford       | Gerald R.     | 2006-12-26 |
+| Reagan     | Ronald W.     | 2004-06-05 |
+```
 
 # 过滤数据
 `from tb_name where A = 3` 返回A列值为3的行 ,操作符：`=` 相等，`！=` 不等，｀>=｀ 大于等于

@@ -2,7 +2,7 @@
 * FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> DISTINCT -> UNION -> ORDER BY
 * FROM 才是 SQL 语句执行的第一步，并非 SELECT 。数据库在执行 SQL 语句的第一步是将数据从硬盘加载到数据缓冲区中，以便对这些数据进行操作
 * SELECT 是在大部分语句执行了之后才执行的，严格的说是在 FROM 和 GROUP BY 之后执行的。理解这一点是非常重要的，这就是你不能在 WHERE 中使用在 SELECT 中设定别名的字段作为判断条件的原因。
-```
+```bash
 SELECT A.x + A.y AS z
 FROM A
 WHERE z = 10  //z 在此处不可用，因为SELECT是最后执行的语句！如果你想重用别名z，你有两个选择。要么就重新写一遍 z 所代表的表达式：
