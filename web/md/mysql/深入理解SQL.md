@@ -14,7 +14,6 @@ FROM A
 WHERE (A.x + A.y) = 10; # 重新写一遍 z 所代表的表达式
 ```
 
-
 # SQL 语言的核心是对表的引用（table references）
 ```sql
 FROM a, b # 两个表的笛卡尔积 组成的新表
@@ -25,3 +24,7 @@ FROM a, b # 两个表的笛卡尔积 组成的新表
 - 从集合论（关系代数）的角度来看，一张数据库的表就是一组数据元的关系，而每个 SQL 语句会改变一种或数种关系，从而产生出新的数据元的关系,即产生新的表
 
 
+# ON 条件 vs Where 条件 vs Having 条件
+- ON 条件用在表的连接，比如　`from A left join B on A.xxx = B.xxx`
+- Where 条件 在表的连接完成后执行，用于筛选记录 `form ... where A.xxx = xxx`
+- Having 条件用在where完成筛选，并且再进行`group by`分组之后，用于对分组进行筛选，`group by xxx having count(*) > 2` 用于筛选出记录数多于２个的分组
