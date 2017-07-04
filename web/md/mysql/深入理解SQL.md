@@ -14,6 +14,34 @@ FROM A
 WHERE (A.x + A.y) = 10; # 重新写一遍 z 所代表的表达式
 ```
 
+```sql
+select A.aaa as a,max(B.bbb) as max_b,min(C.ccc) 
+from A left join B as BB on A.aaa = B.xxx left join C on B.xxx = C.xxx 
+where A.aaa = 'xxx' and BB.xxx < 'xxx'
+group by A.aaa
+having count(*) > 2
+order by max_b desc
+limit 10
+```
+- 对上面这条 sql 语句的理解，我们必须按照 sql 的执行顺序来，并且要知道一个道理，先执行的语句 无法引用 后执行的语句中的内容
+- 首先，是`from`最先执行，它决定了对哪些表进行引用，将其加载到内存中处理，所以，我们知道，引用了 3 张表 ，A 表是完整的记录，B 表和C表的字段对A表进行补充
+- 表引用完后，我们得到的是一整张 大表 ,字段为三表字段之和,字段为` A.aaa A.xxx ... B.bbb B.xxx ...C.ccc C.xxx...` 这样子，记录的话，由于是A表的左连接,所以A表的记录全在，A表记录中 没匹配到B表C表记录 的字段，全部设置为 Null
+- 拿到大表后，我们接着使用 `where`条件对大表里面记录进行筛选,由于`select`语句还未执行，所以不能使用`select`语句里面的字段别名，比如`A.aaa`就不能替换为`a`; 而`from`语句中使用的表别名 是可以引用的，因为它已经执行了，比如 `B.xxx` 可以替换为 `BB.xxx`
+-　`where`筛选完后,接着 如果有按照某字段分组需求，或者聚合需求，就使用`group by`语句和`聚合函数`进行处理了
+- 分组完后，如果对组还有筛选的话，就使用`having`来处理了，`having`条件是对每个分组进行筛选，在条件内的`聚合函数`的作用范围只在该分组内，比如`count(*)`就是只统计该分组内的记录个数，所以`having count(*) > 2`就是筛选出记录数大于2个的分组，再比如`having min(收入) > 1000` 就是筛选出最低收入于1000的组
+- 分完组之后，就是`select`挑选数据了，用`select`挑选想要的字段，但是如果进行了`group by`的话，一定要　对除分组字段以外　的字段进行聚合，比如`max(B.bbb)` 和 `min(C.ccc)`
+- `select`完数据后，记录是无序的，这时可以对记录进行排序了，`order by max_b desc`,这里就可以使用`select`语句里的别名了，因为`select`已经执行过了
+- 最后`limit`选下要输出几条记录
+
+
+
+
+
+
+
+
+
+
 # SQL 语言的核心是对表的引用（table references）
 ```sql
 FROM a, b # 两个表的笛卡尔积 组成的新表

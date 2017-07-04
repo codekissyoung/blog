@@ -7,7 +7,7 @@
 如：http ://www.joes-hardware.com/specials/saw-blade.gif
 
 4 http 方法
-```
+```bash
 GET     得到web资源
 PUT     将来自客户端的数据存储到一个web资源里去
 DELETE  删除web资源
@@ -16,7 +16,7 @@ HEAD    只需要得到web资源的http首部就可以了，用于在不获取�
 ```
 
 5，http 状态码
-```
+```bash
 100            Continue             收到了客户端的初始部分，请客户端继续
 200            OK                   获取成功
 201            Created              创建服务器对象的请求(如PUT) ，创建成功
@@ -62,7 +62,7 @@ HEAD    只需要得到web资源的http首部就可以了，用于在不获取�
 应用层                 HTTP
 传输层                 TCP
 网络层                 IP
-数据链路层            MAC地址
+数据链路层              MAC地址
 物理层                 网线
 ```
 
@@ -78,13 +78,15 @@ HEAD    只需要得到web资源的http首部就可以了，用于在不获取�
 
 10 ， HTTP 协议是基于文本的，人很容易通过 http 协议，与web 服务器对话
 使用 telnet 模拟如下
-```
+```bash
 cky@cky-pc:~$ telnet kanjiebao.com 80
 Trying 101.200.172.72...
 Connected to kanjiebao.com.
 Escape character is '^]'.
 GET /index HTTP/1.1
 Host:kanjiebao.com
+[空行回车 发送请求]
+
 HTTP/1.1 200 OK
 Date: Fri, 06 Nov 2015 14:29:56 GMT
 Server: Apache/2.4.7 (Ubuntu)
@@ -101,7 +103,7 @@ Content-Type: text/html; charset=UTF-8
 <link rel="stylesheet" href="application/views/inc/css/bootstrap.min.css"/>
 
 > telnet  kanjiebao.com  80      /* 通过telnet 建立一条tcp/ip 链接 */
->GET /index HTTP/1.1
+> GET /index HTTP/1.1
   Host:kanjiebao.com                /*  手写 http 请求报文 ，回车就拿到了响应的报文 ^ V ^ */
   [空行]
   ```

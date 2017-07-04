@@ -22,7 +22,7 @@ mysql > set names utf8; # 设置所有编码为utf8
 mysql > source /var/www/mysql.sql; # 选则一个数据库后，执行一个sql文件
 mysql -hlocalhost -uroot -pCky951010 mydb2 < \var\www\mydb2.sql  # 导入数据到mydb2库
 
-mysqldump -hlocalhost -uroot -pmydb_dbname > \var\www\mydb.sql  # 导出数据库mydb_dbname到文件
+mysqldump -hlocalhost -uroot -p mydb_dbname > \var\www\mydb.sql  # 导出数据库mydb_dbname到文件
 
 # 查看状态
 mysql > select user(),now(),version();
