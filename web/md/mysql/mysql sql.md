@@ -92,9 +92,7 @@ where name REGEXP '^.+$';      + 等价于 {1,}
 select 'abc' regexp '[0-9]';   在MariaDB中测试正则表达式:匹配返回 1，不匹配返回 0
 ```
 
-
-数据汇总
-================================================================================
+# group  by  / 聚合函数 / having 的使用
 ```sql
 # 聚合函数
 avg()   对一列数据求平均数
@@ -102,6 +100,84 @@ min()   对一列数据求最小值
 count() 对一列数据计数
 sum()   对一列数据求和
 max()   对一列数据求最大值
+```
+
+```sql
+-- 数据库示例
+create table if not exists salary (id int(10),name varchar(255),dept varchar(255),salary int(10),edlevel int(10),hiredate varchar(255));
+insert into salary values (1,"zhangshang","develop",2000,3,'2009-10-11');
+insert into salary values (2,"lishi","develop",2500,3,'2009-10-01');
+insert into salary values (3,"wangwu","design",2600,5,'2010-10-02');
+insert into salary values (4,"maliu","design",2300,4,'2010-10-03');
+insert into salary values (5,"maqi","design",2100,4,'2010-10-06');
+insert into salary values (6,"zhaoba","sales",3000,5,'2010-10-05');
+insert into salary values (7,"qianjiu","sales",3100,7,'2010-10-07');
+insert into salary values (8,"shunshi","sales",3500,7,'2010-10-06');
+```
+
+```sql
+-- 想得到薪水最高的那个人的信息，通过下面尝试发现并没啥卵用！
+select dept,max(salary) as max_salary from salary;
+select name,max(salary) as max_salary from salary;
+-- ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'sampdb.salary.dept'; this is incompatible with sql_mode=only_full_group_by
+
+-- 想得到每个部门的最高薪水？
+mysql> select dept,max(salary) as max_salary from salary group by dept;
++---------+------------+
+| dept    | max_salary |
++---------+------------+
+| design  |       2600 |
+| develop |       2500 |
+| sales   |       3500 |
++---------+------------+
+3 rows in set (0.00 sec)
+
+-- 想知道 每个部门薪水最高的那个人是谁 ,加个 name ,然并卵
+select dept,max(salary),name as max_salary from salary group by dept;
+-- ERROR 1055 (42000): Expression #3 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'sampdb.salary.name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+
+-- 想得到每个部门，每个职称等级的最高薪水
+mysql> select dept,edlevel,max(salary) as max_salary from salary group by dept,edlevel;
++---------+---------+------------+
+| dept    | edlevel | max_salary |
++---------+---------+------------+
+| design  |       4 |       2300 |
+| design  |       5 |       2600 |
+| develop |       3 |       2500 |
+| sales   |       5 |       3000 |
+| sales   |       7 |       3500 |
++---------+---------+------------+
+
+-- 只关注 职称等级 大于３的每个部门的最高薪水，where 的执行顺序是在group  by 之前的，所以分组前，就将 level 3 以下的过滤掉了
+-- where 条件必须写在 group by 前面，否则语法错误
+mysql> select dept,edlevel,max(salary) as max_salary from salary where edlevel > 3 group by dept,edlevel;
++--------+---------+------------+
+| dept   | edlevel | max_salary |
++--------+---------+------------+
+| design |       4 |       2300 |
+| design |       5 |       2600 |
+| sales  |       5 |       3000 |
+| sales  |       7 |       3500 |
++--------+---------+------------+
+4 rows in set (0.00 sec)
+
+-- 寻找雇员数超过2个的部门的最高和最低薪水？　having 是　group by 分组后，对每个组内执行的筛选, count(*) > 2 表示筛选出记录个数多于２个的组
+mysql> select dept,max(salary),min(salary) from salary group by dept having count(*) > 2;
++--------+-------------+-------------+
+| dept   | max(salary) | min(salary) |
++--------+-------------+-------------+
+| design |        2600 |        2100 |
+| sales  |        3500 |        3000 |
++--------+-------------+-------------+
+2 rows in set (0.00 sec)
+-- 寻找雇员平均工资大于3000的部门的最高和最低薪水，还是 having 和聚合函数的使用
+mysql> select dept,max(salary),min(salary) from salary group by dept having avg(salary) > 3000;
++-------+-------------+-------------+
+| dept  | max(salary) | min(salary) |
++-------+-------------+-------------+
+| sales |        3500 |        3000 |
++-------+-------------+-------------+
+1 row in set (0.00 sec)
 ```
 
 数据分组
