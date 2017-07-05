@@ -1,3 +1,19 @@
+# is系列
+```php
+<?php
+// 类型符合就返回true
+is_bool();
+is_integer();
+is_double();
+is_string();
+is_object();
+is_array();
+is_resource();
+is_null();
+```
+
+
+
 # 写http头
  返回json数据
 ```php

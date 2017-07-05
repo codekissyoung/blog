@@ -34,7 +34,10 @@ function file_tree_print($tree,$title_i = false,$path = false){
 				continue;
 			}
 			$leaf = substr($leaf,0,-3);
-			$html .= $title_i ? "<li><a href='/?a=$path/$leaf'><span class='head-tag'></span>$leaf</a></li>":"<li><a href='/?a=$leaf'>$leaf</a></li>";
+			$html .= $title_i ? 
+			"<li><a href='/?a=$path/$leaf'><span class='head-tag'></span>$leaf</a></li>"
+			:
+			"<li><a href='/?a=$leaf'>$leaf</a></li>";
 		}
 		$i++;
 	}
