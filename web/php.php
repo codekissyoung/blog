@@ -1,5 +1,4 @@
 <?php
-namespace A;
 class Father{
     public function show(){
         echo static::data();
@@ -17,8 +16,34 @@ class Girl extends Father{
     }
 }
 
-$s = new Son();
-$s -> show(); // Son data pri , 因为执行者是 Son ,所以 static 指向的是Son
+$prod_class = new ReflectionClass('Son');
+// Reflection::export($prod_class);
+
+$methods = $prod_class -> getMethods();
+
+foreach ($methods as $method) {
+    print methodData($method);
+    print "\n--------\n";
+}
+
+function methodData(ReflectionMethod $method){
+    $details = "";
+    $name = $method -> getName();
+    if($method -> isUserDefined()){
+        $details .= "$name is user defined\n";
+    }
+    if($method -> isPublic()){
+        $details .= "$name is public！\n";
+    }
+    return $details;
+}
 
 
-echo Son::class;
+
+
+
+
+
+
+
+

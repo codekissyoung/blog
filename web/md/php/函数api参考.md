@@ -10,8 +10,49 @@ is_object();
 is_array();
 is_resource();
 is_null();
-is_callable(); // 确保传入的字符串是函数，能够被call_user_func()和array_walk()等函数调用
+is_callable([$obj,$method]); // 确保传入的字符串是函数，能够被call_user_func()和array_walk()等函数调用
 ```
+
+# exists 系列
+```php
+<?php 
+// 存在就返回 true
+file_exists($file_name);
+
+class_exists($classname);
+
+method_exists($obj , $method); // 方法是否存在
+```
+
+# 类相关
+```php
+<?php
+get_declared_classes(); // 获取脚本运行到当前行时，所有已经定义的类的数组
+
+get_class($obj); // 获取对象的 类名
+
+$obj instanceof interface_name ; // 判断 $obj 是否实现了某个接口
+
+get_class_methods($class_name); // 获取一个类中所有的方法名 
+
+get_class_vars($class_name); // 获取一个类中的所有属性名
+
+get_parent_class($sub_obj); // 获取一个类的父类
+
+is_subclass_of($sub_obj,'Parent_class'); // 检查是否是一个类的子类
+
+class_implements($obj); // 获取该对象实现的所有接口
+
+call_user_func('myFunction');
+call_user_func([$myObj,'method_name'],20); // 调用用户函数 / 方法
+// 等价于
+$myObj -> method_name(20);
+
+call_user_func_array([$obj,'method'],$args); // 等价于 $obj -> method($args); $args 为不定个数的数组
+
+
+```
+
 
 # 写http头
  返回json数据
