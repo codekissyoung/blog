@@ -44,7 +44,7 @@ class ModuleRunner {
 
 	function init(){
 		$interface = new ReflectionClass('Module');
-
+		var_dump($interface);
 		foreach ( $this -> configData as $modulename => $params ){
 			$module_class = new ReflectionClass( $modulename );
 			
