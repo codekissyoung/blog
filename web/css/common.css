@@ -113,4 +113,12 @@ img {
   width: 50%;
 }
 
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
 /*# sourceMappingURL=common.css.map */
