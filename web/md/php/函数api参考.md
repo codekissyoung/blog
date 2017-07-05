@@ -10,9 +10,8 @@ is_object();
 is_array();
 is_resource();
 is_null();
+is_callable(); // 确保传入的字符串是函数，能够被call_user_func()和array_walk()等函数调用
 ```
-
-
 
 # 写http头
  返回json数据
@@ -158,7 +157,6 @@ echo $output['arr'][1]; // baz
 # 编码转换
 ```php
 <?php
-
 $str="编码转换";
 iconv('UTF-8','GBK',$str); // 将$str内的函数转换为utf-8编码
 
