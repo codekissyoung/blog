@@ -320,6 +320,7 @@ http://www.blogdaren.com/post-2030.html
 <?php
 set_exception_handler(array('core', 'handleException'));
 ```
+
 # 设置错误处理函数
 ```php
 <?php

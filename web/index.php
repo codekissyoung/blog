@@ -51,15 +51,9 @@ if(isset($a)){
 		<link href="/highlight.js/src/styles/github.css" rel="stylesheet">
 		<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
-		<script src="/js/common.js"></script>
+
 		<style>
 		 <?php // echo $response -> FontFace;?>
-         .hide{
-             display: none;
-         }
-         .show{
-             display: block;
-         }
 		</style>
 	</head>
 	<body>
@@ -74,6 +68,7 @@ if(isset($a)){
 			<?=$html;?>
 		</div>
 	</div>
+	<script src="/js/common.js"></script>
 	<script>
 		// 代码高亮
 		hljs.initHighlightingOnLoad();
@@ -98,15 +93,14 @@ if(isset($a)){
 			return false; // 阻止冒泡 阻止事件
 		});
 
-        // 目录折叠
-        $("#main_category>ul h2").on('click',function () {
-            if($(this).next().hasClass('hide')){
-                $(this).next().removeClass('hide').hasClass('show');
-            }else{
-                $(this).next().removeClass('show').addClass('hide');
-            }
-        });
-
+		// 目录折叠
+		$("#main_category>ul h2").on('click',function () {
+			if($(this).next().hasClass('hide')){
+				$(this).next().removeClass('hide').hasClass('show');
+			}else{
+				$(this).next().removeClass('show').addClass('hide');
+			}
+		});
 	</script>
 	</body>
 </html>

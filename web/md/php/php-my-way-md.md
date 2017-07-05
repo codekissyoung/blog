@@ -128,8 +128,3 @@ echo $func() , PHP_EOL;
 // echo ($obj->bar)();
 ```
 
-#### 继承
-```
-
-
-```
