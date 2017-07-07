@@ -1,3 +1,14 @@
+# Memcache 是什么
+- 缓存,构建大负载的网站，来分担数据库的压力
+- 它可以应对任意多个连接，使用非阻塞的网络IO
+- 它的工作机制是在内存中开辟一块空间，然后建立一个HashTable，Memcached自管理这些HashTable
+- Memcache是这个项目的名称，而memcached是它服务器端的主程序文件名
+
+# Memcache的安装
+- 分为两个过程：memcache服务器端的安装和memcached客户端的安装
+- 服务器端的安装就是在服务器,一般都是linux系统,上安装Memcache实现数据的存储
+- 客户端的安装就是指php(或者其他程序，Memcache还有其他不错的api接口提供)的memcache接口拓展安装，这些拓展提供了使用服务器端的Memcache提供的函数
+
 # memcache 官网下载最新版本的源代码
 ```bash
 wget http://www.memcached.org/files/memcached-1.4.30.tar.gz
