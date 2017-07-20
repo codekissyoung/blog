@@ -1,47 +1,24 @@
 # [酷壳网](http://coolshell.cn)
 
-# LFS
+# [简明现代魔法](http://www.nowamagic.net)
+
+# [LFS](http://www.linuxfromscratch.org/news.html　)
 Linux From Scratch，简称 LFS，不同于其它的 Linux 发行版，它是一种给使用者指导建议，由使用者自行从头开始自己构建的发行版。LFS 发行版及其衍生版本，都由其同名的手册提供了完整的指导建议。
 目标是安装一个与现有发行版毫无关系的系统，安装LFS仍然不能无中生有，而必须要有一个可以编译软件包的运行中的Linux系统。这个系统一般称为宿主系统。
-官方网站：　http://www.linuxfromscratch.org/news.html　
-目标：根据最新指导，编译一个可用的linux系统
 
-# 鸟哥的linux私房菜
-http://linux.vbird.org/linux_basic/
+# [鸟哥的linux私房菜](http://linux.vbird.org/linux_basic/)
 
 # 几篇使用CentOS的文章
-https://seisman.info/categories/Linux/
-http://xfphp.cn/2015/10/23/centos-nginx/
-
-# linux 社区
-https://linux.cn
-https://www.netcraft.com/
-
-linux 严格区分大小写
-linux 所有内容(包括硬件设备)都以文件形式保存和管理
-linux 没有拓展名概念 只有一些约定俗成的后缀名 主要方便管理员区分
-
-
-# 单用户模型
-操作系统不用确认用户身份，直接可以进行任何操作的一种模式
+https://seisman.info/categories/Linux
+http://xfphp.cn/2015/10/23/centos-nginx
 
 # 关于百度DNS的解析过程
 http://zhan.renren.com/starshen?gid=3602888498023142484&checked=true
 
-# Clang
-得益于Apple的Clang。
-注：Clang 是一个 C++ 编写、基于 LLVM、发布于 LLVM BSD 许可证下的 C/C++/Objective C/Objective C++ 编译器，
-其目标（之一）就是超越 GCC。由于使用了Clang所以这个插件在离线安装模式下（因为开发机没有网络，或者Proxy不太好用）
-就复杂一点，需要先安装最新版本的GCC才能编译Clang。
-
-# 使用 systemd 中的定时器执行定时任务
-[https://linux.cn/article-3996-1.html](https://linux.cn/article-3996-1.html)
-
-# 如何在 systemd 下管理Linux系统的时间和日期
-[https://linux.cn/article-4260-1.html](https://linux.cn/article-4260-1.html)
-
-# 如何为CentOS 7配置静态IP地址
-[https://linux.cn/article-3977-1.html](https://linux.cn/article-3977-1.html)
+# [linux.cn社区](https://linux.cn)
+[使用 systemd 中的定时器执行定时任务](https://linux.cn/article-3996-1.html)
+[如何在 systemd 下管理Linux系统的时间和日期](https://linux.cn/article-4260-1.html)
+[如何为CentOS 7配置静态IP地址](https://linux.cn/article-3977-1.html)
 
 # 资源
 [centos官方论坛]([https://www.centos.org/forums/index.php](https://www.centos.org/forums/index.php))
