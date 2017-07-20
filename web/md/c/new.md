@@ -4,11 +4,11 @@
 int str[] = {2,3,4,5,6};
 // 定义一
 int array_func(int arr[],int size){
-	
+
 }
 // 定义二
 int array_func2(int *arr,int size){
-	
+
 }
 array_func(str,sizeof(str));
 array_func2(str,sizeof(str));
@@ -44,35 +44,3 @@ printf(" a address : %p \n",&a);
 
 double *dou; // 声明一个double类型指针
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

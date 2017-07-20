@@ -1,6 +1,3 @@
-# 概念
-- 取别名
-
 # 给普通类型取别名
 ```c
 typedef int INTEGER;
@@ -27,17 +24,17 @@ STU body1,body2; //  struct stu body1, body2
 
 # 给指针取别名
 ```c
-typedef int (*PTR_TO_ARR)[4];
+typedef int (* PTR_TO_ARR)[4];
 PTR_TO_ARR p1, p2; // 两个指向二维数组的指针
 ```
 
 # 给函数指针取别名
 ```c
-typedef int (*PTR_TO_FUNC)(int, int);
+typedef int (* PTR_TO_FUNC)(int, int);
 PTR_TO_FUNC pfunc; // 指向 int (int ,int)类型 函数的指针
 ```
 
-# 与`#define`的区别
+# 与`#define` 的区别
 - define可以使用其他类型说明符对宏类型名进行扩展，但对 typedef 所定义的类型名却不能这样做。
     ```c
     #define INTERGE int
