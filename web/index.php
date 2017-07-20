@@ -8,7 +8,7 @@ extract($_GET);
 $category = file_tree_print(file_tree(MD_ROOT));
 
 // 读取 md 文档
-$default_article = MD_ROOT.'/codekissyoung.md';
+$default_article = MD_ROOT.'/link.md';
 if(isset($a)){
 	$default_article = MD_ROOT.'/'.$_GET['a'].'.md';
 }
