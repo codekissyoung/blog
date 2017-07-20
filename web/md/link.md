@@ -19,65 +19,34 @@ Linux From Scratch，简称 LFS，不同于其它的 Linux 发行版，它是一
 
 # [php the right way](http://laravel-china.github.io/php-the-right-way)
 
-# github 上的一些资源！
-http://www.php100.com/html/dujia/2015/0105/8267.html
+# [php100网](http://www.php100.com)
+[github资源汇总](http://www.php100.com/html/dujia/2015/0105/8267.html)
+[php如何实现验证码](http://www.php100.com/html/dujia/2015/0919/8975.html)
 
-# 一个优秀网站的登录验证流程
-http://blog.csdn.net/clevercode/article/details/45481409
+# [CSDN网](http://www.csdn.net/)
+[一个优秀网站的登录验证流程](http://blog.csdn.net/clevercode/article/details/45481409)
 
-# php header 函数
-http://www.laruence.com/2007/12/16/308.html
+# [风雪至隅](http://www.laruence.com/)
+[php-header函数](http://www.laruence.com/2007/12/16/308.html)
 
-# 46 个非常有用的 PHP 代码片段
-http://www.techug.com/useful-code
+# [韩天峰博客](http://rango.swoole.com)
 
-# php如何实现验证码
-http://www.php100.com/html/dujia/2015/0919/8975.html
 
-# PSR-1 基本代码书写规范 (Basic Coding Standard)
-http://segmentfault.com/a/1190000002521577
-https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
+# [Yii官方文档](http://www.yiiframework.com)
+[getYii社区](http://www.getyii.com)
+[深入理解Yii2.0](http://www.digpage.com)
 
-# PSR-2 Coding Style Guide
-https://segmentfault.com/a/1190000004649320
-https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
+# [composer](https://getcomposer.org)
+[composer中文网](http://www.phpcomposer.com)
 
-# PSR-3 Logger Interface
-http://www.php-fig.org/psr/psr-3/
+# [PHPhub社区](https://phphub.org)
+[46个非常有用的PHP代码片段](http://www.techug.com/useful-code)
 
-# PSR-4 规范(PSR-0废弃,使用PSR-4代替)
-http://segmentfault.com/a/1190000002521658
-http://segmentfault.com/a/1190000000380008 PSR-4 实现
 
-# 深入理解Yii2.0
-http://www.digpage.com
+# [php内核学习](http://www.php-internals.com)
 
-# Yii官方文档
-http://www.yiiframework.com
-
-# composer官网
-https://getcomposer.org/
-
-# composer中文网　(换composer源)
-http://www.phpcomposer.com/
-
-# PHPhub社区
-https://phphub.org
-
-# getYii社区
-http://www.getyii.com
-
-# 韩天峰博客
-http://rango.swoole.com
-
-# php 内核学习
-http://www.php-internals.com
-
-# php实现视频上传
-http://www.jb51.net/article/54433.htm
-
-# 产品工具
-百度脑图 http://naotu.baidu.com/home
+# [脚本之家](http://jb51.net)
+[php实现视频上传](http://www.jb51.net/article/54433.htm)
 
 # 技术栈-前端
 ## 网页工具
