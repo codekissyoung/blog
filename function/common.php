@@ -30,7 +30,7 @@ function file_tree_print($tree,$title_i = false,$path = false){
 				continue;  // 跳过不是md结尾的文件
 			}
 			// 跳过我自己的简历
-			if($leaf == "codekissyoung.md"){
+			if($leaf == "link.md"){
 				continue;
 			}
 			$leaf = substr($leaf,0,-3);
