@@ -1,6 +1,7 @@
 # [酷壳网](http://coolshell.cn)
 
 # [简明现代魔法](http://www.nowamagic.net)
+[php内核探索](http://www.nowamagic.net/librarys/veda/detail/1285)
 
 # [LFS](http://www.linuxfromscratch.org/news.html　)
 Linux From Scratch，简称 LFS，不同于其它的 Linux 发行版，它是一种给使用者指导建议，由使用者自行从头开始自己构建的发行版。LFS 发行版及其衍生版本，都由其同名的手册提供了完整的指导建议。
@@ -8,35 +9,15 @@ Linux From Scratch，简称 LFS，不同于其它的 Linux 发行版，它是一
 
 # [鸟哥的linux私房菜](http://linux.vbird.org/linux_basic/)
 
-# 几篇使用CentOS的文章
-https://seisman.info/categories/Linux
-http://xfphp.cn/2015/10/23/centos-nginx
-
-# 关于百度DNS的解析过程
-http://zhan.renren.com/starshen?gid=3602888498023142484&checked=true
-
 # [linux.cn社区](https://linux.cn)
 [使用 systemd 中的定时器执行定时任务](https://linux.cn/article-3996-1.html)
 [如何在 systemd 下管理Linux系统的时间和日期](https://linux.cn/article-4260-1.html)
 [如何为CentOS 7配置静态IP地址](https://linux.cn/article-3977-1.html)
+[关于百度DNS的解析过程](http://zhan.renren.com/starshen?gid=3602888498023142484&checked=true)
 
-# 资源
-[centos官方论坛]([https://www.centos.org/forums/index.php](https://www.centos.org/forums/index.php))
-如何解决系统存在同一个库的多个版本的问题？
-How to resolve multilib problem?
-https://www.centos.org/forums/viewtopic.php?f=47&t=52898
-`package-cleanup --dupes` 命令可以显示存在多个版本的包
-`package-cleanup --cleandupes` 可以去除低版本的包
+# [centos官方论坛]([https://www.centos.org/forums/index.php](https://www.centos.org/forums/index.php)
 
-
-# php7
-http://www.php7.site/
-
-# php the right way (php之道)
-http://laravel-china.github.io/php-the-right-way/
-
-# php内核探索
-http://www.nowamagic.net/librarys/veda/detail/1285
+# [php the right way](http://laravel-china.github.io/php-the-right-way)
 
 # github 上的一些资源！
 http://www.php100.com/html/dujia/2015/0105/8267.html
