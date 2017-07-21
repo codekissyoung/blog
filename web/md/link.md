@@ -75,7 +75,6 @@ Linux From Scratch 是一种给使用者指导建议，由使用者自行从头�
 [unknown](http://yansu.org/index.html)
 [拉风的博客](http://rapheal.sinaapp.com)  
 
-
 # opengl 相关的
 http://www.opengl-tutorial.org/
 http://ogldev.atspace.co.uk/index.html　
