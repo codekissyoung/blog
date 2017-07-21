@@ -1,3 +1,5 @@
+# [亚马逊云](https://amazonaws-china.com/cn)
+
 # [酷壳网](http://coolshell.cn)
 
 # [简明现代魔法](http://www.nowamagic.net)
