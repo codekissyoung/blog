@@ -5,12 +5,15 @@
         <title><?=isset($article) ? $article.' ' :'';?>Codekissyoung Blog</title>
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 		<link href="//cdn.bootcss.com/normalize/5.0.0/normalize.min.css" rel="stylesheet">
-		<link href="/css/common.css?time=<?=time();?>" rel="stylesheet"/>
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 		<link href="/highlight.js/src/styles/github.css" rel="stylesheet">
+		<link href="/css/common.css?time=<?=time();?>" rel="stylesheet"/>
 		<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<style>
-		 <?php // echo $response -> FontFace;?>
+			<?php // echo $response -> FontFace;?>
 		</style>
 	</head>
 	<body>
