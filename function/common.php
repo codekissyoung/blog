@@ -18,13 +18,16 @@ function file_tree($path){
 function file_tree_print($tree,$title_i = false,$path = false){
 	$i = 1; // 计数
 	$html = "<ul>"; // 要生成的html代码
+	if($title_i){
+		$html = "<ul class=hide>"; // 隐藏目录结构
+	}
 	foreach($tree as $key => $leaf){
 		if($key === 'img'){ // 过滤用于存放图片的img 文件夹
 			continue;
 		}
 		if(!is_string($leaf)){
-			$html .= $title_i ? "<li><h2>$key</h2>".file_tree_print($leaf,$title_i.'.'.$i,$path."/".$key)."</li>":
-			"<li><h2>$key</h2>".file_tree_print($leaf,$i,$key)."</li>";
+			$html .= $title_i ? "<li><h2>$key<span class=caret></span> </h2>".file_tree_print($leaf,$title_i.'.'.$i,$path."/".$key)."</li>":
+			"<li><h2>$key<span class=caret></span> </h2>".file_tree_print($leaf,$i,$key)."</li>";
 		}else{
 			if(!preg_match("/md$/",$leaf)) {
 				continue;  // 跳过不是md结尾的文件

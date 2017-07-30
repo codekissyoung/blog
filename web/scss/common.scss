@@ -48,14 +48,14 @@ img{
 		margin-top:16px;
 		text-align:left;
 		margin-bottom:0px;
-		font-size:1.1em;
+		font-size:20px;
 	}
 } /*}}}*/
 
 #article{
-    position: absolute;
-    top: 0px;
-    padding:20px;
+	position: absolute;
+	top: 0px;
+	padding:20px;
 	box-sizing:border-box;
 	padding-left:320px;
 	width:100%;
@@ -63,7 +63,6 @@ img{
 		font-size:22px;
 		color:black;
 		font-weight:200px;
-		border-bottom:1px solid grey;
 		padding-bottom:10px;
 		font-weight:normal;
 		a{
@@ -92,21 +91,18 @@ img{
 		font-size:13px;
 		letter-spacing:1px;
 		code{
-			background-color:#C7FFEC;
 			margin:0px 2px;
 			padding:0px 2px;
 			border-radius:3px;
 		}
 	}
 	pre{
+		background-color:#f8f8f8;
 		code{
 			font-family: Monaco,ubuntu,Consolas,"Microsoft Yahei","Courier New",monospace;
-			background-color:#f8f8f8;
 			padding:8px;
-			border-radius:3px;
 			letter-spacing: 1px;
 			word-spacing:2px;
-			font-size:12px;
 			.hljs-deletion{
 				background:none;
 			}
@@ -116,7 +112,6 @@ img{
 		width:50%;
 	}
 }
-
 
 .hide{
 	display: none;
