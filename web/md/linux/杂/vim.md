@@ -120,20 +120,22 @@ zD    将光标置于折叠标记处,嵌套删除在光标下的折叠
 `strings A>B`
 
 
-
-
-
-
 # `.vimrc` 参考
 - `.vimrc`相当于打开vim的时候，执行了一系列vim命令如，`:set nu`设置行号  
-```
-set nu   "设置行号"
-set fdm=marker "设置代码折叠"
-set autoindent "设置自动缩进"
-set tabstop=4  "设置tab为4个空格"
+
+```vim
+set nu   "设置行号
+set fdm=marker "设置代码折叠
+set autoindent "设置自动缩进
+set tabstop=4  "设置tab为4个空格
 set list "vim显示空格和tab"
-set listchars=tab:>-,trail:- "vim显示空格和tab"
+set listchars=tab:>-,trail:- "vim显示空格和tab
 if has("syntax")
-  syntax on "语法高亮"
+  syntax on "语法高亮
 endif
 ```
+
+
+# vim 插件管理
+- [Vundle](https://github.com/VundleVim/Vundle.vim) 插件管理工具
+- [nerdtree](https://github.com/scrooloose/nerdtree) 目录树工具
