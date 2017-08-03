@@ -22,7 +22,7 @@ abstract class CommsManager {/*{{{*/
 	abstract function getFooterText();
 }/*}}}*/
 
-class BloggsCommsManager extends CommsManager {
+class BloggsCommsManager extends CommsManager {/*{{{*/
 	function getHeaderText(){
 		return "BloggsCal Header";
 	}
@@ -32,7 +32,7 @@ class BloggsCommsManager extends CommsManager {
 	function getFooterText(){
 		return "BloggsCal Footer";
 	}
-}
+}/*}}}*/
 
 $blog = BloggsCommsManager::getApptEncoder();
 print $blog -> encode();
