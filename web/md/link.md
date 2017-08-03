@@ -1,6 +1,5 @@
 # [极客搜索](http://s.geekbang.org/)
 
-# [云风的博客](http://blog.codingnow.com/)
 # [内存溢出](http://outofmemory.cn/)
 
 # [亚马逊云](https://amazonaws-china.com/cn)
@@ -33,7 +32,7 @@ Linux From Scratch 是一种给使用者指导建议，由使用者自行从头�
 # [CSDN网](http://www.csdn.net/)
 [一个优秀网站的登录验证流程](http://blog.csdn.net/clevercode/article/details/45481409)
 
-# [风雪至隅](http://www.laruence.com/)
+# [风雪之隅](http://www.laruence.com/)
 [php-header函数](http://www.laruence.com/2007/12/16/308.html)
 
 # [韩天峰博客](http://rango.swoole.com)
@@ -81,6 +80,8 @@ Linux From Scratch 是一种给使用者指导建议，由使用者自行从头�
 [unknown](https://yichunzhang.wordpress.com/2006/11)　
 [unknown](http://yansu.org/index.html)
 [拉风的博客](http://rapheal.sinaapp.com)  
+[鑫空间 鑫生活](http://www.zhangxinxu.com/)
+[云风的博客](http://blog.codingnow.com/)
 
 # opengl 相关的
 http://www.opengl-tutorial.org/
