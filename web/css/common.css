@@ -1,6 +1,8 @@
 @charset "UTF-8";
 body {
-  font-family: 'monaco','Ubuntu',"Microsoft Yahei";
+  /* font-family : Raleway;*/
+  font-family: "Microsoft Yahei",Monaco;
+  background-color: #fff;
 }
 
 img {
@@ -9,10 +11,11 @@ img {
 
 .main-title {
   /*{{{*/
+  font-family: Monaco;
   text-align: center;
   letter-spacing: 3px;
   font-size: 20px;
-  color: green;
+  color: #636b6f;
 }
 
 /*}}}*/
@@ -33,12 +36,13 @@ img {
   text-decoration: none;
   letter-spacing: 1px;
   font-size: 14px;
+  color: #636b6f;
 }
 #main_category a:link, #main_category a:visited {
   color: black;
 }
 #main_category a.active {
-  color: green;
+  color: black;
   font-weight: bold;
 }
 #main_category ul, #main_category li {
@@ -58,6 +62,7 @@ img {
 
 /*}}}*/
 #article {
+  background-color: #fff;
   position: absolute;
   top: 0px;
   padding: 20px;
