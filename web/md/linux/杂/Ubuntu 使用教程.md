@@ -1,48 +1,34 @@
+# 原则
+- 优先选择该系统版本上的默认软件,比如`ubuntu 16.04`的默认PHP版本是7.0,那就不要去用7.1的版本,否则会带来很大的麻烦
+
 # 查看系统版本和环境
-`uname -a` 查看所用的linux版本号
+```bash
+lsb_release -a
+cat /etc/issue
+uname -a
+```
 
-`cat /etc/issue` 查看所用的linux版本号
-
-`lsb_release -a` 查看所用的linux版本号
-
-`python --version` python环境
-
-`perl --version` perl环境
-
-`ruby --version` ruby环境
-
-`java -version` java环境
-
-`node -v` nodejs环境
-
-`gcc --version` gcc环境
-
-`sudo apt-get install language-pack-zh-hans` #配置中文环境
-
-`sudo apt-get install zhcon` #配置中文环境
+# 中文支持
+```
+sudo apt-get install language-pack-zh-hans
+sudo apt-get install zhcon
+```
 
 # 安装软件
-`sudo apt-get update` 更新软件源
+```
+sudo apt-get update 更新软件源
+sudo apt-get upgrade　从软件源处更新软件
+sudo apt-get autoremove 自动卸载系统不需要的软件
+sudo apt-get install vim　安装vim编辑器
+sudo update-alternatives --config editor 默认编辑设置为vim
+sudo apt-get install tmux tumx用于保持工作现场
+sudo apt-get install lnav 安装终端看访问日志的神器 lnav观看
+sudo apt-get install openssh-server 安装ssh-server,可供远程登录
+sudo apt-get install git 安装git,用于管理代码
+sudo apt-get install unrar 安装rar解压工具, unrar x test.rar 解压到当前文件夹
+sudo apt-get install zsh 安装zsh 配置oh-my-zsh
+```
 
-`sudo apt-get upgrade`　从软件源处更新软件
-
-`sudo apt-get autoremove` 自动卸载系统不需要的软件
-
-`sudo apt-get install vim`　安装vim编辑器
-
-`sudo update-alternatives --config editor` 默认编辑设置为vim
-
-`sudo apt-get install tmux` tumx用于保持工作现场
-
-`sudo apt-get install lnav` 安装终端看访问日志的神器 `lnav`观看
-
-`sudo apt-get install openssh-server` 安装ssh-server,可供远程登录
-
-`sudo apt-get install git` 安装git,用于管理代码
-
-`sudo apt-get install unrar` 安装rar解压工具,`unrar x test.rar`解压到当前文件夹
-
-`sudo apt-get install zsh` 安装zsh 配置`oh-my-zsh`
 
 # Nginx 
 [参考文档](http://nginx.org/en/docs/)
