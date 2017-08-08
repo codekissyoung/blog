@@ -31,22 +31,17 @@ sudo apt-get install zsh 安装zsh 配置oh-my-zsh
 
 
 # Nginx 
-[参考文档](http://nginx.org/en/docs/)
-`sudo apt-get install libpcre3 libpcre3-dev openssl libssl-dev zlib1g-dev`
-
-`sudo yum -y install gcc automake pcre pcre-devel zlib zlib-devel open openssl-devel` (对比CentOS)
-
-`sudo ./configure --prefix=/server/nginx_1_8_2`　设置安装位置
-
-`sudo make`
-
-`sudo make install`
-
+```
+service apache2 stop  update-rc.d -f apache2 remove apt-get remove apache2
+apt-get install nginx
+service nginx start
+curl localhost # 验证下安装是否成功
+```
 `sudo path/to/nginx` 启动
 
-`sudo path/to/nginx -s reload` 重启
+`sudo nginx -s reload` 重启
 
-`sudo path/to/nginx -s stop` 停止
+`sudo　nginx -s stop` 停止
 
 `curl localhost` 测试是否安装正确
 
@@ -62,13 +57,7 @@ sudo apt-get install zsh 安装zsh 配置oh-my-zsh
 ```
 apt-get install mysql-server mysql-client
 ```
-安装nginx
-```
-service apache2 stop  update-rc.d -f apache2 remove apt-get remove apache2
-apt-get install nginx
-service nginx start
-curl localhost # 验证下安装是否成功
-```
+
 
 安装php-fpm
 ```
@@ -158,13 +147,11 @@ sudo apt-get install php7.0-mysql
 ```
 
 
-# 搭建lamp开发环境
-sudo apt-get install apache2 memcached php5 mysql-server mysql-client php5-memcached curl php5-curl
-sudo apt-get install php5-gd php5-mcrypt php5-imagick php5-intl php5-apcu php5-sqlite php5-pgsql php5-mysqlnd
-开启 Mcrypt 模块
+# 开启 Mcrypt 模块
 sudo php5enmod mcrypt
 sudo service apache2 restart
-## apache 相关的
+
+# apache 相关的
 http://blog.csdn.net/u013178760/article/details/45393183    Apache 2.4 Rewrite 模块
 http://blog.csdn.net/u013178760/article/details/48436777    Apache2 虚拟主机配置
 
@@ -192,19 +179,21 @@ sudo service apache2 restart|start|stop             重启|开启｜关闭
 sudo  /etc/init.d/apache2 restart|start|stop     　　重启｜开启｜关闭apache
 ```
 
-## url重写 ##
+## url重写
 ```
 http://www.example.com/USA/California/San_Diego  
 “/USA/California/San_Diego” 是能够Rewrite的字符串！
 重写：就是实现URL的跳转和隐藏真实地址，基于Perl语言的正则表达式规范。平时帮助我们实现拟静态，拟目录，域名跳转，防止盗链等
 ```
-## .htaccess ##
+## .htaccess
 ```
 RewriteEnine on
-RewriteRule  ^/t_(.*).html$  /test.php?id = $1#当访问任何以t_开头，以.html结尾的文件时，将$1用与(.*)匹配的字符替换后，访问相应的test.php页面RewriteRule ^/test([0-9]*).html$ /test.php?id=$1RewriteRule ^/new([0-9]*)/$ /new.php?id=$1 [R]#当我们访问的地址不是以www.163.com开头的，那么执行下一条规则RewriteCond %{HTTP_HOST} !^www.163.com [NC]RewriteRule ^/(.*) http://www.163.com/ [L]
+RewriteRule  ^/t_(.*).html$  /test.php?id = $1#当访问任何以t_开头，以.html结尾的文件时，将$1用与(.*)匹配的字符替换后，访问相应的test.php页面
+RewriteRule ^/test([0-9]*).html$ /test.php?id=$1RewriteRule ^/new([0-9]*)/$ /new.php?id=$1 [R]#当我们访问的地址不是以www.163.com开头的，那么执行下一条规则
+RewriteCond %{HTTP_HOST} !^www.163.com [NC]RewriteRule ^/(.*) http://www.163.com/ [L]
 ```
 
-## Apache Rewrite规则修正符  ##
+## Apache Rewrite规则修正符
 ```
 1) R 强制外部重定向
 2) F 禁用URL,返回403HTTP状态码。
@@ -220,11 +209,11 @@ RewriteRule  ^/t_(.*).html$  /test.php?id = $1#当访问任何以t_开头，�
 12) NE 不在输出转义特殊字符 \%3d$1 等价于 =$1
 ```
 
-## 核心模块 ##
+## 核心模块
 ```
 core_module,so_module,http_module,mpm
 ```
-## 全局配置指令 ##
+## 全局配置指令
 
 ```
 #表示apache2这个软件安装的目录
