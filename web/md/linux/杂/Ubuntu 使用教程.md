@@ -32,7 +32,8 @@ sudo apt-get install zsh 安装zsh 配置oh-my-zsh
 
 # Nginx 
 ```
-service apache2 stop  update-rc.d -f apache2 remove apt-get remove apache2
+service apache2 stop
+apt-get remove apache2
 apt-get install nginx
 service nginx start
 curl localhost # 验证下安装是否成功
