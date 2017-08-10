@@ -1,3 +1,7 @@
+# [鱼儿博客](https://yuerblog.cc/)
+
+# [自由开源社区](https://imcn.me/)
+
 # [极客搜索](http://s.geekbang.org/)
 
 # [内存溢出](http://outofmemory.cn/)
