@@ -1,3 +1,11 @@
+
+# [howtoforge](https://www.howtoforge.com/) 
+- 一个问如何做的linux问答社区
+
+# [ubuntu wiki](http://wiki.ubuntu.org.cn)
+
+# [ubuntu论坛](http://forum.ubuntu.org.cn/)
+
 # [极客搜索](http://s.geekbang.org/)
 
 # [内存溢出](http://outofmemory.cn/)
