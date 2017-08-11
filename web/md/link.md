@@ -1,3 +1,11 @@
+
+# [howtoforge](https://www.howtoforge.com/) 
+- 一个问如何做的linux问答社区
+
+# [ubuntu wiki](http://wiki.ubuntu.org.cn)
+
+# [ubuntu论坛](http://forum.ubuntu.org.cn/)
+
 # [鱼儿博客](https://yuerblog.cc/)
 
 # [自由开源社区](https://imcn.me/)
