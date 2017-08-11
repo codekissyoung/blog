@@ -74,10 +74,12 @@ drwxrwxrwt  16 root root 4.0K 6月   3 13:01 tmp
 
 # 限制用户进程数
 - 在`/etc/security/limits.conf` 文件后面添加上下面代码，限制用户进程数为200
-    ```
-    *   hard    nproc   200
-    ```
 
+```
+*   hard    nproc   200
+```
+
+# [安装包的依赖库版本过高问题](http://blog.csdn.net/Moolight_shadow/article/details/44833711)
 
 
 # Nginx 
@@ -320,7 +322,7 @@ PING a.lingyunstrong.com (183.16.2.95) 56(84) bytes of data.
 --- a.lingyunstrong.com ping statistics ---
 8 packets transmitted, 8 received, 0% packet loss, time 6997ms
 rtt min/avg/max/mdev = 0.595/0.657/0.683/0.036 ms
-cky@cky-pc:~$
+
 cky@cky-pc:~$ ping cky
 PING cky.lingyunstrong.com (10.10.10.19) 56(84) bytes of data.
 64 bytes from 10.10.10.19: icmp_seq=1 ttl=64 time=0.026 ms
@@ -383,5 +385,6 @@ traceroute to m.dev.yunchongba.com (120.25.71.101), 30 hops max, 60 byte packets
 12  42.120.253.6 (42.120.253.6)  50.913 ms  51.081 ms 42.120.253.2 (42.120.253.2)  54.589 ms
 13  42.120.253.6 (42.120.253.6)  50.205 ms * *
 ```
+
 # 截图
 自带的截图软件,使用 `shift + printscreen` 截图
