@@ -30,6 +30,54 @@ sudo apt-get install unrar 安装rar解压工具, unrar x test.rar 解压�
 sudo apt-get install zsh 安装zsh 配置oh-my-zsh
 ```
 
+# dpkg
+```
+dpkg -c package.deb 列出 deb 包的内容
+dpkg -i <.deb file name> 安装软件
+dpkg -L package 用此命令查看软件安装到什么地方
+dpkg -l package 显示包的版本
+dpkg -r package  移除软件（保留配置）
+dpkg -P package 移除软件（不保留配置）
+dpkg -s package 查找包的详细信息
+dpkg –unpack package.deb     解开 deb 包的内容
+dpkg -S keyword     搜索所属的包内容
+dpkg –configure package     配置包 
+dpkg–reconfigure package    重新配置包 
+```
+
+# apt-get/apt-cache
+```
+apt-cache search keyword 搜寻软件
+apt-get install package 安装软件
+apt-get remove package 删除软件
+apt-get --purge remove package 彻底删除
+apt-get update 更新软件仓库
+apt-get upgrade 更新软件包
+```
+
+# aptitude
+```
+sudo apt-get install aptitude 安装
+sudo aptitude 打开软件包字符操作界面
+sudo aptitude search package 搜索
+sudo aptitude install package 
+sudo aptitude remove package
+sudo aptitude purge package 彻底删除
+sudo aptitude update
+sudo aptitude upgrade
+```
+
+# ppa
+```
+sudo add-apt-repository ppa:ppsspp/stable 添加ppa源，（实质是个Python脚本，在source.list里添加 ppa 源了，同时完成导入key）
+sudo aptitude update
+sudo aptitude search ppsspp
+sudo aptitude purge -y ppsspp
+sudo add-apt-repository -r ppa:ppsspp/stable 删除ppa源
+sudo aptitude update
+```
+
+
 # linux用于完成特定任务的用户
 - `nobody` `admin` `ftp` ，无密码,无home目录，无shell,主要就是为了运行某些特定的进程，比如 nginx 使用nobody用户来运行
 
