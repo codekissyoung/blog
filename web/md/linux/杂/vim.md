@@ -64,6 +64,17 @@ zD    将光标置于折叠标记处,嵌套删除在光标下的折叠
 ？word  在光标处向上查找word
 ```
 
+# vim中执行命令
+```
+:! [shell命令]
+```
+
+# 定义快捷键
+```
+noremap <F6> :set nu
+noremap <F7> :set ai
+noremap <F8> :set syntax on
+```
 
 # 文本替换操作
 总格式为 `:[选定范围]s分割符[正则表达式]分割符[替换文本]分割符[g]`

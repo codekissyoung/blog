@@ -77,6 +77,49 @@ sudo add-apt-repository -r ppa:ppsspp/stable 删除ppa源
 sudo aptitude update
 ```
 
+# 利用源码构建软件
+```
+# 安装编译工具先
+sudo aptitude install automake autoconf libtool pkg-config intltool libxml2-dev libgtk2.0-dev libnotify-dev libglib2.0-dev libevent-dev build-essential checkinstall libcurl4-openssl-dev libssl-dev linux-headers-$(uname -r)
+# 安装编译wireshark工具
+sudo apt-get build-dep wireshark
+# 下载wireshark源码包
+./configure 
+make
+sudo checkinstall # 构建debian包并且安装
+```
+
+# snap 安装软件包
+- snap包思路模仿苹果软件包,没有依赖关系，体积大，下载安装包后，将下载的安装文件挂载到`/snap`目录下并自动创建挂载点，然后复制文件到指定位置
+```
+snap find htop # 查找软件
+sudo snap install htop # 安装软件
+➜  htop tree   
+.
+├── 68
+│   ├── bin
+│   │   └── htop
+│   ├── command-htop.wrapper
+│   ├── meta
+│   │   └── snap.yaml
+│   └── share
+│       ├── applications
+│       │   └── htop.desktop
+│       ├── man
+│       │   └── man1
+│       │       └── htop.1
+│       └── pixmaps
+│           └── htop.png
+└── current -> 68
+
+9 directories, 6 files
+➜  htop pwd
+/snap/htop
+
+sudo snap refresh stop # 更新软件
+sudo snap remove stop # 删除一个应用
+snap list # 列出安装的应用
+```
 
 # linux用于完成特定任务的用户
 - `nobody` `admin` `ftp` ，无密码,无home目录，无shell,主要就是为了运行某些特定的进程，比如 nginx 使用nobody用户来运行
