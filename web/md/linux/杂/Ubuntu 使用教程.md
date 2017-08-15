@@ -121,9 +121,26 @@ sudo snap remove stop # 删除一个应用
 snap list # 列出安装的应用
 ```
 
+# 安装python开发环境
+```
+sudo aptitude install -y python2.7-dev python3.5-dev libssl-dev libevent-dev libjpeg-dev libxml2-dev libxslt1-dev
+sudo aptitude install python-pip 安装包管理工具
+sudo pip install virtualenv 安装 python 版本的虚拟环境,先不管，学python时候再看
+```
+
+# 构建嵌入式开发环境(交叉编译)
+```
+# 暂时不学
+```
+
+# NFS(Network File System)文件共享服务
+
+# FTP(File Transfer Protocol)
+
+# Samba
+
 # linux用于完成特定任务的用户
 - `nobody` `admin` `ftp` ，无密码,无home目录，无shell,主要就是为了运行某些特定的进程，比如 nginx 使用nobody用户来运行
-
 
 # 特殊权限
 ```
