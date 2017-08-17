@@ -1,5 +1,7 @@
-
-# [howtoforge](https://www.howtoforge.com/) 
+# [LaneBlog](http://www.lanecn.com/)
+- 蝼蚁虽小，也有梦想
+- PHP Socket服务 | PHP微信开发框架 | 开源博客
+# [howtoforge](https://www.howtoforge.com/)
 - 一个问如何做的linux问答社区
 
 # [ubuntu wiki](http://wiki.ubuntu.org.cn)
