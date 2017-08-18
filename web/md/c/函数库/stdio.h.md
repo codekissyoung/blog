@@ -27,3 +27,9 @@ char *strstr(const char *s1,const char * s2);
 // 字符串长度
 size_t strlen(const char *s);
 ```
+
+
+
+
+
+
