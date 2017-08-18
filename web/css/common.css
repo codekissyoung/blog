@@ -42,7 +42,7 @@ img {
   color: black;
 }
 #main_category a.active {
-  color: black;
+  color: #d14;
   font-weight: bold;
 }
 #main_category ul, #main_category li {
