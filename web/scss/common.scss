@@ -32,6 +32,7 @@ img{
     top:0px;
     left: 0px;
     width: 300px;
+	padding-top:50px;
 	.head-tag{
 		display:inline-block;
 	}
@@ -113,6 +114,7 @@ img{
 	}
 	pre{
 		background-color:#f8f8f8;
+		border:none;
 		code{
 			font-family: Monaco,ubuntu,Consolas,"Microsoft Yahei","Courier New",monospace;
 			padding:8px;

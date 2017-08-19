@@ -37,6 +37,7 @@ img {
   top: 0px;
   left: 0px;
   width: 300px;
+  padding-top: 50px;
 }
 #main_category .head-tag {
   display: inline-block;
@@ -116,6 +117,7 @@ img {
 }
 #article pre {
   background-color: #f8f8f8;
+  border: none;
 }
 #article pre code {
   font-family: Monaco,ubuntu,Consolas,"Microsoft Yahei","Courier New",monospace;
