@@ -11,23 +11,33 @@ img {
 
 .main-title {
   /*{{{*/
+  margin: 0px 0px;
+  padding: 14px 0px;
   font-family: Monaco;
-  text-align: center;
-  letter-spacing: 3px;
+  text-align: left;
+  padding-left: 20px;
+  letter-spacing: 1px;
   font-size: 20px;
-  color: #636b6f;
+  background-color: #636b6f;
+  color: white;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 300px;
 }
 
 /*}}}*/
 #main_category {
   /*{{{*/
+  background-color: #efefef;
   position: fixed;
   z-index: 1;
-  overflow: scroll;
+  overflow: auto;
   height: 100%;
   top: 0px;
   left: 0px;
   width: 300px;
+  padding-top: 50px;
 }
 #main_category .head-tag {
   display: inline-block;
@@ -36,13 +46,9 @@ img {
   text-decoration: none;
   letter-spacing: 1px;
   font-size: 14px;
-  color: #636b6f;
-}
-#main_category a:link, #main_category a:visited {
-  color: black;
 }
 #main_category a.active {
-  color: #d14;
+  color: black;
   font-weight: bold;
 }
 #main_category ul, #main_category li {
@@ -54,10 +60,12 @@ img {
   padding-left: 20px;
 }
 #main_category h2 {
-  margin-top: 16px;
+  cursor: pointer;
   text-align: left;
-  margin-bottom: 0px;
-  font-size: 20px;
+  font-size: 18px;
+}
+#main_category h2 .caret {
+  margin-left: 10px;
 }
 
 /*}}}*/
@@ -99,7 +107,7 @@ img {
 #article p {
   line-height: 1.5;
   margin: 0px;
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 1px;
 }
 #article p code {
@@ -109,6 +117,7 @@ img {
 }
 #article pre {
   background-color: #f8f8f8;
+  border: none;
 }
 #article pre code {
   font-family: Monaco,ubuntu,Consolas,"Microsoft Yahei","Courier New",monospace;
