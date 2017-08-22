@@ -15,8 +15,8 @@ WHERE (A.x + A.y) = 10; # 重新写一遍 z 所代表的表达式
 ```
 
 ```sql
-select A.aaa as a,max(B.bbb) as max_b,min(C.ccc) 
-from A left join B as BB on A.aaa = B.xxx left join C on B.xxx = C.xxx 
+select A.aaa as a,max(B.bbb) as max_b,min(C.ccc)
+from A left join B as BB on A.aaa = B.xxx left join C on B.xxx = C.xxx
 where A.aaa = 'xxx' and BB.xxx < 'xxx'
 group by A.aaa
 having count(*) > 2
@@ -32,14 +32,6 @@ limit 10
 - 分完组之后，就是`select`挑选数据了，用`select`挑选想要的字段，但是如果进行了`group by`的话，一定要　对除分组字段以外　的字段进行聚合，比如`max(B.bbb)` 和 `min(C.ccc)`
 - `select`完数据后，记录是无序的，这时可以对记录进行排序了，`order by max_b desc`,这里就可以使用`select`语句里的别名了，因为`select`已经执行过了
 - 最后`limit`选下要输出几条记录
-
-
-
-
-
-
-
-
 
 
 # SQL 语言的核心是对表的引用（table references）

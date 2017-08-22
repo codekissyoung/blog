@@ -11,7 +11,6 @@ mysql > show create database db_name; # 查看这个数据库的创建消息
 mysql > show status; # 查查运行状态
 mysql > show errors; #
 mysql > show warnings; #
-
 mysql > show variables like %character_set_%; # 查看编码
 # Character_set_client 客户端使用的编码
 # Character_set_connection 数据库连接使用的编码
@@ -169,8 +168,5 @@ long_query_time  2
 host=localhost
 user='root'
 password='Cky951010'
-➜  ~ chmod 400 .my.cnf 
+➜  ~ chmod 400 .my.cnf
 ```
-
-
-

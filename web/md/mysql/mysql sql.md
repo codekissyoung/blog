@@ -3,7 +3,7 @@
 select ... from ... where ... group by ... having ...order by ... limit
 ```
 
-# select 
+# select
 ```sql
 # 可以使用 as name 给查询结果设定别名用于显示
 mysql> select concat (first_name ,' ',last_name) as name ,concat(city,', ',state) as Birthplace from president;
@@ -278,11 +278,3 @@ UPDATE和REPLACE基本类似，但是它们之间有两点不同。
 ```sql
 delete from table_name where ... ;
 ```
-
-
-
-
-
-
-
-
