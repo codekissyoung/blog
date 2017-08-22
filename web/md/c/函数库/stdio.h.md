@@ -11,7 +11,7 @@ char *strncpy(char * s1,const char * s2,size_t n);
 // 拼接, n 最大值
 char *strncat(char * s1,const char * s2,size_t n);
 
-// 比较 , n 前几个字符串
+// 比较 n 前几个字符串
 int strncmp(const char *s1,const char *s2,size_t n);
 
 // 字符串中查找字符c
