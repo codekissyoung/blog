@@ -1,15 +1,13 @@
+# 查询 qy_scenic_struct 表使用到的地方
 ```
-./main/user.php:82:    protected $_scenic2loction_tbname = '';
-./main/user.php:173:        $this->_scenic2loction_tbname = $conf['mysql']['scenic2location_table_name'];
-./main/user.php:1667:        $row = $this->_mysql->select($uid, [], ['sid' => $uid], null, 0, 1, [], $this->_scenic2loction_tbname);
-./admin/admin.php:39:        $this->_scenic2loction_tbname = $userConf['mysql']['scenic2location_table_name'];
-./admin/admin.php:406:        $row = $this->_mysql->select($sid, [], ['sid' => $sid], null, 0, 1, [], $this->_scenic2loction_tbname);
-./admin/admin.php:420:                ], [], $this->_scenic2loction_tbname
-./admin/admin.php:485:        $row = $this->_mysql->select($sid, [], ['sid' => $sid], null, 0, 1, [], $this->_scenic2loction_tbname);
-./admin/admin.php:498:                ), [], $this->_scenic2loction_tbname
-./admin/admin.php:501:            $this->_mysql->update($sid, $location_info, array('sid'=>$sid), [], $this->_scenic2loction_tbname);
+work@10-10-64-214:~/wind/is$ grep -inr "qy_scenic_struct"|grep -v .svn
+main/static.php:610:            array(), 0, 1, array(), "qy_scenic_struct");
+main/static.php:616:                'pid'=>$parent_id, 'name'=>$name), NULL, "qy_scenic_struct");
+main/static.php:623:                array(), "qy_scenic_struct");
+main/static.php:635:	array(), 0, 1, array(), "qy_scenic_struct");
+tools/scenic_import.php:225:        fprintf(STDERR, "insert to mysql[qy_scenic_struct] failed! name:$name sid:$sid\n");
+tools/scenic_struct.conf:23:                    "default_table_name"=>'qy_scenic_struct'
 ```
-
 # main/static.php
 ```php
 <?php
@@ -141,7 +139,7 @@ public function admin_get_scenic_detail($scenic_id, &$scenic)
 ```
 
 
-# 查询 scenic_location 表使用到的地方
+# 查询 qy_scenic_location 表使用到的地方
 ```
 work@10-10-64-214:~/wind/is$ grep -inr "qy_scenic_location" ./|grep -v .svn|grep -v log
 ./main/conf/is.conf:18:            "scenic2location_table_name" => "qy_scenic_location",
@@ -161,5 +159,104 @@ work@10-10-64-214:~/wind/is$ grep -inr "_scenic2loction_tbname" ./|grep -v .svn|
 ./admin/admin.php:482:        $row = $this->_mysql->select($sid, [], ['sid' => $sid], null, 0, 1, [], $this->_scenic2loction_tbname);
 ./admin/admin.php:495:                ), [], $this->_scenic2loction_tbname
 ./admin/admin.php:498:            $this->_mysql->update($sid, $location_info, array('sid'=>$sid), [], $this->_scenic2loction_tbname);
+
+```
+
+# main/user.php
+```php
+<?php
+# 获取旅行地的详细资料，$me_uid是自己的id
+public function get_scenic_detail($uid, &$scenic, $me_uid = -1)
+{    
+    $data = $this->_mysql->select($uid, array("uid", "name", "english_name",
+        "scenecover", "scenestd", "scenethumb",
+        "fans_num",
+        "all_post_num", "travellog_num",
+        "roadmap_num", "discussion_num"),
+    array('uid'=>$uid, 'type'=>2), NULL, 0, 1);
+    if ($data === false) {
+        return CommonConst::RET_CODE_SYS_FAILED;
+    }    
+
+    if (empty($data)) {
+        return CommonConst::RET_CODE_USER_NOT_EXIST;
+    }    
+
+    # 目前旅行地的详细信息与摘要信息比, 多了一个 "是否已关注" 字段.
+    if ($me_uid > 0  && $uid != $me_uid) {
+        $data[0]->if_fans = $this->if_fans($me_uid, $uid);
+    }    
+    else {
+        $data[0]->if_fans = false;
+    }    
+
+    $scenic = $data[0];
+
+    // 获取经纬度信息
+    $row = $this->_mysql->select($uid, [], ['sid' => $uid], null, 0, 1, [], $this->_scenic2loction_tbname);
+    if (!empty($row)) {
+        $location = $row[0];
+    }    
+
+    $scenic->latitude = !empty($location) ? $location->latitude : 0;
+    $scenic->longitude = !empty($location) ? $location->longitude : 0;
+    $scenic->ne_lat = !empty($location) ? $location->ne_lat : 0;
+    $scenic->ne_long = !empty($location) ? $location->ne_long : 0;
+    $scenic->sw_lat = !empty($location) ? $location->sw_lat : 0;
+    $scenic->sw_long = !empty($location) ? $location->sw_long : 0;
+    $scenic->homeabroad = !empty($location) ? $location->homeabroad : 0;
+
+    return CommonConst::RET_CODE_OK;
+}
+```
+
+# admin/admin.php
+```php
+<?php
+public function add_scenic2location($sid, $name, $latitude, $longitude, $ne_lat, $ne_long, $sw_lat, $sw_long, $homeabroad)
+{
+    $row = $this->_mysql->select($sid, [], ['sid' => $sid], null, 0, 1, [], $this->_scenic2loction_tbname);
+    if (empty($row)) {
+        // 添加
+        $ret = $this->_mysql->insert($sid, [
+                "sid"=>$sid,
+                "sname"=>$name,
+                "latitude"=>$latitude,
+                "longitude"=>$longitude,
+                "ne_lat" =>$ne_lat,
+                "ne_long"=>$ne_long,
+                "sw_lat"=>$sw_lat,
+                "sw_long"=>$sw_long,
+                "homeabroad"=>$homeabroad,
+                "time" => date('y-m-d H:i:s')
+            ], [], $this->_scenic2loction_tbname
+        );
+    }
+}
+
+public function update_scenic2location($sid, $location_info)
+{
+    $row = $this->_mysql->select($sid, [], ['sid' => $sid], null, 0, 1, [], $this->_scenic2loction_tbname);
+    if (empty($row)) {
+        $ret = $this->_mysql->insert($sid,
+            array(
+                "sid"=>$sid,
+                "latitude"=>$location_info['latitude'],
+                "longitude"=>$location_info['longitude'],
+                "ne_lat" =>$location_info['ne_lat'],
+                "ne_long"=>$location_info['ne_long'],
+                "sw_lat"=>$location_info['sw_lat'],
+                "sw_long"=>$location_info['sw_long'],
+                "homeabroad"=>$location_info['homeabroad'],
+                "time" => date('Y-m-d H:i:s')
+            ), [], $this->_scenic2loction_tbname
+        );
+    } else {
+        $this->_mysql->update($sid, $location_info, array('sid'=>$sid), [], $this->_scenic2loction_tbname);
+    }
+}
+
+
+
 
 ```
