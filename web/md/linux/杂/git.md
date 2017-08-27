@@ -20,6 +20,8 @@
 - `git config user.name "codekissyoung"` 写的文件`项目目录/.git/config`
 - `git config --global core.editor vim` 设置默认编辑器
 - `git config --list` 列出当前库所有配置选项，配置变量会重复，值取最后获取到的
+
+# 给自己的项目设置git参数`.git/config`
 ```
 ➜  ~ cat ~/.gitconfig
 [user]
@@ -30,7 +32,17 @@
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 [core]
-	quotepath = false
+	quotepath = false # 支持中文文件名
+```
+
+# 中文支持
+在日志里正确显示中文 shell 里执行
+```
+export LESSCHARSET=utf-8
+```
+中文名称正确显示(utf-8下) shell 里执行
+```
+git config --global core.quotepath false
 ```
 
 # .gitignore
@@ -133,12 +145,4 @@ git checkout -b 本地分支名 远程分支名
 其中，远程分支名为`git branch –r`所列出的分支名， 一般是诸如`origin/分支名`的样子
 如果本地分支名已经存在， 则不需要`-b`参数
 
-# 中文支持
-在日志里正确显示中文 shell 里执行
-```
-export LESSCHARSET=utf-8
-```
-中文名称正确显示(utf-8下) shell 里执行
-```
-git config --global core.quotepath false
-```
+
