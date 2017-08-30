@@ -86,6 +86,9 @@
                 <div class="links">
                     <a href="https://blog.dadishe.com">博客</a>
                     <a href="https://weibo.com/523486790">微博</a>
+                    <a href="https://juejin.im/user/57d615070e3dd90069de4517">掘金</a>
+                    <a href="https://my.oschina.net/codekissyoung">开源中国</a>
+                    <a href="https://toutiao.io/u/304704">开发者头条</a>
                     <a href="https://www.zhihu.com/people/codekissyoung/activities">知乎</a>
                     <a href="https://segmentfault.com/u/codekissyoung">segmentfault</a>
                     <a href="https://github.com/codekissyoung">GitHub</a>
