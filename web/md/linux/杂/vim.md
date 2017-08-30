@@ -1,3 +1,6 @@
+# 可以借鉴和参考的文章
+- [图解VIM常用操作](http://blog.csdn.net/marksinoberg/article/details/77595574)
+
 # 编辑模式 vs 命令模式
 - `Esc` 进入`命令模式`: 可以使用快捷键命令　和　冒号命令
 - `o` `i` 进入`编辑模式`: 就是正常输入字符
@@ -145,7 +148,6 @@ if has("syntax")
   syntax on "语法高亮
 endif
 ```
-
 
 # vim 插件管理
 - [Vundle](https://github.com/VundleVim/Vundle.vim) 插件管理工具
