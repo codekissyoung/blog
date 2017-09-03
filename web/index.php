@@ -41,7 +41,7 @@ if(isset($_GET['ajax']))
 {
 	include_once 'view/article.php';
 }else{
-	$category = file_tree_print( file_tree(MD_ROOT) , false , $ri );
+	$category = file_tree_print( file_tree(MD_ROOT) , $ri );
 	include_once 'view/index.php';
 }
 

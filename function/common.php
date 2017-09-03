@@ -17,7 +17,7 @@ function file_tree($path){
 // $tree 是目录数组
 // $path 是目录
 // $cf 是当前文章
-function file_tree_print($tree,$path = false,$cf = ''){
+function file_tree_print($tree,$cf = '',$path = false){
 	if($path){
 		if(strpos($cf,$path) === false){
 			$html = "<ul class=hide>";
@@ -34,7 +34,7 @@ function file_tree_print($tree,$path = false,$cf = ''){
 
 		if(is_array($leaf))
 		{
-			$html .= "<li><h2>$key<span class=caret></span></h2>".file_tree_print($leaf,"{$path}/{$key}",$cf)."</li>";
+			$html .= "<li><h2>$key<span class=caret></span></h2>".file_tree_print($leaf,$cf,"{$path}/{$key}")."</li>";
 		}
 		else
 		{
