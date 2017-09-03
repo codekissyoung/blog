@@ -17,13 +17,14 @@ $parser = new Parser();
 $html = $parser -> makeHtml($content);
 
 // 使用有字库字体
+/*
 $youzikuClient = new YouzikuServiceClient("f540be4b4a0543876f6bef2594149ff7");
 $param = [
 	"accessKey" => $microsoft_yahei,
 	"content" 	=> $category.$html,
 	"tag" 		=> "*"];
 $response = $youzikuClient -> GetFontFace($param);
-
+*/
 if(isset($a)){
 	echo '<div>'.$html.'</div>';
 	exit;
