@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 <!--		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> -->
 		<title><?=isset($article) ? $article.' ' :'';?>Codekissyoung Blog</title>
-		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <!-- <link href="//cdn.bootcss.com/normalize/5.0.0/normalize.min.css" rel="stylesheet"> -->
 <!-- <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css"> -->
 		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
