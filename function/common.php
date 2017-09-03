@@ -15,36 +15,44 @@ function file_tree($path){
 }
 
 // $tree 是目录数组 $title_i 是章节计数 $path 是目录
-function file_tree_print($tree,$title_i = false,$path = false){
+function file_tree_print($tree,$path = false){
 	$i = 1; // 计数
-	$html = "<ul>"; // 要生成的html代码
-	if($title_i){
-		$html = "<ul class=hide>"; // 隐藏目录结构
-	}
-	foreach($tree as $key => $leaf){
-		if($key === 'img'){ // 过滤用于存放图片的img 文件夹
-			continue;
+	$html = $path ? "<ul class=hide>":"<ul>";
+	foreach($tree as $key => $leaf)
+	{
+		if($key === 'img') continue; // 过滤图片文件夹
+
+		if(is_array($leaf))
+		{
+			$html .= "<li><h2>$key<span class=caret></span></h2>".file_tree_print($leaf,"{$path}/{$key}")."</li>";
 		}
-		if(!is_string($leaf)){
-			$html .= $title_i ? "<li><h2>$key<span class=caret></span> </h2>".file_tree_print($leaf,$title_i.'.'.$i,$path."/".$key)."</li>":
-			"<li><h2>$key<span class=caret></span> </h2>".file_tree_print($leaf,$i,$key)."</li>";
-		}else{
-			if(!preg_match("/md$/",$leaf)) {
-				continue;  // 跳过不是md结尾的文件
-			}
-			// 跳过我自己的简历
-			if($leaf == "link.md"){
-				continue;
-			}
+		else
+		{
+			if(!preg_match("/md$/",$leaf)) continue;  // 跳过不是md结尾的文件
+			if($leaf == "link.md") continue; // 跳过我自己的简历
+
 			$leaf = substr($leaf,0,-3);
-			$html .= $title_i ? 
-			"<li><a href='/?a=$path/$leaf'><span class='head-tag'></span>$leaf</a></li>"
-			:
-			"<li><a href='/?a=$leaf'>$leaf</a></li>";
+			if($path){
+				$href = "$path/$leaf";	
+			}else{
+				$href = "/$leaf";
+			}
+			$html .= "<li><a href='$href'>$leaf</a></li>";
 		}
 		$i++;
 	}
 	$html .= "</ul>";
 	return $html;
 }
+
+
+function debug($var){
+	echo "<pre><code>";
+	print_r($var);
+	echo "</code></pre>";
+	exit;
+}
+
+
+
 

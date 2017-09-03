@@ -30,6 +30,7 @@
 			<?=$html;?>
 		</div>
 	</div>
+	<script src="/js/url.min.js"></script>
 	<script src="/js/common.js"></script>
 	<script>
 		// 代码高亮
@@ -41,7 +42,7 @@
 			$(this).addClass('active');
 			var href = $(this).attr('href');
 			$.ajax({
-				url:href,
+				url:href + "?ajax=1",
 				type:'GET',
 				data:{},
 				dataType:'text',
@@ -50,6 +51,10 @@
 					$("#article").empty().append($(data)).find('pre code').each(function(i,block){
 						hljs.highlightBlock(block);
 					});
+					var stateObject = {};
+					var title = href;
+					var newUrl = href;
+					history.pushState(stateObject,title,newUrl);
 				}
 			});
 			return false; // 阻止冒泡 阻止事件
