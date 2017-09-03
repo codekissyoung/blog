@@ -30,7 +30,6 @@
 			<?=$html;?>
 		</div>
 	</div>
-	<script src="/js/url.min.js"></script>
 	<script src="/js/common.js"></script>
 	<script>
 		// 代码高亮
