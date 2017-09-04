@@ -35,12 +35,15 @@ $param = [
 $response = $youzikuClient -> GetFontFace($param);
 */
 
+$title = trim(join('-',explode("/",$ri))."-CodeKissYoung Blog",'-');
 
 // 加载视图
 if(isset($_GET['ajax']))
 {
 	include_once 'view/article.php';
-}else{
+}
+else
+{
 	$category = file_tree_print( file_tree(MD_ROOT) , $ri );
 	include_once 'view/index.php';
 }
