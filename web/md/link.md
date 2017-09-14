@@ -1,3 +1,5 @@
+# [PLANTB](http://www.planetb.ca/)
+- [在word里面插入格式化的代码](http://www.planetb.ca/syntax-highlight-word)
 # [可译网](https://coyee.com/)
 # [LaneBlog](http://www.lanecn.com/)
 - 蝼蚁虽小，也有梦想

@@ -35,14 +35,14 @@ sudo apt-get install zsh 安装zsh 配置oh-my-zsh
 dpkg -c package.deb 列出 deb 包的内容
 dpkg -i <.deb file name> 安装软件
 dpkg -L package 用此命令查看软件安装到什么地方
-dpkg -l package 显示包的版本
+dpkg -l 列出系统安装的所有apt包
 dpkg -r package  移除软件（保留配置）
 dpkg -P package 移除软件（不保留配置）
 dpkg -s package 查找包的详细信息
 dpkg –unpack package.deb     解开 deb 包的内容
 dpkg -S keyword     搜索所属的包内容
-dpkg –configure package     配置包 
-dpkg–reconfigure package    重新配置包 
+dpkg –configure package     配置包
+dpkg–reconfigure package    重新配置包
 ```
 
 # apt-get/apt-cache
@@ -60,7 +60,7 @@ apt-get upgrade 更新软件包
 sudo apt-get install aptitude 安装
 sudo aptitude 打开软件包字符操作界面
 sudo aptitude search package 搜索
-sudo aptitude install package 
+sudo aptitude install package
 sudo aptitude remove package
 sudo aptitude purge package 彻底删除
 sudo aptitude update
@@ -84,7 +84,7 @@ sudo aptitude install automake autoconf libtool pkg-config intltool libxml2-dev 
 # 安装编译wireshark工具
 sudo apt-get build-dep wireshark
 # 下载wireshark源码包
-./configure 
+./configure
 make
 sudo checkinstall # 构建debian包并且安装
 ```
