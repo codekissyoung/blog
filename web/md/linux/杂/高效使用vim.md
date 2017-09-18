@@ -109,10 +109,18 @@ zD    将光标置于折叠标记处,嵌套删除在光标下的折叠
 
 # 查找文本
 ```
-/word + enter 在光标处向下查找word
-？word + enter 在光标处向上查找word
-n 跳转到下一处匹配到的地方
+/word + enter           在光标处向下查找word
+？word + enter          在光标处向上查找word
+n                      跳转到下一处匹配到的地方
 ```
+
+# 以16进制查看文本
+```
+:%!xxd                 将当前文本转换为16进制格式。
+:%!xxd -c 12           将当前文本转换为16进制格式,并每行显示12个字节。
+:%!xxd -r              将当前文件转换回文本格式。
+```
+
 
 # 文本替换操作
 - 格式 `:[选定范围]s分割符[正则表达式]分割符[替换文本]分割符[g]`
@@ -148,7 +156,7 @@ n 跳转到下一处匹配到的地方
 对于换行,window下用回车换行`(0A0D)`来表示，Linux下是回车`(0A)`来表示。
 这样，将window上的文件拷到Unix上用时，总会有个`^M`.
 - 使用命令：`cat filename1 | tr -d "^V^M" > newfile`
-- 使用命令：`sed -e "s/^V^M//" filename > outputfilename` 
+- 使用命令：`sed -e "s/^V^M//" filename > outputfilename`
 - `^V`和`^M` 指的是`Ctrl+V`和`Ctrl+M`。你必须要手工进行输入，而不是粘贴。
 - vi中处理：首先使用vi打开文件，然后按ESC键，接着输入命令`%s/^V^M//`和`:%s/^M$//g`
 
@@ -168,4 +176,3 @@ strings A>B
 
 # 可以借鉴和参考的文章
 - [图解VIM常用操作](http://blog.csdn.net/marksinoberg/article/details/77595574)
-

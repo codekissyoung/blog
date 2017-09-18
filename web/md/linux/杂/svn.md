@@ -93,14 +93,25 @@ tone=www
 sudo svnserve -d -r /home/cky/svn
 ```
 
-# 查看日志
+# 查看版本库里 日志 目录 内容
 ```shell
-svn log -l10  查看最近10次日志
+svn log -l10                        # 查看最近10次日志 用来展示svn 的版本作者、日期、路径等等
+svn log;                            # 什么都不加会显示所有版本commit的日志信息
+svn log -r 4:5                      # 只看版本4和版本5的日志信息
+svn log test.c                      # 查看文件test.c的日志修改信息
+svn log -v dir                      # 查看目录的日志修改信息,需要加v
+svn cat -r 4 test.c                 # 查看版本4中的文件test.c的内容,不进行比较;
+svn list http://svn.test.com/svn    # 查看目录中的文件;
+svn list -v http://svn.test.com/svn # 查看详细的目录的信息(修订人,版本号,文件大小等)
 ```
 
 # 对比差异
 ```shell
-svn diff -r版本号  对比当前工作目录与某一次的版本的文件差异
+svn diff                # 什么都不加，会检测本地代码和缓存在本地.svn目录下的信息的不同，用来显示特定修改的行级详细信息
+svn diff -r 3           # 比较你的本地代码和版本号为3的所有文件的不同
+svn diff -r 3 text.c    # 比较你的本地代码和版本号为3的text.c文件的不同
+svn diff -r 5:6         # 比较版本5和版本6之间所有文件的不同
+svn diff -r 5:6 text.c  # 比较版本5和版本6之间的text.c文件的变化
 ```
 
 # 回退修改
