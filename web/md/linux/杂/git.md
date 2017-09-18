@@ -66,6 +66,11 @@ doc/*.txt
 doc/**/*.pdf
 ```
 
+# git里怎样移除对一个文件的管理 并且不删除该文件
+1. 先`git  rm  -r  --cached  文件`
+2. 在`.gitignore`中添加忽略信息
+3. 最后`gti commit -m  '提交.gitignore'`
+
 # 新建代码库
 ```
 # 在当前目录新建一个Git代码库
@@ -93,7 +98,7 @@ $ git log -p -2 # 显示最近两次提交的内容差异
 ```
 
 # 远程仓库的使用
-```
+```shell
 $ git remote add [remote_name] git://github.com/codekissyoung/[project-name].git 为本地库添加远程库,并取名为remote_name
 $ git clone https://github.com/codekissyoung/git.git 克隆远程库为本地库，并取名为origin(默认推送的库)
 $ git remote -v　# 列出所有的远程库
@@ -124,7 +129,7 @@ $ git config --global alias.ci commit
 $ git config --global alias.st status
 ```
 
-#git rebase
+# git rebase 变基
 http://blog.csdn.net/hudashi/article/details/7664631
 
 # 将一台服务器作为远程仓库(类似github)
@@ -144,5 +149,3 @@ git checkout -b 本地分支名 远程分支名
 ```
 其中，远程分支名为`git branch –r`所列出的分支名， 一般是诸如`origin/分支名`的样子
 如果本地分支名已经存在， 则不需要`-b`参数
-
-
