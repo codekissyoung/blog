@@ -1,3 +1,6 @@
+# [赵炯博士 Oldlinux](http://www.oldlinux.org/)
+- linux 完全解析作者,基于linux 0.12内核
+
 # [Beanbun 基于workerman的多进程网络框架](http://www.beanbun.org/#/)
 
 # [PLANTB](http://www.planetb.ca/)
