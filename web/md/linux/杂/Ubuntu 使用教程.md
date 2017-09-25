@@ -14,6 +14,23 @@ sudo apt-get install language-pack-zh-hans
 sudo apt-get install zhcon
 ```
 
+## 触摸板 ##
+```
+禁用触摸板的命令:
+sudo rmmod psmouse
+启用触摸板的命令:
+sudo modprobe  psmouse
+列出所用的mod
+lsmod
+搜索mouse相关的
+ls mod | grep "mouse"
+```
+## 使用chromium看视频 ##
+```
+sudo apt-get install flashplugin-installer
+sudo apt-get install pepperflashplugin-nonfree
+```
+
 # 安装软件
 ```
 sudo apt-get update 更新软件源

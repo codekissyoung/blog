@@ -124,3 +124,143 @@ svn revert file/path 回退对某一个文件／目录的修改
 ```shell
 svn propedit svn:ignore .
 ```
+
+
+
+## 检出一个副本 ##
+```
+svn co http://路径(目录或文件的全路径)　[本地目录全路径] --username 用户名--password 密码
+svn co svn://路径(目录或文件的全路径)　[本地目录全路径] --username 用户名--password 密码
+```
+## 将副本的文件添加到版本控制(注意不是提交到服务器仓库) ##
+```
+svn　add　文件名
+```
+## 提交修改文件 ##
+
+```
+svn ci -m “添加测试用test.c“   test.php
+svn ci -m “添加测试用全部c文件“  *.c
+```
+## 将服务器仓库中的文件删除操作 ##
+```
+svn delete test.c
+svn ci -m“删除测试文件test.c”
+```
+## 查看本地副本中是否有异常的文件 ##
+```
+svn st   #查看当前目录下异常文件状态
+?：不在svn的控制中；M：内容被修改；C：发生冲突；A：预定加入到版本库；K：被锁定
+svn status -v [path] 
+-v 是连子目录中异常都显示
+```
+## 查看某个文件的详细信息和变更日志 ##
+```
+svn info test.php
+svn log  test.php
+```
+## 将修改的文件与基础版本比较差异 ##
+```
+svn diff test.php
+```
+## 比较两个版本之间文本的差异 ##
+```
+svn diff -r200:201 test.php
+```
+## 加锁/解锁 ##
+```
+svn lock -m “lock test file“ [--force] test.php
+svn unlock test.php
+```
+## 更新到1920版本 ##
+```
+svn update -r1920 test.php
+```
+## 更新当前目录和其子目录下文件 ##
+
+```
+svn up
+```
+## 将两个版本之间的差异合并到当前文件 ##
+```
+svn merge -r m:n path
+例如：svn merge -r 200:205 test.php
+（将版本200与205之间的差异合并到当前文件，但是一般都会产生冲突，需要处理一下）
+```
+## 恢复本地修改 ##
+```
+svn revert path : 恢复原始未改变的工作副本文件 (恢复大部份的本地修改)。
+注意: 本子命令不会存取网络，并且会解除冲突的状况。但是它不会恢复被删除的目录
+```
+## 解决冲突 ##
+```
+svn resolved  path: 移除工作副本的目录或文件的“冲突”状态。
+注意: 本子命令不会依语法来解决冲突或是移除冲突标记；它只是移除冲突的相关文件，然后让 PATH 可以再次提交。
+```
+
+
+svn 分为server 和 client , client 从server copy 副本，commit 修改，update 更新，并且形成日志！
+svn 监听3690端口
+svn 可以是单独svnserver（svn://协议访问） ,也可以是 apache 插件 (http://访问)
+## 安装SVN  ##
+```
+sudo apt-get install subversion subversion-tools
+```
+## 配置svn ##
+```
+$mkdir  /var/svn/project_name
+$svnadmin /var/svn/project_name
+```
+上面两步就配好了 svn 仓库，在/project_name/conf/下有
+authz  passwd  svnserve.conf  三个文件
+
+ - svnserve.conf 文件
+```
+       anon-access：   #控制非鉴权用户访问版本库的权限
+       auth-access：write   #控制鉴权用户访问版本库的权限。
+       password-db：passwd   #填用户密码文件
+       authz-db：authz      #填用户权限文件
+       realm：/var/svn/project_name   #填版本库目录
+```
+ - Passwd 文件
+```
+[users]
+username = password
+caokaiyan = caokaiyan
+```
+ - authz 文件
+```
+[groups]
+dev = root,caokaiyan,shijie
+test = yanfei
+[/]
+* = r      #所有用户对于全部文件夹都有写的权利
+root = rw  #root 用户拥有全部文件夹的读写权利
+
+[/develop]
+@dev = rw  #只有dev组的用户拥有对 project_name/develop 文件夹的读写权利
+@test = r
+
+[/test]
+@test = rw  #只有test组的用户拥有对 project_name/test 文件夹的读写权利
+@dev = r
+```
+## 开启和关闭 svn 服务 ##
+```
+svnserve -d -r /var/svn/project_name  开启svn 服务
+ps -aux |grep svn
+kill -9  svn进程id  关闭是查找 svn 进程id,用 kill -9  杀掉
+```
+server端存的仓库数据都是经过压缩的，不能直接用！
+我们必须先在服务器上 co 出一个 client 副本，作为 web 访问的目录,这个副本要能设置成自动更新！
+```
+svn  co  svn://127.0.0.1  /var/www/project_name
+```
+##SVN 副本自动更新 ##
+svn 项目中的 hooks 文件中的 post-commit(该文件夹下有 tmp文件 去除后缀即可)，这是svn 给我们提供的钩子文件。
+编辑它：（假设我们要自动更新的是web目录）
+```
+cd /var/www/web
+svn cleanup
+svn up --username=caokaiyan --password = caokaiyan --no-auth-cache --non-interactive /var/www/web
+```
