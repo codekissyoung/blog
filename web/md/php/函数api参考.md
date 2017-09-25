@@ -15,7 +15,7 @@ is_callable([$obj,$method]); // 确保传入的字符串是函数，能够被cal
 
 # exists 系列
 ```php
-<?php 
+<?php
 // 存在就返回 true
 file_exists($file_name);
 
@@ -33,7 +33,7 @@ get_class($obj); // 获取对象的 类名
 
 $obj instanceof interface_name ; // 判断 $obj 是否实现了某个接口
 
-get_class_methods($class_name); // 获取一个类中所有的方法名 
+get_class_methods($class_name); // 获取一个类中所有的方法名
 
 get_class_vars($class_name); // 获取一个类中的所有属性名
 
@@ -230,9 +230,10 @@ substr('abcdefghijklmnopqrstuvwxyz',-5,-1);//从倒数　５　个开始，提�
 substr_replace('abcdefghijklmnopqrstuvwxyz','***',0,8); // ***ijklmnopqrstuvwxyz 后面的两个数字的参数的使用方法跟substr 一样：
 // 判断数据是合法的json字符串
 function is_json($string) {
-	json_decode($string); 
+	json_decode($string);
 	return (json_last_error() == JSON_ERROR_NONE);
 }
+// echo json_encode($arr, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT); 
 ```
 
 # 数组函数
@@ -295,8 +296,8 @@ worldprint(implode(',', array_filter($ar, function($v){ return $v !== null; })))
 join(',',$arr);//返回以 , 分割的字符串implode('-',array('a','b','c'));
 
 // 一维数字去重
-$aa=array("apple","banana","pear","apple","wail","watermalon"); 
-$bb=array_unique($aa); 
+$aa=array("apple","banana","pear","apple","wail","watermalon");
+$bb=array_unique($aa);
 print_r($bb); //Array ( [0] => apple [1] => banana [2] => pear [4] => wail [5] => watermalon)
 
 // 二维数组去重,因为某一键名的值不能重复，删除重复项
