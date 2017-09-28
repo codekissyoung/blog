@@ -1,3 +1,5 @@
+# [linux系统调用](http://thevivekpandey.github.io/posts/2017-09-25-linux-system-calls.html)
+
 # [赵炯博士 Oldlinux](http://www.oldlinux.org/)
 - linux 完全解析作者,基于linux 0.12内核
 
