@@ -3,4 +3,4 @@
 - 大量的运算符和其组合，需要程序员记住大量的运算符规则，优先级
 - 指令即为数字码,程序的实质就是一系列指令集合,c语言解放了直接用数字码写程序的时代，c使用编译器来将c代码程序编译成指令集合
 - `声明`的概念,`定义`的概念,`数据类型`的概念
-- `函数原型prototype｜函数声明function declaration`的概念,`函数定义function definition`的概念,`函数调用function call`的概念
+- `函数原型prototype｜函数声明function declaration`的概念,`函数定义 function definition`的概念,`函数调用 function call`的概念M
