@@ -1,5 +1,5 @@
 # [C语言编程网](http://c.biancheng.net/cpp/)
-
+# [Standard C 语言标准函数库速查](http://ganquan.info/standard-c/)
 # [运维之路](http://www.361way.com)
 
 # [linux系统调用](http://thevivekpandey.github.io/posts/2017-09-25-linux-system-calls.html)
