@@ -150,8 +150,6 @@ n                      跳转到下一处匹配到的地方
 :g/^\s*$/d` 删除包括空白，Tab，空白和Tab交错的所有空行
 ```
 
-
-
 # 删除文本文件中的^M
 对于换行,window下用回车换行`(0A0D)`来表示，Linux下是回车`(0A)`来表示。
 这样，将window上的文件拷到Unix上用时，总会有个`^M`.
@@ -166,13 +164,6 @@ tr -d "\r" < src >dest
 tr -d "\015" dest
 strings A>B
 ```
-
-# vim 插件管理
-- [Vundle](https://github.com/VundleVim/Vundle.vim) 插件管理工具
-- [nerdtree](https://github.com/scrooloose/nerdtree) 目录树工具
-
-
-
 
 # 可以借鉴和参考的文章
 - [图解VIM常用操作](http://blog.csdn.net/marksinoberg/article/details/77595574)
