@@ -6,6 +6,8 @@ EXIT_FAILURE /* 错误退出　*/
 
 # 字符串函数
 ```c
+puts("cky程序"); // 输出(带自动换行的)
+
 // 拷贝, n 最大值
 char* strncpy(char * s1,const char * s2,size_t n);
 
