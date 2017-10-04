@@ -3,7 +3,6 @@ http://www.codeigniter.com　官方文档
 http://www.cnblogs.com/zhenyu-whu/p/3159856.html　一步一步重写CI框架博客
 
 ## 使用CI的步骤参考 ##
-
  - 结合apache的 rewrite 模块和 .htaccess 文件隐藏入口index.php
  - 配置数据库：config/database.php
  - 配置自动加载：helper ，library ，model　:  config/autoload.php
