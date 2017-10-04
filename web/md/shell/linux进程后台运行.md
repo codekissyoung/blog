@@ -9,7 +9,7 @@
 ```bash
 cky@cky-pc:~$ nohup ping www.baidu.com &> ping.log &
 [1] 9587
-cky@cky-pc:~$ tail -f ping.log 
+cky@cky-pc:~$ tail -f ping.log
 nohup: 忽略输入
 PING www.a.shifen.com (14.215.177.37) 56(84) bytes of data.
 64 bytes from 14.215.177.37 (14.215.177.37): icmp_seq=1 ttl=55 time=7.82 ms
@@ -17,12 +17,12 @@ PING www.a.shifen.com (14.215.177.37) 56(84) bytes of data.
 64 bytes from 14.215.177.37 (14.215.177.37): icmp_seq=3 ttl=55 time=6.02 ms
 ```
 
-# setsid 
+# setsid
 - setsid 能让我们的进程不属于接受 HUP 信号的终端的子进程
 
 ```bash
-cky@cky-pc:~$ setsid ping www.baidu.com &> setsid_ping.log 
-cky@cky-pc:~$ tail -f setsid_ping.log 
+cky@cky-pc:~$ setsid ping www.baidu.com &> setsid_ping.log
+cky@cky-pc:~$ tail -f setsid_ping.log
 PING www.a.shifen.com (14.215.177.37) 56(84) bytes of data.
 64 bytes from 14.215.177.37 (14.215.177.37): icmp_seq=1 ttl=55 time=5.41 ms
 64 bytes from 14.215.177.37 (14.215.177.37): icmp_seq=2 ttl=55 time=6.52 ms
@@ -33,11 +33,11 @@ PING www.a.shifen.com (14.215.177.37) 56(84) bytes of data.
 ```
 
 
-# `&` + `()` 后台运行 
+# `&` + `()` 后台运行
 - 将一个或多个命名包含在 `()` 中就能让这些命令在子 shell 中运行中，从而扩展出很多有趣的功能，我们现在要讨论的就是其中之一
 ```bash
 cky@cky-pc:~/workspace/shell$ (ping www.baidu.com &> abc.log &)
-cky@cky-pc:~/workspace/shell$ tail -f abc.log 
+cky@cky-pc:~/workspace/shell$ tail -f abc.log
 PING www.a.shifen.com (14.215.177.38) 56(84) bytes of data.
 64 bytes from 14.215.177.38 (14.215.177.38): icmp_seq=1 ttl=55 time=7.55 ms
 64 bytes from 14.215.177.38 (14.215.177.38): icmp_seq=2 ttl=55 time=5.42 ms
@@ -57,27 +57,6 @@ cky@cky-pc:~/workspace/shell$ ping www.baidu.com &> jobs.log
 cky@cky-pc:~/workspace/shell$ disown -h %1
 ```
 
-# screen
-- screen是一个可以在多个进程之间多路复用一个物理终端的窗口管理器。screen中有会话的概念，用户可以在一个screen会话中创建多个screen窗口，在每一个screen窗口中就像操作一个真实的telnet/SSH连接窗口那样。当断开或关闭终端时，只要不杀死screen的进程，待重新连接后任能继续断开前的操作。
-```bash
-cky@cky-pc:~$ sudo apt-get install screen
-```
 # tmux
 - screen作为一个老牌的终端屏幕管理软件完全满足我的日常需求，唯一的缺憾是screen没有分屏的功能。tmux是这样一款软件，它包含了99%的screen功能，而且它具有屏幕分屏的功能。
 通过修改tmux的配置，调整快捷键，理论上screen用户可以无缝切换到tmux。
-
-# screen 和 tmux 参考
-http://www.opstool.com/article/253　　使用tmux替代screen
-http://blog.csdn.net/taiyang1987912/article/details/41551987　　screen和tmux管理shell会话
-
-
-
-
-
-
-
-
-
-
-
-

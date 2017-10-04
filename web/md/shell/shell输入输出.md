@@ -43,7 +43,7 @@ echo -e "\033[44;30m 蓝底黑字 \033[0m"
 echo -e "\033[45;30m 紫底黑字 \033[0m"  
 echo -e "\033[46;30m 天蓝底黑字 \033[0m"  
 echo -e "\033[47;34m 白底蓝字 \033[0m"  
-  
+
 #控制选项说明  
 #\033[0m 关闭所有属性  
 #\033[1m 设置高亮度  
@@ -53,7 +53,7 @@ echo -e "\033[4;31m 下划线红字 \033[0m"
 echo -e "\033[5;34m 红字在闪烁 \033[0m"  
 #反影  
 echo -e "\033[8m 消隐 \033[0m "  
-  
+
 #\033[30m-\033[37m 设置前景色  
 #\033[40m-\033[47m 设置背景色  
 #\033[nA光标上移n行  
@@ -70,7 +70,7 @@ echo -e "\033[K 清除光标到行尾的内容 \033[0m"
 #\033[?25| 隐藏光标  
 #\033[?25h 显示光标  
 echo -e "\033[?25l 隐藏光标 \033[0m"  
-echo -e "\033[?25h 显示光标 \033[0m" 
+echo -e "\033[?25h 显示光标 \033[0m"
 ```
 
 # bash 控制台颜色
@@ -109,12 +109,12 @@ test input
 
 cky@cky-pc:~/workspace/shell$ exec 4>output.txt  # 创建 截断写入模式 文件描述符
 cky@cky-pc:~/workspace/shell$ echo "test file disc 4" >&4 # 使用
-cky@cky-pc:~/workspace/shell$ cat output.txt 
+cky@cky-pc:~/workspace/shell$ cat output.txt
 test file disc 4
 
 cky@cky-pc:~/workspace/shell$ exec 5>> input.txt # 创建 追加写入模式 文件描述符
 cky@cky-pc:~/workspace/shell$ echo "file disc 5 test" >&5 # 使用
-cky@cky-pc:~/workspace/shell$ cat input.txt 
+cky@cky-pc:~/workspace/shell$ cat input.txt
 test input
 file disc 5 test
 ```
@@ -132,18 +132,18 @@ text from stdin
 交互输入自动化
 ================================================================================
 ```bash
-cky@cky-pc:~/workspace/shell$ ./auto_input.sh 
+cky@cky-pc:~/workspace/shell$ ./auto_input.sh
 Enter your name:codekissyoung
 Enter your age 22
 your name is codekissyoung , you are 22 years old
-cky@cky-pc:~/workspace/shell$ echo 'codekissyoung\n22\n' | ./auto_input.sh 
+cky@cky-pc:~/workspace/shell$ echo 'codekissyoung\n22\n' | ./auto_input.sh
 your name is codekissyoungn22n , you are  years old
 
 
 # 使用 expect
 cky@cky-pc:~/workspace/shell$ sudo apt-get install expect
 
-cky@cky-pc:~/workspace/shell$ cat ./expect.sh 
+cky@cky-pc:~/workspace/shell$ cat ./expect.sh
 #!/usr/bin/expect
 spawn ./auto_input.sh; # 指定要自动化哪一个命令
 expect "Enter your name:"; # 如果匹配这个提示，那就输入codekissyoung
@@ -153,24 +153,9 @@ send "22\n"
 expect eof # 交互结束
 
 
-cky@cky-pc:~/workspace/shell$ ./expect.sh 
+cky@cky-pc:~/workspace/shell$ ./expect.sh
 spawn ./auto_input.sh
 Enter your name:codekissyoung
 Enter your age:22
 your name is codekissyoung , you are 22 years old
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
