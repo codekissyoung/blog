@@ -1,11 +1,30 @@
+# 打印
+```bash
+echo "带换行的";
+echo -n "不带换行的: ";
+```
+
+# 环境变量
+- 在shell脚本中可以使用从父shell(执行该脚本的shell)中的环境变量
+```bash
+echo "常用的环境变量: ";
+echo "HOME     : ${HOME}";
+echo "UID      : ${UID}";
+echo "USER     : ${USER}";
+```
+
+
+
 # 变量
-- `$` 是引用变量的意思
+- 变量名字区分大小写
+- 声明或者赋值时，变量、等号和值之间不能出现空格
+- `${变量名}` 是引用变量的意思
 - `=` 两边不能有空格
 - `>` 作为大于号时要转义，否则默认作为重定向处理
 ```bash
-➜  shell git:(master) testing=`date`
-➜  shell git:(master) echo $testing
-2017年 06月 17日 星期六 16:31:47 CST
+testing=`date` # 声明或者赋值
+echo ${testing} # 使用该变量
+unset testing # 删除该变量
 ```
 
 # . 与 source
@@ -220,7 +239,7 @@ done
     IFS=$'\n' # 修改IFS默认值
     # commands with new IFS
     IFS=$IFS.OLD # 恢复IFS默认值  
-    
+
     # eg .
     data="name,sex,rollno,location"; # CSV 数据
     IFS.OLD=$IFS
@@ -312,8 +331,3 @@ for i in {a..z};do
     commands;
 done;
 ```
-
-
-
-
-
