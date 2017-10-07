@@ -26,4 +26,30 @@ redis 127.0.0.1:6379> get name
 "yiibai.com"
 ```
 
-# 
+# Hash
+- `hmset 健名 key1 value1 key2 value2` 存hash值
+```
+127.0.0.1:6379> hmset cky:951010 name codekissyoung password iqingyi$%online
+OK
+127.0.0.1:6379> hgetall cky:951010
+1) "name"
+2) "codekissyoung"
+3) "password"
+4) "iqingyi$%online"
+```
+
+# List
+- `lpush 键名 value`
+- `lrange 健名 0 -1` 获取[0,倒数最后一个]范围内的所有值
+```
+127.0.0.1:6379> lpush ckylist one
+(integer) 1
+127.0.0.1:6379> lpush ckylist two
+(integer) 2
+127.0.0.1:6379> lpush ckylist three
+(integer) 3
+127.0.0.1:6379> lrange ckylist 0 -1
+1) "three"
+2) "two"
+3) "one"
+```
