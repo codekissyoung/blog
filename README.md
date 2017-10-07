@@ -1,4 +1,4 @@
-# Codekissyoung博客
+# [Codekissyoung博客](http:blog.dadishe.com)
 一个管理的markdown的博客,所有的博客都是markdown文件！！！
 
 ## 初始化
