@@ -1,12 +1,12 @@
 # 启动
-```
+```shell
 redis-cli -h {host} -p {port} 链接redis服务器,交互式界面
 redis-cli -h {host} -p {port} {command} 链接并且执行命令
 redis-cli shutdown [save|nosave] 关闭redis服务器 [生成|不生成]持久化文件
 ```
 
 # 通用命令
-```
+```shell
 127.0.0.1:6379> keys * 显示所有健
 127.0.0.1:6379> dbsize 健总数
 127.0.0.1:6379> exists key_name 健是否存在
@@ -19,16 +19,21 @@ redis-cli shutdown [save|nosave] 关闭redis服务器 [生成|不生成]持久�
 ```
 
 # 存取字符串
-```
+```shell
 redis 127.0.0.1:6379> set name "yiibai.com"
 OK
 redis 127.0.0.1:6379> get name
 "yiibai.com"
+
+127.0.0.1:6379> set counter 10
+OK
+127.0.0.1:6379> incr counter # 递增
+(integer) 11
 ```
 
 # Hash
 - `hmset 健名 key1 value1 key2 value2` 存hash值
-```
+```shell
 127.0.0.1:6379> hmset cky:951010 name codekissyoung password iqingyi$%online
 OK
 127.0.0.1:6379> hgetall cky:951010
@@ -41,7 +46,7 @@ OK
 # List
 - `lpush 键名 value`
 - `lrange 健名 0 -1` 获取[0,倒数最后一个]范围内的所有值
-```
+```shell
 127.0.0.1:6379> lpush ckylist one
 (integer) 1
 127.0.0.1:6379> lpush ckylist two
