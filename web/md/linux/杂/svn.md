@@ -18,82 +18,84 @@ svnadmin create /home/cky/svn
 │   ├── passwd
 │   └── svnserve.conf
 ├── db
-│   ├── current
-│   ├── format
-│   ├── fsfs.conf
-│   ├── fs-type
-│   ├── min-unpacked-rev
-│   ├── revprops
-│   │   └── 0
-│   │       └── 0
-│   ├── revs
-│   │   └── 0
-│   │       └── 0
-│   ├── transactions
-│   ├── txn-current
-│   ├── txn-current-lock
-│   ├── txn-protorevs
-│   ├── uuid
-│   └── write-lock
-├── format
-├── hooks
-│   ├── post-commit.tmpl
-│   ├── post-lock.tmpl
-│   ├── post-revprop-change.tmpl
-│   ├── post-unlock.tmpl
-│   ├── pre-commit.tmpl
-│   ├── pre-lock.tmpl
-│   ├── pre-revprop-change.tmpl
-│   ├── pre-unlock.tmpl
-│   └── start-commit.tmpl
-├── locks
-│   ├── db.lock
-│   └── db-logs.lock
-└── README.txt
-
-10 directories, 28 files
+...
 ```
 
 # 配置svn用户
-### home/cky/svn/conf/svnserve.conf
-```shell
+- home/cky/svn/conf/svnserve.conf
+
+```svn
 [general]
-#匿名用户不可读
-anon-access = none
-#权限用户可写
-auth-access = write
-#密码文件为passwd
-password-db = passwd
-#权限文件为authz
-authz-db = authz
+anon-access = none      # 匿名用户不可读
+auth-access = write     # 权限用户可写
+password-db = passwd    # 密码文件为passwd
+authz-db = authz        # 权限文件为authz
 ```
-### home/cky/svn/conf/authz
-```shell
-# 编辑制定管理员组 即admin组的用户为tone admin组有rw（读写权限） 所有人有r（读权限）
-# 这里组的名字 不一定叫admin 你的管理员组名 可以叫做任意的名字，另外比如admin组还有其他用户，可以这样制定 admin=tone，tone1,tone2 类似这样的写法
+
+- home/cky/svn/conf/authz
+
+```svn
+[aliases]
+
 [groups]
-admin= tone
+admin = cky,zj
 
 [/]
 @admin = rw
-*=r
+
+[svn-base:/]
+cky = rw
 ```
 
-### home/cky/svn/conf/passwd
+- home/cky/svn/conf/passwd
+
 ```shell
-# 编制passwd 文件 设定用户密码 明文的
 [users]
-# harry = harryssecret
-# sally = sallyssecret
-tone=www
+cky = Cky_951010
 ```
 
 # 启动svn服务
-```
+```shell
 sudo svnserve -d -r /home/cky/svn
 ```
 
-# 查看版本库里 日志 目录 内容
+# 配置svn服务自启动
+- `vim /etc/rc.local`
+```vim
+#!/bin/sh -e
+# 开机自启动svn服务
+svnserve -d -r /svn-base/
+
+exit 0
+```
+
+# 客户端检出一个工作副本
+```shell
+➜  svn svn checkout svn://127.0.0.1 --username cky --password Cky_xxxxxx
+-----------------------------------------------------------------------
+ATTENTION!  Your password for authentication realm:
+
+   <svn://127.0.0.1:3690> 42d67a66-7688-48e1-bc13-810d9f87079e
+
+can only be stored to disk unencrypted!  You are advised to configure
+your system so that Subversion can store passwords encrypted, if
+possible.  See the documentation for details.
+
+You can avoid future appearances of this warning by setting the value
+of the 'store-plaintext-passwords' option to either 'yes' or 'no' in
+'/home/cky/.subversion/servers'.
+-----------------------------------------------------------------------
+Store password unencrypted (yes/no)? yes
+Checked out revision 0.
+➜  svn ls -alhi
+total 12K
+788671 drwxrwxr-x  3 cky cky 4.0K Oct 19 23:56 .
+793783 drwxr-xr-x 17 cky cky 4.0K Oct 19 23:54 ..
+789305 drwxrwxr-x  4 cky cky 4.0K Oct 19 23:56 .svn
+```
+
+查看版本库里 日志 目录 内容
+=================================================
 ```shell
 svn log -l10                        # 查看最近10次日志 用来展示svn 的版本作者、日期、路径等等
 svn log;                            # 什么都不加会显示所有版本commit的日志信息
@@ -105,7 +107,8 @@ svn list http://svn.test.com/svn    # 查看目录中的文件;
 svn list -v http://svn.test.com/svn # 查看详细的目录的信息(修订人,版本号,文件大小等)
 ```
 
-# 对比差异
+对比差异
+==================================================
 ```shell
 svn diff                # 什么都不加，会检测本地代码和缓存在本地.svn目录下的信息的不同，用来显示特定修改的行级详细信息
 svn diff -r 3           # 比较你的本地代码和版本号为3的所有文件的不同
@@ -114,64 +117,67 @@ svn diff -r 5:6         # 比较版本5和版本6之间所有文件的不同
 svn diff -r 5:6 text.c  # 比较版本5和版本6之间的text.c文件的变化
 ```
 
-# 回退修改
+回退修改
+====================================================
 ```shell
 svn revert file/path 回退对某一个文件／目录的修改
 ```
 
-# 添加忽略文件
+添加忽略文件
+=====================================================
 - svn中对当前文件夹添加属性,执行命令后,直接在文本输入界面里填写要忽略的文件就好,默认编辑器在`.bash_rc`里设置`export SVN_EDITOR=vim`
 ```shell
 svn propedit svn:ignore .
 ```
 
-
-
-## 检出一个副本 ##
-```
-svn co http://路径(目录或文件的全路径)　[本地目录全路径] --username 用户名--password 密码
-svn co svn://路径(目录或文件的全路径)　[本地目录全路径] --username 用户名--password 密码
-```
-## 将副本的文件添加到版本控制(注意不是提交到服务器仓库) ##
-```
+副本的文件添加到版本控制
+=====================================================
+```bash
 svn　add　文件名
 ```
-## 提交修改文件 ##
 
-```
-svn ci -m “添加测试用test.c“   test.php
-svn ci -m “添加测试用全部c文件“  *.c
-```
-## 将服务器仓库中的文件删除操作 ##
+将服务器仓库中的文件删除操作
+=====================================================
 ```
 svn delete test.c
-svn ci -m“删除测试文件test.c”
+svn ci -m"删除测试文件test.c"
 ```
-## 查看本地副本中是否有异常的文件 ##
+
+提交修改文件
+=====================================================
 ```
-svn st   #查看当前目录下异常文件状态
+svn ci -m "提交test.php到服务器"  test.php
+svn ci -m "提交所有c文件到服务器"  *.c
+```
+
+查看本地副本中是否有异常的文件
+```bash
+svn st   # 查看当前目录下异常文件状态
 ?：不在svn的控制中；M：内容被修改；C：发生冲突；A：预定加入到版本库；K：被锁定
-svn status -v [path] 
+svn status -v [path]
 -v 是连子目录中异常都显示
 ```
-## 查看某个文件的详细信息和变更日志 ##
-```
+
+查看某个文件的详细信息和变更日志
+=====================================================
+```bash
 svn info test.php
 svn log  test.php
 ```
-## 将修改的文件与基础版本比较差异 ##
+
+比较差异
+=====================================================
+```bash
+svn diff test.php           # 将修改的文件与基础版本比较
+svn diff -r200:201 test.php # 比较两个版本之间文本的差异
 ```
-svn diff test.php
-```
-## 比较两个版本之间文本的差异 ##
-```
-svn diff -r200:201 test.php
-```
+
 ## 加锁/解锁 ##
 ```
 svn lock -m “lock test file“ [--force] test.php
 svn unlock test.php
 ```
+
 ## 更新到1920版本 ##
 ```
 svn update -r1920 test.php
