@@ -68,6 +68,22 @@
 				$(this).next().removeClass('show').addClass('hide');
 			}
 		});
+
+
+        // Websocket
+        /*
+        var ws = new WebSocket("ws://dadishe.com:2345");
+        ws.onopen = function ()
+        {
+            console.log("connenct success !\n");
+            ws.send("ping");
+            console.log("send ping \n");
+        }
+        ws.onmessage = function(e)
+        {
+            console.log( "get message : " + e.data );
+        }
+        */
 	</script>
 	</body>
 </html>
