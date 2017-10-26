@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://blog.dadishe.com">博客</a>
+                    <a href="http://blog.codekissyoung.com">博客</a>
                     <a href="https://weibo.com/523486790">微博</a>
                     <a href="https://juejin.im/user/57d615070e3dd90069de4517">掘金</a>
                     <a href="https://my.oschina.net/codekissyoung">开源中国</a>
