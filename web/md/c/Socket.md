@@ -25,3 +25,25 @@ int udp_socket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);  // UDP 套接字
 ```c
 int connect(int sock, struct sockaddr *serv_addr, socklen_t addrlen);
 ```
+
+```c
+struct sockaddr
+{
+    //地址族，2字节
+    unsigned short sa_family;
+    //存放地址和端口，14字节
+    char sa_data[14];
+}
+
+struct sockaddr_in
+{
+    //地址族
+    short int sin_family;
+    //端口号(使用网络字节序)
+    unsigned short int sin_port;
+    //地址
+    struct in_addr sin_addr;
+    //8字节数组，全为0，该字节数组的作用只是为了让两种数据结构大小相同而保留的空字节
+    unsigned char sin_zero[8]
+}
+```
