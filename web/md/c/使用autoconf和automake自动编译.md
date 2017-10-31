@@ -75,7 +75,7 @@ daemon_SOURCES=server.c
 
 # 执行构建过程
 ```bash
-➜  daemon git:(master) ✗ aclocal && autoconf && autoheader && automake --add-missing
+➜  daemon git:(master) ✗ aclocal && autoconf && autoheader && libtoolize --automake --copy --debug --force && automake --add-missing
 configure.ac:3: warning: AM_INIT_AUTOMAKE: two- and three-arguments forms are deprecated.  For more info, see:
 configure.ac:3: http://www.gnu.org/software/automake/manual/automake.html#Modernize-AM_005fINIT_005fAUTOMAKE-invocation
 configure.ac:8: installing './compile'
