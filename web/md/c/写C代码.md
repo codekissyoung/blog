@@ -1,0 +1,87 @@
+# goto
+- 用在错误处理
+
+```c
+retval = request_irq(IRQ_EINT(20), buttons_interrupt, IRQF_DISABLED,
+     "KEY1", (void *)EINT_DEVICE_ID);
+if(retval){
+    err("request eint20 failed");		
+    return error;
+}
+
+/* Driver register */
+major = register_chrdev(major, DRIVER_NAME, &key_fops);
+if(major < 0){
+    err("register char device fail");
+    free_irq(IRQ_EINT(20), (void *)EINT_DEVICE_ID);
+    retval = major;
+    return retval;
+}
+key_class=class_create(THIS_MODULE,DRIVER_NAME);
+if(IS_ERR(key_class)){
+    err("class create failed!");
+    free_irq(IRQ_EINT(20), (void *)EINT_DEVICE_ID);
+    unregister_chrdev(major, DRIVER_NAME);
+    retval =  PTR_ERR(key_class);
+    return retval;
+}
+key_device=device_create(key_class,NULL, MKDEV(major, minor), NULL,DRIVER_NAME);
+if(IS_ERR(key_device)){
+    err("device create failed!");
+    free_irq(IRQ_EINT(20), (void *)EINT_DEVICE_ID);
+    unregister_chrdev(major, DRIVER_NAME);
+    class_destroy(key_class);
+    retval = PTR_ERR(key_device);
+    return error_device;
+}
+```
+
+看到了吗.因为每一步的错误处理需要把之前申请或注册成功的资源全部都释放掉,比如class_create失败需要注销irq和驱动(因为它们已经成功了,到这一步失败了,那么之前的成功就没有意义了,所以因为一切要恢复到最初的样子),所以这会产生大量重复的代码,free_irq这个函数写了三次,unregister_chrdev写了二次
+
+
+```c
+retval = request_irq(IRQ_EINT(20), buttons_interrupt, IRQF_DISABLED,"KEY1", (void *)EINT_DEVICE_ID);
+if(retval){
+    err("request eint20 failed");
+    goto error;
+}
+/* Driver register */
+major = register_chrdev(major, DRIVER_NAME, &key_fops);
+if(major < 0){
+    err("register char device fail");
+    retval = major;
+    goto error_register;
+}
+key_class=class_create(THIS_MODULE,DRIVER_NAME);
+if(IS_ERR(key_class)){
+    err("class create failed!");
+    retval =  PTR_ERR(key_class);
+    goto error_class;
+}
+key_device=device_create(key_class,NULL, MKDEV(major, minor), NULL,DRIVER_NAME);
+if(IS_ERR(key_device)){
+    err("device create failed!");
+    retval = PTR_ERR(key_device);
+    goto error_device;
+}
+__debug("register myDriver OK! Major = %d\n", major);
+return 0;
+
+error_device:
+    class_destroy(key_class);
+error_class:
+    unregister_chrdev(major, DRIVER_NAME);
+error_register:
+    free_irq(IRQ_EINT(20), (void *)EINT_DEVICE_ID);
+error:
+    return retval;
+}
+```
+
+# 短路计算
+- 不用if语句，不用汇编，怎么使得两数之积总是小于等于255?
+```c
+result   = ((a*b) > 255) ? 255 : a*b; // 方法 1
+bool tmp = ((result = a*b) < 255) || (result=255); // 方法 2
+bool tmp = ((result = a*b) >= 255) && (result=255); // 方法 3
+```
