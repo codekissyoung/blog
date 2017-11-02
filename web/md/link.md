@@ -1,3 +1,7 @@
+# [GNU Make文档](https://www.gnu.org/software/make/manual/make.html)
+- [内置目标名](Special Built-in Target Names)
+- [阮一峰 Make 命令教程](http://www.ruanyifeng.com/blog/2015/02/make.html)
+
 # [代码片段](http://www.phpxs.com/)
 - 里面有非常多有用的代码,各个语言都有
 
