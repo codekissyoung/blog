@@ -9,13 +9,29 @@ uname -a
 ```
 
 # 中文支持
-```
+```bash
 sudo apt-get install language-pack-zh-hans
 sudo apt-get install zhcon
 ```
 
-## 触摸板 ##
+# 设定运行时语言环境
+- Locale是软件在运行时的语言环境, 它包括语言(Language), 地域 (Territory) 和字符集(Codeset)
+- 运行`sudo vim /etc/enviroment` 添加如下内容
+```bash
+LANG="zh_CN.UTF-8"
+LANGUAGE="zh_CN:zh:en_US:en"
+export LC_ALL=C
 ```
+- 运行 `sudo locale-gen`
+- 运行 `sudo vim /etc/default/locale`,添加如下内容
+```bash
+LANG=zh_CN.UTF-8
+LANGUAGE="zh_CN:zh:en_US:en"
+```
+
+
+## 触摸板 ##
+```bash
 禁用触摸板的命令:
 sudo rmmod psmouse
 启用触摸板的命令:
@@ -25,14 +41,15 @@ lsmod
 搜索mouse相关的
 ls mod | grep "mouse"
 ```
+
 ## 使用chromium看视频 ##
-```
+```bash
 sudo apt-get install flashplugin-installer
 sudo apt-get install pepperflashplugin-nonfree
 ```
 
 # 安装软件
-```
+```bash
 sudo apt-get update 更新软件源
 sudo apt-get upgrade　从软件源处更新软件
 sudo apt-get autoremove 自动卸载系统不需要的软件
@@ -48,7 +65,7 @@ sudo apt-get install zsh 安装zsh 配置oh-my-zsh
 ```
 
 # dpkg
-```
+```bash
 dpkg -c package.deb 列出 deb 包的内容
 dpkg -i <.deb file name> 安装软件
 dpkg -L package 用此命令查看软件安装到什么地方
@@ -63,7 +80,7 @@ dpkg–reconfigure package    重新配置包
 ```
 
 # apt-get/apt-cache
-```
+```bash
 apt-cache search keyword 搜寻软件
 apt-get install package 安装软件
 apt-get remove package 删除软件
@@ -73,7 +90,7 @@ apt-get upgrade 更新软件包
 ```
 
 # aptitude
-```
+```bash
 sudo apt-get install aptitude 安装
 sudo aptitude 打开软件包字符操作界面
 sudo aptitude search package 搜索
@@ -85,7 +102,7 @@ sudo aptitude upgrade
 ```
 
 # ppa
-```
+```bash
 sudo add-apt-repository ppa:ppsspp/stable 添加ppa源，（实质是个Python脚本，在source.list里添加 ppa 源了，同时完成导入key）
 sudo aptitude update
 sudo aptitude search ppsspp
@@ -95,7 +112,7 @@ sudo aptitude update
 ```
 
 # 利用源码构建软件
-```
+```bash
 # 安装编译工具先
 sudo aptitude install automake autoconf libtool pkg-config intltool libxml2-dev libgtk2.0-dev libnotify-dev libglib2.0-dev libevent-dev build-essential checkinstall libcurl4-openssl-dev libssl-dev linux-headers-$(uname -r)
 # 安装编译wireshark工具
@@ -108,7 +125,7 @@ sudo checkinstall # 构建debian包并且安装
 
 # snap 安装软件包
 - snap包思路模仿苹果软件包,没有依赖关系，体积大，下载安装包后，将下载的安装文件挂载到`/snap`目录下并自动创建挂载点，然后复制文件到指定位置
-```
+```bash
 snap find htop # 查找软件
 sudo snap install htop # 安装软件
 ➜  htop tree   
@@ -139,14 +156,14 @@ snap list # 列出安装的应用
 ```
 
 # 安装python开发环境
-```
+```bash
 sudo aptitude install -y python2.7-dev python3.5-dev libssl-dev libevent-dev libjpeg-dev libxml2-dev libxslt1-dev
 sudo aptitude install python-pip 安装包管理工具
 sudo pip install virtualenv 安装 python 版本的虚拟环境,先不管，学python时候再看
 ```
 
 # 构建嵌入式开发环境(交叉编译)
-```
+```bash
 # 暂时不学
 ```
 
@@ -160,7 +177,7 @@ sudo pip install virtualenv 安装 python 版本的虚拟环境,先不管，学p
 - `nobody` `admin` `ftp` ，无密码,无home目录，无shell,主要就是为了运行某些特定的进程，比如 nginx 使用nobody用户来运行
 
 # 特殊权限
-```
+```bash
 000 , --- , 0 , 不使用任何特殊权限
 001 , --t , 1 ,
 010 , -s- , 2 ,
@@ -171,7 +188,7 @@ sudo pip install virtualenv 安装 python 版本的虚拟环境,先不管，学p
 111 , sst , 7 ,
 ```
 
-```
+```bash
 ➜  ~ ls -alh /bin/su
 -rwsr-xr-x 1 root root 40K 5月  16 10:28 /bin/su
 ```
@@ -181,7 +198,7 @@ sudo pip install virtualenv 安装 python 版本的虚拟环境,先不管，学p
 - 通过 `chmod u+s file` 或者 `chmod 4755 file` 来设置
 
 
-```
+```bash
 ➜  ~ ls -alh /usr/bin/mlocate
 -rwxr-sr-x 1 root mlocate 39K 11月 18  2014 /usr/bin/mlocate
 ```
@@ -189,7 +206,7 @@ sudo pip install virtualenv 安装 python 版本的虚拟环境,先不管，学p
 - 对于设置了SGID权限的目录来说,用户拥有r x权限时，可以进入该目录,用户在此目录下的有效用户变为该目录的用户，创建的文件的所属用户也是该目录的用户
 - 使用 `chmod g+s file` 来添加此权限
 
-```
+```bash
 ➜  / ls -alh / |grep tmp
 drwxrwxrwt  16 root root 4.0K 6月   3 13:01 tmp
 ```
@@ -200,7 +217,7 @@ drwxrwxrwt  16 root root 4.0K 6月   3 13:01 tmp
 # 限制用户进程数
 - 在`/etc/security/limits.conf` 文件后面添加上下面代码，限制用户进程数为200
 
-```
+```bash
 *   hard    nproc   200
 ```
 
@@ -208,13 +225,14 @@ drwxrwxrwt  16 root root 4.0K 6月   3 13:01 tmp
 
 
 # Nginx 
-```
+```bash
 service apache2 stop
 apt-get remove apache2
 apt-get install nginx
 service nginx start
 curl localhost # 验证下安装是否成功
 ```
+
 `sudo path/to/nginx` 启动
 
 `sudo nginx -s reload` 重启
@@ -232,29 +250,25 @@ curl localhost # 验证下安装是否成功
 # 使用apt-get安装 lnmp 架构
 使用的是root用户
 安装mysql
-```
+```bash
 apt-get install mysql-server mysql-client
 ```
 
-
-安装php-fpm
-```
+#### 安装php-fpm
+```bash
 apt-get install php5-fpm
 apt-get install php5-mysql php5-curl php5-gd php5-intl php-pear php5-imagick php5-imap php5-mcrypt php5-memcache php5-ming php5-ps php5-pspell php5-recode php5-snmp php5-sqlite php5-tidy php5-xmlrpc php5-xsl php-apc
 ```
-配置文件 `vim  /etc/php5/fpm/php.ini `
-```
+- 配置文件 `vim  /etc/php5/fpm/php.ini `
+```bash
 cgi.fix_pathinfo=0
 ```
 改变php-fpm监听 `vi /etc/php5/fpm/pool.d/www.conf`
-```
+```bash
 ;listen = /var/run/php5-fpm.sock 
 listen = 127.0.0.1:9000
 ```
-新建个测试文件 `vim /usr/share/nginx/html/info.php`
-```
-<?php phpinfo(); ?>
-```
+
 重新启动php5-fpm  `service php5-fpm reload`
 重新启动nginx `service nginx reload`
 错误处理 报错 `reload: Unknown instance`
@@ -272,14 +286,14 @@ memcached -d -m 50 -p 11211 -u root #启动一个memcached服务
 -p 指定要监听的端口； 
 -u 指定以哪个用户来运行
 -l 是监听的服务器ip地址，默认为127.0.0.1  
--c是最大并发连接数，默认1024 
--P是保存pid文件 如/tmp/memcached.pid
+-c 是最大并发连接数，默认1024 
+-P 是保存pid文件 如/tmp/memcached.pid
 使用telnet测试 memcached 服务
 $ telnet localhost 11211 Trying 127.0.0.1...Connected to localhost.
 
 # ubuntu 16.04 搭建Ubuntu(16.04) + Apache(2.4) + Mysql(5.7) + PHP(7.0)环境
 ## 搭建目标
-```
+```bash
 cky@cky-pc:~/worksapce$ apache2 -v
 Server version: Apache/2.4.18 (Ubuntu)
 Server built: 2016-04-15T18:00:57
@@ -291,7 +305,7 @@ Zend Engine v3.0.0, Copyright (c) 1998-2016 Zend Technologies
 with Zend OPcache v7.0.6-dev, Copyright (c) 1999-2016, by Zend Technologies
 ```
 ## 安装并配置apache2.4
-```
+```bash
 sudo apt-get install apache2
 ```
 ```
@@ -334,37 +348,37 @@ http://blog.csdn.net/u013178760/article/details/45393183    Apache 2.4 Rewrit
 http://blog.csdn.net/u013178760/article/details/48436777    Apache2 虚拟主机配置
 
 # 安装apache
-```
+```bash
 sudo apt-get install apache2
 ```
 # 开启和关闭模块
-```
+```bash
 sudo a2enmod rewrite #启用rewrite模块 
 sudo a2dismod rewrite #禁用rewrite模块
 ```
 # 开启和关闭站点
-```
+```bash
 sudo a2ensite sitename ＃启用站点 
 sudo a2dissite sitename ＃停用站点
 ```
 # 允许使用.htaccess
-```
+```bash
 AllowOverride None 改为 AllowOverride  All
 ```
 # 重启|开启｜关闭apache 
-```
+```bash
 sudo service apache2 restart|start|stop             重启|开启｜关闭apache 
 sudo  /etc/init.d/apache2 restart|start|stop     　　重启｜开启｜关闭apache
 ```
 
 ## url重写
-```
+```bash
 http://www.example.com/USA/California/San_Diego  
 “/USA/California/San_Diego” 是能够Rewrite的字符串！
 重写：就是实现URL的跳转和隐藏真实地址，基于Perl语言的正则表达式规范。平时帮助我们实现拟静态，拟目录，域名跳转，防止盗链等
 ```
 ## .htaccess
-```
+```bash
 RewriteEnine on
 RewriteRule  ^/t_(.*).html$  /test.php?id = $1#当访问任何以t_开头，以.html结尾的文件时，将$1用与(.*)匹配的字符替换后，访问相应的test.php页面
 RewriteRule ^/test([0-9]*).html$ /test.php?id=$1RewriteRule ^/new([0-9]*)/$ /new.php?id=$1 [R]#当我们访问的地址不是以www.163.com开头的，那么执行下一条规则
@@ -372,7 +386,7 @@ RewriteCond %{HTTP_HOST} !^www.163.com [NC]RewriteRule ^/(.*) http://www.163.com
 ```
 
 ## Apache Rewrite规则修正符
-```
+```bash
 1) R 强制外部重定向
 2) F 禁用URL,返回403HTTP状态码。
 3) G 强制URL为GONE，返回410HTTP状态码。
@@ -388,12 +402,11 @@ RewriteCond %{HTTP_HOST} !^www.163.com [NC]RewriteRule ^/(.*) http://www.163.com
 ```
 
 ## 核心模块
-```
+```bash
 core_module,so_module,http_module,mpm
 ```
 ## 全局配置指令
-
-```
+```bash
 #表示apache2这个软件安装的目录
 ServerRoot  "/usr/local/apache2"
 
@@ -438,7 +451,7 @@ ip 地址 : 10.10.10.19
 网关: 10.10.10.1
 DNS服务器:119.29.29.29,114.114.114.114
 搜索域:lingyunstrong.com
-```
+```bash
 cky@cky-pc:~$ ping a
 PING a.lingyunstrong.com (183.16.2.95) 56(84) bytes of data.
 64 bytes from 183.16.2.95: icmp_seq=1 ttl=64 time=0.595 ms
@@ -493,7 +506,7 @@ PING sina.com (66.102.251.33) 56(84) bytes of data.
 
 
 # 追踪路由
-```
+```bash
 ➜  blog git:(master)  sudo traceroute m.dev.yunchongba.com
 traceroute to m.dev.yunchongba.com (120.25.71.101), 30 hops max, 60 byte packets
  1  10.10.10.1 (10.10.10.1)  0.587 ms  0.584 ms  0.576 ms
