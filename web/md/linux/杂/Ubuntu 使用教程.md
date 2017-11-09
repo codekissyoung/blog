@@ -19,14 +19,11 @@ sudo apt-get install zhcon
 - 运行`sudo vim /etc/enviroment` 添加如下内容
 ```bash
 LANG="zh_CN.UTF-8"
-LANGUAGE="zh_CN:zh:en_US:en"
-export LC_ALL=C
 ```
 - 运行 `sudo locale-gen`
 - 运行 `sudo vim /etc/default/locale`,添加如下内容
 ```bash
 LANG=zh_CN.UTF-8
-LANGUAGE="zh_CN:zh:en_US:en"
 ```
 
 

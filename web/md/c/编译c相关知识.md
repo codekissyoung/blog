@@ -20,10 +20,6 @@
    #define MESSAGE "You wish!"
 #endif
 
-#if !defined (MESSAGE)
-   #define MESSAGE "You wish!"
-#endif
-
 #define DEBUG 1
 #ifdef DEBUG
 #define debug(a, b) printf(#a"\n",b)
