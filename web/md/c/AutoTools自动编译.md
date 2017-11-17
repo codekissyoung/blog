@@ -7,29 +7,17 @@
 ```bash
 ➜  learn git:(master) autoconf --version
 autoconf (GNU Autoconf) 2.69
-Copyright (C) 2012 Free Software Foundation, Inc.
-License GPLv3+/Autoconf: GNU GPL version 3 or later
-<http://gnu.org/licenses/gpl.html>, <http://gnu.org/licenses/exceptions.html>
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
+...
 
-Written by David J. MacKenzie and Akim Demaille.
 ➜  learn git:(master) automake --version
 automake (GNU automake) 1.15
-Copyright (C) 2014 Free Software Foundation, Inc.
-License GPLv2+: GNU GPL version 2 or later <http://gnu.org/licenses/gpl-2.0.html>
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
+...
 
 Written by Tom Tromey <tromey@redhat.com>
        and Alexandre Duret-Lutz <adl@gnu.org>.
 ➜  learn git:(master) libtool --version
 libtool (GNU libtool) 2.4.6
-Written by Gordon Matzigkeit, 1996
-
-Copyright (C) 2014 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+...
 ```
 
 # 准备 configure.ac 文件
