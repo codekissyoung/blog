@@ -42,6 +42,21 @@ tokenpaster(34); // printf ("token34 = %d", token34);
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
 ```
 
+# gcc 编译
+```bash
+gcc -o hello hello.c   -I/home/hello/include   -L/home/hello/lib    -lworld
+```
+- `-I /home/hello/include` : 表示将/home/hello/include目录作为第一个寻找头文件的目录，寻找的顺序 `/home/hello/include /usr/include /usr/local/include`
+
+- `-L /home/hello/lib` : 表示将/home/hello/lib目录作为第一个寻找库文件的目录, 寻找的顺序是 `/home/hello/lib /lib /usr/lib /usr/local/lib`
+
+- `-l word` 表示寻找动态链接库文件`libword.so` 也就是文件名去掉前缀和后缀所代表的库文件
+
+- 如果加上编译选项-static，表示寻找静态链接库文件，也就是 `libword.a`
+
+- 对于第三方提供的动态链接库(.so），一般将其拷贝到一个lib目录下(/usr/local/lib），或者使用-L来指定其所在目录， 然后使用-l来指定其名称
+
+
 # gdb 调试
 - `gcc -g main.c -o cky` 编译启用支持 gdb
 - `gdb <program>` program也就是你的执行文件，一般在当然目录下。
@@ -87,7 +102,6 @@ enable breakpoint 1 #启用1号断点
 ```
 
 - 清除断点
-
 ```shell
 (gdb) d 回车 # 清除所有断点
 Delete all breakpoints? (y or n) y
