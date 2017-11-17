@@ -35,7 +35,6 @@ message_for(Carole, Debra); // Carole and Debra: We love you!
 #define tokenpaster(n) printf ("token" #n " = %d", token##n)
 tokenpaster(34); // printf ("token34 = %d", token34);
 
-
 /* 模拟函数 */
 #define square(x) ((x) * (x))
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
