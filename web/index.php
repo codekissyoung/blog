@@ -2,7 +2,7 @@
 include_once '../config.php';
 
 // 博客当前访问文章
-$ri = isset($_SERVER['PATH_INFO']) ? urldecode($_SERVER["PATH_INFO"]) : '';
+$ri = isset($_SERVER['PATH_INFO']) ? $_SERVER["PATH_INFO"] : '';
 if($ri)
 {
     $article = MD_ROOT."{$ri}.md";
@@ -13,7 +13,7 @@ else
 }
 
 // 加载文章内容
-if(is_file($article))
+if( is_file( $article  ) )
 {
     $content = file_get_contents($article);
 }
