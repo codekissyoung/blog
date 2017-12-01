@@ -1,3 +1,5 @@
+# [linux命令](http://man.linuxde.net/)
+
 # [计算机书籍控](http://bestcbooks.com/)
 
 # [GNU Make文档](https://www.gnu.org/software/make/manual/make.html)
