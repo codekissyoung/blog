@@ -31,11 +31,6 @@ it++; 迭代器自增 1 ,指向容器中的下一个元素
 b == c;
 b != c; 判断向量是否相等
 
-string 支持完全随机访问
-s.substr(i,j); 截取 [i,j)范围内的字符串
-getline(is,s); 从 is 中读入一行，存储在 s 中
-s += s2; 连接字符串
-
 v.reverse(n); 保留空间以保存 n 个元素
 v.resize(n);
 
