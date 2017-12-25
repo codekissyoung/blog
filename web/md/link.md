@@ -53,33 +53,34 @@
 # [酷壳网](http://coolshell.cn)
 
 # [简明现代魔法](http://www.nowamagic.net)
-[php内核探索](http://www.nowamagic.net/librarys/veda/detail/1285)
+- [php内核探索](http://www.nowamagic.net/librarys/veda/detail/1285)
 
 # [LFS](http://www.linuxfromscratch.org/news.html)
-Linux From Scratch 是一种给使用者指导建议，由使用者自行从头开始自己构建的发行版。LFS 发行版及其衍生版本，都由其同名的手册提供了完整的指导建议。
+- Linux From Scratch 是一种给使用者指导建议，由使用者自行从头开始自己构建的发行版。LFS 发行版及其衍生版本，都由其同名的手册提供了完整的指导建议。
 目标是安装一个与现有发行版毫无关系的系统，安装LFS仍然不能无中生有，而必须要有一个可以编译软件包的运行中的Linux系统。这个系统一般称为宿主系统。
 
 # [鸟哥的linux私房菜](http://linux.vbird.org/linux_basic/)
 
 # [linux.cn社区](https://linux.cn)
-[使用 systemd 中的定时器执行定时任务](https://linux.cn/article-3996-1.html)
-[如何在 systemd 下管理Linux系统的时间和日期](https://linux.cn/article-4260-1.html)
-[如何为CentOS 7配置静态IP地址](https://linux.cn/article-3977-1.html)
-[关于百度DNS的解析过程](http://zhan.renren.com/starshen?gid=3602888498023142484&checked=true)
+- [使用 systemd 中的定时器执行定时任务](https://linux.cn/article-3996-1.html)
+- [如何在 systemd 下管理Linux系统的时间和日期](https://linux.cn/article-4260-1.html)
+- [如何为CentOS 7配置静态IP地址](https://linux.cn/article-3977-1.html)
+- [关于百度DNS的解析过程](http://zhan.renren.com/starshen?gid=3602888498023142484&checked=true)
 
 # [centos官方论坛]([https://www.centos.org/forums/index.php](https://www.centos.org/forums/index.php)
 
 # [php the right way](http://laravel-china.github.io/php-the-right-way)
 
 # [php100网](http://www.php100.com)
-[github资源汇总](http://www.php100.com/html/dujia/2015/0105/8267.html)
-[php如何实现验证码](http://www.php100.com/html/dujia/2015/0919/8975.html)
+- [github资源汇总](http://www.php100.com/html/dujia/2015/0105/8267.html)
+- [php如何实现验证码](http://www.php100.com/html/dujia/2015/0919/8975.html)
 
 # [CSDN网](http://www.csdn.net/)
-[一个优秀网站的登录验证流程](http://blog.csdn.net/clevercode/article/details/45481409)
+- [一个优秀网站的登录验证流程](http://blog.csdn.net/clevercode/article/details/45481409)
+
 
 # [风雪之隅](http://www.laruence.com/)
-[php-header函数](http://www.laruence.com/2007/12/16/308.html)
+- [php-header函数](http://www.laruence.com/2007/12/16/308.html)
 
 # [韩天峰博客](http://rango.swoole.com)
 
