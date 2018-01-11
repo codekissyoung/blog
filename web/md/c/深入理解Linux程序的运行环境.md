@@ -2,7 +2,18 @@
 - .text 代码段，存放各种指令
 - .data 数据段，存放已经初始化了的全局变量和静态局部变量
 - .bss 段，存放未初始化的全局变量和静态局部变量
-
+- .rodata，只读数据
+- .comment 编译器版本信息等
+- .debug 调试信息
+- .dynamic 动态链接信息
+- .hash 符号hash表
+- .line 源代码行号与编译后指令对应表
+- .note 额外的编译器信息
+- .strtab String Table 字符串表，用于存储ELF文件中使用到的各种字符串
+- .symtab Symbol Table 符号表
+- .shstrtab Section String Table 段名表
+- .plt .got 动态链接的跳转表 和 全局入口表
+- .init .fini 程序初始化与终结代码段 C++ 全局构造与析构 有关
 
 # SimpleSection.c
 ```c
@@ -14,6 +25,13 @@ int global_init_uninit_var;
 void func1( int i )
 {
     printf("%d\n", i );
+}
+
+// 编译时: 将全局变量和函数放在自定义段
+__attribute__((section("FOO"))) int global = 42;
+__attribute__((section("BAR"))) void foo()
+{
+    // do nothing
 }
 
 int main( void )
@@ -156,4 +174,117 @@ Disassembly of section .text:
 ➜  compile git:(master) size SimpleSection.o
    text	   data	    bss	    dec	    hex	filename
     177	      8	      4	    189	     bd	SimpleSection.o
+```
+
+# 查看 ELF 文件头
+```bash
+➜  compile git:(master) readelf -h SimpleSection.o
+ELF 头：
+  Magic：   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00
+  类别:                              ELF64
+  数据:                              2 补码，小端序 (little endian)
+  版本:                              1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI 版本:                          0
+  类型:                              REL (可重定位文件)
+  系统架构:                          Advanced Micro Devices X86-64
+  版本:                              0x1
+  入口点地址：               0x0
+  程序头起点：          0 (bytes into file)
+  Start of section headers:          1256 (bytes into file)
+  标志：             0x0
+  本头的大小：       64 (字节)
+  程序头大小：       0 (字节)
+  Number of program headers:         0
+  节头大小：         64 (字节)
+  节头数量：         15
+  字符串表索引节头： 12
+```
+
+# 查看段表
+```bash
+➜  compile git:(master) readelf -S SimpleSection.o
+共有 15 个节头，从偏移量 0x4e8 开始：
+
+节头：
+  [号] 名称              类型             地址              偏移量
+       大小              全体大小          旗标   链接   信息   对齐
+  [ 0]                   NULL             0000000000000000  00000000
+       0000000000000000  0000000000000000           0     0     0
+  [ 1] .text             PROGBITS         0000000000000000  00000040
+       0000000000000055  0000000000000000  AX       0     0     1
+  [ 2] .rela.text        RELA             0000000000000000  000003b8
+       0000000000000078  0000000000000018   I      13     1     8
+  [ 3] .data             PROGBITS         0000000000000000  00000098
+       0000000000000008  0000000000000000  WA       0     0     4
+  [ 4] .bss              NOBITS           0000000000000000  000000a0
+       0000000000000004  0000000000000000  WA       0     0     4
+  [ 5] .rodata           PROGBITS         0000000000000000  000000a0
+       0000000000000004  0000000000000000   A       0     0     1
+  [ 6] FOO               PROGBITS         0000000000000000  000000a4
+       0000000000000004  0000000000000000  WA       0     0     4
+  [ 7] BAR               PROGBITS         0000000000000000  000000a8
+       0000000000000007  0000000000000000  AX       0     0     1
+  [ 8] .comment          PROGBITS         0000000000000000  000000af
+       0000000000000035  0000000000000001  MS       0     0     1
+  [ 9] .note.GNU-stack   PROGBITS         0000000000000000  000000e4
+       0000000000000000  0000000000000000           0     0     1
+  [10] .eh_frame         PROGBITS         0000000000000000  000000e8
+       0000000000000078  0000000000000000   A       0     0     8
+  [11] .rela.eh_frame    RELA             0000000000000000  00000430
+       0000000000000048  0000000000000018   I      13    10     8
+  [12] .shstrtab         STRTAB           0000000000000000  00000478
+       0000000000000069  0000000000000000           0     0     1
+  [13] .symtab           SYMTAB           0000000000000000  00000160
+       00000000000001e0  0000000000000018          14    13     8
+  [14] .strtab           STRTAB           0000000000000000  00000340
+       0000000000000076  0000000000000000           0     0     1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), l (large)
+  I (info), L (link order), G (group), T (TLS), E (exclude), x (unknown)
+  O (extra OS processing required) o (OS specific), p (processor specific)
+```
+
+# 查看 ELF 文件的符号表
+```bash
+➜  compile git:(master) nm SimpleSection.o
+0000000000000000 T foo
+0000000000000000 T func1
+0000000000000000 D global
+0000000000000004 C global_init_uninit_var
+0000000000000000 D global_init_var
+0000000000000022 T main
+                 U printf
+0000000000000004 d static_var.1843
+0000000000000000 b static_var2.1844
+
+➜  compile git:(master) readelf -s SimpleSection.o
+
+Symbol table '.symtab' contains 20 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND
+     1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS SimpleSection.c
+     2: 0000000000000000     0 SECTION LOCAL  DEFAULT    1
+     3: 0000000000000000     0 SECTION LOCAL  DEFAULT    3
+     4: 0000000000000000     0 SECTION LOCAL  DEFAULT    4
+     5: 0000000000000000     0 SECTION LOCAL  DEFAULT    5
+     6: 0000000000000000     0 SECTION LOCAL  DEFAULT    6
+     7: 0000000000000000     0 SECTION LOCAL  DEFAULT    7
+     8: 0000000000000004     4 OBJECT  LOCAL  DEFAULT    3 static_var.1843
+     9: 0000000000000000     4 OBJECT  LOCAL  DEFAULT    4 static_var2.1844
+    10: 0000000000000000     0 SECTION LOCAL  DEFAULT    9
+    11: 0000000000000000     0 SECTION LOCAL  DEFAULT   10
+    12: 0000000000000000     0 SECTION LOCAL  DEFAULT    8
+    13: 0000000000000000     4 OBJECT  GLOBAL DEFAULT    3 global_init_var
+    14: 0000000000000004     4 OBJECT  GLOBAL DEFAULT  COM global_init_uninit_var
+    15: 0000000000000000    34 FUNC    GLOBAL DEFAULT    1 func1
+    16: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND printf
+    17: 0000000000000000     4 OBJECT  GLOBAL DEFAULT    6 global
+    18: 0000000000000000     7 FUNC    GLOBAL DEFAULT    7 foo
+    19: 0000000000000022    51 FUNC    GLOBAL DEFAULT    1 main
+```
+
+# 去掉 ELF 文件中的调试信息
+```bash
+➜  compile git:(master) readelf -S SimpleSection.o
 ```
