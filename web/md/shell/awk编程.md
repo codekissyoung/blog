@@ -2,6 +2,7 @@
 #### 命令运行 : `awk -Fre 'pattern { action }' var=value datafiles`
 #### 脚本运行 : `awk -Fre -f awk脚本 var=value datafiles`
 ```awk
+# awk 脚本
 BEGING
 {
     // 一般就是设置下分割符 定义变量 以及输出信息行等代码
