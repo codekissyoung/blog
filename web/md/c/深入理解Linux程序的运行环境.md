@@ -288,3 +288,37 @@ Symbol table '.symtab' contains 20 entries:
 ```bash
 ➜  compile git:(master) readelf -S SimpleSection.o
 ```
+
+# 查看程序被装载时 可执行文件与进程虚拟空间映射关系
+```bash
+➜  compile git:(master) ✗ readelf -l SectionMapping
+
+Elf 文件类型为 EXEC (可执行文件)
+入口点 0x400890
+共有 6 个程序头，开始于偏移量 64
+
+程序头：
+  Type           Offset             VirtAddr           PhysAddr
+                 FileSiz            MemSiz              Flags  Align
+  LOAD           0x0000000000000000 0x0000000000400000 0x0000000000400000
+                 0x00000000000c917f 0x00000000000c917f  R E    200000
+  LOAD           0x00000000000c9eb8 0x00000000006c9eb8 0x00000000006c9eb8
+                 0x0000000000001c98 0x0000000000003550  RW     200000
+  NOTE           0x0000000000000190 0x0000000000400190 0x0000000000400190
+                 0x0000000000000044 0x0000000000000044  R      4
+  TLS            0x00000000000c9eb8 0x00000000006c9eb8 0x00000000006c9eb8
+                 0x0000000000000020 0x0000000000000050  R      8
+  GNU_STACK      0x0000000000000000 0x0000000000000000 0x0000000000000000
+                 0x0000000000000000 0x0000000000000000  RW     10
+  GNU_RELRO      0x00000000000c9eb8 0x00000000006c9eb8 0x00000000006c9eb8
+                 0x0000000000000148 0x0000000000000148  R      1
+
+ Section to Segment mapping:
+  段节...
+   00     .note.ABI-tag .note.gnu.build-id .rela.plt .init .plt .text __libc_freeres_fn __libc_thread_freeres_fn .fini .rodata __libc_subfreeres __libc_atexit .stapsdt.base __libc_thread_subfreeres .eh_frame .gcc_except_table
+   01     .tdata .init_array .fini_array .jcr .data.rel.ro .got .got.plt .data .bss __libc_freeres_ptrs
+   02     .note.ABI-tag .note.gnu.build-id
+   03     .tdata .tbss
+   04     
+   05     .tdata .init_array .fini_array .jcr .data.rel.ro .got 
+```
