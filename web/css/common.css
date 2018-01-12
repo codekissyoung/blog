@@ -60,12 +60,20 @@ img {
   padding-left: 20px;
 }
 #main_category h2 {
+  margin-top: 10px;
   cursor: pointer;
   text-align: left;
   font-size: 18px;
 }
 #main_category h2 .caret {
   margin-left: 10px;
+}
+#main_category .search-article form {
+  margin-top: 10px;
+  text-align: center;
+}
+#main_category .search-article form input[type="text"] {
+  width: 212px;
 }
 
 /*}}}*/
@@ -130,6 +138,9 @@ img {
 }
 #article img {
   width: 50%;
+}
+#article span.search_key {
+  color: red;
 }
 
 .hide {

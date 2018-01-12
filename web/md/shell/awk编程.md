@@ -1,19 +1,13 @@
 # 命令
-#### 命令运行 : `awk -Fre 'pattern { action }' var=value datafiles`
-#### 脚本运行 : `awk -Fre -f awk脚本 var=value datafiles`
+#### 命令运行 : `awk -Fre '/pattern/{ action }' files`
+#### 命令运行 : `awk -Fre '(expression){ action }' files`
+#### 脚本运行 : `awk -Fre -f awk脚本 files`
 ```awk
 # awk 脚本
-BEGING
-{
-    // 一般就是设置下分割符 定义变量 以及输出信息行等代码
-    // 然后进入主循环
-}
+BEGING{ ... }
 pattern1 { action1 }
 pattern2 { action2 }
-END
-{
-
-}
+END{ ... }
 ```
 - `-F`          设置字段分割符
 - `re`          正则表达式
@@ -28,10 +22,10 @@ END
 1. 最后执行`END`操作 一般是进行后期处理,输出综合结果等
 
 
-##### pattern 格式
+#### 匹配条件格式
 - 表达式 `(expression)`  在表达式为真时执行 `{action}`
-- 正则表达式 `(/regular expression/)`  正则表达式匹配上时执行 `{action}`
-- 复合模式 `( pattern1 && pattern2 )` 用 `&& || !` 组合模式, 为真 时执行 `{action}`
+- 正则表达式 `/pattern/`  正则表达式匹配上时执行 `{action}`
+- 复合模式 `( expression && expression )` 用 `&& || !` 组合模式, 为真 时执行 `{action}`
 - 范围模式 `( pattern1,pattern2 )` 从 pattern1 匹配上的行,直到pattern2 匹配上的行,包括这两行。如果 pattern2 一直没有匹配上,则到文件的末尾。
 
 ##### 常量
@@ -39,10 +33,10 @@ END
 - 字符串常量 : `"我们"`
 
 ##### 转义字符
-- `\t` tab
-- `\n` 换行
-- `\r` 回车
-- `\b` 退行
+- `\\t` tab
+- `\\n` 换行
+- `\\r` 回车
+- `\\b` 退行
 
 # 变量
 #### 用户定义变量
