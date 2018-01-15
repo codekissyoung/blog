@@ -7,7 +7,7 @@
 alias
 ================================================================================
 ```bash
-alias ls='ls --color=auto'; 
+alias ls='ls --color=auto';
 # 给命令取别名，`./xxx.sh`运行shell脚本,，alias别名无效，`source`和`.`方式是起有效的，因为是在当前shell运行
 
 # alias功能在交互打开的bash中是默认开启的，但是在bash脚本中是默认关闭的
@@ -21,7 +21,7 @@ alias rm='rm() { mv $@ ~/backup;};rm' # 配合函数，使用alias命令,将危�
 bg 在后台恢复暂停的作业
 ================================================================================
 ```bash
-cky@cky-pc:~/workspace/shell$ ./cky.sh 
+cky@cky-pc:~/workspace/shell$ ./cky.sh
 5540 : 1
 5540 : 2
 5540 : 3
@@ -57,11 +57,11 @@ cky@cky-pc:~/workspace/shell/dir$ showkey -a　# 显示指定操作的键盘序�
 ```
 - bind命令用于显示和设置命令行的键盘序列绑定功能。通过这一命令，可以提高命令行中操作效率。
 - 您可以利用bind命令了解有哪些按键组合与其功能，也可以自行指定要用哪些按键组合
-- -d：显示按键配置的内容； 
-- -f<按键配置文件>：载入指定的按键配置文件； 
-- -l：列出所有的功能； 
-- -m<按键配置>：指定按键配置； 
-- -q<功能>：显示指定功能的按键； 
+- -d：显示按键配置的内容；
+- -f<按键配置文件>：载入指定的按键配置文件；
+- -l：列出所有的功能；
+- -m<按键配置>：指定按键配置；
+- -q<功能>：显示指定功能的按键；
 - -v：列出目前的按键配置与其功能。
 
 
@@ -97,7 +97,7 @@ call_function;
 . cky.sh
 ```
 ```bash
-cky@cky-pc:~/workspace/shell$ ./cky_call.sh 
+cky@cky-pc:~/workspace/shell$ ./cky_call.sh
 bar called
 15 call_function cky.sh
 ```
@@ -118,13 +118,13 @@ dirs # 显示当前目录
 disown -h %2 # 将后台作业[Ctrl + z生成的],屏蔽HUB信号
 echo 输出
 enable 启用
-eval 
+eval
 exec 用指定命令替换shell进程
 exit 退出
 export 声明为环境变量
 fc 从历史记录中选择一条命令
 fg %2 恢复后台作业到前台
-getopts 
+getopts
 hash 内置hash表，建立到PATH路径下面的路径的直接链接
 help 显示帮助文件
 history 显示命令历史记录
@@ -233,7 +233,7 @@ cky@cky-pc:~/workspace/shell$ echo 'GNU is       not      UNIX' | tr -s ' ' # �
 GNU is not UNIX
 
 cky@cky-pc:~$ echo "Hello world i love you " |tr [a-z] [A-Z] # 小写换成大写
-HELLO WORLD I LOVE YOU 
+HELLO WORLD I LOVE YOU
 cky@cky-pc:~$ echo "HELLO GIRL I LOVE YOU" | tr [A-Z] [a-z] # 大写换成小写
 hello girl i love you
 
@@ -305,10 +305,10 @@ read -t 3 -p "do you love me ? ( Y / N ) : " answer
 md5sum 和 sha1sum 单向散列加密
 ================================================================================
 ```bash
-cky@cky-pc:~/workspace/shell$ md5sum cky.sh 
+cky@cky-pc:~/workspace/shell$ md5sum cky.sh
 c225004cb6554e4ff84a31cc12204545  cky.sh
 cky@cky-pc:~/workspace/shell$ md5sum cky.sh > cky.md5 # 将校验值存入文件
-cky@cky-pc:~/workspace/shell$ cat cky.md5 
+cky@cky-pc:~/workspace/shell$ cat cky.md5
 c225004cb6554e4ff84a31cc12204545  cky.sh
 cky@cky-pc:~/workspace/shell$ md5sum -c cky.md5 # 检验文件是否完整
 cky.sh: 成功
@@ -322,11 +322,11 @@ cky@cky-pc:~/workspace/shell$ touch md5_dir/aaa.txt
 cky@cky-pc:~/workspace/shell$ touch md5_dir/bbb.txt
 cky@cky-pc:~/workspace/shell$ echo "asdf bb cc" > md5_dir/ccc.txt
 cky@cky-pc:~/workspace/shell$ md5deep -r1 md5_dir > md5_dir.md5
-cky@cky-pc:~/workspace/shell$ sudo apt-get install hashdeep 
+cky@cky-pc:~/workspace/shell$ sudo apt-get install hashdeep
 程序“md5deep”尚未安装。 您可以使用以下命令安装：
 sudo apt install hashdeep
 cky@cky-pc:~/workspace/shell$ md5deep -rl md5_dir > md5_dir.md5
-cky@cky-pc:~/workspace/shell$ cat md5_dir.md5 
+cky@cky-pc:~/workspace/shell$ cat md5_dir.md5
 d41d8cd98f00b204e9800998ecf8427e  md5_dir/aaa.txt
 d41d8cd98f00b204e9800998ecf8427e  md5_dir/bbb.txt
 ae7a125ed9b9ea27e7d299386c48e816  md5_dir/ccc.txt
@@ -344,7 +344,7 @@ crypt 加密
 cky@cky-pc:~/workspace/shell$ crypt cky951010 < cky.sh > cky_crypt
 程序“crypt”尚未安装。 您可以使用以下命令安装：
 sudo apt install mcrypt
-cky@cky-pc:~/workspace/shell$ sudo apt-get install mcrypt 
+cky@cky-pc:~/workspace/shell$ sudo apt-get install mcrypt
 
 crypt cky951010 < cky.sh > cky_crypt # 使用口令给文件内容加密，加密后的文件是密文
 crypt cky951010 -d <cky_crypt >cky_crypt_coutput.txt # 解密
@@ -368,7 +368,7 @@ base64
 
 ```bash
 cky@cky-pc:~/workspace/shell$ base64 cky.sh > cky.sh.base64 # base64 加密
-cky@cky-pc:~/workspace/shell$ cat cky.sh.base64 
+cky@cky-pc:~/workspace/shell$ cat cky.sh.base64
 IyEvYmluL2Jhc2gKIyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
 LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0jCiMg6L+Z5Liq
 6ISa5pys5YyF5ZCr5oiR5omA5a2m55qEc2hlbGznn6Xor4YKIyAtLS0tLS0tLS0tLS0tLS0tLS0t
@@ -385,56 +385,3 @@ cky@cky-pc:~$ base64 -d cky.sh.base64 # base64 解密
 # ------------------------------------------------------------------------------------------#
 # 当前进程PID
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
