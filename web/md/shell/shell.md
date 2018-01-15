@@ -51,9 +51,55 @@ for i in /etc/profile.d/*.sh ;
 . $i
 fi done
 ```
-系统会在初始化时运行/etc/profile.d/目录下的所有可读.sh 脚本。
+系统会在初始化时运行 `/etc/profile.d/` 目录下的所有可读.sh 脚本。
 
+- 用户级别的三个登录配置文件(~/.bash_profile,~/.bash_login和~/.profile)中,只会 source 一个(依次查找,一个不存在,查找下一个,找到就 source 它)。~/.profile 是为从 sh 和 ksh 的配置文件.profile 而来,~/.bash_login 是从 csh 的配置文件.login 而来。这种机制的一个应用是如果你经常使用 Bourne shell,你可以将其配置写 在.profile 文件中,如果你又想增加 Bash 特有的环境控制命令,你可以将其在写 入.bash_profile 文件中,然后在.bash_profile 中加入 source .profile 语句。
 
+- 用户登录时默认不会 source ~/.bashrc 文件,如果要用需要自行在脚本中加入。这 也是一般在.bash_profile 文件中有以下语句的原因:
+```bash
+if [ -f ~/.bashrc ];
+    then . ~/.bashrc
+fi
+```
+
+- .bash_profile和/etc/profile中定义的变量和alias定义默认不会继承到bash中。需要这两个文件定义的变量可以为子 shell 使用时可以使用 export 语句将其转化为环境变量。alias 定义尽量放在.bashrc 或/etc/bashrc 文件中。
+
+- 所有配置文件的执行顺序如下
+```bash
+|- /etc/profile --> /etc/profile.d/*.sh
+|- ~/.bash_profile (or ~/.bash_login, or ~/.profile)
+|               --> ~/.bashrc
+|                        -->  /etc/bashrc
+|- ~/.bash_logout (退出时)
+```
+
+- 但应注意,系统只自动读取`/etc/profile`, `~/.bash_profile` 和 `~/.bash_logout` ,其余是自 定义的。
+
+#### 非交互式启动
+当 Bash 通过运行 shell 脚本的方式启动时就是非交互式的。非交互式启动时,它将查看环 境变量 BASH_ENV,扩展其值并运行它,就像运行了以下命令:
+```bash
+if [ -n “$BASH_ENV” ] ;
+    then . “$BASH_ENV” ;
+fi
+```
+但是 PATH 变量不用来查找文件名。
+
+- 判断shell是否是交互式启动可通过以下方式
+```bash
+case "$-" in
+    *i*) echo This shell is interactive ;;
+    *) echo This shell is not interactive ;;
+esac
+```
+
+- 检查 PS1, 非交互式 shell 它不会被设置
+```bash
+if [ -z “$PS1” ]; then
+    echo This shell is not interactive
+else
+    echo This shell is interactive
+fi
+```
 
 
 shell编程要注意什么
