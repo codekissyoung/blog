@@ -177,3 +177,30 @@ Linux 2.2 之后，将`root`的特权分为了一组相互独立的单元，称�
 # 实时性
 
 # /proc 文件系统
+
+
+# libc 版本
+```bash
+➜  daemon git:(master) ✗ ldd daemon|grep libc
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f30575f6000)
+➜  daemon git:(master) ✗ /lib/x86_64-linux-gnu/libc.so.6
+GNU C Library (Ubuntu GLIBC 2.23-0ubuntu9) stable release version 2.23, by Roland McGrath et al.
+```
+
+# linux 系统调用处理调用失败
+- 系统调用失败一般返回`-1`,并且将全局变量 `errno` 设置为相应的错误码
+```c
+cnt = read(fd,buf,numbytes);
+if(cnt == -1){
+    if(errno == EINTR)
+        printf(stderr,"read was interrupted by ad signal\n");
+    else
+        printf("unknown error\n");
+}
+
+fd = open(pathname,flags,mode);
+if(fd == -1){
+    perror("open");
+    exit(EXIT_FAILURE);
+}
+```
