@@ -1,15 +1,82 @@
+# IO 操作
 ```c
-#include <gnu/libc-version.h>
+int open(const char *pathname, int flags, mode_t mode);
+```
+- flags 掩码参数 取值如下
+    - O_RDONLY 只读
+    - O_WRONLY 只写
+    - O_RDWR   可读可写
+    - O_APPEND 追加
+    - O_CREAT  文件不存在就创建
+    - O_DIRECT 无缓冲的 输入或者输出
+    - O_EXCL   配合 O_CREAT , 表示只创建文件
+    - O_NOATIME 不要修改文件最近访问时间
+    - O_NOCTTY  如果 pathname 是终端(/dev/tty)的话，不要让它成为控制终端
+    - O_NOFOLLOW 对软连接不解析
+    - O_TRUNC  截断已有文件，使其长度为 0 
+    - O_ASYNC  当 IO 操作可行时，产生信号 通知进程
+    - O_DSYNC  提供 同步 IO 数据完整性
+    - O_NONBLOCK  以非阻塞方式打开
+    - O_SYNC      以同步方式写入文件
+- 如果创建了文件，mode 参数才起作用，用于表示创建的文件的权限
+    - 比如如果我们输入一个0664，表示的就是0000 000 110 110 100，等价于 `-rw-rw-r--`
+    - 比如我想设置一个 `-rwsr-xr-x` 的权限，先变成二进制，就是0000 100 111 101 101，然后变成八进制，04755，这样直接设置就好了
+
+```c
+ssize_t read( int fd, void *buffer, size_t count );
+```
+- fd 文件描述符
+- buffer 用于存放读取到的数据的内存缓冲地址 ，比如 `char buffer[20]` ,填入 buffer
+- count  指定最多能读取到的字节数
+- return 实际读取到的字节数
+
+```c
+ssize_t write( int fd, void *buffer, size_t count );
+```
+- fd ： 文件描述符
+- buffer ： 要写入文件中数据的内存地址
+- count ： 从 buffer 写入文件的数据字节数
+- return : 实际写入文件的字节数
+
+```c
+int close( int fd );
+```
+- 功能: 关闭一个打开的 文件描述符
+
+```c
+off_t lseek( int fd, off_t offset, int whence );
+```
+- 功能: 对于打开的文件，内核会记录它的文件偏移量，也就是下一次 read() 和 write() 操作的文件起始位置，而 lseek 就是用来人为改变这个位置的
+- fd 文件描述符
+- offset 偏移的字节数，负数就表示往左 偏移
+- whence
+    - SEEK_SET 从文件头开始偏移
+    - SEEK_CUR 从当前 文件偏移量处 开始偏移
+    - SEEK_END 从文件尾部 开始偏移
+- **文件空洞** : 如果使用 lseek 使文件偏移量超过了 文件末尾，那么 [文件末尾,文件偏移量] 中间这段空间，就称之为 **文件空洞**
+    - 读取空洞: 将返回 空字节 填充的缓存区
+    - 写入空洞：文件系统会为之分配磁盘块， 应用：核心转储文件 core 文件就是包含文件空洞的常见例子  
+
+
+```c
+int ioctl( int fd, int request, ... );
+```
+- 功能: 为执行文件 和 设备操作提供了 多用途机制
+- fd 文件描述符
+- request 指定在 fd 上执行控制操作
+- ... 根据 request 的参数来 填入的不定参数
+
+```c
+int fcntl( int fd, int cmd, ... );
+```
+- 对文件描述符号进行各种操作，包括 复制，获取，设置文件描述符标志，设置文件状态标志，管理文件锁
+
+
+```c
 const char *gnu_get_libc_version(void); // 获取 glibc 的版本
 ```
 
-```c
-#include <stdio.h>
-void perror(const char *msg); // 打印错误信息
 
-#include <string.h>
-char *strerror(int errnum); // 将给定错误号 转换为 错误字符串
-```
 
 ```c
 #include<unistd.h>
@@ -30,46 +97,26 @@ int getopt(int argc,char * const argv[ ],const char * optstring);
 time_t time(time_t *t);
 ```
 
-
-# 总结
-- `open()` 获取文件描述符
-- `read()` 和 `write()` 执行文件 I/O操作
-- `close()` 释放文件描述符 及 相关资源
-- **文件偏移量** : 记录的读写的的位置，每次读写操作都会修改偏移量的值，使用 `lseek()` 可以显式修改偏移量的值
-- **文件空洞** : 概念比较复杂，暂时不理解
-- `ioctl(int fd,int cmd,[struct])` : 暂时不理解
-
 # 原子操作 和 竞争条件
 - 所有系统调用都是以原子操作方式执行的，内核保证了系统调用中的所有步骤会作为独立操作而一次性加载执行，期间不会被其他进程和线程中断
 - 独占方式创建文件的竞态条件
 - 向文件结尾追加数据的竞态条件
 
-# lseek 系统调用
-- 设置文件描述符读写的位置
-- whence 取值 `SEEK_SET` `SEEK_CUR` `SEEK_END`
-```c
-#include <unistd.h>
-#include <sys/types.h>
-off_t lseek( int fildes, off_t offset, int whence );
-```
 
 # 获取文件状态
 ```c
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 int fstat( int fildes, struct stat *buf );
 int stat( const char *path, struct stat *buf );
 int lstat( const char *path, struct stat *buf );
 ```
 
 # dup 和 dup2 系统调用
-- 复制文件描述符，使我们可以通过多个文件描述来访问同一个文件
 ```c
-#include <unistd.h>
 int dup( int fildes );
 int dup2( int fildes, int fildes2 );
 ```
+- 复制文件描述符，使我们可以通过多个文件描述来访问同一个文件
+
 
 # 标准输入输出流函数
 ```c
@@ -110,8 +157,6 @@ remove();
 
 # 文件流错误
 ```c
-#include <errno.h>
-#include <stdio.h>
 extern int errno;
 // 测试一个文件流的错误标识
 int ferror( FILE *stream );
@@ -127,9 +172,6 @@ FILE *fdopen( int fildes, const char *mode );
 
 # 文件状态维护
 ```c
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
 int chmod( const char *path, mode_t mode );
 int chown( const char *path, uid_t owner, gid_t group);
 int unlink( const char *path ); // 删除一个文件
@@ -139,9 +181,6 @@ int symlink( const char *path1, const char *path2 ); // 创建一个软连接
 
 # 目录
 ```c
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
 // 创建目录
 int mkdir( const char *path, mode_t mode );
 // 删除目录
@@ -154,8 +193,6 @@ char *getcwd( char *buf, size_t size );
 
 # 扫描目录
 ```c
-#include <sys/types.h>
-#include <dirent.h>
 // 打开目录 建立一个目录流
 DIR *opendir( const char *name );
 // 返回一个指针 ，它保存着目录流里下一个目录项的有关资料
@@ -170,23 +207,12 @@ int closedir( DIR *dirp );
 
 # 错误处理
 ```c
-#include <string.h>
-char *strerror( int errnum );
-void perror( const char *s );
+void perror(const char *msg);  // 打印错误信息
+char *strerror( int errnum);   // 将给定错误号 转换为 错误字符串
 ```
 
-# fcntl 系统调用
-```c
-- 对文件描述符号进行各种操作，包括 复制，获取，设置文件描述符标志，设置文件状态标志，管理文件锁
-#include <fcntl.c>
-int fcntl( int fildes, int cmd );
-int fcntl( int fildes, int cmd, long arg );
-```
 
 # mmap 系统调用
-- 建立一段可以被两个以上进程读写的内存，一个进程对该内存进行的修改也可以被其他进程看见
-- 用在文件处理，使磁盘文件的全部内容看起来就像是在内存一样，通过更新这内存就可以更新文件了
-- mmap 创建一个指向一段内存区域的指针，该内存区域 与 通过 **文件描述符** 访问的文件的内容关联
 ```c
 #include <sys/mman.h>
 void *mmap( void *addr, size_t len, int prot, int flags, int fildes, off_t off );
@@ -195,3 +221,6 @@ int msync( void *addr, size_t len, int flags );
 // 释放内存段
 int munmap( void *addr, size_t len );
 ```
+- 建立一段可以被两个以上进程读写的内存，一个进程对该内存进行的修改也可以被其他进程看见
+- 用在文件处理，使磁盘文件的全部内容看起来就像是在内存一样，通过更新这内存就可以更新文件了
+- mmap 创建一个指向一段内存区域的指针，该内存区域 与 通过 **文件描述符** 访问的文件的内容关联
