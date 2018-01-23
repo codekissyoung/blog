@@ -27,7 +27,7 @@ gdb <program> <PID>
 (gdb)回车               # 直接回车表示，重复上一次命令
 (gdb)finish            # 立即执行完当前的函数，但是并不是执行完整个应用程序
 (gdb)until             # 循环次数很多，立即执行完当前的循环
-(gdb)backtrace         # 查看当前运行的文件和行
+(gdb)bt                # 查看当前运行的文件和行
 ```
 
 # 列出源文件
@@ -45,7 +45,7 @@ gdb <program> <PID>
 (gdb)b temp:10           # 在temp.c中第10行 设置断点
 (gdb)b temp:func         # 在temp.c中func函数处 打个断点
 (gdb)d enter             # d + 回车 清除所有断点
-(gdb)d breakpoint 1      # 删除1号断点
+(gdb)d b 1               # 删除1号断点
 ```
 
 # 查看程序内变量的值
@@ -54,9 +54,14 @@ gdb <program> <PID>
 (gdb)p var               # 打印变量的值
 (gdb)p &var              # 打印变量的地址
 (gdb)p *address          # 打印地址的数据值
+(gdb)p func(5)           # 设定入参，对程序中函数进行调用，看函数返回什么
 (gdb)p a                 # 查看当前作用域a的值
 (gdb)p 'f2.c'::x         # 查看f2.c文件中全局变量x的值
 (gdb)p 'f2.c'::sum::x    # 查看f2.c中sum函数中x的值
+
+// int *array = (int*)malloc( 8 * sizeof(int) );
+(gdb) p *array@8         # 打印数组的值
+$3 = {190, 0, 0, 0, 90, 0, 0, 76}
 ```
 
 # 查看函数堆栈
