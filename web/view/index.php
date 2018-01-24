@@ -22,12 +22,14 @@
     <body>
     <?php if(!isset($a)):?>
     <nav id="main_category">
-        <h1 class="main-title">Codekissyoung Blog</h1>
-        <div class="search-article">
-            <form action="" method="GET">
-            <input type="text" name="search_key" value="<?=$search_key?>"/>
-                <input type="submit" value="搜索" />
-            </form>
+        <div class="main-title">
+            <h1>Codekissyoung Blog</h1>
+            <div class="search-article">
+                <form action="" method="GET">
+                <input type="text" name="search_key" value="<?=$search_key?>" placeholder="全站搜索"/>
+                    <input type="submit" value="搜索" />
+                </form>
+            </div>
         </div>
         <?=$category?>
     </nav>
