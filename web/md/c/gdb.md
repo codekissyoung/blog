@@ -64,10 +64,20 @@ gdb <program> <PID>
 $3 = {190, 0, 0, 0, 90, 0, 0, 76}
 ```
 
-# 查看函数堆栈
+# 调试多进程 ( GDB > V7.0 )
+| follow-fork-mode |  detach-on-fork |  说明 |
+| ---------------- | --------------- |------ |
+| parent | on  | 只调试主进程 GDB默认 |
+| child  | on  | 只调试子进程 |
+| parent | off  | 同时调试两个进程，gdb跟主进程，子进程停在fork位置 |
+| child  | off  | 同时调试两个进程，gdb跟子进程，主进程停在fork位置 |
+```bash
+(gdb)set follow-fork-mode child
+(gdb)set detach-on-fork off
+(gdb)info inferiors        # 查询正在调试的进程
+(gdb)inferior Num          # 切换进程 
 ```
-(gdb)bt
-```
+
 
 # core (内核转储文件)
 - 内核转储的最大好处是能够保存问题发生时的状态。
