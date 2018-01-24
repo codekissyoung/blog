@@ -211,7 +211,6 @@ void perror(const char *msg);  // 打印错误信息
 char *strerror( int errnum);   // 将给定错误号 转换为 错误字符串
 ```
 
-
 # mmap 系统调用
 ```c
 #include <sys/mman.h>
@@ -224,3 +223,30 @@ int munmap( void *addr, size_t len );
 - 建立一段可以被两个以上进程读写的内存，一个进程对该内存进行的修改也可以被其他进程看见
 - 用在文件处理，使磁盘文件的全部内容看起来就像是在内存一样，通过更新这内存就可以更新文件了
 - mmap 创建一个指向一段内存区域的指针，该内存区域 与 通过 **文件描述符** 访问的文件的内容关联
+
+
+# 进程相关
+```c
+pid_t getpid(void);  // 获取当前进程 ID
+pid_t getppid(void); // 获取当前进程的 父进程ID
+uid_t getuid(void);  // 当前进程的 用户ID
+uid_t geteuid(void); // 当前进程的 有效用户ID
+gid_t getgid(void);  // 当前进程的 组ID
+gid_t getegid(void); // 当前进程的 有效组ID
+```
+
+# 创建新进程
+```c
+if( ( pid_t pid = fork() ) > 0 )
+{
+    // 父进程
+}
+else if( pid == 0 )
+{
+    // 子进程
+}
+else
+{
+    // 创建新进程失败
+}
+```
