@@ -93,3 +93,15 @@ int main( int argc, char* argv[] )
 ```
 - 可以用于不相关的进程之间
 - [参考](https://www.cnblogs.com/fangshenghui/p/4039805.html)
+
+# System V IPC / POSIX IPC
+- 基于系统内核
+- IPC 对象 : 消息队列 , 信号量 , 共享存储器
+- `ipcs -a` 查看系统内IPC的状态
+- 缺陷: 不使用通用的文件系统 , 缺少资源回收机制, IPC 对象创建然后退出时, 没有被自动回收
+
+## 共享内存
+
+## 信号量
+
+## 消息队列
