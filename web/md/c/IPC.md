@@ -155,3 +155,13 @@ int semctl( int sem_id, int semnu, int cmd [, union semun arg]); // 信号量的
 - 原理：数据操作锁，本身不具有数据交换的功能，而是通过控制其他的通信资源，来实现进程间通信
 
 ## 消息队列
+- 消息队列：一个消息的链接表，由内核进行维护及存储
+- 在消息队列中，可以随意根据特定的数据类型来检索消息
+
+```c
+#include <sys/msg.h>
+int msgget( key_t key, int flags ); // 创建或者打开一个队列
+int msgctl( int msqid, int cmd, struct msqid_ds* buf ); // 在队列上做多种操作
+int msgsnd( int msqid, const void* prt, size_t nbytes, int flags ); // 将一个新的消息写入消息队列
+ssize_t msgrcv( int msqid ,void* prt, size_t nbytes, long type, int flag ); // 从消息队列中读取消息
+```
