@@ -2,3 +2,4 @@ web/.sass-cache/
 web/css/
 service/
 web/md/.vscode/
+web/node_modules/

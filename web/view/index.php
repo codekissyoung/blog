@@ -3,22 +3,24 @@
     <head>
         <meta charset="utf-8">
         <meta name="baidu-site-verification" content="PVkQXzqbOU" />
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> -->
+        <!-- 移动浏览器相关设置 -->
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> -->
         <title><?=$title?></title>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-<!--    <link href="//cdn.bootcss.com/normalize/5.0.0/normalize.min.css" rel="stylesheet"> -->
-<!--    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css"> -->
         <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-        <link href="/highlight.js/src/styles/github.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+        <link href="/css/highlight_styles/xcode.css" rel="stylesheet">
+
         <link href="/css/common.css?time=<?=time();?>" rel="stylesheet"/>
-        <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
-        <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <style>
             <?php // echo $response -> FontFace;?>
         </style>
+
+        <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>
+
     <body>
     <?php if(!isset($a)):?>
     <nav id="main_category">
@@ -33,17 +35,22 @@
         </div>
         <?=$category?>
     </nav>
+
     <?php endif; ?>
     <div id="article">
         <div>
             <?=$html;?>
         </div>
     </div>
-    <script src="/js/common.js"></script>
+
+    <script src="/js/highlight.pack.js"></script>
     <script>
         // 代码高亮
         hljs.initHighlightingOnLoad();
+    </script>
 
+    <script src="/js/common.js"></script>
+    <script>
         // 异步加载文章
         $('#main_category a').on('click',function(){
             $("#main_category a").removeClass('active');
