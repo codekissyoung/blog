@@ -1,20 +1,14 @@
-# 安装
-## 安装nvm
-获取 nvm `git clone https://github.com/creationix/nvm.git`
-安装 `./install.sh`
-初始化`source ./nvm.sh`
-
-## nvm 管理
-`nvm ls-remote` 查看远程可用版本
-`nvm ls` 查看本机版本
-`nvm install v5.5.0` 安装5.5.0版本
-`nvm use v5.5.0` 使用v5.5.0版本
-`nvm alias default stable` 默认使用稳定版本
-
-## npm 管理
-npm 随着nodejs 安装
-# 第一个nodejs程序
+# 安装node
+- 直接下载 x86 平台下的编译好的软件包，解压后，移动为 `/opt/node`
+- 将`/opt/node/bin`加入`PATH`路径
+- 执行`node -v` 和 `npm -v`验证下安装是否成功
+```bash
+# node js
+export PATH="/opt/node/bin:$PATH"
 ```
+
+# 第一个nodejs程序
+```js
 var http = require('http');
 http.createServer(function (request, response) {
     	response.writeHead(200, {'Content-Type': 'text/plain'});
@@ -22,15 +16,17 @@ http.createServer(function (request, response) {
 }).listen(8888);
 console.log('Server running at http://127.0.0.1:8888/');
 ```
+
 # 同步执行代码
-```
+```js
 var fs = require("fs");
 var data = fs.readFileSync('input.txt');
 console.log(data.toString());
 console.log("程序执行结束!");
 ```
+
 # 异步执行代码
-```
+```js
 var fs = require("fs");
 fs.readFile('input.txt', function (err, data) {
     if (err) return console.error(err);
@@ -38,9 +34,10 @@ fs.readFile('input.txt', function (err, data) {
 });
 console.log("程序执行结束!");
 ```
+
 # 事件处理
 http://www.runoob.com/nodejs/nodejs-event.html
-```
+```js
 // 引入 events 模块
 var events = require('events');
 // 创建 eventEmitter 对象
@@ -64,6 +61,6 @@ console.log("程序执行完毕。");
 
 # 回调函数
 格式:err是错误信息,data是传入的数据
-```javascript
+```js
 function(err,data){ }
 ```
