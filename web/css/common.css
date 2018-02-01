@@ -10,7 +10,6 @@ img {
 }
 
 .main-title {
-  /*{{{*/
   margin: 0px 0px;
   padding: 14px 30px;
   font-family: Monaco;
@@ -50,7 +49,6 @@ img {
   border: 0px;
 }
 
-/*}}}*/
 #main_category {
   /*{{{*/
   background-color: #efefef;
