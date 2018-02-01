@@ -27,11 +27,11 @@ $ svn ci -m 'Ignoring a directory called "spool".'
 svn propedit svn:ignore 目录名称 # 确保 目录名称 是SVN版本控制的目录
 ```
 - 其实`svn propset` 命令的原理也是将忽略文件写入目录结构里
-
-## 想忽略/product目录下的test.php文件。
 - 设置SVN 默认的编辑器 `export SVN_EDITOR=vim`
 - 前提是/product目录必须在svn版本控制下，而test.php文件不在svn版本控制
 - 如果是忽略该目录下所有文件，写 `*`，支持通配符
+
+## 想忽略/product目录下的test.php文件。
 ```bash
 $ svn st
 ?     /product/test.php
