@@ -3,11 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="baidu-site-verification" content="PVkQXzqbOU" />
-        <!-- 移动浏览器相关设置 -->
-        <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> -->
         <title><?=$title?></title>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-
         <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet" >
         <link href="/css/highlight_styles/github.css" rel="stylesheet">
         <link href="/css/common.css" rel="stylesheet"/>
@@ -33,10 +30,6 @@
                 <?=$html;?>
             </div>
         </div>
-
-        <script src="/js/jquery-3.3.1.min.js"></script>
-        <script src="/js/bootstrap/bootstrap.min.js"></script>
-        <script src="/js/highlight.pack.js"></script>
-        <script src="/js/common.js"></script>
+        <script src="/js/require.js" data-main="/js/main.js"></script>
     </body>
 </html>
