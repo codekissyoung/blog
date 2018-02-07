@@ -28,8 +28,9 @@ writable   决定pro是否可写
 enumerable 决定该属性是否可枚举
 configurable决定属性是否可删
 
-* 创建属性
-`var cat = {};
+# 创建属性
+```js
+var cat = {};
 Object.defineProperty(cat,'price',{enumerable:false,value:1000,writable:false,configurable:false});
 console.log(cat.propertyIsEnumerable('price'));    //是否可枚举
 console.log(cat.hasOwnProperty('price'));          //是否自有属性
@@ -37,9 +38,10 @@ cat.price = 20;                                    //尝试改变属性的值
 console.log(cat.price);
 console.log(delete cat.price);                    //尝试删除属性
 console.log(cat.price);
-for(var i in cat){ console.log(cat[i]);}          //枚举属性 `
-一次创建多个属性
+for(var i in cat){ console.log(cat[i]);}          //枚举属性
 ```
+# 一次创建多个属性
+```js
 var person = {};
 Object.defineProperties(person,{
     	title:{value:'fe',enumerable:true},
@@ -146,7 +148,7 @@ console.log(JSON.stringify(obj));
 ```
 #toString 和 valueOf
 对象被当做字符串使用时,会先自动调用valueOf看是否能返回为原始类型,若不能再调用toString方法
-```
+```js
 var obj = {x:1,y:2};
 console.log(obj.toString()); //[object Object]
 
