@@ -32,4 +32,10 @@ define(['jquery'],function($){
             $(this).next().removeClass('show').addClass('hide');
         }
     });
+
+    return {
+        log:function(){
+            console.log("article complete!");
+        }
+    };
 });

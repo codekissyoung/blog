@@ -2,10 +2,10 @@
 include_once '../config.php';
 
 // 博客当前访问文章
-$ri = isset($_SERVER['PATH_INFO']) ? $_SERVER["PATH_INFO"] : '';
+$ri         = isset($_SERVER['PATH_INFO']) ? $_SERVER["PATH_INFO"] : '';
 $search_key = isset($_GET['search_key']) ? $_GET['search_key'] : '';
-$host = $_SERVER["HTTP_HOST"];
-$protocol = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FOR    WARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
+$host       = $_SERVER["HTTP_HOST"];
+$protocol   = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FOR    WARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
 if( $ri )
 {
     $article = MD_ROOT."{$ri}.md";
@@ -36,12 +36,12 @@ if( $search_key )
     {
         foreach( $ret_arr as $key => $value )
         {
-            $ret = preg_match("/\.\/.*md:/", $value, $matchs );
-            $href = substr($matchs[0],5,-4);
-            $search_article_tag    = "<a href='$protocol$host/$href'>$href</a>&nbsp;";
-            $value = str_replace( $matchs[0], '', $value );
-            $value = str_replace( $search_key ,'<span class=search_key>'.$search_key.'</span>', $value );
-            $html .= "<li class=search-list> $search_article_tag $value </li>";
+            $ret                    = preg_match("/\.\/.*md:/", $value, $matchs );
+            $href                   = substr($matchs[0],5,-4);
+            $search_article_tag     = "<a href='$protocol$host/$href'>$href</a>&nbsp;";
+            $value                  = str_replace( $matchs[0], '', $value );
+            $value                  = str_replace( $search_key ,'<span class=search_key>'.$search_key.'</span>', $value );
+            $html                   = $html."<li class=search-list> $search_article_tag $value </li>";
         }
     }
     $html .= "</ul>";
