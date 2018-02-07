@@ -1,3 +1,5 @@
+# [阮一峰 JS教程](http://es6.ruanyifeng.com/)
+
 # [牛课网](https://www.nowcoder.com/)
 
 # [linux命令](http://man.linuxde.net/)
