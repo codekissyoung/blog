@@ -30,6 +30,10 @@
                 <?=$html;?>
             </div>
         </div>
+
+        <div id="message">
+
+        </div>
         <script src="/js/require.js" defer async="true" data-main="/js/main.js"></script>
     </body>
 </html>
