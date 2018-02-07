@@ -9,6 +9,7 @@ require.config({
         'article'           :   'mod_article',
         'underscore'        :   'underscore',
         'backbone'          :   'backbone',
+        'hello_world'       :   'backbone_hello_world',
     },
 
     // 引入没有按照 require 风格编写的库
@@ -32,7 +33,8 @@ require.config({
 });
 
 // 加载代码高亮模块
-require(['code_highlight','article'],function(code_light,article){
+require(['code_highlight','article','hello_world'],function(code_light,article,hello_world){
     code_light.log();
     article.log();
+    hello_world.log();
 });
