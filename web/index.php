@@ -5,7 +5,8 @@ include_once '../config.php';
 $ri         = isset($_SERVER['PATH_INFO']) ? $_SERVER["PATH_INFO"] : '';
 $search_key = isset($_GET['search_key']) ? $_GET['search_key'] : '';
 $host       = $_SERVER["HTTP_HOST"];
-$protocol   = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FOR    WARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
+$protocol   = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ||
+               (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FOR    WARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
 if( $ri )
 {
     $article = MD_ROOT."{$ri}.md";
@@ -25,7 +26,8 @@ else
     $content = "文章不存在"; // 404
 }
 $parser = new HyperDown\Parser();
-$html = $parser -> makeHtml($content);
+$html   = $parser -> makeHtml($content);
+$title  = trim(join('-',explode("/",$ri))."-CodeKissYoung Blog",'-');
 
 // 搜索全文
 if( $search_key )
@@ -47,10 +49,8 @@ if( $search_key )
     $html .= "</ul>";
 }
 
-$title = trim(join('-',explode("/",$ri))."-CodeKissYoung Blog",'-');
-
-// 加载视图
-if(isset($_GET['ajax']))
+// 视图
+if( isset($_GET['ajax']) )
 {
     include_once 'view/article.php';
 }
