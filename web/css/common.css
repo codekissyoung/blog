@@ -131,24 +131,6 @@ img {
   font-size: 14px;
   letter-spacing: 1px;
 }
-#article p code {
-  margin: 0px 2px;
-  padding: 0px 2px;
-  border-radius: 3px;
-}
-#article pre {
-  background-color: #f8f8f8;
-  border: none;
-}
-#article pre code {
-  font-family: Monaco,ubuntu,Consolas,"Microsoft Yahei","Courier New",monospace;
-  padding: 8px;
-  letter-spacing: 1px;
-  word-spacing: 2px;
-}
-#article pre code .hljs-deletion {
-  background: none;
-}
 #article img {
   width: 50%;
 }

@@ -139,24 +139,6 @@ img{
         margin:0px;
         font-size:14px;
         letter-spacing:1px;
-        code{
-            margin:0px 2px;
-            padding:0px 2px;
-            border-radius:3px;
-        }
-    }
-    pre{
-        background-color:#f8f8f8;
-        border:none;
-        code{
-            font-family: Monaco,ubuntu,Consolas,"Microsoft Yahei","Courier New",monospace;
-            padding:8px;
-            letter-spacing: 1px;
-            word-spacing:2px;
-            .hljs-deletion{
-                background:none;
-            }
-        }
     }
     img{
         width:50%;
@@ -192,9 +174,4 @@ img{
 .show{
     display: block;
 }
-
-
-
-
-
 
