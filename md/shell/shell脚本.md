@@ -701,11 +701,324 @@ cmd0 | (cmd1;cmd2;cmd3) | cmd4 # 利用子shell
 ```
 
 
+# 变量类型
+================================================================================
+- 全局环境变量，在当前shell可用，子shell也会继承父shell的环境变量
+- 当前shell局部变量,子shell不能访问到
+- 函数局部变量，只在函数内部能访问到
+
+# 常用的环境变量
+```bash
+PATH            决定了shell将到哪些目录中寻找命令或程序
+ROOTPATH        这个变量的功能和PATH相同，但它只罗列出超级用户（root）键入命令时所需检查的目录。
+HOME            当前用户主目录
+USER            查看当前的用户
+LOGNAME         查看当前用户的登录名。
+UID             当前用户的识别字，取值是由数位构成的字串。
+SHELL           是指当前用户用的是哪种Shell。
+TERM            终端的类型。
+PWD             当前工作目录的绝对路径名，该变量的取值随cd命令的使用而变化。
+MAIL            是指当前用户的邮件存放目录。
+HISTSIZE        是指保存历史命令记录的条数
+HOSTNAME        是指主机的名称，许多应用程序如果要用到主机名的话，通常是从这个环境变量中来取得的。
+PS1             是基本提示符，对于root用户是#，对于普通用户是$，也可以使用一些更复杂的值。
+PS2             是附属提示符，默认是">"。可以通过修改此环境变量来修改当前的命令符
+IFS             输入域分隔符。当shell读取输入时，用来分隔单词的一组字符，它们通常是空格、制表符和换行符。
+```
+
+# printenv
+- 打印出当前shell的全局环境变量
+- 全局环境变量在当前shell会话的子进程中也是可见的，局部变量只在当前shell可见
+
+```bash
+➜  ~ printenv
+XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0
+XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
+LC_TELEPHONE=zh_CN.UTF-8
+LANG=zh_CN.UTF-8
+...
+➜  ~ echo $HOME  输出全局变量
+/home/cky
+```
+
+
+# set
+- 输出当前进程的所有变量
+```bash
+cky@cky-pc:~/workspace/shell$ set
+BASH=/bin/bash
+BASHOPTS=checkwinsize
+...
+```
+
+# 设置局部变量
+- 注意 等号两边都不能有空格，有空格的话，shell会把test当做命令来处理
+
+```bash
+➜  ~ test='设置局部变量'
+➜  ~ echo $test
+设置局部变量
+```
 
 
 
+# 设置全局变量
+```bash
+➜  shell git:(master) ✗ export test
+➜  shell git:(master) ✗ cat echo_test
+#!/bin/bash
+echo $test
+➜  shell git:(master) ✗ ./echo_test
+设置局部变量
+```
+
+# 删除变量
+- 局部变量删除就删除了，但是在子进程中删除全局变量，并不影响父进程中的该全局变量
+
+```bash
+➜  shell git:(master) ✗ unset test
+➜  shell git:(master) ✗ echo $test
+
+➜  shell git:(master) ✗
+```
+
+# shell 种类
+- 登录shell
+- 如果`.bash_profile`和`.bash_login`存在的话，就不会执行`.profile`了
+    ```bash
+        /etc/profile
+        $HOME/.bash_profile
+        $HOME/.bash_login
+        $HOME/.profile
+    ```
+- 非登录的 交互式 shell , 比如在登录shell里面执行 bash 启动一个新的子shell
+    ```bash
+        /etc/profile
+        $HOME/.bashrc
+    ```
+- 执行脚本 非交互式shell
+
+# 重定向
+```bash
+#!/bin/bash
+# 在workspace目录下面查找 read.sh , 错误输出重定向到标准输出，然后再一起重定向到find.log
+find /home/cky/workspace read.sh > find.log 2>&1
+find /home/cky/workspace read.sh >& find.log　# 同上面功能一样　简写版
+```
+
+# 格式化打印
+```bash
+#!/bin/bash
+printf "%-5s %-18s %-4s\n" NO Name Mark
+printf "%-5s %-18s %-4.2f\n" 1 codekissyoung 11.07
+printf "%-5s %-18s %-4.2f\n" 2 caokaiyan 12.09
+printf "%-5s %-18s %-4.2f\n" 3 "yan code" 01.23
+```
+
+
+# 彩色字体输出
+```bash
+#!/bin/bash 
+#下面是字体输出颜色及终端格式控制  
+#字体色范围：30-37  
+echo -e "\033[30m 黑色字 \033[0m"  
+echo -e "\033[31m 红色字 \033[0m"  
+echo -e "\033[32m 绿色字 \033[0m"  
+echo -e "\033[33m 黄色字 \033[0m"  
+echo -e "\033[34m 蓝色字 \033[0m"  
+echo -e "\033[35m 紫色字 \033[0m"  
+echo -e "\033[36m 天蓝字 \033[0m"  
+echo -e "\033[37m 白色字 \033[0m"  
+#字背景颜色范围：40-47  
+echo -e "\033[40;37m 黑底白字 \033[0m"  
+echo -e "\033[41;30m 红底黑字 \033[0m"  
+echo -e "\033[42;34m 绿底蓝字 \033[0m"  
+echo -e "\033[43;34m 黄底蓝字 \033[0m"  
+echo -e "\033[44;30m 蓝底黑字 \033[0m"  
+echo -e "\033[45;30m 紫底黑字 \033[0m"  
+echo -e "\033[46;30m 天蓝底黑字 \033[0m"  
+echo -e "\033[47;34m 白底蓝字 \033[0m"  
+
+#控制选项说明  
+#\033[0m 关闭所有属性  
+#\033[1m 设置高亮度  
+#\033[4m 下划线  
+echo -e "\033[4;31m 下划线红字 \033[0m"  
+#闪烁  
+echo -e "\033[5;34m 红字在闪烁 \033[0m"  
+#反影  
+echo -e "\033[8m 消隐 \033[0m "  
+
+#\033[30m-\033[37m 设置前景色  
+#\033[40m-\033[47m 设置背景色  
+#\033[nA光标上移n行  
+#\033[nB光标下移n行  
+echo -e "\033[4A 光标上移4行 \033[0m"  
+#\033[nC光标右移n行  
+#\033[nD光标左移n行  
+#\033[y;xH设置光标位置  
+#\033[2J清屏  
+#\033[K清除从光标到行尾的内容  
+echo -e "\033[K 清除光标到行尾的内容 \033[0m"  
+#\033[s 保存光标位置  
+#\033[u 恢复光标位置  
+#\033[?25| 隐藏光标  
+#\033[?25h 显示光标  
+echo -e "\033[?25l 隐藏光标 \033[0m"  
+echo -e "\033[?25h 显示光标 \033[0m"
+```
+
+# bash 控制台颜色
+打印全部颜色
+```bash
+#!/bin/bash
+for STYLE in 0 1 2 3 4 5 6 7; do
+  for FG in 30 31 32 33 34 35 36 37; do
+    for BG in 40 41 42 43 44 45 46 47; do
+      CTRL="\033[${STYLE};${FG};${BG}m";
+      echo -en "${CTRL}";
+      echo -n "${STYLE};${FG};${BG}";
+    done
+  done
+done
+echo -e "\e[1;34mThis is a blue text.\e[0m"
+```
+参考 [Bash: Using Colors](http://webhome.csc.uvic.ca/~sae/seng265/fall04/tips/s265s047-tips/bash-using-colors.html)
+
+# tee 将stdin复制一份
+- 它只能复制上一个命令的stdout,而忽视stderr,除非`2>&1`
+- 下列命令，`tee`将`cat`的stdout输出复制到out.txt,同时`cat`的stdout和stderr的输出都传给了下一个管道
+- `-a` 选项是追加，不加的话，每次会覆盖文件的值
+```bash
+cat a* | tee -a out.txt | cat -n
+```
+
+# 自定义文件描述符的使用
+```bash
+cky@cky-pc:~/workspace/shell$ exec 3<input.txt
+-bash: input.txt: 没有那个文件或目录
+cky@cky-pc:~/workspace/shell$ echo "test input" > input.txt
+cky@cky-pc:~/workspace/shell$ exec 3<input.txt # 定义文件描述符3 (读取)
+cky@cky-pc:~/workspace/shell$ cat <&3 # 使用
+test input
+
+cky@cky-pc:~/workspace/shell$ exec 4>output.txt  # 创建 截断写入模式 文件描述符
+cky@cky-pc:~/workspace/shell$ echo "test file disc 4" >&4 # 使用
+cky@cky-pc:~/workspace/shell$ cat output.txt
+test file disc 4
+
+cky@cky-pc:~/workspace/shell$ exec 5>> input.txt # 创建 追加写入模式 文件描述符
+cky@cky-pc:~/workspace/shell$ echo "file disc 5 test" >&5 # 使用
+cky@cky-pc:~/workspace/shell$ cat input.txt
+test input
+file disc 5 test
+```
+
+`-` 作为stdin文本的文件名
+================================================================================
+```bash
+cky@cky-pc:~/workspace/shell$ echo 'text from stdin' | cat hi.txt -
+hi code!
+text from stdin
+```
 
 
 
+交互输入自动化
+================================================================================
+```bash
+cky@cky-pc:~/workspace/shell$ ./auto_input.sh
+Enter your name:codekissyoung
+Enter your age 22
+your name is codekissyoung , you are 22 years old
+cky@cky-pc:~/workspace/shell$ echo 'codekissyoung\n22\n' | ./auto_input.sh
+your name is codekissyoungn22n , you are  years old
 
+
+# 使用 expect
+cky@cky-pc:~/workspace/shell$ sudo apt-get install expect
+
+cky@cky-pc:~/workspace/shell$ cat ./expect.sh
+#!/usr/bin/expect
+spawn ./auto_input.sh; # 指定要自动化哪一个命令
+expect "Enter your name:"; # 如果匹配这个提示，那就输入codekissyoung
+send "codekissyoung\n"; # 发送给命令的信息
+expect "Enter your age:" # 如果匹配这个提示，那就输入 22
+send "22\n"
+expect eof # 交互结束
+
+
+cky@cky-pc:~/workspace/shell$ ./expect.sh
+spawn ./auto_input.sh
+Enter your name:codekissyoung
+Enter your age:22
+your name is codekissyoung , you are 22 years old
+```
+
+
+
+# 使用内建调试命令
+- 带 + 号的输出，就是shell实际执行的命令
+- `-x` 显示实际执行的命令和参数
+- `+x` 禁止调试
+- `-v` 当命令进行输入读取时，显示实际读取到的数据
+- `+v` 禁止打印输入
+
+```bash
+#!/bin/bash
+arr=(23 34 56 测试 第五个值 67 76 54 35)
+echo ${arr[0]}
+index=4
+echo ${arr[$index]};
+echo ${arr[*]}
+echo ${arr[@]}
+echo ${#arr[*]}
+```
+
+```shell
+cky@cky-pc:~/workspace/shell$ bash -x arr.sh 
++ arr=(23 34 56 测试 第五个值 67 76 54 35)
++ echo 23
+23
++ index=4
++ echo 第五个值
+第五个值
++ echo 23 34 56 测试 第五个值 67 76 54 35
+23 34 56 测试 第五个值 67 76 54 35
++ echo 23 34 56 测试 第五个值 67 76 54 35
+23 34 56 测试 第五个值 67 76 54 35
++ echo 9
+9
+```
+
+# 对部分代码进行调试
+```bash
+#!/bin/bash
+arr=(23 34 56 测试 第五个值 67 76 54 35)
+echo ${arr[0]}
+index=4
+echo ${arr[$index]};
+set -x # 调试开始
+echo ${arr[*]}
+echo ${arr[@]}
+set +x # 调试结束
+echo ${#arr[*]}
+```
+
+```bash
+cky@cky-pc:~/workspace/shell$ ./arr.sh 
+23
+第五个值
++ echo 23 34 56 测试 第五个值 67 76 54 35
+23 34 56 测试 第五个值 67 76 54 35
++ echo 23 34 56 测试 第五个值 67 76 54 35
+23 34 56 测试 第五个值 67 76 54 35
++ set +x
+9
+```
+
+# shell开头设置
+```bash
+#!/bin/bash -xv
+```
 
