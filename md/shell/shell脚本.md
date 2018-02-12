@@ -279,8 +279,6 @@ done
     }
 ```
 
-
-
 # while
 - [] 里面的用法跟 if 的一样
 ```bash
@@ -527,23 +525,15 @@ done
 ```
 
 
-getopts
-================================================================================
-- shell内置
-
+# getopts
 ```
 ➜  web git:(master) ✗ type getopts
 getopts is a shell builtin
 ```
 
+# getopt
 
-getopt
-================================================================================
-
-
-
-read
-================================================================================
+# read
 - -t 参数来限制用户的输入时间
 - -s 参数可以不显示用户的输入
 
@@ -569,8 +559,7 @@ esac
 ```
 
 
-`$`符号
-================================================================================
+# `$`符号
 ```bash
 cky@cky-pc:~$ var=abckefg
 cky@cky-pc:~$ echo ${#var} # 变量长度
@@ -584,8 +573,7 @@ if [ $UID -eq 0 ];then # 环境变量 判断root用户
 fi
 ```
 
-eval 将字符串当做命令执行
-================================================================================
+# eval 将字符串当做命令执行
 ```bash
 cky@cky-pc:~/workspace/shell$ NAME=codekissyoung
 cky@cky-pc:~/workspace/shell$ eval echo $NAME # 等价于 echo $NAME
@@ -613,23 +601,20 @@ cky@cky-pc:~/workspace/shell$ ./test_eval.sh a b c d
 最后一个参数 : d
 ```
 
-`$()` 等价于反引号 命令替换
-================================================================================
+# `$()` 等价于反引号 命令替换
 ```bash
 cky@cky-pc:~/workspace/shell$ echo the last sunday is $(date -d "last sunday" +%Y-%m-%d)
 the last sunday is 2017-06-25
 ```
 
-`${}` 用作变量替换
-================================================================================
+# `${}` 用作变量替换
 ```bash
 A=B
 echo $AB # 空
 echo ${A}B # BB
 ```
 
-xargs 将输入转化为命令行参数
-================================================================================
+# xargs 将输入转化为命令行参数
 - 有些命令只能以命令行参数的形式接受收据，而无法通过stdin接受数据流。在这种情况下，我们没法用管道来提供那些只有通过命令行参数才能提供的数据
 - xargs擅长将标准输入数据转换成命令行参数
 - -d 选项，指明定界符
@@ -701,7 +686,6 @@ cky@cky-pc:~/workspace/shell$ find -name '*.info' -print0 | xargs -0 -n 1
 cky@cky-pc:~/workspace/shell$ find -name '*.info' -print0 | xargs --null -n 1
 ./test space.info
 
-
 # 在一条语句里执行命令组的例子
 cat files.txt | (while read arg;do cat $arg;done) # 等价 cat files.txt | xargs -I {} cat {}
 cmd0 | (cmd1;cmd2;cmd3) | cmd4 # 利用子shell
@@ -710,7 +694,6 @@ cmd0 | (cmd1;cmd2;cmd3) | cmd4 # 利用子shell
 
 
 # 变量类型
-================================================================================
 - 全局环境变量，在当前shell可用，子shell也会继承父shell的环境变量
 - 当前shell局部变量,子shell不能访问到
 - 函数局部变量，只在函数内部能访问到
@@ -768,8 +751,6 @@ BASHOPTS=checkwinsize
 设置局部变量
 ```
 
-
-
 # 设置全局变量
 ```bash
 ➜  shell git:(master) ✗ export test
@@ -789,22 +770,6 @@ echo $test
 
 ➜  shell git:(master) ✗
 ```
-
-# shell 种类
-- 登录shell
-- 如果`.bash_profile`和`.bash_login`存在的话，就不会执行`.profile`了
-    ```bash
-        /etc/profile
-        $HOME/.bash_profile
-        $HOME/.bash_login
-        $HOME/.profile
-    ```
-- 非登录的 交互式 shell , 比如在登录shell里面执行 bash 启动一个新的子shell
-    ```bash
-        /etc/profile
-        $HOME/.bashrc
-    ```
-- 执行脚本 非交互式shell
 
 # 重定向
 ```bash
@@ -922,8 +887,7 @@ test input
 file disc 5 test
 ```
 
-`-` 作为stdin文本的文件名
-================================================================================
+# `-` 作为stdin文本的文件名
 ```bash
 cky@cky-pc:~/workspace/shell$ echo 'text from stdin' | cat hi.txt -
 hi code!
@@ -932,8 +896,7 @@ text from stdin
 
 
 
-交互输入自动化
-================================================================================
+# 交互输入自动化
 ```bash
 cky@cky-pc:~/workspace/shell$ ./auto_input.sh
 Enter your name:codekissyoung
@@ -941,7 +904,6 @@ Enter your age 22
 your name is codekissyoung , you are 22 years old
 cky@cky-pc:~/workspace/shell$ echo 'codekissyoung\n22\n' | ./auto_input.sh
 your name is codekissyoungn22n , you are  years old
-
 
 # 使用 expect
 cky@cky-pc:~/workspace/shell$ sudo apt-get install expect
@@ -955,15 +917,12 @@ expect "Enter your age:" # 如果匹配这个提示，那就输入 22
 send "22\n"
 expect eof # 交互结束
 
-
 cky@cky-pc:~/workspace/shell$ ./expect.sh
 spawn ./auto_input.sh
 Enter your name:codekissyoung
 Enter your age:22
 your name is codekissyoung , you are 22 years old
 ```
-
-
 
 # 使用内建调试命令
 - 带 + 号的输出，就是shell实际执行的命令
@@ -1030,8 +989,6 @@ cky@cky-pc:~/workspace/shell$ ./arr.sh
 #!/bin/bash -xv
 ```
 
-
-
 # 判断root用户
 ```bash
 #!/bin/bash
@@ -1041,8 +998,6 @@ else
 	echo "Root User";
 fi
 ```
-
-
 
 # 字符串长度
 ```bash
@@ -1076,4 +1031,15 @@ fi
 -e file	（包括目录）是否存在，如果是，则返回 true。	[ -e $file ] 返回 true。
 
 
+# 获取文件名 获取后缀名
+```bash
+file="example.jpg"
+name=${file%%.*} # 获取文件名
+ext=${file##*.} # 获取后缀名
 
+URL="www.google.com"
+echo ${URL%.*} # www.google
+echo ${URL%%.*} # www
+echo ${URL#*.} # google.com
+echo ${URL##.*} # com
+```

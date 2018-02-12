@@ -906,7 +906,6 @@ tmpfs           787M  144K  787M    1% /run/user/1000
 ```
 
 # du
-
 ```bash
 ➜  cky git:(master) du -sh *
 32K	cky
@@ -973,7 +972,6 @@ cky@cky-pc:~/workspace/shell/split$ ls -lhi
 20316495 -rw-r--r-- 1 cky cky 3.0K 7月   2 00:38 splite_file0001
 ...
 
-
 cky@cky-pc:~/workspace/shell/split$ cat server.log 
 SERVER-1
 [connection] 192.168.0.1 success
@@ -1008,52 +1006,6 @@ SERVER-1
 [connection] 192.168.0.1 success
 [connection] 192.168.0.1 success
 [connection] 192.168.0.1 success
-
-```
-
-# 获取文件名 获取后缀名
-```bash
-file="example.jpg"
-name=${file%%.*} # 获取文件名
-ext=${file##*.} # 获取后缀名
-
-URL="www.google.com"
-echo ${URL%.*} # www.google
-echo ${URL%%.*} # www
-echo ${URL#*.} # google.com
-echo ${URL##.*} # com
-```
-
-# 批量重命名 和 移动
-```bash
-#!/bin/bash
-count=1;
-for img in `find . -iname "*.png" -o -iname '*.jpg'`;do
-	ext=${img##*.}
-	new_name="image_"$count.$ext;
-	echo $new_name;
-	mv $img $new_name;
-	let count++;
-done;
-```
-
-```bash
-cky@cky-pc:~/workspace/shell/img$ ls
-a.jpg  b.jpg  c.png
-cky@cky-pc:~/workspace/shell/img$ ./rename.sh 
-image_1.png
-image_2.jpg
-image_3.jpg
-cky@cky-pc:~/workspace/shell/img$ ls
-image_1.png  image_2.jpg  image_3.jpg  rename.sh
-
-```
-
-rename
-================================================================================
-```bash
-cky@cky-pc:~/workspace/shell/img$ ls
-image_1.png  image_2.jpg  image_3.jpg  rename.sh
 
 ```
 
@@ -1133,15 +1085,6 @@ steel
 ```
 
 # 查找并且删除重复文件
-
-
-
-
-
-
-
-
-
 
 # 观察内存状态 cat /proc/meminfo
 ```bash
@@ -1223,14 +1166,6 @@ crw--w---- 1 root tty     4,  1 6月  11 14:09 tty1
 ...
 ```
 
-# 文件系统管理
-- linux 采用 VFS (Virtual File System)作为和每个文件系统交互的接口
-
-
-# linux 桌面环境
-- X.org 软件包是 X Window的实现，是直接和PC的显卡以及显示器一起工作的底层软件
-- X Window 系统之上的桌面环境:KDE / GNOME / XFACE
-
 # 终端模拟器
 - 哑终端--->Linux控制台--->终端模拟包--->
 - 字符集：将二进制字符代码转化成字符发送给显示器显示，ascii ios unicode
@@ -1266,8 +1201,7 @@ xterm-256color   说明终端类型设置为了 terminfo 数据库中的xterm条
 - X Window 终端模拟包: Xterm Konsole Gnome-Terminal
 
 
-vmstat
-================================================================================
+# vmstat
 ```bash
 cky@cky-pc:~$ vmstat 1 3 # 每隔一秒刷新一次输出 总共刷新3次
 procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
@@ -1285,8 +1219,7 @@ procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
 - st ：被虚拟机所盗用的cpu占比
 
 
-free 查看内存
-================================================================================
+# free 查看内存
 ```bash
 cky@cky-pc:~$ free -h
               总计         已用        空闲      共享    缓冲/缓存    可用
@@ -1294,8 +1227,7 @@ cky@cky-pc:~$ free -h
 交换：        7.9G          0B        7.9G
 ```
 
-/proc/cpuinfo　查看cpu详细信息
-================================================================================
+# /proc/cpuinfo　查看cpu详细信息
 ```bash
 cky@cky-pc:~$ cat /proc/cpuinfo 
 processor	: 0
@@ -1306,27 +1238,15 @@ model name	: Intel(R) Core(TM) i5-3210M CPU @ 2.50GHz
 stepping	: 9
 microcode	: 0x1c
 cpu MHz		: 1199.951
-cache size	: 3072 KB
-physical id	: 0
-siblings	: 4
-core id		: 0
-cpu cores	: 2
-apicid		: 0
-initial apicid	: 0
-fpu		: yes
-...
 ```
 
-uptime 查看系统平均负载
-================================================================================
+# uptime 查看系统平均负载
 ```bash
 cky@cky-pc:~$ uptime
  15:55:30 up  5:25,  1 user,  load average: 0.32, 0.27, 0.21
 ```
 
-
-lsof 查看进程调用的文件 
-================================================================================
+# lsof 查看进程调用的文件
 ```bash
 cky@cky-pc:~$ lsof /sbin/init # 查看某个文件(系统文件)被哪个进程调用
 COMMAND  PID USER  FD   TYPE DEVICE SIZE/OFF     NODE NAME
@@ -1338,24 +1258,15 @@ systemd       1 root  cwd   unknown                      /proc/1/cwd (readlink: 
 systemd       1 root  rtd   unknown                      /proc/1/root (readlink: Permission denied)
 systemd       1 root  txt   unknown                      /proc/1/exe (readlink: Permission denied)
 kthreadd      2 root  cwd   unknown                      /proc/2/cwd (readlink: Permission denied)
-...
 ```
 
-dmesg 内核启动自检信息
-================================================================================
+# dmesg 内核启动自检信息
 ```bash
 cky@cky-pc:~$ dmesg
 [    0.000000] microcode: microcode updated early to revision 0x1c, date = 2015-02-26
 [    0.000000] Linux version 4.10.0-22-generic (buildd@lcy01-08) (gcc version 6.3.0 20170406 (Ubuntu 6.3.0-12ubuntu2) )
 [    0.000000] KERNEL supported cpus:
 [    0.000000]   Intel GenuineIntel
-[    0.000000]   AMD AuthenticAMD
-[    0.000000]   Centaur CentaurHauls
-[    0.000000] x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'
-[    0.000000] x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
-[    0.000000] x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
-[    0.000000] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
-...
 ```
 
 
