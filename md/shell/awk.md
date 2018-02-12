@@ -1,4 +1,3 @@
-# 命令
 #### 命令运行 : `awk -Fre '/pattern/{ action }' files`
 #### 命令运行 : `awk -Fre '(expression){ action }' files`
 #### 脚本运行 : `awk -Fre -f awk脚本 files`
