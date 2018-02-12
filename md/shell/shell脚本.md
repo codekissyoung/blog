@@ -329,3 +329,383 @@ for i in {a..z};do
     commands;
 done;
 ```
+
+普通数组
+================================================================================
+```bash
+#!/bin/bash
+arr=(23 34 56 测试 第五个值 67 76 54 35) 
+echo ${arr[0]}
+index=4
+echo ${arr[$index]};
+echo ${arr[*]}
+echo ${arr[@]}
+echo ${#arr[*]} # 数组个数
+# 23
+# 第五个值
+# 23 34 56 测试 第五个值 67 76 54 35
+# 23 34 56 测试 第五个值 67 76 54 35
+# 9
+```
+
+
+关联数组 (Bash 4.0引入)
+================================================================================
+```bash
+#!/bin/bash
+declare -A ass_arr; # 定义
+ass_arr=([apple]='1.00' [orange]='3.00'); # 初始化
+ass_arr[banana]='4.00'; # 单个赋值
+echo "the price of apple is ${ass_arr[apple]}"; # 使用索引数组
+echo ${!ass_arr[*]} # 获取所有的索引
+echo ${!ass_arr[@]} # 同上
+# the price of apple is 1.00
+# apple banana orange
+# apple banana orange
+```
+
+变量
+================================================================================
+```bash
+var=value # 定义变量并且赋值
+unset value # 删除变量
+echo $var # 显示变量
+declare [-aixr] var #声明变量类型 -a:数组，-i:整形，-x:效果同于export,-r:变量设置为readonly,变量定义后默认为字符型
+
+#通过交互获取用户输入的变量
+read -p "提示信息" 变量名
+
+#显示信息
+echo -e "输出信息 $变量名"
+
+# 将变量声明为环境变量(全局变量)
+export var
+```
+
+函数
+================================================================================
+```bash
+# 定义函数
+function printit(){
+    echo -n "This is a simple test ";
+    echo "$1"; # 打印第一个参数 $2 是第二个
+    echo "$@"; # 以列表的形式打印出所有的参数
+    echo "$*"; # 所有的参数作为单个实体
+    return 0; # 返回值 0 为成功， 非 0 为错误
+}
+# 调用函数
+printit arg1 arg2
+
+echo $?; # 在调用函数后，马上使用 $? 获取函数 return 的值
+
+export -f printit ; # 导出函数为全局函数， 这样在子进程中，也能使用该函数了
+```
+- shell命令执行时首先从函数开始，如果自定义了一个与内建命令同名的函数，那么就执行这个函数而非真正的内建命令
+- `:(){:|:&}:` 这个是fork炸弹, : 是函数名，递归在后台调用自身，不断的fork进程，直到拖垮系统
+
+判断语句
+================================================================================
+```bash
+#!/bin/bash
+if [ 判断1 ]; then
+    执行内容
+##多重判断
+elif [ 判断2 ]; then
+    执行内容
+else
+    执行内容
+#结束    
+fi
+```
+
+循环语句
+================================================================================
+```bash
+# while do... done循环
+while [ condition ]
+do #循环开始
+    程序段落
+done #循环结束
+#until do ...done循环
+until [condition]
+do
+    程序段落
+done
+# for...do...done（固定循环)
+for var in cond1 cond2 cond3...
+do
+    执行语句
+done
+#或类似于C语言
+for ((i=1;i<=$num;i=i+1));do
+    echo $i
+done
+```
+
+# `&&` 与 `||` 控制程序执行流程
+```bash
+# 前面命令执行成功后，才执行后面命令
+sudo service apache2  stop && sudo  service apache2  start
+# 前面命令执行失败后，后面命令才执行
+service apache2 restart || sudo service apache2 restart
+```
+
+
+
+
+
+# $0 $1 $2 $3
+- `./my_shell_script 10 20` 执行后，脚本里面 ,$0的值是`./my_shell_script` ,$1 的值是10 ,$2的值是20,依次类推
+- 判断$1等是否存在， `if [ -n "$1" ]`
+
+# basename
+- 从路径里面获取脚本名称
+```bash
+name=`basename $0`
+echo $name # my_shell_script
+```
+
+# `$#`
+- 参数个数
+
+# $* 与 $@
+- `$*` 把所有参数当做一个整体
+- `$@` 把所有参数当做一个数组，可以遍历的
+
+# shift
+- shift 命令将参数左移动，$1的原先的值丢弃，$2的值变为$1的值，依次类推
+```bash
+while [ -n "$1" ]; do
+    commands;
+    shift
+done
+```
+
+# 依次处理每个参数
+
+```bash
+while [ -n "$1" ] ;do
+    case "$1" in
+    first)
+        echo "first 参数";;
+    second)
+        echo "second 参数";;
+    third)
+        echo "third 参数";;
+    *)
+        echo "处理其他参数";;
+    esac
+    shift
+done
+```
+
+
+# 依次处理每个带值的参数
+```bash
+while [ -n "$1" ] ;do
+    case "$1" in
+        cut)
+            # 获取cut后面的值
+            value="$2";
+            echo "cut处理$2";
+            shift;;
+        add)
+            echo "add 参数";;
+        *)
+            echo "其他参数";
+    esac
+    shift
+done
+```
+
+
+getopts
+================================================================================
+- shell内置
+
+```
+➜  web git:(master) ✗ type getopts
+getopts is a shell builtin
+```
+
+
+getopt
+================================================================================
+
+
+
+read
+================================================================================
+- -t 参数来限制用户的输入时间
+- -s 参数可以不显示用户的输入
+
+```bash
+#!/bin/bash
+# read -p "提示语句" variable1 variable2 variableN 
+read -t 3 -p "do you love me ? ( Y / N ) : " answer
+
+if [ -n "$answer" ];then
+    :
+else
+    echo "... no answer!";
+fi
+
+case $answer in
+    Y | y)
+        echo "i love you too";;
+    N | n)
+        echo "fine , thank you ";;
+    *)
+        echo "unkown answer";;
+esac
+```
+
+
+`$`符号
+================================================================================
+```bash
+cky@cky-pc:~$ var=abckefg
+cky@cky-pc:~$ echo ${#var} # 变量长度
+7
+
+cky@cky-pc:~$ echo $SHELL # 环境变量
+/bin/bash
+
+if [ $UID -eq 0 ];then # 环境变量 判断root用户
+    echo "root用户";
+fi
+```
+
+eval 将字符串当做命令执行
+================================================================================
+```bash
+cky@cky-pc:~/workspace/shell$ NAME=codekissyoung
+cky@cky-pc:~/workspace/shell$ eval echo $NAME # 等价于 echo $NAME
+codekissyoung
+
+cky@cky-pc:~/workspace/shell$ echo "hi code!" > hi.txt
+cky@cky-pc:~/workspace/shell$ cat hi.txt 
+hi code!
+cky@cky-pc:~/workspace/shell$ my_hi="cat hi.txt"
+cky@cky-pc:~/workspace/shell$ echo $my_hi
+cat hi.txt
+cky@cky-pc:~/workspace/shell$ eval $my_hi
+hi code!
+
+cky@cky-pc:~/workspace/shell$ cat test_eval.sh 
+#!/bin/bash
+echo "最后一个参数 : $( eval echo $# )"
+echo "最后一个参数 : $( eval echo \$$# )"
+
+cky@cky-pc:~/workspace/shell$ ./test_eval.sh 
+最后一个参数 : 0
+最后一个参数 : ./test_eval.sh
+cky@cky-pc:~/workspace/shell$ ./test_eval.sh a b c d
+最后一个参数 : 4
+最后一个参数 : d
+```
+
+`$()` 等价于反引号 命令替换
+================================================================================
+```bash
+cky@cky-pc:~/workspace/shell$ echo the last sunday is $(date -d "last sunday" +%Y-%m-%d)
+the last sunday is 2017-06-25
+```
+
+`${}` 用作变量替换
+================================================================================
+```bash
+A=B
+echo $AB # 空
+echo ${A}B # BB
+```
+
+xargs 将输入转化为命令行参数
+================================================================================
+- 有些命令只能以命令行参数的形式接受收据，而无法通过stdin接受数据流。在这种情况下，我们没法用管道来提供那些只有通过命令行参数才能提供的数据
+- xargs擅长将标准输入数据转换成命令行参数
+- -d 选项，指明定界符
+- -n 选项，指明每行最大的参数数量
+- xargs默认将空格作为定界符。xargs没有指定参数时，默认能将换行符替换成空格。
+- 很多文件名中都可能会包含空格符，而xargs很可能会误认为它们是定界符(例如，hell text.txt会被xargs误认为hell和text.txt)
+- xargs 不能为多组命令提供参数
+
+```bash
+cky@cky-pc:~/workspace/shell$ cat xargs.txt 
+12 22 3 3 56
+32 23 45 6
+32 2 3
+4 5
+90
+cky@cky-pc:~/workspace/shell$ cat xargs.txt  | xargs 
+12 22 3 3 56 32 23 45 6 32 2 3 4 5 90
+cky@cky-pc:~/workspace/shell$ cat xargs.txt  | xargs -n3
+12 22 3
+3 56 32
+23 45 6
+32 2 3
+4 5 90
+
+cky@cky-pc:~/workspace/shell$ echo "splitXsplitXsplitXsplit" | xargs -d X
+split split split split
+
+cky@cky-pc:~/workspace/shell$ echo "splitXsplitXsplitXsplit" | xargs -d X -n2
+split split
+split split
+
+cky@cky-pc:~/workspace/shell$ cat cecho.sh 
+#!/bin/bash
+echo '处理' $* 
+cky@cky-pc:~/workspace/shell$ ./cecho.sh aaa bbb ccc
+处理 aaa bbb ccc 
+cky@cky-pc:~/workspace/shell$ cat args.txt 
+aaa
+bbb
+ccc
+
+cky@cky-pc:~/workspace/shell$ cat args.txt | xargs -n 1 ./cecho.sh 
+处理 aaa 
+处理 bbb 
+处理 ccc 
+
+cky@cky-pc:~/workspace/shell$ cat args.txt | xargs -I {} ./cecho.sh -p {} -l
+处理 -p aaa -l
+处理 -p bbb -l
+处理 -p ccc -l
+
+cky@cky-pc:~/workspace/shell$ find . -name '*.sh' | xargs -I {} cp {} sh_dir # 结合find和xargs使用
+cky@cky-pc:~/workspace/shell$ ls sh_dir/
+arg_exec.sh           arr.sh        bc.sh     cky_call.sh  color.sh    ifelse.sh  math.sh         prepend.sh  read.sh      son_shell.sh    test_eval.sh    update-shell.sh
+arg_with_val_exec.sh  assoc_arr.sh  cecho.sh  cky.sh       getopts.sh  let.sh     mysql_shell.sh  printf.sh   set_path.sh  test-ctrl-c.sh  update-blog.sh  var_exchange.sh
+
+# 定界符的例子
+cky@cky-pc:~/workspace/shell$ find -name '*.info'
+./test space.info
+cky@cky-pc:~/workspace/shell$ find -name '*.info' | xargs -n 1
+./test
+space.info
+cky@cky-pc:~/workspace/shell$ find -name '*.info' -print0 | xargs -n 1
+xargs: 警告: 输入中有个 NUL 字符。它不能在参数列表中传送。您是想用 --null 选项吗？
+./test
+space.info
+cky@cky-pc:~/workspace/shell$ find -name '*.info' -print0 | xargs -0 -n 1
+./test space.info
+cky@cky-pc:~/workspace/shell$ find -name '*.info' -print0 | xargs --null -n 1
+./test space.info
+
+
+# 在一条语句里执行命令组的例子
+cat files.txt | (while read arg;do cat $arg;done) # 等价 cat files.txt | xargs -I {} cat {}
+cmd0 | (cmd1;cmd2;cmd3) | cmd4 # 利用子shell
+
+```
+
+
+
+
+
+
+
+
+
+

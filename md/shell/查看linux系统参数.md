@@ -23,14 +23,6 @@ Inactive:         883236 kB
 键        shmid      拥有者  权限     字节     连接数  状态      
 0x00000000 98304      cky        600        16777216   2                       
 0x00000000 4292609    cky        600        1048576    2          目标       
-0x00000000 524290     cky        600        67108864   2          目标       
-0x00000000 983043     cky        600        524288     2          目标       
-0x00000000 753668     cky        600        524288     2          目标       
-0x00000000 4096005    cky        600        524288     2          目标       
-0x00000000 4423686    cky        700        782768     2          目标       
-0x00000000 3440651    cky        600        524288     2          目标       
-0x00000000 2293773    cky        600        1048576    2          目标       
-
 --------- 信号量数组 -----------
 键        semid      拥有者  权限     nsems     
 ```
@@ -56,32 +48,16 @@ lrwxrwxrwx   1 root root   22 1月  14 23:39 S01avahi-daemon -> ../init.d/avahi-
 ➜  ~ ps aux  显示了系统所有进程
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root         1  0.0  0.0 205172  7472 ?        Ss   6月11   0:03 /sbin/init splash
-root         2  0.0  0.0      0     0 ?        S    6月11   0:00 [kthreadd]
-root         4  0.0  0.0      0     0 ?        S<   6月11   0:00 [kworker/0:0H]
-root         6  0.0  0.0      0     0 ?        S    6月11   0:00 [ksoftirqd/0]
-root         7  0.0  0.0      0     0 ?        S    6月11   0:48 [rcu_sched]
 ...
 
 ➜  md git:(master) ✗ ps axjf  显示了进程 子进程之间关系
 1256  2414  2414  2414 ?           -1 Ssl   1000   0:00  \_ /usr/lib/zeitgeist/zeitgeist/zeitgeist-fts
 1256  3104  3104  3104 ?           -1 Ssl   1000   1:25  \_ /usr/lib/gnome-terminal/gnome-terminal-server
-3104 19021 19021 19021 pts/0    28998 Ss    1000   0:01  |   \_ -zsh
-19021 28998 28998 19021 pts/0    28998 R+    1000   0:00  |       \_ ps axjf
-1256  4978  4978  4978 ?           -1 Ssl   1000   0:00  \_ /usr/lib/gvfs/gvfsd-metadata
-1256  9973  1264  1264 ?           -1 Sl    1000   0:00  \_ /usr/lib/x86_64-linux-gnu/unity-scope-home/unity-scope-home
-1256  9986  1264  1264 ?           -1 Sl    1000   0:00  \_ /usr/lib/x86_64-linux-gnu/unity-lens-files/unity-files-daemon
-1256 27261  1879  1879 ?           -1 Sl    1000   0:00  \_ /usr/lib/gvfs/gvfsd-http --spawner :1.34 /org/gtk/gvfs/exec_spaw/1
-1256 27452  1922  1922 ?           -1 Sl    1000   0:34  \_ /usr/share/atom/atom
-...
 
 ➜  md git:(master) ✗ ps lax   长模式 ，显示了 PPID 谦让值 NI 进程正在等待的资源
 F   UID   PID  PPID PRI  NI    VSZ   RSS WCHAN  STAT TTY        TIME COMMAND
 4     0     1     0  20   0 205172  7472 -      Ss   ?          0:03 /sbin/init splash
 1     0     2     0  20   0      0     0 -      S    ?          0:00 [kthreadd]
-1     0     4     2   0 -20      0     0 -      S<   ?          0:00 [kworker/0:0H]
-1     0     6     2  20   0      0     0 -      S    ?          0:00 [ksoftirqd/0]
-1     0     7     2  20   0      0     0 -      S    ?          0:49 [rcu_sched]
-...
 ```
 
 # 硬件设备管理
@@ -109,7 +85,6 @@ crw--w---- 1 root tty     4,  1 6月  11 14:09 tty1
 # linux 桌面环境
 - X.org 软件包是 X Window的实现，是直接和PC的显卡以及显示器一起工作的底层软件
 - X Window 系统之上的桌面环境:KDE / GNOME / XFACE
-
 
 # 终端模拟器
 - 哑终端--->Linux控制台--->终端模拟包--->
@@ -235,18 +210,6 @@ cky@cky-pc:~$ dmesg
 [    0.000000] x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
 [    0.000000] x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
 [    0.000000] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
-[    0.000000] x86/fpu: Enabled xstate features 0x7, context size is 832 bytes, using 'standard' format.
-[    0.000000] e820: BIOS-provided physical RAM map:
-[    0.000000] BIOS-e820: [mem 0x0000000000000000-0x000000000009efff] usable
-[    0.000000] NX (Execute Disable) protection: active
-[    0.000000] efi: EFI v2.31 by American Megatrends
-[    0.000000] efi:  ACPI=0xca860000  ACPI 2.0=0xca860000  SMBIOS=0xf04c0  MPS=0xfd4d0 
-[    0.000000] SMBIOS 2.7 present.
-[    0.000000] DMI: ASUSTeK COMPUTER INC. K55VD/K55VD, BIOS K55VD.404 08/20/2012
-[    0.620189] system 00:08: [mem 0xcfe00000-0xcfe00fff] has been reserved
-[    0.626777] TCP established hash table entries: 65536 (order: 7, 524288 bytes)
-[    0.626893] TCP bind hash table entries: 65536 (order: 8, 1048576 bytes)
-[    0.627005] TCP: Hash tables configured (established 65536 bind 65536)
 ...
 ```
 
