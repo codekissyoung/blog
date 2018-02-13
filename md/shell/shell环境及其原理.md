@@ -131,6 +131,22 @@ PING www.a.shifen.com (14.215.177.38) 56(84) bytes of data.
 # 关闭当前终端后，进程还在运行
 ```
 
+# jobs作业控制
+```bash
+cky@cky-pc:~/workspace/shell$ ./cky.sh
+5540 : 1
+5540 : 2
+5540 : 3
+^Z # 按ctrl + z 暂停作业，存入后台
+[2]+  已停止               ./cky.sh
+cky@cky-pc:~/workspace/shell$ bg %2
+[2]+ ./cky.sh &
+5540 : 8
+cky@cky-pc:~/workspace/shell$ 5540 : 9
+5540 : 10
+5540 : 11
+```
+
 # disown
 - 用 `CTRL-z `来将当前进程挂起到后台暂停运行，然后用`bg %job_id`来使它恢复活动，然后再用下列命令使它忽略HUP信号
 - 用`disown -h %2 `来使某个作业忽略HUP信号。
