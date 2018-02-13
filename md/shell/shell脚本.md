@@ -37,6 +37,7 @@ export var
 - 使用 `read` 可以与用户交互，读取用户在shell里输入的字符串，存入变量中
 - `declare` 是显式定义变量，但附带了很多可以选择的属性
 - 声明的变量默认都是局部变量，只在当前执行shell使用，`export` 用于将变量 提升为 全局变量，全局变量可以传递到当前`shell`的`子shell`
+- 对于变量的使用，推荐使用 `"` 加 `{}` 格式，即 `"${var}"` , 防止变量为空 比如 `if [ = "yes" ]` 报错，以及解析错变量名
 
 # 系统环境变量
 ```bash
@@ -61,6 +62,150 @@ fi
 - `$*` 脚本所有参数，各个参数用`IFS`的第一个字符(一般是空格)分割开
 - `$@` 该变量存全部参数作为一个字符串
 
+# 条件分支
+```bash
+# 测试命令是否执行成功，根据 $? 的值来判断,$? = 0 则为真
+if command; then
+    echo "命令执行成功";
+fi
+
+# grep 没有搜寻到用户 $? = 1
+if grep codekissyoung /etc/passwd;then
+    echo "用户codekissyoung存在";
+elif grep cky /etc/passwd > /dev/null;then
+    echo "cky 存在";
+else
+    echo "用户codekissyoung不存在";
+fi
+
+# 测试命令,test 可以进行数值比较，字符串比较，文件比较
+if test condition; then
+    command;
+fi
+# 简写
+if [ condition ]; then  # [] 两边的空格是必要的
+    commands;
+fi
+
+# 判断数字大小 只限于整数
+a=10
+b=10
+if [ $a -eq $b ]; then
+   echo "a 等于 b"
+elif [ $a -gt $b ]; then
+   echo "a 大于 b"
+elif [ $a -lt $b ]; then
+   echo "a 小于 b"
+else
+   echo "没有符合的条件"
+fi
+
+if [ "code" = "cky" ]    # 判断字符串相等 记住是用一个 = 来判断是否相等
+if [ "$USER" != "root" ] # 判定两个字符不相等
+if [ -n $var ]           # 判断字符存在
+if [ -z $PS1 ]           # 判断字符串不存在
+if [ $var1 \> $var2 ]    # 字符串比较大小 根据字典序来判断
+if [ -d file ]           # 判断路径是否存在 并且是目录
+if [ -f file ]           # 判断路径是否存在 并且是文件
+if [ -w file ]           # -r -w -x 判断文件是否 可读 可写 可执行
+if [ -O file ]           # 判断执行者是否是文件的属主
+if [ file1 -nt file2 ]   # file1 是否比 file2 更新, 镜像: file1 -ot file2
+
+# && 与 || 组合条件
+if [ -d $HOME ] && [ -w "$HOME" ]; then
+    echo "$HOME 存在并且可读";
+fi
+
+# 多分支
+a=code
+case $a in
+"codekissyoung" | "caokaiyan" | "hehe" )
+    echo "codekissyoung or caokaiyan or hehe";;
+"code" )
+    echo "a 是 code";;
+"young" )
+    echo "a 是 young";;
+*)
+    echo "其他";;
+esac
+```
+
+# 循环
+```bash
+# 格式
+for var in list; do
+    commands
+done
+
+# 普通字符串
+list="abc bcd cdf"
+for var in $list ; do
+    echo "var : $var"
+done
+
+# 接命令
+for var in `cat /etc/passwd`; do
+    echo "$var";
+done
+
+# IFS 的作用
+data="name,sex,rollno,location";
+IFS.OLD=$IFS
+IFS=, # 将IFS 设置为 ,
+for item in $data;do
+    echo "item : $item";
+done;
+IFS=$IFS.OLD  # 恢复原值
+
+# 接目录，遍历文件 in 后面可以跟多个目录,它们是通配符，空格隔开就好
+for script in /etc/*.d /etc/*.conf; do
+    echo $script
+done
+
+# c 语言形式的for , 使用 (( ))
+for (( i=0; i<10; i++ ))
+{
+    commands;
+}
+
+# while 循环，条件符合就执行，[ condition; ] 逻辑与 条件分支 if 一样
+while [ condition; ];do
+    commands
+done
+
+# 跟while相反，条件符合才停止
+until [ condition; ];do
+    commands
+done
+
+# 跳出循环 都可以使用 break;
+# 跳过这次循环 使用 continue;
+# for while until 都可以使用
+while [ condition; ];do
+    if [ condition; ];then
+        break; # 或者 continue
+    fi
+    commands;
+done;
+
+# 循环的重定向
+for var in $lists; do
+    commands;
+done > output.txt # 可以选择将循环里面的输出的内容重定向到文件，
+
+for var in $lists;do
+    commands;
+done | sort -nr   # 或者通过管道传递给其他命令
+
+# 生成序列
+for i in {a..z};do
+    echo ${i}; # 输出 a b c d e f g h i j k l m n o p q r s t u v w x y z
+done;
+for i in {1..10};do
+    echo ${i}; # 输出 1 2 3 4 5 6 7 8 9 10
+done;
+```
+- 对于`for`循环中的`list`的字符串的解析，借助的是`$IFS`，而我们可以通过暂时修改`IFS`的值来改变我们的解析规则
 
 
 # 打印
@@ -69,26 +214,18 @@ echo "带换行的";
 echo -n "不带换行的: ";
 ```
 
-# `.` 与 `source`
-```bash
-for i in /etc/profile.d/*.sh ; do
-    if [ -r "$i" ]; then
-        . $i
-    fi
-done
-```
-- 两者是等价的,从文件中读取并执行命令，无论该文件是否都有可执行权限都能够正确的执行,并且是在当前shell下执行，而不是产生一个子shell来执行
-- `./filename.sh`去执行一个文件是在当前shell下产生一个子shell去执行的
-
-
-# :
+# 退出码 `:` 以及 exit
 ```bash
 if [ "$i" -ne 1 ];then
     : # 该命令什么都不做，但执行后会返回一个正确的退出代码，即exit 0
 else
     echo "$i is equal 1"
 fi
+
+exit 0
 ```
+- 退出码 , `0` 是正常退出,错误码 `1 - 255`
+- `echo $?` 输出上一个程序执行后的退出码
 
 # 数学运算
 - 数学计算对于shell来说是很麻烦的一件事情
@@ -110,99 +247,6 @@ var1=100
 var2=45
 var3=`echo "scale=4; $var1 / $var2" | bc` # scale=4; #是设置bc计算器使用4位小数
 echo $var3
-```
-
-# exit
-- 退出码 , 0是正常退出,错误码　1 - 255
-- `echo $?` 输出上一个程序执行后的退出码
-```bash
-exit 5
-```
-
-# if then fi
-- 测试命令是否执行成功，根据 $? 的值来判断,$? = 0 则为真
-    ```bash
-    if command; then
-        echo "命令执行成功";
-    fi
-    ```
-- 测试命令,test 可以进行数值比较，字符串比较，文件比较
-    ```bash
-    if test condition; then
-        command;
-    fi
-    简写:
-    if [ condition ]; then  # [] 两边的空格是必要的
-        commands;
-    fi
-    ```
-
-```bash
-#!/bin/bash
-# date 命令执行成功了 $? = 0
-if date > /dev/null; then
-    echo "date 命令执行成功了"
-fi
-
-# grep 没有搜寻到用户 $? = 1
-if grep codekissyoung /etc/passwd;then
-    echo "用户codekissyoung存在";
-elif grep cky /etc/passwd > /dev/null;then
-    echo "cky 存在";
-else
-    echo "用户codekissyoung不存在";
-fi
-
-# 判断数字大小 只限于整数
-a=10
-b=10
-if [ $a -eq $b ]; then
-   echo "a 等于 b"
-elif [ $a -gt $b ]; then
-   echo "a 大于 b"
-elif [ $a -lt $b ]; then
-   echo "a 小于 b"
-else
-   echo "没有符合的条件"
-fi
-
-
-# 判断字符串相等
-if [ "code" = "cky" ]; then  # 记住是用一个 = 来判断是否相等
-    echo "code 不等于　cky";
-fi
-
-# 判断字符存在
-var="变量var"
-if [ -n $var ]; then
-    echo "$var存在";
-fi
-
-# 字符串比较大小
-var1="abd"
-var2="abc"
-if [ $var1 \> $var2 ];then
-    echo "$var1 大于 $var2";
-fi
-
-# 判断文件
-# -e 判断路径是否存在
-# -d 判断路径是否存在 并且是目录
-# -f 判断路径是否存在 并且是文件
-# -s 判断文件是否不为空
-# -r -w -x 判断文件是否 可读 可写 可执行
-# -O 判断执行者是否是文件的属主
-# file1 -nt file2  ,file1 是否比 file2 更新, 镜像: file1 -ot file2
-if [ -d "$HOME" ]; then
-    echo "$HOME 存在";
-fi
-```
-
-# && 与 || 组合条件
-```
-if [ -d $HOME ] && [ -w "$HOME" ]; then
-    echo "$HOME 存在并且可读";
-fi
 ```
 
 # () 与 {}
@@ -243,136 +287,6 @@ code
 组合： 均可用各自逻辑符号连接的数字（运算）测试、文件测试、字符测试
 ```
 
-# case
-```bash
-case variable in
-pattern | pattern1 | pattern2 )
-    command1 ;;
-pattern3)
-    command2 ;;
-*)
-    default commond ;;
-esac
-```
-
-```bash
-#!/bin/bash
-a=code
-case $a in
-"codekissyoung" | "caokaiyan" | "hehe" )
-    echo "codekissyoung or caokaiyan or hehe";;
-"code" )
-    echo "a 是code";;
-*)
-    echo "其他";;
-esac
-```
-
-# for
-```bash
-for var in list
-do
-    commands
-done
-```
-- `list`变量是使用IFS环境变量的值来分割的，正常情况`IFS=' '$'\t'$'\n'`,表示list是使用\t \n 空格来分割的，忽略数量，一个空格和两个空格都是一样的,$符号修饰是不可少的
-
-    ```bash
-    IFS.OLD=$IFS
-    IFS=$'\n' # 修改IFS默认值
-    # commands with new IFS
-    IFS=$IFS.OLD # 恢复IFS默认值  
-
-    # eg .
-    data="name,sex,rollno,location"; # CSV 数据
-    IFS.OLD=$IFS
-    IFS=, # 将IFS 设置为 ,
-    for item in $data;do
-        echo "item : $item";
-    done;
-    IFS=$IFS.OLD  # 恢复原值
-    ```
-
-- list 可能的参数
-    ```bash
-    list="abc bcd cdf"
-    for var in $list ; do
-        echo "var : $var"
-    done
-
-    for var in `cat /etc/passwd`; do
-        echo "$var";
-    done
-
-    for script in /etc/*.d /etc/*.conf; do # 遍历 /etc/ 目录 , in 后面可以跟多个目录,它们是通配符，空格隔开就好
-        echo $script
-    done
-    ```
-
-- c 语言形式的for
-```bash
-    for (( i=0; i<10; i++ )){
-        commands;
-    }
-```
-
-# while
-- [] 里面的用法跟 if 的一样
-```bash
-while [];do
-    commands
-done
-```
-
-# until
-- 跟while相反，条件符合才停止
-```bash
-until [];do
-    commands
-done
-```
-
-# break
-- 用在　for ,while , until 里，跳出循环
-    ```bash
-    while [];do
-        if [];then
-            break;
-        fi
-        commands
-    done;
-    ```
-
-# continue
-- 跳过这次循环,将上例中的break换成continue就好
-
-# done
-- done 可以选择将循环里面的输出的内容重定向到文件，或者通过管道传递给其他命令
-
-```bash
-for var in $lists; do
-    commands;
-done > output.txt
-
-for var in $lists;do
-    commands;
-done | sort -nr
-```
-
-# 生成序列
-```bash
-cky@cky-pc:~/workspace/blog/web/md/linux/shell$ echo {1..40}
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40
-cky@cky-pc:~/workspace/blog/web/md/linux/shell$ echo {a..z}
-a b c d e f g h i j k l m n o p q r s t u v w x y z
-```
-
-```bash
-for i in {a..z};do
-    commands;
-done;
-```
-
 # 普通数组
 ```bash
 #!/bin/bash
@@ -404,10 +318,7 @@ echo ${!ass_arr[@]} # 同上
 # apple banana orange
 ```
 
-
-
-函数
-================================================================================
+# 函数
 ```bash
 # 定义函数
 function printit(){
@@ -427,50 +338,6 @@ export -f printit ; # 导出函数为全局函数， 这样在子进程中，也
 - shell命令执行时首先从函数开始，如果自定义了一个与内建命令同名的函数，那么就执行这个函数而非真正的内建命令
 - `:(){:|:&}:` 这个是fork炸弹, : 是函数名，递归在后台调用自身，不断的fork进程，直到拖垮系统
 
-# 判断语句
-```bash
-#!/bin/bash
-if [ 判断1 ]; then
-    执行内容
-##多重判断
-elif [ 判断2 ]; then
-    执行内容
-else
-    执行内容
-#结束    
-fi
-```
-
-# 循环语句
-```bash
-# while do... done循环
-while [ condition ]
-do #循环开始
-    程序段落
-done #循环结束
-#until do ...done循环
-until [condition]
-do
-    程序段落
-done
-# for...do...done（固定循环)
-for var in cond1 cond2 cond3...
-do
-    执行语句
-done
-#或类似于C语言
-for ((i=1;i<=$num;i=i+1));do
-    echo $i
-done
-```
-
-# `&&` 与 `||` 控制程序执行流程
-```bash
-# 前面命令执行成功后，才执行后面命令
-sudo service apache2  stop && sudo  service apache2  start
-# 前面命令执行失败后，后面命令才执行
-service apache2 restart || sudo service apache2 restart
-```
 
 
 # basename
@@ -479,13 +346,6 @@ service apache2 restart || sudo service apache2 restart
 name=`basename $0`
 echo $name # my_shell_script
 ```
-
-# `$#`
-- 参数个数
-
-# $* 与 $@
-- `$*` 把所有参数当做一个整体
-- `$@` 把所有参数当做一个数组，可以遍历的
 
 # shift
 - shift 命令将参数左移动，$1的原先的值丢弃，$2的值变为$1的值，依次类推
@@ -497,7 +357,6 @@ done
 ```
 
 # 依次处理每个参数
-
 ```bash
 while [ -n "$1" ] ;do
     case "$1" in

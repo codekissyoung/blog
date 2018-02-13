@@ -2,6 +2,15 @@
 - **外建命令** 作为一个可执行程序放在`$PATH`所包含的目录中的。bash在执行这些命令的时候，都会进行fork(),exec()并且wait()。就是用标准的打开子进程的方式处理外部命令
 - **内建命令** 都是bash自身实现的命令，它们不依靠外部的可执行文件存在。只要有bash，这些命令就可以执行。典型的内建命令有cd、pwd等。
 
+
+# `&&` 与 `||` 控制程序执行流程
+```bash
+# 前面命令执行成功后，才执行后面命令
+sudo service apache2  stop && sudo  service apache2  start
+# 前面命令执行失败后，后面命令才执行
+service apache2 restart || sudo service apache2 restart
+```
+
 # alias
 ```bash
 alias ls='ls --color=auto';
