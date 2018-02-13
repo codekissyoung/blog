@@ -64,12 +64,13 @@ img {
   display: inline-block;
 }
 #main_category a {
+  color: black;
   text-decoration: none;
   letter-spacing: 1px;
   font-size: 14px;
 }
 #main_category a.active {
-  color: black;
+  color: #e83e8c;
   font-weight: bold;
 }
 #main_category ul, #main_category li {
@@ -98,6 +99,13 @@ img {
   box-sizing: border-box;
   padding-left: 320px;
   width: 1300px;
+  letter-spacing: 1px;
+}
+#article code {
+  font-size: 100%;
+}
+#article pre code {
+  letter-spacing: 0px;
 }
 #article h1 {
   font-size: 22px;
@@ -130,6 +138,16 @@ img {
   margin: 0px;
   font-size: 14px;
   letter-spacing: 1px;
+}
+#article p code {
+  font-size: 100%;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: #eee;
+  padding: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 2px;
 }
 #article img {
   width: 50%;
