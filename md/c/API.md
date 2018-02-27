@@ -1,7 +1,4 @@
-# IO 操作
-```c
-int open(const char *pathname, int flags, mode_t mode);
-```
+# `int open(const char *pathname, int flags, mode_t mode)`
 - flags 掩码参数 取值如下
     - O_RDONLY 只读
     - O_WRONLY 只写
@@ -22,30 +19,22 @@ int open(const char *pathname, int flags, mode_t mode);
     - 比如如果我们输入一个0664，表示的就是0000 000 110 110 100，等价于 `-rw-rw-r--`
     - 比如我想设置一个 `-rwsr-xr-x` 的权限，先变成二进制，就是0000 100 111 101 101，然后变成八进制，04755，这样直接设置就好了
 
-```c
-ssize_t read( int fd, void *buffer, size_t count );
-```
+# `ssize_t read( int fd, void *buffer, size_t count )`
 - fd 文件描述符
 - buffer 用于存放读取到的数据的内存缓冲地址 ，比如 `char buffer[20]` ,填入 buffer
 - count  指定最多能读取到的字节数
 - return 实际读取到的字节数
 
-```c
-ssize_t write( int fd, void *buffer, size_t count );
-```
+# `ssize_t write( int fd, void *buffer, size_t count )`
 - fd ： 文件描述符
 - buffer ： 要写入文件中数据的内存地址
 - count ： 从 buffer 写入文件的数据字节数
 - return : 实际写入文件的字节数
 
-```c
-int close( int fd );
-```
+# `int close( int fd )`
 - 功能: 关闭一个打开的 文件描述符
 
-```c
-off_t lseek( int fd, off_t offset, int whence );
-```
+# `off_t lseek( int fd, off_t offset, int whence )`
 - 功能: 对于打开的文件，内核会记录它的文件偏移量，也就是下一次 read() 和 write() 操作的文件起始位置，而 lseek 就是用来人为改变这个位置的
 - fd 文件描述符
 - offset 偏移的字节数，负数就表示往左 偏移
@@ -58,30 +47,23 @@ off_t lseek( int fd, off_t offset, int whence );
     - 写入空洞：文件系统会为之分配磁盘块， 应用：核心转储文件 core 文件就是包含文件空洞的常见例子  
 
 
-```c
-int ioctl( int fd, int request, ... );
-```
+# `int ioctl( int fd, int request, ... )`
 - 功能: 为执行文件 和 设备操作提供了 多用途机制
 - fd 文件描述符
 - request 指定在 fd 上执行控制操作
 - ... 根据 request 的参数来 填入的不定参数
 
-```c
-int fcntl( int fd, int cmd, ... );
-```
+# `int fcntl( int fd, int cmd, ... )`
 - 对文件描述符号进行各种操作，包括 复制，获取，设置文件描述符标志，设置文件状态标志，管理文件锁
 
+# `const char *gnu_get_libc_version(void)`
+- 获取 glibc 的版本
 
-```c
-const char *gnu_get_libc_version(void); // 获取 glibc 的版本
-```
-
-
-
+# `int getopt(int argc,char * const argv[ ],const char * optstring)`
 ```c
 #include<unistd.h>
 extern char *optarg; //选项的参数指针  
-extern int optind; //下一次调用getopt的时，从optind存储的位置处重新开始检查选项。   
+extern int optind; //下一次调用getopt的时，从optind存储的位置处重新开始检查选项。
 extern int opterr; //当opterr=0时，getopt不向stderr输出错误信息。  
 extern int optopt; //当命令行选项字符不包括在optstring中或者选项缺少必要的参数时，该选项存储在optopt中，getopt返回 ?
 int getopt(int argc,char * const argv[ ],const char * optstring);
@@ -90,31 +72,16 @@ int getopt(int argc,char * const argv[ ],const char * optstring);
 - 冒号表示参数，一个冒号就表示这个选项后面必须带有参数（没有带参数会报错哦），但是这个参数可以和选项连在一起写，也可以用空格隔开，比如`-a123` 和`-a 123`（中间有空格） 都表示`123`是`-a`的参数；
 - 两个冒号的就表示这个选项的参数是可选的，即可以有参数，也可以没有参数，但要注意有参数时，参数与选项之间 **不能有空格**
 
+# `time_t time(time_t *t)`
+- 系统时间
 
-# 系统时间
-```c
-#include <time.h>
-time_t time(time_t *t);
-```
+# `int fstat( int fildes, struct stat *buf )`
+# `int stat( const char *path, struct stat *buf )`
+# `int lstat( const char *path, struct stat *buf )`
+- 获取文件状态
 
-# 原子操作 和 竞争条件
-- 所有系统调用都是以原子操作方式执行的，内核保证了系统调用中的所有步骤会作为独立操作而一次性加载执行，期间不会被其他进程和线程中断
-- 独占方式创建文件的竞态条件
-- 向文件结尾追加数据的竞态条件
-
-
-# 获取文件状态
-```c
-int fstat( int fildes, struct stat *buf );
-int stat( const char *path, struct stat *buf );
-int lstat( const char *path, struct stat *buf );
-```
-
-# dup 和 dup2 系统调用
-```c
-int dup( int fildes );
-int dup2( int fildes, int fildes2 );
-```
+# `int dup( int fildes )`
+# `int dup2( int fildes, int fildes2 )`
 - 复制文件描述符，使我们可以通过多个文件描述来访问同一个文件
 
 
