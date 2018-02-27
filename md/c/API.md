@@ -54,7 +54,13 @@
 - ... 根据 request 的参数来 填入的不定参数
 
 # `int fcntl( int fd, int cmd, ... )`
-- 对文件描述符号进行各种操作，包括 复制，获取，设置文件描述符标志，设置文件状态标志，管理文件锁
+- 对文件描述符号进行各种操作，包括 复制，获取，设置文件描述符标志，设置文件状态标志，管理文件
+锁
+- 复制一个现有的描述符 cmd = F_DUPFD
+- 获得/设置文件描述符标记 cmd = F_GETFD / FSETFD
+- 获得/设置文件状态标志 cmd = F_GETFL / F_SETFL
+- 获得/设置异步I/O所有权 cmd = F_GETOWN / F_SETOWN
+- 获得/设置记录锁 cmd = F_GETLK / F_SETLK / F_SETLKW
 
 # `const char *gnu_get_libc_version(void)`
 - 获取 glibc 的版本
