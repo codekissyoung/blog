@@ -1,7 +1,7 @@
 # 匿名半双工管道
 ```c
 #define PIPE_BUF 255
-int main( int argc, char* argv[] )
+int main( int argc, char *argv[] )
 {
     int fd[2];
     pipe( fd ); // 创建匿名半双工管道
