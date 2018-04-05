@@ -2,7 +2,7 @@
 - 进程要操作文件，需要通过内核系统调用，在进程和文件之间建立一条连接，这个连接用一个数字指代，这个数字就是文件描述符
 
 # 获得文件描述符 fd
-#### `int open( const char *pathname, int flags, mode_t mode)`
+#### `int open( 路径, int flags, mode_t mode)`
 - flags 掩码参数 取值如下
     - O_RDONLY 只读  / O_WRONLY 只写 / O_RDWR 可读可写 / O_APPEND 追加
     - O_CREAT  文件不存在就创建 / O_EXCL 配合 O_CREAT , 表示只创建文件
@@ -17,48 +17,45 @@
     - 比如如果我们输入一个0664，表示的就是0000 000 110 110 100，等价于 `-rw-rw-r--`
     - 比如我想设置一个 `-rwsr-xr-x` 的权限，先变成二进制，就是0000 100 111 101 101，然后变成八进制，04755，这样直接设置就好了
 
-# 使用文件描述符
-#### 从文件中读取数据
-- `ssize_t read( int fd, void *buffer, size_t count )`
-- buffer 用于存放读取到的数据的内存缓冲地址 ，比如 `char buffer[20]` ,填入 buffer
-- count  指定最多能读取到的字节数
-- return 实际读取到的字节数
-
-#### 往文件中写数据
-- `ssize_t write( int fd, void *buffer, size_t count )`
-- buffer ： 要写入文件中数据的内存地址
-- count ： 从 buffer 写入文件的数据字节数
-- return : 实际写入文件的字节数
-
-#### 改变文件 读 / 写 的位置
-- `off_t lseek( int fd, off_t offset, int whence )`
-- 功能: 对于打开的文件，内核会记录它的文件偏移量，也就是下一次 read() 和 write() 操作的文件起始位置，而 lseek 就是用来人为改变这个位置的
-- fd 文件描述符
-- offset 偏移的字节数，负数就表示往左 偏移
-- whence
-    - SEEK_SET 从文件头开始偏移
-    - SEEK_CUR 从当前 文件偏移量处 开始偏移
-    - SEEK_END 从文件尾部 开始偏移
-- **文件空洞** : 如果使用 lseek 使文件偏移量超过了 文件末尾，那么 [文件末尾,文件偏移量] 中间这段空间，就称之为 **文件空洞**
-    - 读取空洞: 将返回 空字节 填充的缓存区
-    - 写入空洞：文件系统会为之分配磁盘块， 应用：核心转储文件 core 文件就是包含文件空洞的常见例子  
-
-
-# `int ioctl( int fd, int request, ... )`
-- 功能: 为执行文件 和 设备操作提供了 多用途机制
-- fd 文件描述符
-- request 指定在 fd 上执行控制操作
-- ... 根据 request 的参数来 填入的不定参数
-
-# `int fcntl( int fd, int cmd, ... )`
-- 对文件描述符号进行各种操作，包括 复制，获取，设置文件描述符标志，设置文件状态标志，管理文件
-锁
+# 设置文件描述符 属性
+- `int fcntl( int fd, int cmd, ... )`
 - 复制一个现有的描述符 cmd = F_DUPFD
 - 获得/设置文件描述符标记 cmd = F_GETFD / FSETFD
 - 获得/设置文件状态标志 cmd = F_GETFL / F_SETFL
 - 获得/设置异步I/O所有权 cmd = F_GETOWN / F_SETOWN
 - 获得/设置记录锁 cmd = F_GETLK / F_SETLK / F_SETLKW
 
+
+# 使用文件描述符
+#### 从文件中读取数据
+- `实际读取字节数 read( fd, 接收数据的内存 buffer, 读取字节数 len )`
+- buffer : 可以是数组 : `char buffer[20]` 或是结构体变量 `struct utmp buffer`
+- len  :  一般就计算出 buffer 的大小 `sizeof(buffer)`
+
+#### 往文件中写数据
+- `实际写入的字节数 write( fd, 写入的数据源 buffer, 从数据源写入文件的字节数 )`
+- buffer : 可以是数组 : `char buffer[20]` 或是结构体变量 `struct utmp buffer`
+- len  :  一般就计算出 buffer 的大小 `sizeof(buffer)`
+
+#### 文件偏移量
+- 对于打开的文件，内核会记录它的文件偏移量，也就是下一次 `read` 和 `write` 操作的文件起始位置
+
+#### 改变文件偏移量
+- `off_t lseek( fd, 偏移的字节数, [ SEEK_SET | SEEK_CUR | SEEK_END ]  )`
+- SEEK_SET 从文件头开始偏移
+- SEEK_CUR 从当前 文件偏移量处 开始偏移
+- SEEK_END 从文件尾部 开始偏移
+
+#### 文件空洞
+- 如果使用 lseek 使文件偏移量超过了 文件末尾，那么 [文件末尾,文件偏移量] 中间这段空间，就称之为 **文件空洞**
+- 读取空洞: 将返回 空字节 填充的缓存区
+- 写入空洞：文件系统会为之分配磁盘块， 应用：核心转储文件 core 文件就是包含文件空洞的常见例子
+
+# `int ioctl( int fd, int request, ... )`
+- 功能: 为执行文件 和 设备操作提供了 多用途机制
+- fd 文件描述符
+- request 指定在 fd 上执行控制操作
+- ... 根据 request 的参数来 填入的不定参数
 
 # 销毁 fd
 - `int close( int fd )`
