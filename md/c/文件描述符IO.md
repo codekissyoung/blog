@@ -2,7 +2,7 @@
 - 进程要操作文件，需要通过内核系统调用，在进程和文件之间建立一条连接，这个连接用一个数字指代，这个数字就是文件描述符
 
 # 获得文件描述符 fd
-#### `int open( 路径, int flags, mode_t mode)`
+- `int open( 路径, int flags, mode_t mode)`
 - flags 掩码参数 取值如下
     - O_RDONLY 只读  / O_WRONLY 只写 / O_RDWR 可读可写 / O_APPEND 追加
     - O_CREAT  文件不存在就创建 / O_EXCL 配合 O_CREAT , 表示只创建文件
@@ -25,28 +25,27 @@
 - 获得/设置异步I/O所有权 cmd = F_GETOWN / F_SETOWN
 - 获得/设置记录锁 cmd = F_GETLK / F_SETLK / F_SETLKW
 
-
 # 使用文件描述符
-#### 从文件中读取数据
+## 从文件中读取数据
 - `实际读取字节数 read( fd, 接收数据的内存 buffer, 读取字节数 len )`
 - buffer : 可以是数组 : `char buffer[20]` 或是结构体变量 `struct utmp buffer`
 - len  :  一般就计算出 buffer 的大小 `sizeof(buffer)`
 
-#### 往文件中写数据
+## 往文件中写数据
 - `实际写入的字节数 write( fd, 写入的数据源 buffer, 从数据源写入文件的字节数 )`
 - buffer : 可以是数组 : `char buffer[20]` 或是结构体变量 `struct utmp buffer`
 - len  :  一般就计算出 buffer 的大小 `sizeof(buffer)`
 
-#### 文件偏移量
-- 对于打开的文件，内核会记录它的文件偏移量，也就是下一次 `read` 和 `write` 操作的文件起始位置
+## 如何改变一个文件的当前 读 / 写 位置?
+- 内核每次打开一个文件，都会保存一个指针来记录文件的当前位置
+- `read()`调用时，内核从指针的位置开始读取指定的字节，然后移动指针，长度就是读取的字节数，`write`调用类似
+- 指针是与文件描述符绑定的，而不是与文件绑定，多个进程打开同一个文件，有不同的文件描述符，也就有不同的指针，这些进程通过各自的指针对文件的`read()`操作不会相互干扰
+- `off_t lseek( fd, 偏移的字节数, [ SEEK_SET | SEEK_CUR | SEEK_END ]  )` 用于改变该指针的位置
+    - SEEK_SET 从文件头开始偏移
+    - SEEK_CUR 从当前 文件偏移量处 开始偏移
+    - SEEK_END 从文件尾部 开始偏移
 
-#### 改变文件偏移量
-- `off_t lseek( fd, 偏移的字节数, [ SEEK_SET | SEEK_CUR | SEEK_END ]  )`
-- SEEK_SET 从文件头开始偏移
-- SEEK_CUR 从当前 文件偏移量处 开始偏移
-- SEEK_END 从文件尾部 开始偏移
-
-#### 文件空洞
+## 文件空洞
 - 如果使用 lseek 使文件偏移量超过了 文件末尾，那么 [文件末尾,文件偏移量] 中间这段空间，就称之为 **文件空洞**
 - 读取空洞: 将返回 空字节 填充的缓存区
 - 写入空洞：文件系统会为之分配磁盘块， 应用：核心转储文件 core 文件就是包含文件空洞的常见例子
