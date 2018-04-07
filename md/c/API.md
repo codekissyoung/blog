@@ -14,11 +14,6 @@ int getopt(int argc,char * const argv[ ],const char * optstring);
 # `time_t time(time_t *t)`
 - 系统时间
 
-# `int fstat( int fildes, struct stat *buf )`
-# `int stat( const char *path, struct stat *buf )`
-# `int lstat( const char *path, struct stat *buf )`
-- 获取文件状态
-
 # `int dup( int fildes )`
 # `int dup2( int fildes, int fildes2 )`
 - 复制文件描述符，使我们可以通过多个文件描述来访问同一个文件
