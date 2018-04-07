@@ -2,7 +2,7 @@
 - 进程要操作文件，需要通过内核系统调用，在进程和文件之间建立一条连接，这个连接用一个数字指代，这个数字就是文件描述符
 
 # 获得文件描述符 fd
-- `int open( 路径, int flags, mode_t mode)`
+- `int open( 路径, int flags, mode_t mode)` 打开一个文件
 - flags 掩码参数 取值如下
     - O_RDONLY 只读  / O_WRONLY 只写 / O_RDWR 可读可写 / O_APPEND 追加
     - O_CREAT  文件不存在就创建 / O_EXCL 配合 O_CREAT , 表示只创建文件
@@ -16,6 +16,8 @@
 - 如果创建了文件，mode 参数才起作用，用于表示创建的文件的权限
     - 比如如果我们输入一个0664，表示的就是0000 000 110 110 100，等价于 `-rw-rw-r--`
     - 比如我想设置一个 `-rwsr-xr-x` 的权限，先变成二进制，就是0000 100 111 101 101，然后变成八进制，04755，这样直接设置就好了
+
+- `int creat(const char *path, mode)` 创建一个文件
 
 # 设置文件描述符 属性
 - `int fcntl( int fd, int cmd, ... )`
