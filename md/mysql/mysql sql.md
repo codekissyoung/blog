@@ -268,7 +268,7 @@ insert into table_name (字段，字段) select (字段，字段) from table_nam
 
 # 更新数据
 ```sql
-update table_name set 字段 = 值,set 字段 = 值 where 条件;
+update table_name set 字段 = 值,字段 = 值,字段 = 值 ... where 条件;
 ```
 UPDATE和REPLACE基本类似，但是它们之间有两点不同。
 - UPDATE在没有匹配记录时什么都不做，而REPLACE在有重复记录时更新，在没有重复记录时插入。
