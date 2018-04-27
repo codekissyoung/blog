@@ -1,3 +1,5 @@
+# [GO语言圣经中文版](https://books.studygolang.com/gopl-zh/)
+
 # [各方面基础知识](https://github.com/CyC2018/Interview-Notebook)  
 
 # [C++参考资料](https://zh.cppreference.com/)  
