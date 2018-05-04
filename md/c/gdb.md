@@ -1,6 +1,6 @@
 # 使用gdb调试c程序
 
-## 启用gdb调试 -g
+## 启用gdb调试
 
 ```bash
 $gcc -g main.c -o cky # -g 表示编译支持 gdb 调试, 并且不能带上`-O`或者`-O2`优化
@@ -13,11 +13,13 @@ $gdb cky <PID>        # 指定这个服务程序运行时的进程ID。gdb会自
 
 ```bash
 (gdb)r -a -b           # 等价于 cky -a -b
+(gdb)start             # 重新执行程序
 (gdb)s + 回车           # Step 执行下一行代码
 (gdb)回车               # 直接回车表示，重复上一次命令
-(gdb)finish            # 立即执行完当前的函数，但是并不是执行完整个应用程序
-(gdb)until             # 循环次数很多，立即执行完当前的循环
+(gdb)finish            # 让程序运行到当前函数返回为止
+(gdb)until             # 让程序运行到当前循环结束为止
 (gdb)bt                # 查看当前运行的文件和行
+(gdb)c                 # 程序继续运行至 下一个 调试点处
 ```
 
 ## 列出源文件
@@ -30,7 +32,7 @@ $gdb cky <PID>        # 指定这个服务程序运行时的进程ID。gdb会自
 ## 断点
 
 ```bash
-(gdb)info break          # 显示当前断点信息
+(gdb)i break             # 显示当前断点信息
 (gdb)b 17                # 17行 打个断点
 (gdb)b func              # func函数处 打个断点
 (gdb)b 12 if i==9        # 在12行处，当i=9时，打个断点
@@ -54,6 +56,50 @@ $gdb cky <PID>        # 指定这个服务程序运行时的进程ID。gdb会自
 
 (gdb)p arr               # 打印数组的值
 $3 = {190, 0, 0, 0, 90, 0, 0, 76}
+
+(gdb) bt
+#0  add_range (low=1, high=10) at main.c:6
+#1  0x00000000004005fc in main (argc=1, argv=0x7fffffffe088) at main.c:15
+(gdb) i locals           # 打印当前栈下，所有的局部变量
+i = -134225560
+sum = 32767
+(gdb) f 1                # 切换到 #1 号栈下
+#1  0x00000000004005fc in main (argc=1, argv=0x7fffffffe088) at main.c:15
+15	    result[0] = add_range(1, 10);
+(gdb) i locals           # 打印当前栈(#1) 下 所有局部变量
+result = {1, 0, 0, 0, 1, 0}
+
+(gdb) display sum        # 跟踪显示 sum 变量
+1: sum = -1747168440
+(gdb) display input      # 跟踪显示 input 变量
+2: input = "hello"
+(gdb) n                  # 每次程序执行后停下来，都会输出监视的变量的值
+26	            sum = sum * 10 + input[i] - '0';
+1: sum = -1868769330
+2: input = "hello"
+(gdb) undisplay 2        # 取消对跟踪号为 2 (input)的变量的跟踪显示
+
+(gdb) p input
+$28 = "54321"
+(gdb) x/7b input         # x 命令打印指定内存的内容，7b是打印格式，b表示每个字节一组，7是表示 7组，从input ,char数组第一个字节开始，连续打印7个字节，第六个字节开始就是越界数据了
+0x7fffffffdf90:	53	52	51	50	49	48	0
+
+
+
+```
+
+## 修改变量的值
+
+```gdb
+(gdb) i locals
+i = 11
+sum = 0
+(gdb) set var sum=10000     # 直接修改程序里当前栈下的变量的值
+(gdb) i locals
+i = 1
+sum = 10000
+(gdb) p result[2]=33        # 或者直接让 p 执行表达式来改变程序里变量的值
+(gdb) p printf("result[2]=%d",result[2]) # p 命令直接执行表达式
 ```
 
 ## 调试多进程 ( GDB > V7.0 )
