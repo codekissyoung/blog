@@ -1,5 +1,10 @@
 # 网址收藏
 
+## [linux开发工具教程](http://linuxtools-rst.readthedocs.io/zh_CN/latest/index.html#)
+- 包含 gdb ldd lsof ps pstack strace ipcs 等
+
+## [cgdb中文手册](https://github.com/leeyiw/cgdb-manual-in-chinese)
+
 ## [GO语言圣经中文版](https://books.studygolang.com/gopl-zh/)
 
 ## [各方面基础知识](https://github.com/CyC2018/Interview-Notebook)  

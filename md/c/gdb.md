@@ -84,9 +84,44 @@ $28 = "54321"
 (gdb) x/7b input         # x 命令打印指定内存的内容，7b是打印格式，b表示每个字节一组，7是表示 7组，从input ,char数组第一个字节开始，连续打印7个字节，第六个字节开始就是越界数据了
 0x7fffffffdf90:	53	52	51	50	49	48	0
 
-
-
+(gdb) p record
+$1 = {ut_type = 8, ut_pid = 10382, ut_line = "pts/24", '\000' <repeats 25 times>, ut_id = "s/24", 
+  ut_user = '\000' <repeats 31 times>, ut_host = '\000' <repeats 255 times>, ut_exit = {
+    e_termination = 0, e_exit = 0}, ut_session = 0, ut_tv = {tv_sec = 1501351755, tv_usec = 897180}, 
+  ut_addr_v6 = {-1302187850, 0, 0, 0}, __glibc_reserved = '\000' <repeats 19 times>}
+(gdb) set print pretty on
+(gdb) p record
+$2 = {
+  ut_type = 8, 
+  ut_pid = 10382, 
+  ut_line = "pts/24", '\000' <repeats 25 times>, 
+  ut_id = "s/24", 
+  ut_user = '\000' <repeats 31 times>, 
+  ut_host = '\000' <repeats 255 times>, 
+  ut_exit = {
+    e_termination = 0, 
+    e_exit = 0
+  }, 
+  ut_session = 0, 
+  ut_tv = {
+    tv_sec = 1501351755, 
+    tv_usec = 897180
+  }, 
+  ut_addr_v6 = {-1302187850, 0, 0, 0}, 
+  __glibc_reserved = '\000' <repeats 19 times>
+}
 ```
+
+- `set print pretty on` 美化输出
+
+## 源代码 / 反汇编代码 / 寄存器变量窗口
+
+- `(gdb) layout src` 显示源代码窗口
+- `(gdb) layout asm` 显示反汇编窗口
+- `(gdb) layout regs` 显示源代码/反汇编和CPU寄存器窗口
+- `(gdb) layout split` 显示源代码和反汇编窗口
+- `(gdb) ctrl + L` 刷新窗口
+
 
 ## 修改变量的值
 
