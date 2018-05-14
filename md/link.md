@@ -11,7 +11,7 @@
 
 ## [C++参考资料](https://zh.cppreference.com/)  
 
-## [C++风格](http://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/contents/)  [英文版本](http://google.github.io/styleguide/cppguide.html)  
+## [C++风格](http://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/contents/)  [英文版本](http://google.github.io/styleguide/cppguide.html)
 
 ## [张建](http://zj0395.com/)
 
