@@ -34,7 +34,7 @@ if(IS_ERR(key_device)){
 }
 
 // 使用 goto 后的代码
-retval = request_irq(IRQ_EINT(20), buttons_interrupt, IRQF_DISABLED,"KEY1", (void *)EINT_DEVICE_ID);
+retval = request_irq(IRQ_EINT(20), buttons_interrupt, IRQF_DISABLED,"KEY1",(void *)EINT_DEVICE_ID);
 if(retval){
     err("request eint20 failed");
     goto error;
