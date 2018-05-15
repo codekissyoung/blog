@@ -122,7 +122,6 @@ $2 = {
 - `(gdb) layout split` 显示源代码和反汇编窗口
 - `(gdb) ctrl + L` 刷新窗口
 
-
 ## 修改变量的值
 
 ```gdb
@@ -152,6 +151,41 @@ sum = 10000
 (gdb)info inferiors        # 查询正在调试的进程
 (gdb)inferior Num          # 切换进程 
 ```
+
+## gdb 初始化文件 .gdbinit
+
+```shell
+# 保存历史命令
+set history filename ./.gdb_history
+set history save on
+
+# 记录执行gdb的过程
+set logging file ./.log.txt
+set logging on
+
+# 退出时不显示提示信息
+set confirm off
+
+# 打印数组的索引下标
+set print array-indexes on
+
+
+# 每行打印一个结构体成员
+set print pretty on
+
+# 自定义命令 qdp : 退出并保留断点
+define qbp
+save breakpoints ./.gdb_bp
+quit
+end
+
+# 自定义命令 ldp : 加载历史工作断点
+define lbp
+source ./.gdb_bp
+end
+```
+
+- 放在 `/home/用户1/.gdbinit`, 该用户调用 gdb 时自动执行 `.gdbinit` 文件
 
 ## core (内核转储文件)
 
