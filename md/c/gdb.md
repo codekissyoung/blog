@@ -155,6 +155,8 @@ sum = 10000
 ## gdb 初始化文件 .gdbinit
 
 ```shell
+set charset UTF-8
+
 # 保存历史命令
 set history filename ./.gdb_history
 set history save on
