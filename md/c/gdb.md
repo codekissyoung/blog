@@ -54,8 +54,13 @@ $gdb cky <PID>        # 指定这个服务程序运行时的进程ID。gdb会自
 (gdb)p 'f2.c'::x         # 查看f2.c文件中全局变量x的值
 (gdb)p 'f2.c'::sum::x    # 查看f2.c中sum函数中x的值
 
-(gdb)p arr               # 打印数组的值
+(gdb)p arr               # 打印静态数组的值
 $3 = {190, 0, 0, 0, 90, 0, 0, 76}
+
+(gdb) p *array@len       # 打印动态数组的值
+
+(gdb) p/a i              # a 按十六进制格式显示变量。 x 按十六进制格式显示变量。u 按十六进制格式显示无符号整型。
+$22 = 0x65               # f 按浮点数格式显示变量。 o 按八进制格式显示变量。t 按二进制格式显示变量。c 按字符格式显示变量。
 
 (gdb) bt
 #0  add_range (low=1, high=10) at main.c:6
@@ -81,38 +86,10 @@ result = {1, 0, 0, 0, 1, 0}
 
 (gdb) p input
 $28 = "54321"
-(gdb) x/7b input         # x 命令打印指定内存的内容，7b是打印格式，b表示每个字节一组，7是表示 7组，从input ,char数组第一个字节开始，连续打印7个字节，第六个字节开始就是越界数据了
-0x7fffffffdf90:	53	52	51	50	49	48	0
-
-(gdb) p record
-$1 = {ut_type = 8, ut_pid = 10382, ut_line = "pts/24", '\000' <repeats 25 times>, ut_id = "s/24", 
-  ut_user = '\000' <repeats 31 times>, ut_host = '\000' <repeats 255 times>, ut_exit = {
-    e_termination = 0, e_exit = 0}, ut_session = 0, ut_tv = {tv_sec = 1501351755, tv_usec = 897180}, 
-  ut_addr_v6 = {-1302187850, 0, 0, 0}, __glibc_reserved = '\000' <repeats 19 times>}
-(gdb) set print pretty on
-(gdb) p record
-$2 = {
-  ut_type = 8, 
-  ut_pid = 10382, 
-  ut_line = "pts/24", '\000' <repeats 25 times>, 
-  ut_id = "s/24", 
-  ut_user = '\000' <repeats 31 times>, 
-  ut_host = '\000' <repeats 255 times>, 
-  ut_exit = {
-    e_termination = 0, 
-    e_exit = 0
-  }, 
-  ut_session = 0, 
-  ut_tv = {
-    tv_sec = 1501351755, 
-    tv_usec = 897180
-  }, 
-  ut_addr_v6 = {-1302187850, 0, 0, 0}, 
-  __glibc_reserved = '\000' <repeats 19 times>
-}
+(gdb) x/7b input         # x 命令打印指定内存的内容，7b是打印格式，b表示每个字节一组，7是表示 7组，
+                         # 从input ,char数组第一个字节开始，连续打印7个字节，第六个字节开始就是越界数据了
+0x7fffffffdf90: 53	52	51	50	49	48	0
 ```
-
-- `set print pretty on` 美化输出
 
 ## 源代码 / 反汇编代码 / 寄存器变量窗口
 
@@ -170,7 +147,6 @@ set confirm off
 
 # 打印数组的索引下标
 set print array-indexes on
-
 
 # 每行打印一个结构体成员
 set print pretty on
