@@ -120,7 +120,7 @@ img{
         }
     }
     h1{
-        font-size:22px;
+        font-size:24px;
         color:black;
         font-weight:200px;
         padding-bottom:10px;
@@ -133,17 +133,19 @@ img{
         }
     }
     h2{
-        font-size:18px;
-        font-weight:bold;
+        font-weight:normal;
+        font-size:20px;
         color:black;
         margin:20px 0px 5px 0px;
-        font-weight:normal;
     }
     h3{
-        font-size:16px;
+        font-size:18px;
     }
     h3,h4,h5{
         font-weight:normal;
+    }
+    h4{
+        font-size:16px;
     }
     p{
         line-height:1.5;
