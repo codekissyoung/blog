@@ -144,3 +144,31 @@ bt1.c = 5;
 bt1.d = 6;
 bt1.e = 2;
 ```
+
+## 联合体
+
+```c
+union Data
+{
+    int i;
+    float f;
+    char  str[20];
+};
+union Data d1;
+strcpy( d1.str, "codekissyoung" );
+```
+
+## typedef 给定义取别名
+
+```c
+typedef unsigned char BYTE;
+BYTE  b1, b2;
+
+typedef struct Books
+{
+   char  title[50];
+   char  author[50];
+   char  subject[100];
+   int   book_id;
+} Book;
+```
