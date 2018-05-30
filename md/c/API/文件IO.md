@@ -70,3 +70,20 @@ int unlink( const char *path ); // 删除一个文件
 int link( const char *path1, const char *path2 ); // 创建一个硬连接
 int symlink( const char *path1, const char *path2 ); // 创建一个软连接
 ```
+
+## `printf` 家族
+
+```c
+#include <stdio.h>
+int printf(const char *format, ...); //输出到标准输出
+int fprintf(FILE *stream, const char *format, ...); //输出到文件
+int sprintf(char *str, const char *format, ...); //输出到字符串str中
+int snprintf(char *str, size_t size, const char *format, ...); //按size大小输出到字符串str中
+
+// 以下函数功能与上面的一一对应相同，只是在函数调用时，把上面的 ... 对应的一个个变量用va_list调用所替代。在函数调用前 ap 要通过va_start()宏来动态获取
+#include <stdarg.h>
+int vprintf(const char *format, va_list ap);
+int vfprintf(FILE *stream, const char *format, va_list ap);
+int vsprintf(char *str, const char *format, va_list ap);
+int vsnprintf(char *str, size_t size, const char *format, va_list ap);
+```
