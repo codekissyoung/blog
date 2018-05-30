@@ -172,3 +172,20 @@ typedef struct Books
    int   book_id;
 } Book;
 ```
+
+## 可变参数
+
+```c
+#include <stdarg.h>
+int func(int a, int b, ... )
+{
+    va_list arg_ptr; // 拿到可变参数 arg_ptr
+    void va_start( arg_ptr, b ); // 填入最后一个固定参数 b
+    int var1 = va_arg( arg_ptr, int ); // 得到第一个可变参数的值 var1
+    double var2 = va_arg( arg_ptr, double ); // 得到第一个可变参数的值 var2
+    void va_end( arg_ptr ); // 清理 arg_ptr
+}
+```
+
+- [用法参考](https://www.cnblogs.com/edver/p/8419807.html)
+- [可变参数实现](https://blog.csdn.net/smstong/article/details/50751121)
