@@ -1,5 +1,7 @@
 # 网址收藏
 
+## [C/C++ reference](http://zh.cppreference.com/)
+
 ## [信海龙](https://www.bo56.com/)
 
 ## [linux开发工具教程](http://linuxtools-rst.readthedocs.io/zh_CN/latest/index.html#)
