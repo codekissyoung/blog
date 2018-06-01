@@ -133,6 +133,25 @@ st1.name = "hello li";          // 结构体访问单个元素
 pst->name;                      // 通过结构体指针访问单个元素
 ```
 
+### 结构体内存对齐
+
+```c
+struct Test
+{
+    char a;
+    double b;
+    char c;
+};
+// 0x7ffd1a3ee510 0x7ffd1a3ee518 0x7ffd1a3ee520 sizeof : 24
+struct Test
+{
+    double b;
+    char a;
+    char c;
+};
+// 0x7ffc76f5e660 0x7ffc76f5e668 0x7ffc76f5e669 sizeof : 16
+```
+
 ## 位域
 
 ```c
