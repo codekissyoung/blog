@@ -1,5 +1,7 @@
 # 网址收藏
 
+## [ideawu blog](http://www.ideawu.net/blog/)
+
 ## [C/C++ reference](http://zh.cppreference.com/)
 
 ## [信海龙](https://www.bo56.com/)

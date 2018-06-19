@@ -1,0 +1,10 @@
+[
+    {
+        "type":1,
+        "id":"route_play_id"
+    },
+    {
+        "type":2,
+        "id":"route_hotel_id"
+    }
+]
