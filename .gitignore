@@ -4,3 +4,4 @@ service/
 web/md/.vscode/
 md/.vscode/
 web/node_modules/
+.vscode/

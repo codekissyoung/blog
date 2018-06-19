@@ -1,40 +1,37 @@
-console.log("codekissyoung blog start！");
-require.config({
-    baseUrl:'/js/',
-    paths:{
-        'jquery'            :   'jquery-3.3.1.min',
-        'bootstrap'         :   'bootstrap/bootstrap.min',
-        'highlight'         :   'highlight.pack',
-        'code_highlight'    :   'mod_code_highlight',
-        'article'           :   'mod_article',
-        'underscore'        :   'underscore',
-        'backbone'          :   'backbone',
-        'hello_world'       :   'backbone_hello_world',
-    },
+    // 代码高亮
+    hljs.initHighlightingOnLoad();
+$(function(){
 
-    // 引入没有按照 require 风格编写的库
-    // shim 属性专门用来配置不兼容的模块
-    // 格式: { '模块名' : { exports : '暴露的变量名', deps : ['依赖模块1','依赖模块2'] } ... }
-    shim : {
-        'underscore' : {
-            exports : '_'
-        },
-        'backbone' : {
-            'deps' : [
-                'underscore',
-                'jquery'
-            ],
-            exports : 'Backbone'
-        },
-    },
+    // 异步加载文章
+    $('#main_category a').on('click',function(){
+        $("#main_category a").removeClass('active');
+        $(this).addClass('active');
+        var href = $(this).attr('href');
+        $.ajax({
+            url:href + "?ajax=1",
+            type:'GET',
+            data:{},
+            dataType:'text',
+            timeout:5000,
+            success:function(data){
+                $("#article").empty().append($(data)).find('pre code').each(function(i,block){
+                    hljs.highlightBlock(block);
+                });
+                var title = href;
+                var newUrl = href;
+                // console.log(href);
+                history.pushState({},title,newUrl);
+            }
+        });
+        return false; // 阻止冒泡 阻止事件
+    });
 
-    // 网站加载脚本timeout, 默认是 7s , 0 表示不设置超时时间
-    waitSeconds : 0,
-});
-
-// 加载代码高亮模块
-require(['code_highlight','article','hello_world'],function(code_light,article,hello_world){
-    code_light.log();
-    article.log();
-    hello_world.log();
+    // 目录折叠
+    $("#main_category>ul h2").on('click',function () {
+        if($(this).next().hasClass('hide')){
+            $(this).next().removeClass('hide').hasClass('show');
+        }else{
+            $(this).next().removeClass('show').addClass('hide');
+        }
+    });
 });

@@ -24,16 +24,16 @@
                 <?=$category?>
             </nav>
         <?php endif; ?>
-
         <div id="article">
             <div>
                 <?=$html;?>
             </div>
         </div>
-
         <div id="message">
-
         </div>
-        <script src="/js/require.js" defer async="true" data-main="/js/main.js"></script>
+        <script src="/js/jquery-3.3.1.min.js"></script>	
+        <script src="/js/bootstrap/bootstrap.min.js"></script>	
+        <script src="/js/highlight.pack.js"></script>
+        <script src="/js/main.js"></script>
     </body>
 </html>
