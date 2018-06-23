@@ -48,11 +48,3 @@ drwxr-xr-x 2 root root 4096 Aug  8 17:39 snippets
 ```
 
 ```
-
-
-
-
-
-
-
-

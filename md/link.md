@@ -1,4 +1,4 @@
-# 网址收藏
+# 网址收藏
 
 ## [ideawu blog](http://www.ideawu.net/blog/)
 
