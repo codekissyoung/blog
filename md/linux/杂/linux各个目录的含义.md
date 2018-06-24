@@ -9,6 +9,7 @@
 /dev    设备文件目录
 /dev/cdrom        光驱设备    
 /dev/fd0    软驱
+
 /etc/lilo.conf    启动引导程序文件
 /etc/grub.conf     多系统引导时，配置文件
 /etc/inittab    控制启动模式（图形/文本登录）
@@ -22,6 +23,7 @@
 /etc/group    放置所有组名的地方
 /etc/sysconfig/network-scripts/ifcfg-etho    ip地址的配置文件
 /etc/hosts    类似于window  host 文件的，可以配置 pms.com 映射到本地127.0.0.1地址
+
 /lib    系统所用的库，如 c 程序库
 /lib/modules/2.4.20-8/kernel/drivers    驱动模块
 /usr/lib/    应用程序使用的库文件如 mysql的api
@@ -33,6 +35,7 @@
 /usr/share    共享文件和数据
 /usr/src/linux-2.4.20-8/    linux 源代码
 /mnt    装载目录
+
 /var/www    apache 的文档目录
 /var/lib    系统运行时随时改变的文件
 /var/local    /usr/local程序的可变数据

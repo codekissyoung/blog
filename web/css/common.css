@@ -1,5 +1,4 @@
 body {
-  /* font-family : Raleway;*/
   font-family: "Microsoft Yahei",Monaco;
   background-color: #fff;
 }
@@ -104,7 +103,7 @@ img {
   width: 1100px;
   letter-spacing: 1px;
   min-height: 1000px;
-  font-family: Georgia, serif;
+  font-family: Tahoma,Helvetica,Arial,Georgia, serif;
 }
 #article code {
   font-size: 100%;
@@ -132,6 +131,7 @@ img {
 }
 #article h2 {
   font-weight: normal;
+  font-family: Georgia, serif;
   font-size: 20px;
   color: black;
   margin: 20px 0px 5px 0px;
@@ -161,7 +161,7 @@ img {
   font-size: 105%;
 }
 #article p code {
-  font-family: Georgia, serif;
+  font-family: Ubuntu,Monaco,consoles;
 }
 #article img {
   width: 50%;

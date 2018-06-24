@@ -1,5 +1,4 @@
 body{
-    /* font-family : Raleway;*/
     font-family:"Microsoft Yahei",Monaco;
     background-color:#fff;
 }
@@ -46,9 +45,6 @@ img{
                 padding-bottom:2px;
                 border:0px;
             }
-            input[type="submit"]:focus
-            {
-            }
         }
     }
 }
@@ -72,10 +68,6 @@ img{
         text-decoration:none;
         letter-spacing:1px;
         font-size:14px;
-        // color:#636b6f;
-    }
-    a:link,a:visited{
-        // color:#636b6f;
     }
     a.active{
         color:#e83e8c;
@@ -115,7 +107,7 @@ img{
     width:1100px;
     letter-spacing:1px;
     min-height:1000px;
-    font-family:Georgia, serif;
+    font-family:Tahoma,Helvetica,Arial,Georgia, serif;
     code{
         font-size:100%;
     }
@@ -144,6 +136,7 @@ img{
     }
     h2{
         font-weight:normal;
+        font-family:Georgia, serif;
         font-size:20px;
         color:black;
         margin:20px 0px 5px 0px;
@@ -172,7 +165,7 @@ img{
             font-size:105%;
         }
         code{
-            font-family:Georgia, serif;
+            font-family:Ubuntu,Monaco,consoles;
         }
     }
     img{

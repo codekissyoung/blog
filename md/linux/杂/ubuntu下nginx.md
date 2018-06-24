@@ -1,14 +1,16 @@
-# 安装
+# Nginx 
+
+## 安装
 ```
 sudo aptitude install -y nginx
 ```
 
-# 启动
+## 启动
 ```
 sudo systemctl start nginx.service
 ```
 
-# 检测是否启动
+## 检测是否启动
 ```shell
 cky@codekissyoung2:~$ sudo lsof -i:80
 COMMAND     PID     USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
@@ -19,10 +21,9 @@ nginx     29624     root    6u  IPv4 364742      0t0  TCP *:http (LISTEN)
 nginx     29624     root    7u  IPv6 364743      0t0  TCP *:http (LISTEN)
 nginx     29625 www-data    6u  IPv4 364742      0t0  TCP *:http (LISTEN)
 nginx     29625 www-data    7u  IPv6 364743      0t0  TCP *:http (LISTEN)
-
 ```
 
-# 配置目录
+## 配置目录
 ```shell
 cky@codekissyoung2:/etc/nginx$ ls -l
 total 56
@@ -40,10 +41,9 @@ drwxr-xr-x 2 root root 4096 Aug  8 17:39 sites-enabled  # 已经启用的虚拟�
 drwxr-xr-x 2 root root 4096 Aug  8 17:39 snippets
 -rw-r--r-- 1 root root  664 Feb 12  2017 uwsgi_params
 -rw-r--r-- 1 root root 3071 Feb 12  2017 win-utf
-
 ```
 
-# 配置nginx服务器
+## 配置nginx服务器
 - nginx.conf 主配置文件
 ```
 

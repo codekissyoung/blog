@@ -1,5 +1,13 @@
 # 网址收藏
 
+## [Server酱](http://sc.ftqq.com/3.version)
+
+一款从服务器推报警和日志到手机的工具,使用方法如下:
+
+1. 登入：用GitHub账号登入网站，就能获得一个SCKEY（在「发送消息」页面）
+2. 绑定：点击「微信推送」，扫码关注同时即可完成绑定
+3. 发消息：往 http://sc.ftqq.com/SCKEY.send 发GET请求，就可以在微信里收到消息啦
+
 ## [ideawu blog](http://www.ideawu.net/blog/)
 
 ## [C/C++ reference](http://zh.cppreference.com/)

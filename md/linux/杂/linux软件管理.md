@@ -29,6 +29,5 @@ apt-get update 更新软件源
 apt-get upgrade 更新已经安装的包
 ```
 ## 源代码包安装：（这个是大公司定制安装（为了性能和资源）） ##
-![这里写图片描述](http://img.blog.csdn.net/20150915003721636)
+
 ## 脚本安装：shell 脚本 或者 java 脚本安装，直接运行shell 就行！  ##
-![这里写图片描述](http://img.blog.csdn.net/20150915003811015)

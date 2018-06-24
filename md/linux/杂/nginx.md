@@ -1,14 +1,14 @@
-# 概述
-nginx 的配置是分层的
+# Nginx
 
-```
+## 配置
+```nginx
 #全局块 主要设置一些影响Ngnix整体运行的配置指令
 events {
     # events 块
 }
 ```
 
-# 全局块设置
+## 全局块设置
 `worker_processes  3;`        启动的worker进程数为3,启动进程,通常设置成和cpu的数量相等
 
 `user nobody nobody;`         user指令设置哪些用户/组可以启动nginx,nobody是所有用户都可以
@@ -22,12 +22,12 @@ events {
 日志级别：debug info notice warn error crit alert emerg
 
 
-# events 块
+## events 块
 `worker_connections  1024;`    #每个worker进程的最大链接数为1024
 `accept_mutex on;`             #对多个nginx进程接收链接进行序列化,防止进程对连接的抢夺
 `use epoll;`                   #使用 epoll 事件驱动模型(其余模型有select,poll等),epoll是多路复用IO(I/O Multiplexing)中的一种方式,但是仅用于linux2.6以上内核,可以大大提高nginx的性能
 
-# http 块
+## http 块
 `include       mime.types;`   #将其他nginx配置(写在别的文件里)包含进来
 `default_type  application/octet-stream;`     #处理前端请求的MIME类型
 `access_log    /var/log/nginx/access.log;` #设定日志格式
@@ -37,6 +37,7 @@ events {
 `gzip  on;`     #开启压缩
 `client_header_buffer_size    1k;` 设定请求缓冲
 `large_client_header_buffers  4 4k;`
+
 ```
 #设定负载均衡的服务器列表
      upstream mysvr {
@@ -49,7 +50,7 @@ events {
 ```
 
 
-# http块 里面的server块
+## http块 里面的server块
 `listen       80;`   #监听80端口上的所有ip连接
 `server_name  site1.com;`  #域名
 ```
@@ -111,8 +112,8 @@ location / {
     }
 ```
 
-# 负载均衡时nginx http配置
-```
+## 负载均衡时nginx http配置
+```nginx
 #设定http服务器，利用它的反向代理功能提供负载均衡支持
 http {
      #设定mime类型,类型由mime.type文件定义
@@ -173,8 +174,6 @@ http {
           proxy_temp_file_write_size 64k;  #设定缓存文件夹大小，大于这个值，将从upstream服务器传
 
        }
-
      }
 }
-
 ```

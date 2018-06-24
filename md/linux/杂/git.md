@@ -1,27 +1,25 @@
-# 参考
-[阮一峰的网络日志 / 常用 Git 命令清单](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html)
+# Git
 
-[阮一峰的网络日志 / Git 使用规范流程](http://www.ruanyifeng.com/blog/2015/08/git-use-process.html)
+- [阮一峰的网络日志 / 常用 Git 命令清单](http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html)
+- [阮一峰的网络日志 / Git 使用规范流程](http://www.ruanyifeng.com/blog/2015/08/git-use-process.html)
+- [阮一峰的网络日志 / Git远程操作详解](http://www.ruanyifeng.com/blog/2014/06/git_remote.html)
+- [阮一峰的网络日志 / Git 工作流程](http://www.ruanyifeng.com/blog/2015/12/git-workflow.html)
 
-[阮一峰的网络日志 / Git远程操作详解](http://www.ruanyifeng.com/blog/2014/06/git_remote.html)
-
-[阮一峰的网络日志 / Git 工作流程](http://www.ruanyifeng.com/blog/2015/12/git-workflow.html)
 
 ![阮一峰的网络日志 / git示意图](http://www.ruanyifeng.com/blogimg/asset/2015/bg2015120901.png)
 
-> 名词解释
 - **Workspace**：工作区
 - **Index / Stage**：暂存区域是一个文件，保存了下次将提交的文件列表信息，一般在 Git 仓库目录中。 有时候也被称作　索引　，不过一般说法还是叫暂存区域。
 - **Repository**：仓库区（或本地仓库）
 - **Remote**：远程仓库,可能会有好多个,有些可以写,有些你只能读。对于远程库的工作包括:推送或拉取数据,分享各自的工作进展,包括添加远程库,移除废弃的远程库,管理各式远程库分支,定义是否跟踪这些分支
 
-# git 配置
+## git 配置
 - `git config --global user.name "John Doe"`　写的文件：`~/.gitconfig` 或 `~/.config/git/config`
 - `git config user.name "codekissyoung"` 写的文件`项目目录/.git/config`
 - `git config --global core.editor vim` 设置默认编辑器
 - `git config --list` 列出当前库所有配置选项，配置变量会重复，值取最后获取到的
 
-# 给自己的项目设置git参数`.git/config`
+## 给自己的项目设置git参数`.git/config`
 ```
 ➜  ~ cat ~/.gitconfig
 [user]
@@ -35,7 +33,7 @@
 	quotepath = false # 支持中文文件名
 ```
 
-# 中文支持
+## 中文支持
 在日志里正确显示中文 shell 里执行
 ```
 export LESSCHARSET=utf-8
@@ -45,7 +43,7 @@ export LESSCHARSET=utf-8
 git config --global core.quotepath false
 ```
 
-# .gitignore
+## .gitignore
 ```
 # no .a files
 *.a
@@ -66,12 +64,12 @@ doc/*.txt
 doc/**/*.pdf
 ```
 
-# git里怎样移除对一个文件的管理 并且不删除该文件
+## git里怎样移除对一个文件的管理 并且不删除该文件
 1. 先`git  rm  -r  --cached  文件`
 2. 在`.gitignore`中添加忽略信息
 3. 最后`gti commit -m  '提交.gitignore'`
 
-# 新建代码库
+## 新建代码库
 ```
 # 在当前目录新建一个Git代码库
 $ git init
@@ -81,7 +79,7 @@ $ git init [project-name]
 $ git clone [url]
 ```
 
-# 本地操作
+## 本地操作
 ```
 $ git diff # 查看未暂存的所有修改
 $ git add . #　将所有修改的文件暂存
@@ -97,8 +95,8 @@ $ git log # 查看日志
 $ git log -p -2 # 显示最近两次提交的内容差异
 ```
 
-# 远程仓库的使用
-```shell
+## 远程仓库的使用
+```
 $ git remote add [remote_name] git://github.com/codekissyoung/[project-name].git 为本地库添加远程库,并取名为remote_name
 $ git clone https://github.com/codekissyoung/git.git 克隆远程库为本地库，并取名为origin(默认推送的库)
 $ git remote -v　# 列出所有的远程库
@@ -115,13 +113,13 @@ $ git branch --set-upstream-to=github/master # 设置当前分支跟踪远程的
 $ git checkout -b newBrach origin/master # 在origin/master的基础上，创建一个新分支
 ```
 
-# git commit　产生的对象(commit对象　tree对象 blob快照对象)
+## git commit　产生的对象(commit对象　tree对象 blob快照对象)
 ![分支](https://git-scm.com/book/en/v2/book/03-git-branching/images/commit-and-tree.png)
 
-# 分支运用
+## 分支运用
 `git rebase origin/master` 在当前分支上，合并origin/master
 
-# 别名
+## 别名
 ```
 $ git config --global alias.co checkout
 $ git config --global alias.br branch
@@ -129,18 +127,18 @@ $ git config --global alias.ci commit
 $ git config --global alias.st status
 ```
 
-# git rebase 变基
+## git rebase 变基
 http://blog.csdn.net/hudashi/article/details/7664631
 
-# 将一台服务器作为远程仓库(类似github)
+## 将一台服务器作为远程仓库(类似github)
 http://blog.csdn.net/wangjia55/article/details/8802490
 实现的效果是,我们可以通过`git clone ssh://software@172.16.0.30/~/yafeng/.git`拿到那台服务器上的代码,那台服务器可以代替github使用了
 
-# 一个牛逼的git分支模型的使用
+## 一个牛逼的git分支模型的使用
 http://www.oschina.net/translate/a-successful-git-branching-model
 查看附件,有模型的图
 
-# git 获取远程分支
+## git 获取远程分支
 通过`Git clone` 获取的远端git库，只包含了远端git库的当前工作分支。
 如果想获取其它分支信息，需要使用`git branch –r`来查看， 如果需要将远程的其它分支代码也获取过来，可以使用命令：
 
