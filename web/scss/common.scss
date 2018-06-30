@@ -108,68 +108,62 @@ img{
     letter-spacing:1px;
     min-height:1000px;
     font-family:Tahoma,Helvetica,Arial,Georgia, serif;
-    code{
-        font-size:100%;
-    }
-    pre{
-        code{
-            padding:10px;
-            border-radius:5px;
-            border:8px solid black;
-            font-family:monospace, Consolas, Monaco, 'Andale Mono';
-            letter-spacing:0px;
-            border-color:rgba(255,255,255,0.9);;
-        }
-    }
     h1{
-        font-size:24px;
+        font-size:26px;
         color:black;
         font-weight:200px;
         padding-bottom:10px;
         font-weight:normal;
         text-align:center;
-        a{
-            color:green;
-            letter-spacing:2px;
-            text-decoration:none;
-        }
     }
     h2{
         font-weight:normal;
         font-family:Georgia, serif;
-        font-size:20px;
-        color:black;
+        font-size:22px;
         margin:20px 0px 5px 0px;
+        margin-top: 40px;
     }
     h3{
         font-size:18px;
+        margin-top: 20px;
+        margin-bottom: 5px;
+        margin-left: 22px;
     }
-    h3,h4,h5{
-        font-weight:normal;
+
+    pre{
+        margin: 0px 20px;
+        code{
+            font-size: 13px;
+            padding:10px;
+            border-radius:5px;
+            // font-family: monaco, Consolas, ubuntu, 'Andale Mono';
+            letter-spacing:0px;
+        }
     }
-    h4{
-        font-size:16px;
+    ol{
+      font-size: 14px;
     }
     li{
         margin-top:7px;
         margin-bottom:3px;
     }
     p{
-        font-family:Georgia, serif;
         line-height:1.5;
         text-align:justify;
         margin:0px;
-        font-size:16px;
-        letter-spacing:2px;
-        strong{
-            font-size:105%;
-        }
+        font-size:15px;
         code{
-            font-family:Ubuntu,Monaco,consoles;
+            border: 1px solid #f9eace;
+            text-align: center;
+            font-weight: 100;
+            border-radius: 10px;
+            padding:1px 10px;
+            margin: 0px 1px;
+            background-color: #f8f8f8;
         }
     }
     img{
-        width:50%;
+        width:100%;
     }
     span.search_key{
         color:red;
@@ -180,9 +174,6 @@ img{
         thead
         {
             background-color:#ddd;
-        }
-        tbody
-        {
         }
         th
         {
