@@ -114,10 +114,10 @@ body
         padding-top: 6px;
         padding-bottom: 4px;
         padding-right: 6px;
-        background-color: #ddd;
+        background-color: #fffbbb;
         a{
             writing-mode: vertical-lr;
-            color: blue;
+            color: #706b6e;
             font-size: 16px;
             text-decoration: none;
         }
@@ -234,6 +234,10 @@ body
     top:0px;
     left: 0px;
     width: 300px;
+    h1,h2,h3,h4,h5{
+        font-weight:normal;
+        color: #000415;
+    }
     .main-title
     {
         margin:0px 0px;
@@ -254,22 +258,20 @@ body
             padding:0px;
             font-size:20px;
         }
-
     }
-
     .head-tag
     {
         display:inline-block;
     }
     a{
-        color:black;
+        color:#636bfb;
         text-decoration:none;
-        letter-spacing:1px;
-        font-size:14px;
+        font-size:13px;
+        font-weight: normal;
     }
     a.active{
         color:#e83e8c;
-        font-weight:bold;
+        font-weight: bold;
     }
     ul,li{
         text-decoration:none;
@@ -282,8 +284,10 @@ body
     }
     h2{
         cursor:pointer;
+        letter-spacing:1px;
         text-align:left;
-        font-size:18px;
+        font-size:17px;
+        font-family: "ubuntu mono";
         margin:0px;
         .caret{
             margin-left:10px;

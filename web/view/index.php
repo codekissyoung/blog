@@ -19,10 +19,10 @@
                     <a href="http://blog.codekissyoung.com">CodekissYoung Blog</a>
                 </div>
                 <div id="search-article">
-                        <form action="" method="GET">
-                        <input type="text" name="search_key" value="<?=$search_key?>" placeholder="全站搜索"/>
-                            <input type="submit" value="Search" />
-                        </form>
+                    <form action="" method="GET">
+                    <input type="text" name="search_key" value="<?=$search_key?>" placeholder=""/>
+                        <input type="submit" value="Search" />
+                    </form>
                 </div>
             </div>
         </div>
