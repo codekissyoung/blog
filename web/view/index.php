@@ -19,7 +19,7 @@
                     <a href="http://blog.codekissyoung.com">CodekissYoung Blog</a>
                 </div>
                 <div id="search-article">
-                    <form action="" method="GET">
+                    <form action="" method="GET" autocomplete="off">
                     <input type="text" name="search_key" value="<?=$search_key?>" placeholder=""/>
                         <input type="submit" value="Search" />
                     </form>

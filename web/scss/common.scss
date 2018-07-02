@@ -51,7 +51,7 @@ body
             form{
                 text-align:left;
                 input[type="text"]{
-                    height: 20px;
+                    height: 18px;
                     padding:2px 0px;
                     padding-left:10px;
                     border:0px;
@@ -61,6 +61,8 @@ body
                     border-bottom-left-radius: 10px;
                     color: #636b6f;
                     vertical-align:middle;
+                    outline: none;
+                    letter-spacing: 1px;
                 }
                 input[type="submit"]
                 {
@@ -78,6 +80,7 @@ body
                     text-shadow:1px 1px 0px #ffffff;
                     box-shadow:inset 1px 1px 0px 0px #ffffff;
                     box-shadow:1px 0px 13px -1px #ffffff;
+                    outline: none;
                 }
             }
         }
@@ -136,6 +139,9 @@ body
     letter-spacing:1px;
     min-height:1000px;
     font-family: "ubuntu";
+    a{
+        color: #636bfb;
+    }
     h1{
         font-size:26px;
         color:black;
