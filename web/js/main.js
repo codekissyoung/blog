@@ -27,7 +27,7 @@ $(function(){
     });
 
     // 目录折叠
-    $("#main_category>ul h2").on('click',function () {
+    $("#main-category-content>ul h2").on('click',function () {
         if($(this).next().hasClass('hide')){
             $(this).next().removeClass('hide').hasClass('show');
         }else{

@@ -29,7 +29,9 @@
         <div id="site-category-box-fill"></div>
         <div id="article">
             <nav id="main_category">
-                <?=$category?>
+                <div id="main-category-content">
+                    <?=$category?>
+                </div>
             </nav>
             <div id="article-category-button">
                 <a  href="javascript:void();">目录</a>

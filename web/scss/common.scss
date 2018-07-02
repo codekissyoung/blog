@@ -143,7 +143,7 @@ body
         color: #636bfb;
     }
     h1{
-        font-size:26px;
+        font-size:22px;
         color:black;
         font-weight:200px;
         padding-bottom:10px;
@@ -153,13 +153,13 @@ body
     h2{
         font-weight:normal;
         font-family:Georgia, serif;
-        font-size:22px;
+        font-size:18px;
         margin:20px 0px 5px 0px;
         margin-top: 40px;
     }
     h3{
         font-weight:normal;
-        font-size:18px;
+        font-size:16px;
         margin-top: 20px;
         margin-bottom: 5px;
         margin-left: 22px;
@@ -240,6 +240,9 @@ body
     top:0px;
     left: 0px;
     width: 300px;
+    #main-category-content{
+        width:300px;
+    }
     h1,h2,h3,h4,h5{
         font-weight:normal;
         color: #000415;
