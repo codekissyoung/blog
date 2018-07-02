@@ -16,7 +16,14 @@ redis-cli shutdown [save|nosave] 关闭redis服务器 [生成|不生成]持久�
 127.0.0.1:6379> CONFIG GET *                 获取所有配置
 127.0.0.1:6379> CONFIG GET loglevel          获取loglevel的配置
 127.0.0.1:6379> CONFIG SET loglevel "notice" 设置loglevel
+```
 
+## 多数据库
+
+```bash
+127.0.0.1:6379> SELECT 15
+OK
+127.0.0.1:6379[15]>
 ```
 
 ## 设置 KEY 相关的命令
