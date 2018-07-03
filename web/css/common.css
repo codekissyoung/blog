@@ -132,7 +132,7 @@ body {
   color: #636bfb;
 }
 #article-content h1 {
-  font-size: 26px;
+  font-size: 22px;
   color: black;
   font-weight: 200px;
   padding-bottom: 10px;
@@ -142,13 +142,13 @@ body {
 #article-content h2 {
   font-weight: normal;
   font-family: Georgia, serif;
-  font-size: 22px;
+  font-size: 18px;
   margin: 20px 0px 5px 0px;
   margin-top: 40px;
 }
 #article-content h3 {
   font-weight: normal;
-  font-size: 18px;
+  font-size: 16px;
   margin-top: 20px;
   margin-bottom: 5px;
   margin-left: 22px;
@@ -221,6 +221,9 @@ body {
   height: 100%;
   top: 0px;
   left: 0px;
+  width: 300px;
+}
+#main_category #main-category-content {
   width: 300px;
 }
 #main_category h1, #main_category h2, #main_category h3, #main_category h4, #main_category h5 {
