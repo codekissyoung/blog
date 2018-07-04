@@ -15,3 +15,15 @@
 ## C 程序的内存管理
 
 - [操作系统的内存分配](https://www.imooc.com/video/7860)
+
+## 模块化: 创建只在linux本文件内可以访问的变量和函数
+
+```c
+static char *USERNAME = "codekissyoung"; // 只在本文件可以访问
+static void check_name(){ } // 只在本文件可以访问
+extern void show_name() // 暴露给外部文件调用的函数
+{
+    check_name();
+    printf("%s",USERNAME);
+}
+```

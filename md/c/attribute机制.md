@@ -1,6 +1,6 @@
 # __attribute__ 机制
 
-> GNU C 特色功能 : 设置函数属性，变量属性，类型属性
+- GNU C 特色功能 : 设置函数属性，变量属性，类型属性
 
 ## 格式
 
@@ -68,7 +68,8 @@ struct x {
 } __attribute__ ((aligned(8))) xx;
 
 int main(){
-    printf("sizeof(int)=%d,sizeof(short)=%d.sizeof(char)=%d\n",sizeof(int),sizeof(short),sizeof(char));
+    printf("sizeof(int)=%d,sizeof(short)=%d.sizeof(char)=%d\n",
+            sizeof(int),sizeof(short),sizeof(char));
     printf("pp=%d,mm=%d \n", sizeof(pp),sizeof(mm));
     printf("oo=%d,xx=%d \n", sizeof(oo),sizeof(xx));
     return 0;
@@ -135,6 +136,6 @@ int test(int n)
 
 - 警告信息也很好理解，因为你定义了一个有返回值的函数test却有可能没有返回值，程序当然不知道怎么办了！
 
-## 资源
+## 资源
 
 - [__attribute__资源](https://www.cnblogs.com/astwish/p/3460618.html)
