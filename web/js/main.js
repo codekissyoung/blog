@@ -42,7 +42,13 @@ $(function(){
 
     // 鼠标移出目录div
     $("#main_category").on( "mouseleave", function(){
-        $('#main_category').animate({width:'toggle'},300);
+        // $('#main_category').animate({width:'toggle'},300);
+    });
+
+    // 目录高度的动态变化
+    $("#main_category").css("height",$(window).height() - 152 + 'px');
+    $(window).on('resize',function(){
+        $("#main_category").css("height",$(window).height() - 152 + 'px');
     });
 
     $(window).scroll(function(){

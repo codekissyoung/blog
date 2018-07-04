@@ -229,19 +229,21 @@ body
     padding-top: 100px;
     position: absolute;
     border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
     left: 0px;
     top:0px;
-    display: none;
+    // display: none;
     background-color:#f5f5d5;
     opacity:0.9;
     z-index:1;
-    overflow:auto;
-    height: 100%;
+    height: 1000px;
     top:0px;
     left: 0px;
     width: 300px;
     #main-category-content{
         width:300px;
+        overflow:auto;
+        height: 100%;
     }
     h1,h2,h3,h4,h5{
         font-weight:normal;
