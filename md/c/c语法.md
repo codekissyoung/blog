@@ -4,125 +4,15 @@
 
 - 变量用于存储计算过程中的值，变量具有类型如 `int` `float` `char`
 
-### 变量类型/单位
+### 局部变量
 
-- `bit`位 : 一位 0 或 1
-- `byte`字节 : 1 字节 = ８位
-- `word`字 : 8位计算机,1字长=8位;16位计算机:１字长=16位;32位计算机: 1字长=32位; 64位计算机: 1字长=64位
+#### 自动局部变量
 
-#### 浮点数
-
-- 存储 : 正负号 + 小数部分 + 指数部分
-- 计算出现舍入错误的原因: 缺少足够的小数位来完成正确的运算
-
-#### 整数
-
-- 32位取值范围: `int` -20亿 ～ 20亿 , 32位 `unsigned int` 0 ～ 42亿
-- 64位取值范围: `int` – 900 亿亿 ～ 900亿亿; 64位 `unsigned int` 0 ～ 1800 亿亿
-
-### typedef 给数据类型取别名
-
-#### 给int char float 等取别名
-
-```c
-// 比如定义一个叫 REAL 的浮点类型，在目标平台一上，让它表示最高精度的类型为：
-typedef long double REAL;
-
-// 在不支持 long double 的平台二上，改为：
-typedef double REAL;
-
-// 在连 double 都不支持的平台三上，改为：
-typedef float REAL;
-
-// 当跨平台时，只要改下 typedef 本身就行，不用对其他源码做任何修改。甚至可以通过预处理器识别不同平台，自动 typedef
-```
-
-#### 给数组取别名
-
-```c
-typedef char ARRAY20[20];
-ARRAY20 a1, a2, s1, s2;  // 等价于 char a1[20], a2[20], s1[20], s2[20];
-```
-
-#### 给指针取别名
-
-```c
-typedef int (* PTR_TO_ARR)[4];
-PTR_TO_ARR p1, p2; // 指针，指针类型为 占4个int的数组
-```
-
-#### 给函数指针取别名
-
-```c
-typedef int (* PTR_TO_FUNC)(int, int);
-PTR_TO_FUNC pfunc; // 声明一个指针,指向"参数为(int,int),返回值为int"的函数
-```
-
-#### 给结构体取别名 这样可以少写一个struct
-
-```c
-//  原先
-struct Book { ... }; // 定义结构体
-struct Book bk1; // 使用结构体声明变量, c里使用结构体声明变量要struct开头(c++里不用)，可能就历史遗留问题了
-
-// typedef 后
-typedef struct Book{ ... } Book; // 定义结构Book，并且取别名也为 Book
-Book bk2; // 直接使用别名声明变量
-
-typedef struct student{ ... } Stu_st , *Stu_pst; // 同时给 结构体 和 其指针定义 别名
-Stu_st stu1; // 等价于 struct student stu1
-Stu_pst stu2; // 等价于 struct student* stu2  等价于 Stu_st* stu2
-```
-
-#### 不能在定义 typedef 类型之前 使用这个类型
-
-```c++
-typedef struct
-{
-    char* item;
-    NODEPTR next; // 这里不允许使用 NODEPTR
-} * NODEPTR;
-
-// 以下是正确的方法
-// 1.(推荐)
-typedef struct node
-{
-    char* item;
-    struct node* next;
-} *NODEPTR;
-// 2. 略 不推荐
-// 3. 略 不推荐
-```
-
-#### typedef 与 #define 的区别
-
-```c
-// 1. define可以使用其他类型说明符对宏类型名进行扩展，但对 typedef 所定义的类型名却不能这样做
-#define INTERGE int
-unsigned INTERGE n;  //没问题
-
-typedef int INTERGE;
-unsigned INTERGE n;  //错误，不能在 INTERGE 前面添加 unsigned
-
-// 2. 在连续定义几个变量的时候，typedef 能够保证定义的所有变量均为同一类型，而 #define 则无法保证
-#define PTR_INT int *
-PTR_INT p1, p2; // 宏替换之后: int *p1, p2;
-
-typedef int * PTR_INT
-PTR_INT p1, p2; // 都是指向int的指针
-```
-
-
-
-### 变量的储存
-
-- 小端法：数据最低位存在内存低地址处
-- 大端法：数据最低位存在内存高地址处
-- 大端法和小端法的区别在于:处理器体系结构不同
-
-### 局部变量 / 内部变量
 - 在函数内部声明与使用的变量，随着函数的调用而创建，随着函数的返回而回收消失
-- `静态局部变量` : 在函数内部使用`static`关键字声明，它不会随着函数的返回而消失，下次调用该函数时，`静态局部变量`保持上次函数退出时的值
+
+#### 静态局部变量
+
+- 在函数内部使用`static`关键字声明，它不会随着函数的返回而消失，下次调用该函数时，`静态局部变量`保持上次函数退出时的值
 
 ```c
 void trystat(void){
@@ -132,14 +22,10 @@ void trystat(void){
 }
 ```
 
-
-### 全局变量 / 外部变量
-
-
-
-
+### 全局变量
 
 ## 常量
+
 - 在整个程序运算过程中，保持值不变的变量
 
 ```c
@@ -147,104 +33,34 @@ void trystat(void){
 const char *name = "codekissyoung";
 ```
 
-## 注释
-- `//` `/* */` 注释用来说明代码的作用，本身不被编译执行
+## 数据类型
 
-## 算术运算/运算符/表达式
-- `左值` : 指向内存位置的表达式被称为左值（lvalue）表达式。左值可以出现在赋值号的左边或右边
-- `右值` ：存储在内存中某些地址的数值。右值是不能对其进行赋值的表达式，也就是说，右值可以出现在赋值号的右边，但不能出现在赋值号的左边
+### 类型单位
 
-### >> 右移操作符
-- 有符号数的右移
-- 右移一位就等于除以2，但是这里需要加一个条件，这里指的是正数。而对于有符号整数，且其值为负数时，在C99标准中对于其右移操作的结果的规定是implementation-defined.
-- 在Linux上的GCC实现中，有符号数的右移操作的实现为使用符号位作为补充位。因此-1的右移操作仍然为0xFFFFFFFF。这导致了死循环。
-```c
-#include <stdio.h>
-int main( int argc, char* argv[] )
-{
-    int a = 0xFFFFFFFF;
-    printf("%d , %ld",a >> 31,sizeof(a)); // -1 , 4
-    return 0;
-}
-```
+- `bit`位 : 一位 0 或 1
+- `byte`字节 : 1 字节 = ８位
+- `word`字 : 8位计算机,1字长=8位;16位计算机:１字长=16位;32位计算机: 1字长=32位; 64位计算机: 1字长=64位
 
-### | 或运算
+### 整数
 
-### & 与运算
+- 32位取值范围: `int` -20亿 ～ 20亿 , 32位 `unsigned int` 0 ～ 42亿
+- 64位取值范围: `int` – 900 亿亿 ～ 900亿亿; 64位 `unsigned int` 0 ～ 1800 亿亿
 
+### 浮点数
 
+- 存储 : 正负号 + 小数部分 + 指数部分
+- 计算出现舍入错误的原因: 缺少足够的小数位来完成正确的运算
 
-### ^ 异或运算
+### 数组
 
-
-
-
-
-
-## 控制流
-
-## 函数
-- 函数是完成特定功能的一段代码的集合，它接受参数，返回计算后的值
-- 函数传值调用 ： 函数接受主调方的变量作为参数，拷贝出一份副本，在函数内部只操作该副本，所以不会修改到主调方的变量
-- 函数传地址调用 ： 函数接受主调方给出的内存地址(指针/数组名)，复制出一份地址的副本，函数内部操作该地址副本，与主调方操作该内存地址，效果是一样的；所以函数会直接修改到主调方的变量 
-
-### 回调函数
-
-```c
-// 定义
-void populate_array(int *array, size_t arraySize, int (*getNextValue)(void));
-int getNextRandomValue(void);
-// 调用
-populate_array(myarray, 10, getNextRandomValue);
-```
-
-### 可变参数
-
-```c
-#include <stdarg.h>
-int func(int a, int b, ... )
-{
-    va_list arg_ptr; // 拿到可变参数 arg_ptr
-    void va_start( arg_ptr, b ); // 填入最后一个固定参数 b
-    int var1 = va_arg( arg_ptr, int ); // 得到第一个可变参数的值 var1
-    double var2 = va_arg( arg_ptr, double ); // 得到第一个可变参数的值 var2
-    void va_end( arg_ptr ); // 清理 arg_ptr
-}
-```
-
-- [用法参考](https://www.cnblogs.com/edver/p/8419807.html)
-- [可变参数实现](https://blog.csdn.net/smstong/article/details/50751121)
-
-## 基本输入/输出
-
-## 指针
-
-- `指针` : 指针是一个变量，其值为另一个变量的起始内存地址，指针的类型决定了如何取该内存地址后面的数据(取几个字节，如何切分)
-
-```c
-int *ip;    /* 一个整型的指针 */
-```
-
-### 函数指针
-
-- `函数指针` : 指向函数。函数指针可以像一般函数一样，用于调用函数、传递参数
-
-```c
-typedef int (*fun_ptr)(int,int); // 声明一个指向同样参数、返回值的函数指针类型
-```
-
-## 数组
-
-### 字符数组
-
-### 一维数组
+#### 一维数组
 
 ```c
 double balance[] = {1000.0, 2.0, 3.4, 7.0, 50.0}; // 定义和初始化数组
 balance[4] = 50.0; // 使用数组里的项
 ```
 
-### 多维数组
+#### 多维数组
 
 ```c
 int a[3][4] = {
@@ -259,7 +75,50 @@ for (int i=0; i < 6; i++) {
 }
 ```
 
-## 结构体 / 联合体
+#### 字符数组
+
+#### 数组元素个数
+
+```c
+int count = sizeof(days) / sizeof(days[0]);
+```
+
+#### 数组初始化方式
+
+```c
+int a[3] = {10,9};
+int a[] = {11, 7, 6};
+// 指定初始化器 (C99标准)
+int arr[6] = {0,89,[5]=212}; //指定第6个元素的值为212
+```
+
+#### 数组名
+
+- 数组名是数组首元素的地址
+
+```c
+short dates[4];
+short *p = dates;
+```
+
+#### 数组越界
+
+- gcc编译器只会给出警告,然后继续编译，越界处的值是随机的
+- 为了防止数组出现越界的情况，使用符号常量申明数组是很有必要的
+
+```c
+const int days[] = {31,28,31,30,31,30,31,31,30,31,30,31,[13]=67};
+// 越界数组
+printf("days[-1]: %d,地址:%p \n",days[-1],&days[-1]);
+printf("days[14]: %d,地址:%p \n",days[14],&days[14]);
+
+#define SIZE 4
+int main(){
+    int arr[SIZE];
+}
+```
+
+### 结构体
 
 - 在 网络协议中 ,通信控制,嵌入式系统,驱动开发 等地方，我们传送的不是简单的字节流(char 型数组),而是多种数据组合起来的一个整体，其表现形式是一个结构体
 - 空结构体：一个字节大小，不可能造出 没有任何容量的容器吧
@@ -309,7 +168,7 @@ st1.name = "hello li";          // 结构体访问单个元素
 pst->name;                      // 通过结构体指针访问单个元素
 ```
 
-### 结构体内存对齐
+#### 结构体内存对齐
 
 ```c
 struct Test
@@ -328,7 +187,7 @@ struct Test
 // 0x7ffc76f5e660 0x7ffc76f5e668 0x7ffc76f5e669 sizeof : 16
 ```
 
-### 位域
+#### 位域
 
 ```c
 struct bit_field
@@ -364,6 +223,179 @@ union Data
 };
 union Data d1;
 strcpy( d1.str, "codekissyoung" );
+```
+
+## 指针
+
+- `指针` : 指针是一个变量，其值为另一个变量的起始内存地址，指针的类型决定了如何取该内存地址后面的数据(取几个字节，如何切分)
+
+```c
+int *ip;    /* 一个整型的指针 */
+```
+
+### 函数指针
+
+- `函数指针` : 指向函数。函数指针可以像一般函数一样，用于调用函数、传递参数
+
+```c
+typedef int (*fun_ptr)(int,int); // 声明一个指向同样参数、返回值的函数指针类型
+```
+
+## 算术运算/运算符/表达式
+
+- `左值` : 指向内存位置的表达式被称为左值（lvalue）表达式。左值可以出现在赋值号的左边或右边
+- `右值` ：存储在内存中某些地址的数值。右值是不能对其进行赋值的表达式，也就是说，右值可以出现在赋值号的右边，但不能出现在赋值号的左边
+
+### >> 右移操作符
+
+- 有符号数的右移
+- 右移一位就等于除以2，但是这里需要加一个条件，这里指的是正数。而对于有符号整数，且其值为负数时，在C99标准中对于其右移操作的结果的规定是implementation-defined.
+- 在Linux上的GCC实现中，有符号数的右移操作的实现为使用符号位作为补充位。因此-1的右移操作仍然为0xFFFFFFFF。这导致了死循环
+
+```c
+#include <stdio.h>
+int main( int argc, char* argv[] )
+{
+    int a = 0xFFFFFFFF;
+    printf("%d , %ld",a >> 31,sizeof(a)); // -1 , 4
+    return 0;
+}
+```
+
+### | 或运算
+
+### & 与运算
+
+### ^ 异或运算
+
+## 控制流
+
+## 函数
+
+- 函数是完成特定功能的一段代码的集合，它接受参数，返回计算后的值
+- 函数传值调用 ： 函数接受主调方的变量作为参数，拷贝出一份副本，在函数内部只操作该副本，所以不会修改到主调方的变量
+- 函数传地址调用 ： 函数接受主调方给出的内存地址(指针/数组名)，复制出一份地址的副本，函数内部操作该地址副本，与主调方操作该内存地址，效果是一样的；所以函数会直接修改到主调方的变量
+
+### 回调函数
+
+```c
+// 定义
+void populate_array(int *array, size_t arraySize, int (*getNextValue)(void));
+int getNextRandomValue(void);
+// 调用
+populate_array(myarray, 10, getNextRandomValue);
+```
+
+### 可变参数
+
+```c
+#include <stdarg.h>
+int func(int a, int b, ... )
+{
+    va_list arg_ptr; // 拿到可变参数 arg_ptr
+    void va_start( arg_ptr, b ); // 填入最后一个固定参数 b
+    int var1 = va_arg( arg_ptr, int ); // 得到第一个可变参数的值 var1
+    double var2 = va_arg( arg_ptr, double ); // 得到第一个可变参数的值 var2
+    void va_end( arg_ptr ); // 清理 arg_ptr
+}
+```
+
+- [用法参考](https://www.cnblogs.com/edver/p/8419807.html)
+- [可变参数实现](https://blog.csdn.net/smstong/article/details/50751121)
+
+## 基本输入/输出
+
+
+## typedef 给数据类型取别名
+
+### 给int char float 等取别名
+
+```c
+// 比如定义一个叫 REAL 的浮点类型，在目标平台一上，让它表示最高精度的类型为：
+typedef long double REAL;
+
+// 在不支持 long double 的平台二上，改为：
+typedef double REAL;
+
+// 在连 double 都不支持的平台三上，改为：
+typedef float REAL;
+
+// 当跨平台时，只要改下 typedef 本身就行，不用对其他源码做任何修改。甚至可以通过预处理器识别不同平台，自动 typedef
+```
+
+### 给数组取别名
+
+```c
+typedef char ARRAY20[20];
+ARRAY20 a1, a2, s1, s2;  // 等价于 char a1[20], a2[20], s1[20], s2[20];
+```
+
+### 给指针取别名
+
+```c
+typedef int (* PTR_TO_ARR)[4];
+PTR_TO_ARR p1, p2; // 指针，指针类型为 占4个int的数组
+```
+
+### 给函数指针取别名
+
+```c
+typedef int (* PTR_TO_FUNC)(int, int);
+PTR_TO_FUNC pfunc; // 声明一个指针,指向"参数为(int,int),返回值为int"的函数
+```
+
+### 给结构体取别名 这样可以少写一个struct
+
+```c
+//  原先
+struct Book { ... }; // 定义结构体
+struct Book bk1; // 使用结构体声明变量, c里使用结构体声明变量要struct开头(c++里不用)，可能就历史遗留问题了
+
+// typedef 后
+typedef struct Book{ ... } Book; // 定义结构Book，并且取别名也为 Book
+Book bk2; // 直接使用别名声明变量
+
+typedef struct student{ ... } Stu_st , *Stu_pst; // 同时给 结构体 和 其指针定义 别名
+Stu_st stu1; // 等价于 struct student stu1
+Stu_pst stu2; // 等价于 struct student* stu2  等价于 Stu_st* stu2
+```
+
+### 不能在定义 typedef 类型之前 使用这个类型
+
+```c++
+typedef struct
+{
+    char* item;
+    NODEPTR next; // 这里不允许使用 NODEPTR
+} * NODEPTR;
+
+// 以下是正确的方法
+// 1.(推荐)
+typedef struct node
+{
+    char* item;
+    struct node* next;
+} *NODEPTR;
+// 2. 略 不推荐
+// 3. 略 不推荐
+```
+
+### typedef 与 #define 的区别
+
+```c
+// 1. define可以使用其他类型说明符对宏类型名进行扩展，但对 typedef 所定义的类型名却不能这样做
+#define INTERGE int
+unsigned INTERGE n;  //没问题
+
+typedef int INTERGE;
+unsigned INTERGE n;  //错误，不能在 INTERGE 前面添加 unsigned
+
+// 2. 在连续定义几个变量的时候，typedef 能够保证定义的所有变量均为同一类型，而 #define 则无法保证
+#define PTR_INT int *
+PTR_INT p1, p2; // 宏替换之后: int *p1, p2;
+
+typedef int * PTR_INT
+PTR_INT p1, p2; // 都是指向int的指针
 ```
 
 ## C预处理器
@@ -446,8 +478,10 @@ int get_int(void)
 ```
 
 ### 输入函数/输出函数
+
 - 输入也是先放在缓冲区,代码读取缓冲区内容的条件: 1.遇见换行符 2.缓冲区满了
 - 所有输出的内容都是先存放到缓冲区，再由缓冲区一次性输出到屏幕。缓冲区内容刷新发送到屏幕的条件：1.缓冲区满 2.换行符 3.遇见输入命令/代码
+
 ```c
 scanf("%s",&name); 读取缓存中的字符串，会在空白 ，\t,\n 处停止读取！
 scanf("%d,%d",&grade,&age); //表示 期望我们以： 3,12 这样的形式输入
@@ -455,7 +489,18 @@ prinf("%d %s %p",10,"caokaiyan",point);//point 是一个指针
 ```
 
 ### 二进制文件与文本文件区别
+
 - 文本文件与二进制文件的区别是逻辑上的。
   - 文本文件是基于字符编码的文件，常见有ASCII编码(定长编码)，UNICODE编码,UTF-8(非定长的编码)
   - 二进制文件是基于值编码的文件，你可以根据具体应用，指定某个值是什么意思（可以看作是自定义编码），是变长编码的，因为是值编码嘛，多少个比特代表一个值，完全由你决定
 - BMP文件例子：其头部是较为固定长度的文件头信息，前2字节用来记录文件为BMP格式，接下来的8个字节用来记录文件长度，再接下来的4字节用来记录bmp文件头的长度。
+
+### 数据在内存的存储方式
+
+- 小端法：数据最低位存在内存低地址处
+- 大端法：数据最低位存在内存高地址处
+- 大端法和小端法的区别在于:处理器体系结构不同
+
+## 注释
+
+- `//` `/* */` 注释用来说明代码的作用，本身不被编译执行
