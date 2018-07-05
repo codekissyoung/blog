@@ -14,7 +14,7 @@
     </head>
     <body>
         <div id="site-category">
-            <div id="site-category-contentd">
+            <div id="site-category-content">
                 <div id="blog-name">
                     <a href="http://blog.codekissyoung.com">CodekissYoung Blog</a>
                 </div>

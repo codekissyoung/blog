@@ -1,43 +1,121 @@
 # C 语法 概念
 
 ## 变量
-- 变量用于存储计算过程中的值，变量具有类型(int float char ... )
+
+- 变量用于存储计算过程中的值，变量具有类型如 `int` `float` `char`
 
 ### 变量类型/单位
-- 位(bit)：１或者0称为一位
-- 字节(byte)：1 字节 = ８位
-- 字(word): 8位计算机，1字长=8位 ,16位计算机:１字长=16位，32位计算机:1字长=32位
-- 存储一个int需要占用一个字长
-- 浮点数的存储分为3部分:正负号，小数部分,指数部分
-- 浮点数舍入错误的原因是，浮点数缺少足够的小数位来完成正确的运算。
-```bash
-8位int -128 ～ 127
-8位uint 0 ～ 255
-16位int -32,768 ～ 32,767
-16位uint 0 ～ 65,535
-32位int -2,147,483,648 ～ 2,147,483,647
-32位uint 0 ～ 4,294,967,295 (42亿)
-64位int –9,223,372,036,854,775,808 ～ 9,223,372,036,854,775,807
-64位uint 0 ～ 18,446,744,073,709,551,615 (千亿万亿级别)
-口试一般只会问到16位，问到64位的面试官不是没经验就是找你茬…
-```
 
-### typedef 给类型取别名
+- `bit`位 : 一位 0 或 1
+- `byte`字节 : 1 字节 = ８位
+- `word`字 : 8位计算机,1字长=8位;16位计算机:１字长=16位;32位计算机: 1字长=32位; 64位计算机: 1字长=64位
+
+#### 浮点数
+
+- 存储 : 正负号 + 小数部分 + 指数部分
+- 计算出现舍入错误的原因: 缺少足够的小数位来完成正确的运算
+
+#### 整数
+
+- 32位取值范围: `int` -20亿 ～ 20亿 , 32位 `unsigned int` 0 ～ 42亿
+- 64位取值范围: `int` – 900 亿亿 ～ 900亿亿; 64位 `unsigned int` 0 ～ 1800 亿亿
+
+### typedef 给数据类型取别名
+
+#### 给int char float 等取别名
 
 ```c
-typedef unsigned char BYTE;
-BYTE  b1, b2;
+// 比如定义一个叫 REAL 的浮点类型，在目标平台一上，让它表示最高精度的类型为：
+typedef long double REAL;
 
-typedef struct Books
-{
-   char  title[50];
-   char  author[50];
-   char  subject[100];
-   int   book_id;
-} Book;
+// 在不支持 long double 的平台二上，改为：
+typedef double REAL;
+
+// 在连 double 都不支持的平台三上，改为：
+typedef float REAL;
+
+// 当跨平台时，只要改下 typedef 本身就行，不用对其他源码做任何修改。甚至可以通过预处理器识别不同平台，自动 typedef
 ```
 
+#### 给数组取别名
+
+```c
+typedef char ARRAY20[20];
+ARRAY20 a1, a2, s1, s2;  // 等价于 char a1[20], a2[20], s1[20], s2[20];
+```
+
+#### 给指针取别名
+
+```c
+typedef int (* PTR_TO_ARR)[4];
+PTR_TO_ARR p1, p2; // 指针，指针类型为 占4个int的数组
+```
+
+#### 给函数指针取别名
+
+```c
+typedef int (* PTR_TO_FUNC)(int, int);
+PTR_TO_FUNC pfunc; // 声明一个指针,指向"参数为(int,int),返回值为int"的函数
+```
+
+#### 给结构体取别名 这样可以少写一个struct
+
+```c
+//  原先
+struct Book { ... }; // 定义结构体
+struct Book bk1; // 使用结构体声明变量, c里使用结构体声明变量要struct开头(c++里不用)，可能就历史遗留问题了
+
+// typedef 后
+typedef struct Book{ ... } Book; // 定义结构Book，并且取别名也为 Book
+Book bk2; // 直接使用别名声明变量
+
+typedef struct student{ ... } Stu_st , *Stu_pst; // 同时给 结构体 和 其指针定义 别名
+Stu_st stu1; // 等价于 struct student stu1
+Stu_pst stu2; // 等价于 struct student* stu2  等价于 Stu_st* stu2
+```
+
+#### 不能在定义 typedef 类型之前 使用这个类型
+
+```c++
+typedef struct
+{
+    char* item;
+    NODEPTR next; // 这里不允许使用 NODEPTR
+} * NODEPTR;
+
+// 以下是正确的方法
+// 1.(推荐)
+typedef struct node
+{
+    char* item;
+    struct node* next;
+} *NODEPTR;
+// 2. 略 不推荐
+// 3. 略 不推荐
+```
+
+#### typedef 与 #define 的区别
+
+```c
+// 1. define可以使用其他类型说明符对宏类型名进行扩展，但对 typedef 所定义的类型名却不能这样做
+#define INTERGE int
+unsigned INTERGE n;  //没问题
+
+typedef int INTERGE;
+unsigned INTERGE n;  //错误，不能在 INTERGE 前面添加 unsigned
+
+// 2. 在连续定义几个变量的时候，typedef 能够保证定义的所有变量均为同一类型，而 #define 则无法保证
+#define PTR_INT int *
+PTR_INT p1, p2; // 宏替换之后: int *p1, p2;
+
+typedef int * PTR_INT
+PTR_INT p1, p2; // 都是指向int的指针
+```
+
+
+
 ### 变量的储存
+
 - 小端法：数据最低位存在内存低地址处
 - 大端法：数据最低位存在内存高地址处
 - 大端法和小端法的区别在于:处理器体系结构不同

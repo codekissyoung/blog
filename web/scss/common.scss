@@ -5,25 +5,27 @@
 .show{
     display: block;
 }
+$article_width: 1000px;
+$backgroud_color:#f5f5d5;
 
 body
 {
-    background: #f5f5d5;
+    background: $backgroud_color;
     margin-top: -20px;
 }
 
 #site-category
 {
-    background: #f5f5d5;
+    background: $backgroud_color;
     position: fixed;
     z-index: 1;
     width: 100%;
     height: 70px;
     box-shadow: 0 1px 5px grey;
 
-    #site-category-contentd
+    #site-category-content
     {
-        width:888px;
+        width:$article_width;
         margin: 0px auto;
         position: relative;
         height: 100%;
@@ -100,7 +102,7 @@ body
 
 #article
 {
-    width: 888px;
+    width: $article_width;
     margin:0px auto;
     border: 1px solid #ddd;
     position: relative;
@@ -130,7 +132,7 @@ body
 
 #article-content
 {
-    background-color:#f5f5d5;
+    background-color: $backgroud_color;
     top: 0px;
     padding:20px;
     padding-left:40px;
@@ -139,35 +141,51 @@ body
     letter-spacing:1px;
     min-height:1000px;
     font-family: "ubuntu";
-    a{
-        color: #636bfb;
+    h1,h2,h3,h4,h5{
+        font-weight:bold;
+        font-family:Georgia, serif;
+        color:#636bfb;
     }
     h1{
-        font-size:22px;
-        color:black;
-        padding-bottom:10px;
-        font-weight:normal;
+        font-size:24px;
+        color: black;
         text-align:center;
     }
     h2{
-        font-weight:normal;
-        font-family:Georgia, serif;
-        font-size:18px;
+        font-size:22px;
         margin:20px 0px 5px 0px;
         margin-top: 40px;
+        color: #6699cc;
     }
     h3{
-        font-weight:normal;
+        font-size:18px;
+        margin-top: 20px;
+        margin-bottom: 5px;
+        margin-left: 22px;
+        color: #3399CC;
+    }
+    h4{
         font-size:16px;
         margin-top: 20px;
         margin-bottom: 5px;
         margin-left: 22px;
+        color: #66CCFF;
+    }
+    h5{
+        font-size:14px;
+        margin-top: 20px;
+        margin-bottom: 5px;
+        margin-left: 22px;
+        color: #99CCFF;
+    }
+    a{
+        color: #99CCFF;
     }
     pre{
         margin: 0px 20px;
         code{
             line-height: 1.3;
-            font-size: 13px;
+            font-size: 14px;
             padding:10px;
             border-radius:5px;
             letter-spacing:0px;
@@ -229,7 +247,7 @@ body
     left: 0px;
     top:0px;
     display: none;
-    background-color:#f5f5d5;
+    background-color:$backgroud_color;
     opacity:0.9;
     z-index:1;
     top:0px;
