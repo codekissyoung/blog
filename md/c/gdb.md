@@ -23,15 +23,15 @@ $gdb cky <PID>        # 指定这个服务程序运行时的进程ID。gdb会自
 (gdb)start             # 重新执行程序
 (gdb)s + 回车           # Step 执行下一行代码
 (gdb)回车               # 直接回车表示，重复上一次命令
-(gdb)finish            # 让程序运行到当前函数返回为止
+(gdb)finish            # 让程序运行到当前函数返回为止
 (gdb)until             # 让程序运行到当前循环结束为止
 (gdb)bt                # 查看当前运行的文件和行
-(gdb)c                 # 程序继续运行至 下一个 调试点处
+(gdb)c                 # 程序继续运行至 下一个 调试点处
 ```
 
 ## 断点
 
-```c
+```c
 (gdb)i break             # 显示当前所有断点信息
 (gdb)b 17                # 17行 打个断点
 (gdb)b func              # func函数处 打个断点
@@ -90,15 +90,15 @@ main (ac=1, av=0x7fffffffe088) at main.c:68
 ## 查看程序内变量的值
 
 ```bash
-(gdb)info locals         # 查看当前作用域内，所有局部变量的值
+(gdb)info locals         # 查看当前作用域内，所有局部变量的值
 (gdb)p var               # 打印变量的值
-(gdb)p &var              # 打印变量的地址
+(gdb)p &var              # 打印变量的地址
 (gdb)p *address          # 打印地址的数据值
-(gdb)p func(5)           # 设定入参，对程序中函数进行调用，看函数返回什么
+(gdb)p func(5)           # 设定入参，对程序中函数进行调用，看函数返回什么
 (gdb)p a                 # 查看当前作用域a的值
 (gdb)p 'f2.c'::x         # 查看f2.c文件中全局变量x的值
 (gdb)p 'f2.c'::sum::x    # 查看f2.c中sum函数中x的值
-(gdb)i registers         # 显示寄存器变量
+(gdb)i registers         # 显示寄存器变量
 
 (gdb)p arr               # 打印静态数组的值
 $3 = {190, 0, 0, 0, 90, 0, 0, 76}
@@ -109,7 +109,7 @@ $3 = {190, 0, 0, 0, 90, 0, 0, 76}
 $22 = 0x65               # f 按浮点数格式显示变量。 o 按八进制格式显示变量。t 按二进制格式显示变量。c 按字符格式显示变量。
 ```
 
-## 查看当前栈下所有变量
+## 查看当前栈下所有变量
 
 ```bash
 (gdb) bt
@@ -124,7 +124,7 @@ sum = 32767
 #1  0x00000000004005fc in main (argc=1, argv=0x7fffffffe088) at main.c:15
 15	    result[0] = add_range(1, 10);
 
-(gdb) i locals           # 打印当前栈(#1) 下 所有局部变量
+(gdb) i locals           # 打印当前栈(#1) 下 所有局部变量
 result = {1, 0, 0, 0, 1, 0}
 ```
 
@@ -133,19 +133,19 @@ result = {1, 0, 0, 0, 1, 0}
 ```bash
 (gdb) p input
 $28 = "54321"
-(gdb) x/7b input         # 打印指定内存的内容，7是表示7个单位，单位是b,表示一个字节,(h表示双字节,w表示4字节,g表示8字节)
-                         # 从input ,char数组第一个字节开始，连续打印7个字节，第六个字节开始就是越界数据了
+(gdb) x/7b input         # 打印指定内存的内容，7是表示7个单位，单位是b,表示一个字节,(h表示双字节,w表示4字节,g表示8字节)
+                         # 从input ,char数组第一个字节开始，连续打印7个字节，第六个字节开始就是越界数据了
 0x7fffffffdf90: 53	52	51	50	49	48	0
 ```
 
-## 自动显示变量
+## 自动显示变量
 
 ```bash
 (gdb) display sum        # 跟踪显示 sum 变量
 1: sum = -1747168440
 (gdb) display input      # 跟踪显示 input 变量
 2: input = "hello"
-(gdb) n                  # 每次程序执行后停下来，都会输出监视的变量的值
+(gdb) n                  # 每次程序执行后停下来，都会输出监视的变量的值
 26	            sum = sum * 10 + input[i] - '0';
 1: sum = -1868769330
 2: input = "hello"
@@ -166,12 +166,12 @@ $28 = "54321"
 (gdb) i locals
 i = 11
 sum = 0
-(gdb) set var sum=10000     # 直接修改程序里当前栈下的变量的值
+(gdb) set var sum=10000     # 直接修改程序里当前栈下的变量的值
 (gdb) i locals
 i = 1
 sum = 10000
-(gdb) p result[2]=33        # 或者直接让 p 执行表达式来改变程序里变量的值
-(gdb) p printf("result[2]=%d",result[2]) # p 命令直接执行表达式
+(gdb) p result[2]=33        # 或者直接让 p 执行表达式来改变程序里变量的值
+(gdb) p printf("result[2]=%d",result[2]) # p 命令直接执行表达式
 ```
 
 ## gdb 设置环境变量
@@ -190,11 +190,11 @@ $39 = 111 'o'
 
 ```bash
 (gdb)handle SIGPIPE nostop  # 设置 SIGPIPE 信号不发送给调试程序，也不停止调试程序
-(gdb)handle SIGPIPE stop    # 设置 接收到 SIGPIPE 信号时，停止程序的执行，并且显示一条已接收到信号的消息
+(gdb)handle SIGPIPE stop    # 设置 接收到 SIGPIPE 信号时，停止程序的执行，并且显示一条已接收到信号的消息
 (gdb)handle SIGPIPE print   # 设置接收到信号时，显示一条消息
-(gdb)handle SIGPIPE noprint # 和上一条相反
-(gdb)handle SIGPIPE pass    # 将信号发送给程序，运行调试程序对信号进行处理
-(gdb)handle SIGPIPE nopass  # 不发送信号给调试程序，并且停止调试程序运行
+(gdb)handle SIGPIPE noprint # 和上一条相反
+(gdb)handle SIGPIPE pass    # 将信号发送给程序，运行调试程序对信号进行处理
+(gdb)handle SIGPIPE nopass  # 不发送信号给调试程序，并且停止调试程序运行
 (gdb)handle SIGPIPE stop print # 例子
 
 (gdb)signal 2               # 发送信号给调试程序命令
@@ -209,7 +209,7 @@ continuing with signal SIGINT(2)
 
 ## 强制函数返回
 
-- 程序调试断点在某个函数内，并且该函数还有语句没执行完，可以使用return命令强制函数忽略未执行的语句，并返回return命令的值
+- 程序调试断点在某个函数内，并且该函数还有语句没执行完，可以使用return命令强制函数忽略未执行的语句，并返回return命令的值
 
 ```bash
 (gdb)return 54321 # 让sum函数立即返回 54321
@@ -244,18 +244,18 @@ done.
 (gdb) p i
 $1 = 11
 
-(gdb)detach # 离开进程，进而让进程继续执行
+(gdb)detach # 离开进程，进而让进程继续执行
 (gdb)kill   # 终止这个进程
 ```
 
-## 调试多进程 ( GDB > V7.0 )
+## 调试多进程 ( GDB > V7.0 )
 
 | follow-fork-mode |  detach-on-fork |  说明 |
 | ---------------- | --------------- |------ |
 | parent | on  | 只调试主进程 GDB默认 |
 | child  | on  | 只调试子进程 |
-| parent | off  | 同时调试两个进程，gdb跟主进程，子进程停在fork位置 |
-| child  | off  | 同时调试两个进程，gdb跟子进程，主进程停在fork位置 |
+| parent | off  | 同时调试两个进程，gdb跟主进程，子进程停在fork位置 |
+| child  | off  | 同时调试两个进程，gdb跟子进程，主进程停在fork位置 |
 
 ```bash
 (gdb)set follow-fork-mode child
