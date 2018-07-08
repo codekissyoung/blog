@@ -395,6 +395,7 @@ int ( * func_arr[10] )( int ,int );
 - 在 网络协议中 ,通信控制,嵌入式系统,驱动开发 等地方，我们传送的不是简单的字节流(char 型数组),而是多种数据组合起来的一个整体，其表现形式是一个结构体
 - 空结构体：一个字节大小，不可能造出 没有任何容量的容器吧
 - C语言中的结构体并不能直接进行强制类型转换，只有结构体的指针可以进行强制类型转换
+- 和数组不同的是,结构名并不是结构的地址
 
 ```c
 // 定义结构体类型
@@ -405,10 +406,10 @@ struct Books
    char  subject[100];
    int   book_id;
 };
-// 使用结构体类型 声明变量
+// 使用结构体类型 声明变量
 struct Books b1, b2;
 
-// 也可以用typedef创建新类型
+// 也可以用typedef创建新类型
 typedef struct
 {
     int a;
@@ -425,19 +426,65 @@ struct NODE
     struct NODE *next_node;
 };
 
-struct B;    //对结构体B进行不完整声明
-//结构体A中包含指向结构体B的指针
-struct A
-{
-    struct B *partner;
-    //other members;
-};
-
 typedef struct Student {char *name,int age}std, *pstd; //定义结构体struct Student,取别名为std
 std st1 = {"codekissyoung",21}; // 定义一个std结构体变量
 pstd pst1 = &st1;               // 定义一个std结构体指针,指向st1
 st1.name = "hello li";          // 结构体访问单个元素
 pst->name;                      // 通过结构体指针访问单个元素
+
+struct book library[10]; // book结构的数组
+library[2].title;        // 使用结构数组内的变量
+
+// 嵌套结构
+struct names{
+    char first[10];
+    char last[10];
+};
+struct guy{
+    struct names handle; // 嵌套结构
+    char favfood[10];
+    char job[10];
+    float income;
+};
+struct guy fellow = {
+    // 初始化代码
+};
+printf("%s\n",fellow.names.first); // 使用嵌套结构内变量
+
+struct guy fellow[2] = {
+    {
+        {"code","kissyoung"},
+        "abcdefg",
+        "editor",
+        1000
+    },
+    {
+        // ...
+    }
+};
+struct guy *him; // 指向guy结构的指针
+him = &fellow[0]; // 该指针指向结构数组的第一个元素
+printf(" %s %s %s\n",him->income,(*him).income,him->handle.last); // 两种方法使用数组内的元素
+
+// 使用指针向函数传递结构 有const 保证函数不会修改结构的内容，如果需要修改则不用const
+double sum(const struct funds *money){
+    // code
+}
+// 处理结构数组的函数
+double sum(const struct funds money [],int n){
+    // code
+}
+
+// 结构中的字符数组和字符指针
+struct names{
+    char first[20];
+    char last[20];
+};
+// vs
+struct names{
+    char *first;
+    char *last;
+}; // 在输入数据到　first 中时会有问题，因为该指针根本没有指向的内存地址以及它的大小
 ```
 
 #### 结构体内存对齐
@@ -563,6 +610,7 @@ printf("pz[0][0] = %d,pz[0][1]:%d \n",pz[0][0],pz[0][1]);
 ### 函数指针
 
 - `函数指针` : 指向函数。函数指针可以像一般函数一样，用于调用函数、传递参数
+- 声明一个指向函数的指针，函数指针常用作另一个函数的参数
 
 ```c
 int (* p_fun)( int , int);
@@ -600,6 +648,11 @@ int array[][4];          // 定义二维数组
 int *p2array = array;    // 二维数组的指针
 *(*(p2array+3)+2)        // 等价于 array[3][2] 等价于 p2array[3][2]
 
+void ToUpper(char *); // 函数
+void (*pf)(char *); // 指向函数的指针
+
+// 区别于
+void *pf(char *); // pf 是一个函数，它返回字符指针
 ```
 
 ### 指针的指针
