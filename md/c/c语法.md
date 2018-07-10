@@ -6,19 +6,18 @@
 
 ### 声明和定义
 
-```c
-// 声明
-int a;
-extern int max(int a,int b);
-
-// 定义
-int a = 10;
-int max(int a,int b){ ... }
-```
-
-- 声明是只告知编译器该变量的存在,不分配存储空间
+- 声明: 只告知编译器该变量的存在,不分配内存空间;
+- 定义: 不但告知编译器该变量的存在,而且还分配内存空间
 - 多个定义是错误的，多个声明是可以的
 - 没有定义就把声明当定义,最后都是以定义为准
+
+```c
+int a;  // 声明
+extern int max(int a,int b); // 声明，定义可能在别的文件
+
+int a = 10; // 定义
+int max(int a,int b){ ... } // 定义
+```
 
 ### 局部变量
 
@@ -28,15 +27,13 @@ int max(int a,int b){ ... }
 
 #### 静态局部变量
 
-- 只有在定义它的函数内部才能访问到
-- 在函数内部使用`static`关键字声明，它不会随着函数的返回而消失，下次调用该函数时，`静态局部变量`保持上次函数退出时的值
-- 在函数调用完毕 `return` 后，静态变量并不会被销毁，而是保持其值
-- 这次调用 `trystat` 函数中静态变量的值，就是上次调用 `stystat` 结束时，静态变量保存的值
+- 在函数内部使用`static`关键字声明，只有在定义它的函数内部才能访问到
+- 在函数调用完毕 `return` 后，静态局部变量并不会被销毁，而是保持其值; 下次调用该函数时,静态局部变量仍然可以被访问
 
 ```c
 void trystat(void){
     int fade = 1;
-    static int stay = 2; // 静态变量
+    static int stay = 2; // 静态局部变量
     printf("fade = %d , stay = %d \n",fade++,stay++);
 }
 ```
@@ -50,14 +47,14 @@ void trystat(void){
 
 #### 文件全局变量
 
-- `static` 限制 `head` 只能在本文件中访问,用户企图在其他文件中直接操作 `node` 是不可能的
-- 同时暴露出 `insert`  `print` 函数作为外部操作该链表的接口
-- 在模块内，但在函数体外，一个被声明为静态的 **变量** 或者 **函数** 可以被模块内所用函数访问，但不能被模块外其它函数访问。它是一个本地的全局变量
+- `static` 限制 变量`head` 和函数 `func()` 只能在本文件中访问; 在其他文件中，`head` 和 `func()` 是不可见的
+- 利用这点可以进行C的模块化编程: 在模块内，`static`声明模块内的私有变量和函数；同时暴露 `insert()`  `print()` 等函数作为外部使用本模块的接口
 
 ```c
 // node.c
 typedef struct node *Node;
 static Node head;
+static func(){ ... }
 int insert(int val){ ... }
 void print(){ ... }
 
@@ -83,62 +80,55 @@ printf("%f \n",a); // 5
 - 变量同名屏蔽
 
 ```c
-int a = 10; //全局变量
+int a = 10; // 全局变量
 int func(){
-    int a = 20 ; //局部变量，屏蔽全局变量
+    int a = 20 ; // 局部变量，屏蔽全局变量
 }
 int func2(){
     printf('%d',a); // 函数内部可以直接使用全局变量
 }
 ```
 
-- `return` 局部变量错误
-- `str`    属于局部变量，位于栈内存中，在`Func`结束的时候被释放，所以返回str将导致错误。
-- `return` 语句不可返回指向栈内存的指针 , 因为该内存在函数体结束时被自动销毁。
-- `return ;` 这个语句没有问题，只表示函数的结束
+- `return` 语句不可返回指向栈内存的指针 , 因为该内存在函数体结束时被自动销毁。`return ;`表示函数的结束
 
 ```c
 char *Func ( void )
 {
     char str[30];
-    return str;
+    return str; // 错误
 }
 ```
 
 ## 常量
 
-- `const` 给出的是变量对应的内存地址，所以在运行过程中只有一份，为只读变量 ，放在静态区，具有特定的类型
+- `const` 可以修饰变量、函数的参数、返回值(修饰返回值好像没什么实际用处)。表示对应的内存只读。
 - `#define` 给出的是立即数，宏是在预编译时进行替换，有若干个拷贝，没有类型
-- `const` 可以修饰函数的参数、返回值，甚至函数的定义体。被`const`修饰的东西都受到强制保护，可以预防意外的变动，能提高程序的健壮性。
 
 ```c
-#define NAME "codekissyoung"
-const char *name = "codekissyoung";
-const    int    a[5] = {1,2,3,4,5}; // 数组的值是只读的了
+#define M 3 // 定义宏 M
 
-#define M 3
-const int N = 5; // 此时并未将 N 放入 内存中
-int    i = N;    // 此时 为 N 分配内存 以后不再分配
-int    I = M;    // 预编译期间 进行宏替换 分配内存
-int    j = N;    // 使用    N    上次的内存
-int    J = M;    // 再进行宏替换，又一次分配内存
+const int N = 5; // N 只读
 
-// 编译器 解析时 忽略类型名，并且 const 离谁近 ，就修饰谁
-const int *p;    // 修饰指针, p的指向可变, 但指向的对象的值只读
-int const *p;    // 修饰指针, 同上
-int* const p;    // p 不可变, p指向的对象可变 指针不能变
-const int* const p;    // p的指向不可变, 但指向的对象的值只读 指针和指针指向的值均不能变
+const    int    a[5] = {1,2,3,4,5}; // 数组只读
+
+const int *p;    // 指针指向的对象只读
+int const *p;    // 同上
+
+int* const p;    // 指针本身的地址不能变，但其指向的对象的值可变
+
+const int* const p; // 指针本身的地址不能变，其指向的对象只读
 
 void Fun ( const int i ); // 告诉编译器，i 在函数体中 的值不能改变，从而防止了一些无意的修改
+
 const int Fun( void );     // 返回值不可 被改变
+
 extern const int i;      // 引用在另一个文件中  const 只读变量
-extern const int j = 10; // 错误，只读变量 的值 不能改变
 
 void display( const int array[], int limit ); // array 指向的值是不能变的
+
 void display( const int *array, int limit );  // array 指向的值是不能变的
 
-// 如果传入函数中的内存地址处的值只是用来 读取的，就const ;如果是要改变的，那就不加
-char *strcat( char *, const char* );
+char *strcat( char *, const char* ); // 第一个参数在函数内可以被修改，第二个参数只读
 ```
 
 ## 数据类型
@@ -161,14 +151,33 @@ char *strcat( char *, const char* );
 
 ### 数组
 
+#### 数组初始化
+
+```c
+int a[3] = {10,9};
+int a[] = {11, 7, 6};
+// 指定初始化器 (C99标准)
+int arr[6] = {0,89,[5]=212}; //指定第6个元素的值为212
+```
+
+- 数组元素个数
+
+```c
+int count = sizeof(days) / sizeof(days[0]);
+```
+
+- 数组类型是数组元素的类型，`数组名`是指向数组首地址的常量指针，即数组名的地址不可变
+
+```c
+short dates[4];
+short *p = dates;
+```
+
 #### 一维数组
 
 - c 不允许数组作为一个单元赋值给另一个数组
 
 ```c
-double balance[] = {1000.0, 2.0, 3.4, 7.0, 50.0}; // 定义和初始化数组
-balance[4] = 50.0; // 使用数组里的项
-
 int oxen[4] = {1,2,3,4};
 int yaks[4];
 yaks = oxen;
@@ -178,16 +187,32 @@ yaks = oxen;
 
 #### 字符串
 
-- 字符串是以 `\0` 结尾的char类型数组
-- `\0` 字符的 ASSIC码是 0, 系统检测到该字符时,就认为字符串已经结束了
+- 字符串是以 `\\0` 结尾的char类型数组
+- `\\0` 字符的 ASSIC码是 \\000, 系统检测到该字符时,就认为字符串已经结束了
+- `"string"` 双引号的字符串写法，编译器会在字符`g`后面自动补上`\\0`
 
 ```c
+// 编译器自动将这些字符一个一个放入到 words 数组中
 char words[100] = "i am string in array";
+
+// 编译器自动将这些字符一个一个放入到 auto_words 数组中, 并且数组的大小会自动计算出来
 char auto_words[] = "i am created in auto size";
+
+// 编译器将 字符串 标量处的 内存地址 赋值给指针 str, 对于 str 指向处的值，你可以使用，但不可以修改，即只读的！
 char *str = "something is pointing at me";
-puts("Here are some strings");
-puts(words);
-puts(str);
+```
+
+#### 字符数组
+
+```c
+char c[] = {'c', ' ','p','r','o','g','r','a','m','\0'};
+// 等价于
+char c[]="C program";
+
+// 二维数组 存放 字符数组
+char names[6][50] = {"马超","关平","赵云","张飞","关羽","刘备"};
+for (int i = 0; i < 6; i++)
+    printf("悍将名称：%s\n",names[i]);
 ```
 
 - 字符char与字符串区别 : `"s"` 等价于 `s` `\\0`  两个字符连起来
@@ -195,8 +220,8 @@ puts(str);
 ```c
 char ch = "A"; //错误
 char ch = 'A'; //正确
-const char *ch  = "A";//正确
-const char *ch = 'ch'; //错误
+char *ch = "A";//正确
+char *ch = 'ch'; //错误
 ```
 
 - 数组字符串与指针字符串的区别 : 字符常量MSG存储在静态存储区，ar数组则是开辟一块内存，将MSG拷贝至该内存处，而指针则是直接指向MSG的内存地址
@@ -204,36 +229,25 @@ const char *ch = 'ch'; //错误
 ```c
 // 数组字符串和指针字符串的区别
 #define MSG "I am special"
-char ar[] = MSG;
-char *pt = MSG;
 printf("MSG : %p \n",MSG); // 字面量存储的位置 MSG : 0x555de31918b6
+
+char ar[] = MSG;
 printf("ar : %p \n",ar);   // 数组存储的位置 ar : 0x7ffe8fe15160
+ar[5] = 's';               // 正确，因为是拷贝的的副本，可以随意更改
+
+char *pt = MSG;
 printf("pt : %p \n",pt);   // 指针指向的位置 pt : 0x555de31918b6
+pt[5] = 's';               // 编译错误，不能更改字符串字面量存储处的值
 
-pt[5] = 's';  // 编译错误，不能更改字符串字面量存储处的值
-ar[5] = 's'; // 正确，因为是拷贝的的副本，可以随意更改
-```
 
-- 指针名和数组名的区别 : 数组名的指向是固定的，不能改变，而指针可以
-
-```c
-int arr[] = "array";
-int *p = "pointer";
-arr++; // 错误
-p++;// 正确
-
-// 分配空间
-char *name;
+char *name; // 不分配空间
 scanf("%s",name); // 编译错误，未初始化指针
-// 初始化数组，同时指定大小
-// 不要指望计算机在读取字符串时候，顺便计算字符串的大小;
-// 然后分配空间，应该是先分配好空间，然后将输入的字符串拷贝到该空间
-char name[18];
-scanf("%s",name);
 
+char name[18]; // 先分配好空间，然后将输入的字符串拷贝到该空间
+scanf("%s",name);
 ```
 
-- 字符串数组：指针是不规则的，数组是规则的
+- 字符串数组：指针指向的内存地址是不规则的，会根据字符串的大小而变化，数组元素之间的内存地址是规则的
 
 ```c
 const char *pointer_str[5] = {
@@ -243,31 +257,30 @@ const char *pointer_str[5] = {
     "xxixixixi",
     "codsdadfsssss"
 };
+for(int k = 0;k < 5;k++)
+    printf("pointer_str[%d] : %p : %s \n",k,pointer_str[k],pointer_str[k]);
+// 运行结果 ：
+// pointer_str[0] : 0x401930 : str
+// pointer_str[1] : 0x401934 : string2 ,sdfadfsfssdfasfsa
+// pointer_str[2] : 0x40194f : string3 hdhdhdh
+// pointer_str[3] : 0x40195f : xxixixixi
+// pointer_str[4] : 0x401969 : codsdadfsssss
+
+// 每个数组元素之间相差 40 个字节
 char array_str[5][40] = {
     "sdfaiisisis",
     "xixixiix sss",
     "hahah",
     "codekissyoung"
 };
-
-for(int k = 0;k < 5;k++){
-    printf("pointer_str[%d] : %p : %s \n",k,pointer_str[k],pointer_str[k]);
-}
-for(int p = 0;p < 5;p++){
+for(int p = 0;p < 5;p++)
     printf("array_str[%d] : %p : %s \n",p,array_str[p],array_str[p]);
-}
-
-// 运行结果
-// pointer_str[0] : 0x5594198a79e6 : str
-// pointer_str[1] : 0x5594198a79ea : string2 ,sdfadfsfssdfasfsa
-// pointer_str[2] : 0x5594198a7a05 : string3 hdhdhdh
-// pointer_str[3] : 0x5594198a7a15 : xxixixixi
-// pointer_str[4] : 0x5594198a7a1f : codsdadfsssss
-// array_str[0] : 0x7fff8107c7a0 : sdfaiisisis
-// array_str[1] : 0x7fff8107c7c8 : xixixiix sss
-// array_str[2] : 0x7fff8107c7f0 : hahah
-// array_str[3] : 0x7fff8107c818 : codekissyoung
-// array_str[4] : 0x7fff8107c840 :  
+// 运行结果：
+// array_str[0] : 0x7ffc689c84b0 : sdfaiisisis
+// array_str[1] : 0x7ffc689c84d8 : xixixiix sss
+// array_str[2] : 0x7ffc689c8500 : hahah
+// array_str[3] : 0x7ffc689c8528 : codekissyoung
+// array_str[4] : 0x7ffc689c8550 :  
 ```
 
 #### 多维数组
@@ -286,6 +299,11 @@ int a[3][4] = {
 - 处理多维数组的函数
 
 ```c
+// 在函数定义时对形参数组可以指定每一维的长度，也可省去第一维的长度。因此，以下写法都是合法的
+int MA(int a[3][10])
+int MA(int a[][10])
+int MA(int a[][10],n)
+
 // pt指向的是一个包含4个int类型的一维数组
 void func(int pt[][4]);
 void func(int (*pt)[4]); //等价上句
@@ -295,67 +313,20 @@ int sum4d(int ar[][12][20][30],int rows);
 int sum4d(int (*ar)[12][20][30],int rows); // 等价上句,ar指向一个 12 x 20 x 30 的int数组
 ```
 
-#### 二维数组作为参数
-
-- 多维数组也可以作为函数的参数。在函数定义时对形参数组可以指定每一维的长度，也可省去第一维的长度。因此，以下写法都是合法的
-
-```c
-int MA(int a[3][10])
-int MA(int a[][10])
-int MA(int a[][10],n)
-```
-
-#### 字符数组
-
-```c
-char c[] = {'c', ' ','p','r','o','g','r','a','m','\0'};
-// 等价于
-char c[]="C program";
-
-// 二维数组 存放 字符数组
-char names[6][50] = {"马超","关平","赵云","张飞","关羽","刘备"};
-for (int i = 0; i < 6; i++)
-    printf("悍将名称：%s\n",names[i]);
-```
-
-#### 数组元素个数
-
-```c
-int count = sizeof(days) / sizeof(days[0]);
-```
-
-#### 数组初始化方式
-
-```c
-int a[3] = {10,9};
-int a[] = {11, 7, 6};
-// 指定初始化器 (C99标准)
-int arr[6] = {0,89,[5]=212}; //指定第6个元素的值为212
-```
-
-#### 数组名
-
-- 数组类型是数组元素的类型，数组名是指向数组首地址的指针，`scanf()` 的参数列表必须是指针
-
-```c
-short dates[4];
-short *p = dates;
-```
-
 #### 数组越界
 
 - gcc编译器只会给出警告,然后继续编译，越界处的值是随机的
 - 为了防止数组出现越界的情况，使用符号常量申明数组是很有必要的
 
 ```c
-const int days[] = {31,28,31,30,31,30,31,31,30,31,30,31,[13]=67};
-// 越界数组
-printf("days[-1]: %d,地址:%p \n",days[-1],&days[-1]);
-printf("days[14]: %d,地址:%p \n",days[14],&days[14]);
-
-#define SIZE 4
-int main(){
-    int arr[SIZE];
+int main(int argc, char *argv[])
+{
+    int i;
+    int a[10];
+    // i = 10 时，数组是越界的，在某些编译器下，a[10]处的内存地址正好是 i 的地址，所以 i 会被赋值为0; 程序死循环
+    for(i = 0; i <= 10; i++)
+        a[i] = 0;
+    return 0;
 }
 ```
 
@@ -364,7 +335,7 @@ int main(){
 - 变长数组的变不是可以修改已经创建的数组的大小。变长数组一旦创建，它的大小是保持不变的。变指的是，在创建数组时，可以使用变量指定数组的维度。
 
 ```c
-int sum2d(int rows,int cols,int ar[rows][cols]); // rows　和　cols 必须在 ar 前面
+// rows　和　cols 必须在 ar 前面
 int sum2d(int rows,int cols,int ar[rows][cols]){
     int r;
     int c;
@@ -381,13 +352,13 @@ int sum2d(int rows,int cols,int ar[rows][cols]){
 #### 指针数组
 
 ```c
-int* point_arr[10];
+int *point_arr[10];
 ```
 
 #### 函数指针数组
 
 ```c
-int ( * func_arr[10] )( int ,int );
+int ( *func_arr[10] )( int, int );
 ```
 
 ### 结构体
