@@ -3,23 +3,20 @@ include_once '../config.php';
 
 $host         = $_SERVER["HTTP_HOST"];
 
-
 $protocol = 'http://';
 if( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' )
     $protocol = 'https://';
 if( isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
     $protocol = 'https://';
 
-
-// 博客当前访问文章
-$article_path = isset($_SERVER['PATH_INFO']) ? $_SERVER["PATH_INFO"] : '';
-if( $article_path )
-    $article = MD_ROOT."{$article_path}.md";
+$current_article = isset($_SERVER['PATH_INFO']) ? $_SERVER["PATH_INFO"] : '';
+if( $current_article )
+    $article = MD_ROOT."{$current_article}.md";
 else
     $article = MD_ROOT.'/link.md';
 
 
-$title  = trim(join('-',explode("/",$article_path))."-CodeKissYoung Blog",'-');
+$title  = trim(join('-',explode("/",$current_article))."-CodeKissYoung Blog",'-');
 
 
 // 加载文章内容
@@ -53,7 +50,7 @@ if( isset($_GET['ajax']) )
     include_once 'view/article.php';
 else
 {
-    $category = file_tree_print( file_tree( MD_ROOT ) , $article_path );
+    $category = file_tree_print( file_tree( MD_ROOT ) , $current_article );
     include_once 'view/index.php';
 }
 
