@@ -42,5 +42,7 @@
                 </div>
             </div>
         </div>
+        <div id="site-footer">
+        </div>
     </body>
 </html>
