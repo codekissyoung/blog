@@ -1,153 +1,68 @@
-# C 语法 概念
-
-## 变量
-
-- 变量用于存储计算过程中的值，变量具有类型如 `int` `float` `char`
-
-### 声明和定义
-
-- 声明: 只告知编译器该变量的存在,不分配内存空间;
-- 定义: 不但告知编译器该变量的存在,而且还分配内存空间
-- 多个定义是错误的，多个声明是可以的
-- 没有定义就把声明当定义,最后都是以定义为准
-
-```c
-int a;  // 声明
-extern int max(int a,int b); // 在别的源文件定义的 max 函数，如果想在本文件使用它，则使用 extern 声明它
-
-int a = 10; // 定义
-int max(int a,int b){ ... } // 定义
-```
-
-### 局部变量
-
-#### 自动局部变量
-
-- 在函数内部声明与使用的变量，随着函数的调用而创建，随着函数的返回而回收消失
-
-#### 静态局部变量
-
-- 在函数内部使用`static`关键字声明，只有在定义它的函数内部才能访问到
-- 在函数调用完毕 `return` 后，静态局部变量并不会被销毁，而是保持其值; 下次调用该函数时,静态局部变量仍然可以被访问
-
-```c
-void trystat(void){
-    int fade = 1;
-    static int stay = 2; // 静态局部变量
-    printf("fade = %d , stay = %d \n",fade++,stay++);
-}
-```
-
-### 全局变量
-
-#### 程序全局变量
-
-- 在函数外部定义的变量即为`全局变量`，在本文件引用别的文件定义的`全局变量`(为了保持全局变量的唯一性),可以使用`extern`声明它
-- `extern` 置于函数或者变量前，告诉编译器此变量和函数在其他模块（不在本文件）中寻找其定义
-
-#### 文件全局变量
-
-- `static` 限制 变量`head` 和函数 `func()` 只能在本文件中访问; 在其他文件中，`head` 和 `func()` 是不可见的
-- 利用这点可以进行C的模块化编程: 在模块内，`static`声明模块内的私有变量和函数；同时暴露 `insert()`  `print()` 等函数作为外部使用本模块的接口
-
-```c
-// node.c
-typedef struct node *Node;
-static Node head;
-static func(){ ... }
-int insert(int val){ ... }
-void print(){ ... }
-
-// node.h
-extern int insert(int val);
-extern void print();
-extern void destroy();
-```
-
-#### 作用域
-
-- 块作用域
-
-```c
-int a = 5;
-{
-    int a = 10;
-    printf("%f\n",a); // 10
-}
-printf("%f \n",a); // 5
-```
-
-- 变量同名屏蔽
-
-```c
-int a = 10; // 全局变量
-int func(){
-    int a = 20 ; // 局部变量，屏蔽全局变量
-}
-int func2(){
-    printf('%d',a); // 函数内部可以直接使用全局变量
-}
-```
-
-- `return` 语句不可返回指向栈内存的指针 , 因为该内存在函数体结束时被自动销毁。`return ;`表示函数的结束
-
-```c
-char *Func ( void )
-{
-    char str[30];
-    return str; // 错误
-}
-```
-
-## 常量
-
-- `const` 可以修饰变量、函数的参数、返回值(修饰返回值好像没什么实际用处)。表示对应的内存只读。
-- `#define` 给出的是立即数，宏是在预编译时进行替换，有若干个拷贝，没有类型
-
-```c
-#define M 3 // 定义宏 M
-
-const int N = 5; // N 只读
-
-const    int    a[5] = {1,2,3,4,5}; // 数组只读
-
-const int *p;    // 指针指向的对象只读
-int const *p;    // 同上
-
-int* const p;    // 指针本身的地址不能变，但其指向的对象的值可变
-
-const int* const p; // 指针本身的地址不能变，其指向的对象只读
-
-void Fun ( const int i ); // 告诉编译器，i 在函数体中 的值不能改变，从而防止了一些无意的修改
-
-const int Fun( void );     // 返回值不可 被改变
-
-extern const int i;      // 引用在另一个文件中  const 只读变量
-
-void display( const int array[], int limit ); // array 指向的值是不能变的
-
-void display( const int *array, int limit );  // array 指向的值是不能变的
-
-char *strcat( char *, const char* ); // 第一个参数在函数内可以被修改，第二个参数只读
-```
+# C 语法
 
 ## 数据类型
 
-### 类型单位
-
 - `bit`位 : 一位 0 或 1
 - `byte`字节 : 1 字节 = ８位
-- `word`字 : 8位计算机,1字长=8位;16位计算机:１字长=16位;32位计算机: 1字长=32位; 64位计算机: 1字长=64位
+- `word`字 : 32位计算机: 1字长=32位; 64位计算机: 1字长=64位
 
 ### 整数
 
-- 32位取值范围: `int` -20亿 ～ 20亿 , 32位 `unsigned int` 0 ～ 42亿
-- 64位取值范围: `int` – 900 亿亿 ～ 900亿亿; 64位 `unsigned int` 0 ～ 1800 亿亿
+- char: 有符号 8 位整数。
+- short: 有符号 16 位整数。
+- int: 有符号 32 位整数。
+  - 32位取值范围: `int` -20亿 ～ 20亿 , 32位 `unsigned int` 0 ～ 42亿
+- long: 在 32 位系统是 32 整数 (long int),在 64 位系统则是 64 位整数
+  - 64位取值范围: – 900 亿亿 ～ 900亿亿 或者 0 ～ 1800 亿亿
+- long long: 有符号 64 位整数 (long long int)。
+- bool: `_Bool`类型,8 位整数,在`stdbool.h` 中定义了 `bool / true / false` 宏便于使用
+- `stdint.h` 定义了 `uint64_t` `int64_t` 等在任何操作系统上，位数更加准确的类型,还定义了大小限制
+- 字符常量 `char c = 'a';` 默认是 个`int` 整数,但编译器可以决定将其解释为`char`或`int`
+- `stdint`定义了后缀表示常数的常量类型，`56U` 表示 `unsigned int`, `76LL`表示 `76` 类型是`long long`
+
+```c
+#if __WORDSIZE == 64
+    typedef long int int64_t;
+    typedef unsigned long int uint64_t;
+    typedef unsigned long int uintptr_t;  /* void * 指针值的类型 */
+    #define __INT64_C(c) c ## L
+    #define __UINT64_C(c) c ## UL /* 宏定义中的 "##" 运算符表 把左和右结合在 起,作为 个符号 */
+#else
+    __extension__
+    typedef long long int int64_t;
+    typedef unsigned long long int  uint64_t;
+    typedef unsigned int uintptr_t; /* void*的类型,常用 sizeof(char*) 来兼容处理32位与64位*/
+#endif
+
+#define INT32_MIN (-2147483647-1)
+#define INT32_MAX (2147483647)
+#define INT64_MIN (-__INT64_C(9223372036854775807)-1)
+#define INT64_MAX (__INT64_C(9223372036854775807))
+```
 
 ### 浮点数
 
 - 存储 : 正负号 + 小数部分 + 指数部分
 - 计算出现舍入错误的原因: 缺少足够的小数位来完成正确的运算
+
+### 枚举
+
+- 可以代替宏定义常量使用
+
+```c
+enum color { black, red = 5, green, yellow }; // 定义
+enum color b = black;
+enum color r = red;
+enum color g = green;
+enum color y = yellow;
+printf("black = %d red = %d green = %d yellow = %d", b, r, g, y); // 0 5 6 7
+
+enum { BLACK = 1, RED, GREEN = 1, YELLOW };
+printf("black = %d\n", BLACK);
+printf("red = %d\n", RED);
+printf("green = %d\n", GREEN);
+printf("yellow = %d\n", YELLOW);
+```
 
 ### 数组
 
@@ -515,6 +430,135 @@ union Data d1;
 strcpy( d1.str, "codekissyoung" );
 ```
 
+## 变量
+
+### 声明和定义
+
+- 声明: 只告知编译器该变量的存在,不分配内存空间;
+- 定义: 不但告知编译器该变量的存在,而且还分配内存空间
+- 多个定义是错误的，多个声明是可以的
+- 没有定义就把声明当定义,最后都是以定义为准
+
+```c
+int a;  // 声明
+extern int max(int a,int b); // 在别的源文件定义的 max 函数，如果想在本文件使用它，则使用 extern 声明它
+
+int a = 10; // 定义
+int max(int a,int b){ ... } // 定义
+```
+
+### 局部变量
+
+#### 自动局部变量
+
+- 在函数内部声明与使用的变量，随着函数的调用而创建，随着函数的返回而回收消失
+
+#### 静态局部变量
+
+- 在函数内部使用`static`关键字声明，只有在定义它的函数内部才能访问到
+- 在函数调用完毕 `return` 后，静态局部变量并不会被销毁，而是保持其值; 下次调用该函数时,静态局部变量仍然可以被访问
+
+```c
+void trystat(void){
+    int fade = 1;
+    static int stay = 2; // 静态局部变量
+    printf("fade = %d , stay = %d \n",fade++,stay++);
+}
+```
+
+### 全局变量
+
+#### 程序全局变量
+
+- 在函数外部定义的变量即为`全局变量`，在本文件引用别的文件定义的`全局变量`(为了保持全局变量的唯一性),可以使用`extern`声明它
+- `extern` 置于函数或者变量前，告诉编译器此变量和函数在其他模块（不在本文件）中寻找其定义
+
+#### 文件全局变量
+
+- `static` 限制 变量`head` 和函数 `func()` 只能在本文件中访问; 在其他文件中，`head` 和 `func()` 是不可见的
+- 利用这点可以进行C的模块化编程: 在模块内，`static`声明模块内的私有变量和函数；同时暴露 `insert()`  `print()` 等函数作为外部使用本模块的接口
+
+```c
+// node.c
+typedef struct node *Node;
+static Node head;
+static func(){ ... }
+int insert(int val){ ... }
+void print(){ ... }
+
+// node.h
+extern int insert(int val);
+extern void print();
+extern void destroy();
+```
+
+#### 作用域
+
+- 块作用域
+
+```c
+int a = 5;
+{
+    int a = 10;
+    printf("%f\n",a); // 10
+}
+printf("%f \n",a); // 5
+```
+
+- 变量同名屏蔽
+
+```c
+int a = 10; // 全局变量
+int func(){
+    int a = 20 ; // 局部变量，屏蔽全局变量
+}
+int func2(){
+    printf('%d',a); // 函数内部可以直接使用全局变量
+}
+```
+
+- `return` 语句不可返回指向栈内存的指针 , 因为该内存在函数体结束时被自动销毁。`return ;`表示函数的结束
+
+```c
+char *Func ( void )
+{
+    char str[30];
+    return str; // 错误
+}
+```
+
+## 常量
+
+- `const` 可以修饰变量、函数的参数、返回值(修饰返回值好像没什么实际用处)。表示对应的内存只读。
+- `#define` 给出的是立即数，宏是在预编译时进行替换，有若干个拷贝，没有类型
+
+```c
+#define M 3 // 定义宏 M
+
+const int N = 5; // N 只读
+
+const    int    a[5] = {1,2,3,4,5}; // 数组只读
+
+const int *p;    // 指针指向的对象只读
+int const *p;    // 同上
+
+int* const p;    // 指针本身的地址不能变，但其指向的对象的值可变
+
+const int* const p; // 指针本身的地址不能变，其指向的对象只读
+
+void Fun ( const int i ); // 告诉编译器，i 在函数体中 的值不能改变，从而防止了一些无意的修改
+
+const int Fun( void );     // 返回值不可 被改变
+
+extern const int i;      // 引用在另一个文件中  const 只读变量
+
+void display( const int array[], int limit ); // array 指向的值是不能变的
+
+void display( const int *array, int limit );  // array 指向的值是不能变的
+
+char *strcat( char *, const char* ); // 第一个参数在函数内可以被修改，第二个参数只读
+```
+
 ## 指针
 
 - `指针` : 指针是一个变量，其值为另一个变量的起始内存地址，指针的类型决定了如何取该内存地址后面的数据(取几个字节，如何切分)
@@ -746,6 +790,122 @@ int func(int a, int b, ... )
 
 - [用法参考](https://www.cnblogs.com/edver/p/8419807.html)
 - [可变参数实现](https://blog.csdn.net/smstong/article/details/50751121)
+
+### 函数类型 与 函数指针类型
+
+```c
+void test() { printf("%s\n", __func__); }
+
+typedef void(func_t)(); // 函数类型
+typedef void(*func_ptr_t)(); // 函数指针类型
+
+int main(int argc, char* argv[])
+{
+    func_t* func = test;     // 使用函数类型 声明一个指针变量
+    func_ptr_t func2 = test; // 使用函数指针类型 声明一个指针变量
+    void (*func3)(); // 声明 个包含函数原型的函数指针变量
+    func3 = test;
+
+    func();
+    func2();
+    func3();
+
+    return EXIT_SUCCESS;
+}
+```
+
+### gcc  持嵌套函数扩展
+
+```c
+typedef void(*func_t)();
+func_t test()
+{
+    void func1(){
+        printf("%s\n", __func__);
+    }
+    return func1;
+}
+int main(int argc, char* argv[])
+{
+    test()();
+    return EXIT_SUCCESS;
+}
+```
+
+- 内层函数可以 "读写" 外层函数的参数和变量,外层变量必须在内嵌函数之前定义
+
+```c
+#define pp() ({ \
+    printf("%s: x = %d(%p), y = %d(%p), s = %s(%p);\n", __func__, x, &x, y, &y, s, s); \
+})
+void test2(int x, char *s){
+    int y = 88;
+    pp();
+    void func1()
+    {
+        y++;
+        x++;
+        pp();
+    }
+    func1();
+    x++;
+    func1();
+    pp();
+}
+int main (int argc, char * argv[])
+{
+    test2(1234, "abc");
+    return EXIT_SUCCESS;
+}
+// test2: x = 1234(0xbffff7d4), y = 88(0xbffff7d8), s = abc(0x4ad3);
+// func1: x = 1235(0xbffff7d4), y = 89(0xbffff7d8), s = abc(0x4ad3);
+// func1: x = 1237(0xbffff7d4), y = 90(0xbffff7d8), s = abc(0x4ad3);
+// test2: x = 1237(0xbffff7d4), y = 90(0xbffff7d8), s = abc(0x4ad3);
+```
+
+### 参数从右往左 栈,且由调 者负责参数 栈和清理
+
+```c
+int main(int argc, char* argv[])
+{
+    int a() {
+        printf("a\n");
+        return 1; 
+    }
+    char* s() {
+        printf("s\n");
+        return "abc";
+    }
+    printf("call: %d, %s\n", a(), s());
+    return EXIT_SUCCESS;
+}
+// s
+// a
+// call: 1, abc
+```
+
+### 复制传递
+
+- C 语 中所有对象,包括指针本 都是 "复制传值" 传递,我们可以通过传递 "指针的指针" 来实现传 出参数。
+- 注意: 别返回 test 中的栈变量
+
+```c
+void test(int** x)
+{
+    int* p = malloc(sizeof(int));
+    *p = 123;
+    *x = p;
+}
+int main(int argc, char* argv[])
+{
+    int* p;
+    test(&p);
+    printf("%d\n", *p);
+    free(p);
+    return EXIT_SUCCESS;
+}
+```
+
 
 ## 基本输入/输出
 
