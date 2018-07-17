@@ -13,7 +13,7 @@
 
 ```c
 int a;  // 声明
-extern int max(int a,int b); // 声明，定义可能在别的文件
+extern int max(int a,int b); // 在别的源文件定义的 max 函数，如果想在本文件使用它，则使用 extern 声明它
 
 int a = 10; // 定义
 int max(int a,int b){ ... } // 定义
@@ -839,43 +839,6 @@ PTR_INT p1, p2; // 宏替换之后: int *p1, p2;
 
 typedef int * PTR_INT
 PTR_INT p1, p2; // 都是指向int的指针
-```
-
-## C预处理器
-
-### 常用指令
-
-- `#define` 定义宏
-- `#include` 包含一个源代码文件
-- `#undef` 取消已定义的宏
-- `#ifdef` 如果宏已经定义，则返回真
-- `#ifndef` 如果宏没有定义，则返回真
-- `#if` 如果给定条件为真，则编译下面代码
-- `#else`
-- `#elif` 如果前面的 `#if` 给定条件不为真，当前条件为真，则编译下面代码
-- `#endif` 结束一个 `#if` `#else` 条件编译块
-- `#error` 当遇到标准错误时，输出错误消息
-- `#pragma` 使用标准化方法，向编译器发布特殊的命令到编译器中
-
-### 预定义宏
-
-- ANSI C 定义了许多宏。在编程中您可以使用这些宏，但是不能直接修改这些预定义的宏。
-
-```c
-#include <stdio.h>
-main()
-{
-   printf("File :%s\n", __FILE__ ); // 当前日期，一个以 "MMM DD YYYY" 格式表示的字符常量。
-   printf("Date :%s\n", __DATE__ ); // 当前时间，一个以 "HH:MM:SS" 格式表示的字符常量。
-   printf("Time :%s\n", __TIME__ ); // 这会包含当前文件名，一个字符串常量。
-   printf("Line :%d\n", __LINE__ ); // 这会包含当前行号，一个十进制常量。
-   printf("ANSI :%d\n", __STDC__ ); // 当编译器以 ANSI 标准编译时，则定义为 1。
-}
-// File :test.c
-// Date :Jun 2 2012
-// Time :03:36:24
-// Line :8
-// ANSI :1
 ```
 
 ## 标准库
