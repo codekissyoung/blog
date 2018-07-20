@@ -2,22 +2,20 @@
 
 ## 数据类型
 
-- `bit`位 : 一位 0 或 1
-- `byte`字节 : 1 字节 = ８位
-- `word`字 : 32位计算机: 1字长=32位; 64位计算机: 1字长=64位
+- `bit`位: `0` 或 `1`
+- `Byte`字节: `1 Byte = 8 bit`
+- `Word`字: 32位计算机: `1 word = 32bit` 64位计算机 `1 word = 64 bit`
 
 ### 整数
 
-- char: 有符号 8 位整数。
-- short: 有符号 16 位整数。
-- int: 有符号 32 位整数。
-  - 32位取值范围: `int` -20亿 ～ 20亿 , 32位 `unsigned int` 0 ～ 42亿
-- long: 在 32 位系统是 32 整数 (long int),在 64 位系统则是 64 位整数
-  - 64位取值范围: – 900 亿亿 ～ 900亿亿 或者 0 ～ 1800 亿亿
-- long long: 有符号 64 位整数 (long long int)。
-- bool: `_Bool`类型,8 位整数,在`stdbool.h` 中定义了 `bool / true / false` 宏便于使用
-- `stdint.h` 定义了 `uint64_t` `int64_t` 等在任何操作系统上，位数更加准确的类型,还定义了大小限制
-- 字符常量 `char c = 'a';` 默认是 个`int` 整数,但编译器可以决定将其解释为`char`或`int`
+- `char`: 有符号 8 位整数
+- `short`: 有符号 16 位整数
+- `int`: 有符号32位整数,取值范围: -20亿～20亿; `unsigned int` 0～42亿
+- `long`: 在64位系统则是64位整数,取值范围: – 900 亿亿 ～ 900亿亿 或者 0 ～ 1800 亿亿
+- `long long`: 有符号 64 位整数 `long long int`
+- `bool`: 8 位整数,在c99标准中`stdbool.h` 中定义了 `bool / true / false` 宏便于使用
+- `stdint.h` 定义了 `uint64_t` , `int64_t` 等在任何操作系统上，位数更加准确的类型,还定义了大小限制
+- `char c = 'a';`字符常量,默认是 个`int` 整数,但编译器可以决定将其解释为`char`或`int`
 - `stdint`定义了后缀表示常数的常量类型，`56U` 表示 `unsigned int`, `76LL`表示 `76` 类型是`long long`
 
 ```c
@@ -33,7 +31,6 @@
     typedef unsigned long long int  uint64_t;
     typedef unsigned int uintptr_t; /* void*的类型,常用 sizeof(char*) 来兼容处理32位与64位*/
 #endif
-
 #define INT32_MIN (-2147483647-1)
 #define INT32_MAX (2147483647)
 #define INT64_MIN (-__INT64_C(9223372036854775807)-1)
@@ -66,38 +63,83 @@ printf("yellow = %d\n", YELLOW);
 
 ### 数组
 
+- 数组名默认为指向第一元素的常量指针，即数组名的地址不可变
+- C不会对数组下标索引进 范围检查,编码时需要注意过界检查
+- c 不允许数组作为一个单元赋值给另一个数组
+
 #### 数组初始化
 
 ```c
 int a[3] = {10,9};
 int a[] = {11, 7, 6};
 // 指定初始化器 (C99标准)
-int arr[6] = {0,89,[5]=212}; //指定第6个元素的值为212
-```
+int arr[] = { 0, 89, [5] = 212, 11 }; // 指定第6个元素的值为212, 元素个数在编译时确定为 7
+int count = sizeof(arr) / sizeof(arr[0]); // 数组元素个数
+int z[][2] = {
+    { 1, 1 },
+    { 2, 1 },
+    { 3, 1 },
+};
 
-- 数组元素个数
+int *p_int = &arr[6]; // 返回 int* 类型指针,指向 标序号元素
+p_int = arr; // 数组名是指向数组首地址的常量指针 指针之间赋值
 
-```c
-int count = sizeof(days) / sizeof(days[0]);
-```
-
-- 数组类型是数组元素的类型，`数组名`是指向数组首地址的常量指针，即数组名的地址不可变
-
-```c
-short dates[4];
-short *p = dates;
-```
-
-#### 一维数组
-
-- c 不允许数组作为一个单元赋值给另一个数组
-
-```c
 int oxen[4] = {1,2,3,4};
 int yaks[4];
-yaks = oxen;
-// main.c:28:7: error: assignment to expression with array type
-// yaks = oxen;
+yaks = oxen; // error : assignment to expression with array type
+```
+
+#### 可变长度数组
+
+- 如果数组具有动态存周期,且没有`static`修饰符,那么可以用变量来定义数组
+
+```c
+void test(int n)
+{
+    int x[n];
+    for (int i = 0; i < n; i++)
+        x[i] = i;
+
+    struct data { int x[n]; } d;
+    printf("%d\n", sizeof(d));
+}
+int main(int argc, char* argv[])
+{
+    int x[] = { 1, 2, 3, 4 };
+    printf("%d\n", sizeof(x));
+    test(2);
+    return EXIT_SUCCESS;
+}
+```
+
+#### 多维数组
+
+- c中数组是连续的内存区域，是固定长度的 , 对于 c 的数组，未赋值的元素一律取 0
+- 多维只是概念上的，实际存储上还是线性连续的
+
+```c
+int a[3][4] = {
+    {0, 1, 2, 3} ,   /*  初始化索引号为 0 的行 */
+    {4, 5, 6, 7} ,   /*  初始化索引号为 1 的行 */
+    {8, 9, 10, 11}   /*  初始化索引号为 2 的行 */
+};
+```
+
+- 处理多维数组的函数
+
+```c
+// 在函数定义时对形参数组可以指定每一维的长度，也可省去第一维的长度因此，以下写法都是合法的
+int MA(int a[3][10])
+int MA(int a[][10])
+int MA(int a[][10],n)
+
+// pt指向的是一个包含4个int类型的一维数组
+void func(int pt[][4]);
+void func(int (*pt)[4]); //等价上句
+
+// 声明一个指向多维数组的指针，只能省略最左边括号中的值
+int sum4d(int ar[][12][20][30],int rows);
+int sum4d(int (*ar)[12][20][30],int rows); // 等价上句,ar指向一个 12 x 20 x 30 的int数组
 ```
 
 #### 字符串
@@ -198,36 +240,6 @@ for(int p = 0;p < 5;p++)
 // array_str[4] : 0x7ffc689c8550 :  
 ```
 
-#### 多维数组
-
-- c中数组是连续的内存区域，是固定长度的 , 对于 c 的数组，未赋值的元素一律取 0
-- 多维只是概念上的，实际存储上还是线性连续的
-
-```c
-int a[3][4] = {
-    {0, 1, 2, 3} ,   /*  初始化索引号为 0 的行 */
-    {4, 5, 6, 7} ,   /*  初始化索引号为 1 的行 */
-    {8, 9, 10, 11}   /*  初始化索引号为 2 的行 */
-};
-```
-
-- 处理多维数组的函数
-
-```c
-// 在函数定义时对形参数组可以指定每一维的长度，也可省去第一维的长度。因此，以下写法都是合法的
-int MA(int a[3][10])
-int MA(int a[][10])
-int MA(int a[][10],n)
-
-// pt指向的是一个包含4个int类型的一维数组
-void func(int pt[][4]);
-void func(int (*pt)[4]); //等价上句
-
-// 声明一个指向多维数组的指针，只能省略最左边括号中的值
-int sum4d(int ar[][12][20][30],int rows);
-int sum4d(int (*ar)[12][20][30],int rows); // 等价上句,ar指向一个 12 x 20 x 30 的int数组
-```
-
 #### 数组越界
 
 - gcc编译器只会给出警告,然后继续编译，越界处的值是随机的
@@ -247,7 +259,7 @@ int main(int argc, char *argv[])
 
 #### 变长数组 VLA
 
-- 变长数组的变不是可以修改已经创建的数组的大小。变长数组一旦创建，它的大小是保持不变的。变指的是，在创建数组时，可以使用变量指定数组的维度。
+- 变长数组的变不是可以修改已经创建的数组的大小变长数组一旦创建，它的大小是保持不变的变指的是，在创建数组时，可以使用变量指定数组的维度
 
 ```c
 // rows　和　cols 必须在 ar 前面
@@ -517,7 +529,7 @@ int func2(){
 }
 ```
 
-- `return` 语句不可返回指向栈内存的指针 , 因为该内存在函数体结束时被自动销毁。`return ;`表示函数的结束
+- `return` 语句不可返回指向栈内存的指针 , 因为该内存在函数体结束时被自动销毁`return ;`表示函数的结束
 
 ```c
 char *Func ( void )
@@ -529,33 +541,22 @@ char *Func ( void )
 
 ## 常量
 
-- `const` 可以修饰变量、函数的参数、返回值(修饰返回值好像没什么实际用处)。表示对应的内存只读。
+- `const` 可以修饰变量、函数的参数、返回值(修饰返回值好像没什么实际用处)表示对应的内存只读
 - `#define` 给出的是立即数，宏是在预编译时进行替换，有若干个拷贝，没有类型
 
 ```c
 #define M 3 // 定义宏 M
-
-const int N = 5; // N 只读
-
-const    int    a[5] = {1,2,3,4,5}; // 数组只读
-
+const int N       = 5;            // N 只读
+const int    a[5] = {1,2,3,4,5};  // 数组只读
 const int *p;    // 指针指向的对象只读
 int const *p;    // 同上
-
 int* const p;    // 指针本身的地址不能变，但其指向的对象的值可变
-
 const int* const p; // 指针本身的地址不能变，其指向的对象只读
-
 void Fun ( const int i ); // 告诉编译器，i 在函数体中 的值不能改变，从而防止了一些无意的修改
-
 const int Fun( void );     // 返回值不可 被改变
-
 extern const int i;      // 引用在另一个文件中  const 只读变量
-
 void display( const int array[], int limit ); // array 指向的值是不能变的
-
 void display( const int *array, int limit );  // array 指向的值是不能变的
-
 char *strcat( char *, const char* ); // 第一个参数在函数内可以被修改，第二个参数只读
 ```
 
@@ -624,7 +625,7 @@ printf("pz[0][0] = %d,pz[0][1]:%d \n",pz[0][0],pz[0][1]);
 
 ### 函数指针
 
-- `函数指针` : 指向函数。函数指针可以像一般函数一样，用于调用函数、传递参数
+- `函数指针` : 指向函数函数指针可以像一般函数一样，用于调用函数、传递参数
 - 声明一个指向函数的指针，函数指针常用作另一个函数的参数
 
 ```c
@@ -655,12 +656,12 @@ int main(int argc,char **argv){
 func(int arr[][4],int length){}
 // 等价于
 func(int (*arr)[4],int length){}
-(*arr)[4];               // 指向列数为4的二维数组的指针, arr+1 就是移动 4*4 个字节
+(*arr)[4];               // 指向列数为4的二维数组的指针, arr+1 就是移动 4 x 4 个字节
 *(*(index + 2)+1)        // 等价于 index[2][1]
 int  (*pz)[2];           // 声明指向二维数组的指针
 int  *pax[2];            // 声明装有两个int型指针的数组;
 int array[][4];          // 定义二维数组
-int *p2array = array;    // 二维数组的指针
+int *p2array = array;  // 二维数组的指针
 *(*(p2array+3)+2)        // 等价于 array[3][2] 等价于 p2array[3][2]
 
 void ToUpper(char *); // 函数
@@ -731,14 +732,14 @@ p2 = ar2; // p2 为指向int类型指针的指针，ar2 是指向内含2个int�
 
 ## 算术运算/运算符/表达式
 
-- `左值` : 指向内存位置的表达式被称为左值（lvalue）表达式。左值可以出现在赋值号的左边或右边
-- `右值` ：存储在内存中某些地址的数值。右值是不能对其进行赋值的表达式，也就是说，右值可以出现在赋值号的右边，但不能出现在赋值号的左边
+- `左值` : 指向内存位置的表达式被称为左值（lvalue）表达式左值可以出现在赋值号的左边或右边
+- `右值` ：存储在内存中某些地址的数值右值是不能对其进行赋值的表达式，也就是说，右值可以出现在赋值号的右边，但不能出现在赋值号的左边
 
 ### >> 右移操作符
 
 - 有符号数的右移
-- 右移一位就等于除以2，但是这里需要加一个条件，这里指的是正数。而对于有符号整数，且其值为负数时，在C99标准中对于其右移操作的结果的规定是implementation-defined.
-- 在Linux上的GCC实现中，有符号数的右移操作的实现为使用符号位作为补充位。因此-1的右移操作仍然为0xFFFFFFFF。这导致了死循环
+- 右移一位就等于除以2，但是这里需要加一个条件，这里指的是正数而对于有符号整数，且其值为负数时，在C99标准中对于其右移操作的结果的规定是implementation-defined.
+- 在Linux上的GCC实现中，有符号数的右移操作的实现为使用符号位作为补充位因此-1的右移操作仍然为0xFFFFFFFF这导致了死循环
 
 ```c
 #include <stdio.h>
@@ -778,13 +779,52 @@ populate_array(myarray, 10, getNextRandomValue);
 
 ```c
 #include <stdarg.h>
-int func(int a, int b, ... )
+int func(int a, int b, ... ){
+    va_list arg_ptr;                          // 声明可变参数 arg_ptr
+    void va_start( arg_ptr, b );              // 填入最后一个固定参数 b
+    int    var1 = va_arg( arg_ptr, int );     // 得到第一个可变参数的值 var1
+    double var2 = va_arg( arg_ptr, double );  // 得到第一个可变参数的值 var2
+    void va_end( arg_ptr );                   // 清理 arg_ptr
+}
+/* 指定 变量数量 */
+void test(int count, ...) {
+    va_list args;
+    va_start(args, count);
+    for (int i = 0; i < count; i++)
+    {
+        int value = va_arg(args, int);
+        printf("%d\n", value);
+    }
+    va_end(args);
+}
+/* 以 NULL 为结束标记 */
+void test2(const char* s, ...) {
+    printf("%s\n", s);
+    va_list args;
+    va_start(args, s);
+    char* value;
+    do
+    {
+        value = va_arg(args, char*);
+        if (value) printf("%s\n", value);
+    }
+    while (value != NULL);    va_end(args);
+}
+/* 直接将 va_list 传递个其他可选 变量函数 */
+void test3(const char* format, ...)
 {
-    va_list arg_ptr; // 拿到可变参数 arg_ptr
-    void va_start( arg_ptr, b ); // 填入最后一个固定参数 b
-    int var1 = va_arg( arg_ptr, int ); // 得到第一个可变参数的值 var1
-    double var2 = va_arg( arg_ptr, double ); // 得到第一个可变参数的值 var2
-    void va_end( arg_ptr ); // 清理 arg_ptr
+    va_list args;
+    va_start(args, format);
+    vprintf(format, args);
+    va_end(args);
+}
+
+int main(int argc, char* argv[])
+{
+    test(3, 11, 22, 33);
+    test2("hello", "aa", "bb", "cc", "dd", NULL);
+    test3("%s, %d\n", "hello, world!", 1234);
+    return EXIT_SUCCESS;
 }
 ```
 
@@ -870,7 +910,7 @@ int main(int argc, char* argv[])
 {
     int a() {
         printf("a\n");
-        return 1; 
+        return 1;
     }
     char* s() {
         printf("s\n");
@@ -886,7 +926,7 @@ int main(int argc, char* argv[])
 
 ### 复制传递
 
-- C 语 中所有对象,包括指针本 都是 "复制传值" 传递,我们可以通过传递 "指针的指针" 来实现传 出参数。
+- C 语 中所有对象,包括指针本 都是 "复制传值" 传递,我们可以通过传递 "指针的指针" 来实现传 出参数
 - 注意: 别返回 test 中的栈变量
 
 ```c
@@ -906,6 +946,13 @@ int main(int argc, char* argv[])
 }
 ```
 
+### 函数修饰符
+
+- `extern` 默认修饰符, 于函数表  "具有外部链接的标识符",这类函数可 于任何程序  件。 于变量声明表 该变量在其他单元中定义。
+- `static` 使该修饰符的函数仅在其所在编译单元 (源码 件) 中可 。还可以表示函数内的静态变量。
+- `inline` 修饰符 inline 建议编译器将函数代码内联到调 处,但编译器可 主决定是否完成。通 常包含循环或递归函数不能被定义为 inline 函数。
+- `static inline` 内链接函数,在当前编译单元内内联。不过 -O0 时依然是 call。
+- `inline` 外连接函数,当前单元内联,外部单元为普通外连接函数 (头件中不能添加 inline 关键字)。inline 关键字只能 在函数定义处
 
 ## 基本输入/输出
 
@@ -923,7 +970,7 @@ typedef double REAL;
 // 在连 double 都不支持的平台三上，改为：
 typedef float REAL;
 
-// 当跨平台时，只要改下 typedef 本身就行，不用对其他源码做任何修改。甚至可以通过预处理器识别不同平台，自动 typedef
+// 当跨平台时，只要改下 typedef 本身就行，不用对其他源码做任何修改甚至可以通过预处理器识别不同平台，自动 typedef
 ```
 
 ### 给数组取别名
@@ -1012,9 +1059,9 @@ PTR_INT p1, p2; // 都是指向int的指针
 - stderr 错误输出流，默认输入也是屏幕
 - 输入输出重定向：`<` 是输入 `>` 是输出 `>>`是追加输出 `2>`是错误输出重定向 `2>>`错误输出重定向追加输出
 - c程序从流中获取数据，或者将数据输出到流中
-- c程序将输入视为一个外来字节的流，getchar() 函数将每个字节解释为一个字符编码。scanf()函数将以同样的方式看待输入，但在其转换 说明符的指导下，该函数可以将字符转换为数值。如果scanf 读取失败，它会将数据还给字节流。
-- 如果输入的是文件，检测到文件末尾时，scanf 和 getchar 都返回 EOF 值。
-- 如果是键盘输入，能用 `Ctrl + D` 或者 `Ctrl + z` 来模拟从键盘模拟文件结束条件。
+- c程序将输入视为一个外来字节的流，getchar() 函数将每个字节解释为一个字符编码scanf()函数将以同样的方式看待输入，但在其转换 说明符的指导下，该函数可以将字符转换为数值如果scanf 读取失败，它会将数据还给字节流
+- 如果输入的是文件，检测到文件末尾时，scanf 和 getchar 都返回 EOF 值
+- 如果是键盘输入，能用 `Ctrl + D` 或者 `Ctrl + z` 来模拟从键盘模拟文件结束条件
 
 ```c
 #define    EOF    （-1）    // 这个判断流到达末尾的标志符
@@ -1046,7 +1093,7 @@ int get_int(void)
 ### 输入函数/输出函数
 
 - 输入也是先放在缓冲区,代码读取缓冲区内容的条件: 1.遇见换行符 2.缓冲区满了
-- 所有输出的内容都是先存放到缓冲区，再由缓冲区一次性输出到屏幕。缓冲区内容刷新发送到屏幕的条件：1.缓冲区满 2.换行符 3.遇见输入命令/代码
+- 所有输出的内容都是先存放到缓冲区，再由缓冲区一次性输出到屏幕缓冲区内容刷新发送到屏幕的条件：1.缓冲区满 2.换行符 3.遇见输入命令/代码
 
 ```c
 scanf("%s",&name); 读取缓存中的字符串，会在空白 ，\t,\n 处停止读取！
@@ -1056,10 +1103,10 @@ prinf("%d %s %p",10,"caokaiyan",point);//point 是一个指针
 
 ### 二进制文件与文本文件区别
 
-- 文本文件与二进制文件的区别是逻辑上的。
+- 文本文件与二进制文件的区别是逻辑上的
   - 文本文件是基于字符编码的文件，常见有ASCII编码(定长编码)，UNICODE编码,UTF-8(非定长的编码)
   - 二进制文件是基于值编码的文件，你可以根据具体应用，指定某个值是什么意思（可以看作是自定义编码），是变长编码的，因为是值编码嘛，多少个比特代表一个值，完全由你决定
-- BMP文件例子：其头部是较为固定长度的文件头信息，前2字节用来记录文件为BMP格式，接下来的8个字节用来记录文件长度，再接下来的4字节用来记录bmp文件头的长度。
+- BMP文件例子：其头部是较为固定长度的文件头信息，前2字节用来记录文件为BMP格式，接下来的8个字节用来记录文件长度，再接下来的4字节用来记录bmp文件头的长度
 
 ### 数据在内存的存储方式
 

@@ -67,6 +67,8 @@
 - [getYii社区](http://www.getyii.com)
 - [深入理解Yii2.0](http://www.digpage.com)
 - [Yii官方文档](http://www.yiiframework.com)
+- [MySQL书籍推荐](http://mingxinglai.com/cn/2015/12/material-of-mysql/)
+- [豆瓣关于MySQL的书](https://www.douban.com/tag/MySQL/book)
 
 ## 教学网站
 
@@ -89,7 +91,7 @@
 - [php内核学习](http://www.php-internals.com)
 - [InfoQ](http://www.infoq.com/cn)
 - [freebuf 关注黑客与极客](http://www.freebuf.com/)
-- [异步社区　一个电子书社区](http://www.epubit.com.cn/)　
+- [异步社区　一个电子书社区](http://www.epubit.com.cn/)
 
 ### [linux.cn社区](https://linux.cn)
 

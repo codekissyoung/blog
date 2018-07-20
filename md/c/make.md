@@ -129,3 +129,24 @@ lexer.o: lexer.c
 lexer.c: lexer.l
     flex -t $< > $@
 ```
+
+## 参考实例
+
+```makefile
+# 定义变量
+CC=g++
+CPPFLAGS=-Wall -g -pedantic
+BIN=main
+OBJS=main.o error.o func.o
+
+# 书写构建规则
+$(BIN):$(OBJS)
+    $(CC) $(CPPFLAGS) $^ -lpthread -o $@
+
+%.o:%.c
+    $(CC) $(CPPFLAGS) -c $< -o $@
+
+.PHONY:clean
+clean:
+    rm -f *.o $(BIN)
+```
