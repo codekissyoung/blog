@@ -6,6 +6,32 @@
 mysql -hlocalhost -uroot -p951010
 ```
 
+## 管理用户
+
+```sql
+-- 创建一个可以从服务器本地登录服务器的用户
+-- localhost 换成 * , 则是允许用户在任意机器远程登录
+mysql> create user 'cky'@'localhost' identified by 'password1234';
+
+-- 将 practice_db 数据库的所有权限赋给 cky 用户
+mysql> grant ALL PRIVILEGES on `practice_db`.* to 'cky'@'localhost';
+
+-- all 表示所有权限，也可指定部分权限
+mysql> grant SELECT, INSERT, UPDATE, REFERENCES, DELETE, CREATE, DROP, ALTER, INDEX,
+mysql> CREATE VIEW, SHOW VIEW ON `practice_db`.* TO 'cky'@'localhost';
+
+-- 查看当前用户权限
+mysql > show grants;
++---------------------------------------------------------------------+
+| Grants for root@localhost                                           |
++---------------------------------------------------------------------+
+| GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION |
+| GRANT PROXY ON ''@'' TO 'root'@'localhost' WITH GRANT OPTION        |
++---------------------------------------------------------------------+
+```
+
+
+
 ## 管理数据库
 
 ```sql
@@ -16,6 +42,7 @@ mysql> show status; # 查查运行状态
 mysql> show errors; #
 mysql> show warnings; #
 mysql> show variables like %character_set_%; # 查看编码
+
 # Character_set_client 客户端使用的编码
 # Character_set_connection 数据库连接使用的编码
 # Character_set_results 返回结果使用的编码
@@ -24,8 +51,6 @@ mysql> set names utf8; # 设置所有编码为utf8
 
 mysql> source /var/www/mysql.sql; # 选则一个数据库后，执行一个sql文件
 mysql -hlocalhost -uroot -pCky951010 mydb2 < \var\www\mydb2.sql  # 导入数据到mydb2库
-
-mysqldump -hlocalhost -uroot -p mydb_dbname > \var\www\mydb.sql  # 导出数据库mydb_dbname到文件
 
 # 查看状态
 mysql > select user(),now(),version();
@@ -43,19 +68,15 @@ mysql> select database(); # 当前数据库
 
 ```
 
-### 自动备份mysql中数据库的脚本
-
-```bash
-#!/bin/sh
-today=`date +%Y%m%d`
-filename=${today}_fleamarket_backup.sql
-mysqldump -uroot -pCky951010 fleamarket > ./fleamarket-back-up/${filename}
-```
-
 ## 数据表
 
 ```sql
-create [temporary]  table [if not exists] table_name（[字段名 字段类型 字段约束 注释] ，[字段名 字段类型 字段约束 注释]);
+create [temporary]  table [if not exists] table_name
+（
+    [字段名 字段类型 字段约束 注释]，
+    [字段名 字段类型 字段约束 注释]
+    ...
+);
 
 create tabel article (article_id int(10) primary key ); # 主键
 create tabel article (article_id int(10),[...],primary key(article_id)); # 主键
@@ -82,11 +103,7 @@ show tables; # 列出表
 desc table_name; # 查看表结构
 show create table tb_name; # 查看创建表的语句
 
-LOAD DATA LOCAL INFILE “D:/mysql.txt” INTO TABLE my_table; # 导入数据到表
-select name,age,city,salary into outfile "c:/data_out.txt" lines terminated by “/r/n” from person; # 导出到txt文件
-
 drop [temporary] table [if exists] table_name [, table_name];# 删除表
-
 ```
 
 ## 更新表
@@ -137,21 +154,7 @@ drop [temporary] table [if exists] table_name [, table_name];# 删除表
 %i 分钟, 数字(00……59)
 %s 秒(00……59)
 
-# 管理用户
 
-```sql
-mysql > create user 'cky'@'dadishe.com' identified by 'secret'; # 创建用户,该用户可从dadishe.com主机访问数据
-mysql > show grants; #  查看当前用户权限
-+---------------------------------------------------------------------+
-| Grants for root@localhost                                           |
-+---------------------------------------------------------------------+
-| GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION |
-| GRANT PROXY ON ''@'' TO 'root'@'localhost' WITH GRANT OPTION        |
-+---------------------------------------------------------------------+
-
-# grant 命令,`test`.*是test库的所有表, TO 后面是用户，'localhost'是只允许本地，'*'的话则是允许用户远程登录
-mysql > GRANT SELECT, INSERT, UPDATE, REFERENCES, DELETE, CREATE, DROP, ALTER, INDEX, CREATE VIEW, SHOW VIEW ON `test`.* TO 'test02'@'localhost'
-```
 
 ### mysql 日志管理
 
@@ -185,18 +188,7 @@ password='Cky951010'
 ```
 $>mysql -h hostname -u username -p
 ```
-## 导出数据库 ##
-```
-$>mysqldump -h localhost -u root -p mydb_dbname > \var\www\mydb.sql
-```
-## 导出数据库表 ##
-```
-$>mysqldump -h localhost -u root -p mydb mytable > \var\www\mydb_mytable.sql
-```
-## 导出数据结构 ##
-```
-$>mysqldump -h localhost -u root -p mydb --add-drop-table > \var\www\mydb.sql
-```
+
 ## 导入数据 ##
 ```
 $>mysql -h localhost -u root -p mydb2 < \var\www\mydb2.sql
@@ -222,15 +214,7 @@ PURGE MASTER LOGS TO 'mysql-bin.000035';
 ```
 ｍｙｓｑｌ＞show variables like '%max%';
 ```
-## txt 文件导数据 ##
-```
-mysql>load data local infile “c:/data.txt”   into table person(name,age,city,salary); ＃导入到表
-select name,age,city,salary   into outfile "c:/data_out.txt" lines terminated by “/r/n” from person;＃导出到txt文件
-txt 文件格式：
-数据１[tab]数据２[tab]数据4
-数据３[tab]数据5[tab]数据6
-.....
-```
+
 ## 字符函数 ##
 ```
 char_lenngth() 返回的字符的长度
