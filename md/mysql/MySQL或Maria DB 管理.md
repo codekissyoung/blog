@@ -1,24 +1,28 @@
-# 连接数据库
-```sql
-$ mysql -hlocalhost -uroot -p951010
+# MySQL 和 Maria DB 管理
+
+## 登录
+
+```bash
+mysql -hlocalhost -uroot -p951010
 ```
 
-# 管理数据库
+## 管理数据库
+
 ```sql
-mysql > show databases; # 列出数据库
-mysql > use db_name;    # 使用哪个数据库
-mysql > show create database db_name; # 查看这个数据库的创建消息
-mysql > show status; # 查查运行状态
-mysql > show errors; #
-mysql > show warnings; #
-mysql > show variables like %character_set_%; # 查看编码
+mysql> show databases; # 列出数据库
+mysql> use db_name;    # 使用哪个数据库
+mysql> show create database db_name; # 查看这个数据库的创建消息
+mysql> show status; # 查查运行状态
+mysql> show errors; #
+mysql> show warnings; #
+mysql> show variables like %character_set_%; # 查看编码
 # Character_set_client 客户端使用的编码
 # Character_set_connection 数据库连接使用的编码
 # Character_set_results 返回结果使用的编码
-mysql > set character_set_client = utf8; # 设置编码
-mysql > set names utf8; # 设置所有编码为utf8
+mysql> set character_set_client = utf8; # 设置编码
+mysql> set names utf8; # 设置所有编码为utf8
 
-mysql > source /var/www/mysql.sql; # 选则一个数据库后，执行一个sql文件
+mysql> source /var/www/mysql.sql; # 选则一个数据库后，执行一个sql文件
 mysql -hlocalhost -uroot -pCky951010 mydb2 < \var\www\mydb2.sql  # 导入数据到mydb2库
 
 mysqldump -hlocalhost -uroot -p mydb_dbname > \var\www\mydb.sql  # 导出数据库mydb_dbname到文件
@@ -38,7 +42,9 @@ mysql> select database(); # 当前数据库
 +------------+
 
 ```
+
 ### 自动备份mysql中数据库的脚本
+
 ```bash
 #!/bin/sh
 today=`date +%Y%m%d`
@@ -46,7 +52,8 @@ filename=${today}_fleamarket_backup.sql
 mysqldump -uroot -pCky951010 fleamarket > ./fleamarket-back-up/${filename}
 ```
 
-# 数据表
+## 数据表
+
 ```sql
 create [temporary]  table [if not exists] table_name（[字段名 字段类型 字段约束 注释] ，[字段名 字段类型 字段约束 注释]);
 
@@ -83,6 +90,7 @@ drop [temporary] table [if exists] table_name [, table_name];# 删除表
 ```
 
 ## 更新表
+
 `alter table table_name change 旧字段名+新字段名 + 新字段的属性`
 改变表明里的字段
 `alter table table_name add 字段名+字段属性  after/before 字段名;`
@@ -98,8 +106,8 @@ drop [temporary] table [if exists] table_name [, table_name];# 删除表
 `Alter table tbl_name drop foreign key 外键名称(mysql帮我们生成的，需要使用show create table tbl_name 去查看);`
 删除外键
 
-
 ### 数据类型
+
 整数型 int(11)   bigint(20) tinyint(4)
 字符串型 char(12)：定长字符串  varchar(255)
 `enum('male','famale')` enum 是单选
@@ -115,11 +123,13 @@ drop [temporary] table [if exists] table_name [, table_name];# 删除表
 注释 `comment "我是注释"`
 
 ### datetime 比较大小问题
+
 `select * from t1 where unix_timestamp(time1) > unix_timestamp('2011-03-03 17:39:05') and unix_timestamp(time1) < unix_timestamp('2011-03-03 17:39:52');`
 或：
 `time1 between '2011-03-03 17:39:05' and '2011-03-03 17:39:52';`
 
 ### 时间格式化函数 DATE_FORMA T(date, format)
+
 %Y 年, 数字, 4 位
 %m 月, 数字(01……12)
 %d 月份中的天数, 数字(00……31)
@@ -127,9 +137,8 @@ drop [temporary] table [if exists] table_name [, table_name];# 删除表
 %i 分钟, 数字(00……59)
 %s 秒(00……59)
 
-
-
 # 管理用户
+
 ```sql
 mysql > create user 'cky'@'dadishe.com' identified by 'secret'; # 创建用户,该用户可从dadishe.com主机访问数据
 mysql > show grants; #  查看当前用户权限
@@ -145,6 +154,7 @@ mysql > GRANT SELECT, INSERT, UPDATE, REFERENCES, DELETE, CREATE, DROP, ALTER, I
 ```
 
 ### mysql 日志管理
+
 版本 5.7.13
 ```bash
 cat /etc/mysql/mysql.conf.d/mysqld.cnf`
@@ -160,8 +170,8 @@ log_slow_queries = /var/log/mysql/mysql-slow.log
 long_query_time  2
 ```
 
-免密码登录
-================================================================================
+## 免密码登录
+
 ```bash
 ➜  ~ cat /home/cky/.my.cnf
 [client]
@@ -170,8 +180,6 @@ user='root'
 password='Cky951010'
 ➜  ~ chmod 400 .my.cnf
 ```
-
-
 
 ## 链接 mysql 服务 ##
 ```
