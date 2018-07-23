@@ -382,3 +382,52 @@ mysql> select null < 0,null = 0, null != 0,null > 0,null = null,null != null;
 +----------+----------+-----------+----------+-------------+--------------+
 1 row in set (0.00 sec)
 ```
+
+## 日期处理
+
+- `date`类型的计算
+
+```sql
+-- date 类型
+mysql> select * from grade_event where date = '2012-10-11';
+
+mysql> select * from president where death >= '1970-01-01' and death < '1980-01-01';
+
+-- 3月29出生的总统
+mysql> select * from president where Month(birth) = 3 and dayofmonth(birth) = 29;
+
+-- 今日出生的总统
+mysql> select * from president where Month(birth) = Month(CURDATE())
+mysql> and dayofmonth(birth) = dayofmonth(CURDATE());
+
+-- 算哪位总统活的最久, timestampdiff 函数，返回单位为年，计算： death - birth
+mysql> select first_name, TIMESTAMPDIFF(YEAR,birth,death) as age from president
+mysql> where death is not NULL order by age desc limit 1;
+
+-- 计算新日期
+mysql> select DATE_ADD('1970-01-01',INTERVAL 10 YEAR); -- 1980-01-01
+mysql> select DATE_SUB('1970-01-01',INTERVAL 10 YEAR); -- 1960-01-01
+
+-- 将日期转化为天数，计算出成员资格到期天数小于 60 天的, expiration 为过期时间字段
+mysql> select * from member where (to_days(expiration) - to_days(curdate())) < 60;
+mysql> select * from member where timestampdiff(DAY,curdate(),expiration) < 60; -- 等价上句
+mysql> select * from member where expiration < DATE_ADD(CURDATE(),INTERVAL 60 DAY);
+```
+
+- `datetime`类型
+
+```sql
+-- datetime 比较大小问题
+select * from t1 where unix_timestamp(time1) > unix_timestamp('2011-03-03 17:39:05') and unix_timestamp(time1) < unix_timestamp('2011-03-03 17:39:52');
+
+time1 between '2011-03-03 17:39:05' and '2011-03-03 17:39:52';
+
+-- 时间格式化函数
+-- %Y 年, 数字, 4 位
+-- %m 月, 数字(01……12)
+-- %d 月份中的天数, 数字(00……31)
+-- %H 小时(00……23)
+-- %i 分钟, 数字(00……59)
+-- %s 秒(00……59)
+DATE_FORMA T(date, format);
+```
