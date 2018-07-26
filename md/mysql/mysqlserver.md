@@ -78,8 +78,3 @@ mysql> alter table tb_name add primary key (index_columns);
 mysql> alter table tb_name add fulltext index_name (index_columns);
 mysql> alter table tb_name add spatial index_name (index_columns);
 ```
-
-
-
-
-

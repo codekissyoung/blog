@@ -93,4 +93,7 @@ $(function(){
             div_top = topp - 10;
         $("#main_category").css("top",div_top + "px");
     });
+    
+    // markdown生成的所有a链接全在新标签页打开 
+    $("a").attr("target","_blank");
 });
