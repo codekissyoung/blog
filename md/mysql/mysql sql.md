@@ -3,7 +3,13 @@
 ## 语句顺序
 
 ```sql
-select $fields from $table where ... group by ... having ...order by ... limit $offset,$num
+select select_list        -- 所选择的列
+from table_list           -- 要查询哪些表
+where row_constraint      -- 行必须满足的条件
+group by grouping_columns -- 结果如何分组
+order by sorting_columns  -- 结果如何排序
+having group_constranint  -- 分组必须满足的条件
+limit count;              -- 限制结果里的行数
 ```
 
 ## select
