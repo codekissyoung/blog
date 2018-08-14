@@ -5,7 +5,7 @@
 .show{
     display: block;
 }
-$article_width: 1000px;
+$article_width: 1060px;
 $backgroud_color:#f5f5d5;
 
 body
@@ -129,7 +129,6 @@ body
     }
 }
 
-
 #article-content
 {
     background-color: $backgroud_color;
@@ -142,10 +141,10 @@ body
     min-height:1000px;
     font-family: "ubuntu";
     h1,h2,h3,h4,h5{
-        font-weight:bold;
-        font-family:"文泉驿",Georgia, serif;
-        // color:#636bfb;
-        color:black;
+        display: block;
+        font-weight: 400;
+        font-family:"PingFang SC", "Hiragino Sans GB", "Helvetica Neue", "Microsoft Yahei", "WenQuanYi Micro Hei", sans-serif,"文泉驿",Georgia;
+        color:rgb(44, 62, 80);
     }
     h1{
         font-size:24px;
@@ -156,29 +155,24 @@ body
         font-size:22px;
         margin:20px 0px 5px 0px;
         margin-top: 40px;
-        // color: #6699cc;
     }
     h3{
         font-size:18px;
         margin-top: 20px;
         margin-bottom: 5px;
         margin-left: 22px;
-        // color: #3399CC;
-
     }
     h4{
         font-size:16px;
         margin-top: 20px;
         margin-bottom: 5px;
         margin-left: 22px;
-        // color: #26b4fb;
     }
     h5{
         font-size:14px;
         margin-top: 20px;
         margin-bottom: 5px;
         margin-left: 22px;
-        // color: #99CCFF;
     }
     a{
         color: #00a5f7;
@@ -186,9 +180,9 @@ body
     pre{
         margin: 0px 20px;
         code{
-            font-family: "Ubuntu Mono","Consoles";
-            line-height: 1.3;
-            font-size: 14px;
+            font-family: "Ubuntu Mono",Monaco,Menlo, Consolas, "Courier New", monospace;
+            line-height: 1.5;
+            font-size: 13px;
             padding:10px;
             border-radius:5px;
             letter-spacing:0px;
@@ -203,21 +197,21 @@ body
         margin-bottom:3px;
     }
     p{
-        line-height:1.4;
+        line-height:1.5;
         text-align:justify;
         margin:0px;
         font-size:14px;
         letter-spacing: 1px;
+        color: #706b6e;
+        font-family: "Monaco","Ubuntu mono";
         code{
-            // color:#e810aa;
-            color:#e83e8c;
-            text-align: center;
-            border-radius: 10px;
-            // padding:2px 10px;
-            // padding-top: 2px;
-            // margin: 0px 1px;
+            color:#FF6600;
+            border-radius: 4px;
+            font-size: 13px;
+            padding: 2px;
             // background-color: #fffbc4;
-            // text-decoration: underline;
+            background-color: #fffde2;
+            font-family: "Monaco","Ubuntu mono";
         }
     }
     img{

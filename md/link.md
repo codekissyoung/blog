@@ -2,6 +2,7 @@
 
 ## 在线工具
 
+- [代码在线运行工具](https://tool.lu/)
 - [Json格式化工具](http://json.awesomes.cn/)
 - [小影志](http://c7sky.com/)
 - [小影的工具箱](http://tool.c7sky.com/)
