@@ -3,7 +3,7 @@
 function file_tree($path)
 {/*{{{*/
 	$tree = scandir($path);
-	sort($tree,SORT_NUMERIC); // 按照数值大小排序数组，主要考虑到看书的笔记，目录方便记录
+	sort($tree, SORT_STRING ); // 按照数值大小排序数组，主要考虑到看书的笔记，目录方便记录
 	foreach($tree as $key => $leaf){
 		if($leaf == "." || $leaf == ".."){
 			unset($tree[$key]);
