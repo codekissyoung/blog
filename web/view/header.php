@@ -19,7 +19,7 @@
                     <a href="http://blog.codekissyoung.com">CodekissYoung Blog</a>
                 </div>
                 <div id="blog-category-list">
-                    <a href="/img.php">图片库</a>
+                    <!-- <a href="/img.php">图片库</a> -->
                 </div>
                 <div id="search-article">
                     <form action="/" method="GET" autocomplete="off">

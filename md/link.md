@@ -27,6 +27,7 @@
 
 ## 个人博客
 
+- [Poll的笔记](https://www.cnblogs.com/maybe2030/)
 - [ideawu blog](http://www.ideawu.net/blog/)
 - [C/C++ reference](http://zh.cppreference.com/)
 - [信海龙](https://www.bo56.com/)
