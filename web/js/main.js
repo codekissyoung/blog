@@ -95,5 +95,5 @@ $(function(){
     });
     
     // markdown生成的所有a链接全在新标签页打开 
-    $("a").attr("target","_blank");
+    $("#article-content a").attr("target","_blank");
 });

@@ -39,6 +39,17 @@ body
                 text-decoration: none;
             }
         }
+        #blog-category-list
+        {
+            position: absolute;
+            bottom: 8px;
+            left: 244px;
+            a{
+                color: #636b6f;
+                font-size: 18px;
+                text-decoration: none;
+            }
+        }
         #search-article
         {
             form{
@@ -87,6 +98,8 @@ body
             }
         }
     }
+
+
 }
 
 #site-category-box-fill
@@ -215,7 +228,7 @@ body
         }
     }
     img{
-        width:100%;
+        display: inline-block;
     }
     span.search_key{
         color:#e810aa;
