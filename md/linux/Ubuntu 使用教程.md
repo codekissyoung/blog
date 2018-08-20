@@ -1,127 +1,7 @@
-# 原则
-- 优先选择该系统版本上的默认软件,比如`ubuntu 16.04`的默认PHP版本是7.0,那就不要去用7.1的版本,否则会带来很大的麻烦
-
-# 查看系统版本和环境
-```bash
-lsb_release -a
-cat /etc/issue
-uname -a
-```
-
-# 中文支持
-```bash
-sudo apt-get install language-pack-zh-hans
-sudo apt-get install zhcon
-```
-
-# 设定运行时语言环境
-- Locale是软件在运行时的语言环境, 它包括语言(Language), 地域 (Territory) 和字符集(Codeset)
-- 运行`sudo vim /etc/enviroment` 添加如下内容
-```bash
-LANG="zh_CN.UTF-8"
-```
-- 运行 `sudo locale-gen`
-- 运行 `sudo vim /etc/default/locale`,添加如下内容
-```bash
-LANG=zh_CN.UTF-8
-```
-
-
-## 触摸板 ##
-```bash
-禁用触摸板的命令:
-sudo rmmod psmouse
-启用触摸板的命令:
-sudo modprobe  psmouse
-列出所用的mod
-lsmod
-搜索mouse相关的
-ls mod | grep "mouse"
-```
-
-## 使用chromium看视频 ##
-```bash
-sudo apt-get install flashplugin-installer
-sudo apt-get install pepperflashplugin-nonfree
-```
-
-# 安装软件
-```bash
-sudo apt-get update 更新软件源
-sudo apt-get upgrade　从软件源处更新软件
-sudo apt-get autoremove 自动卸载系统不需要的软件
-sudo apt-get install vim　安装vim编辑器
-sudo update-alternatives --config editor 默认编辑设置为vim
-sudo apt-get install bash-builtins bash-completion bash-doc bash-static  安装bash自动补全工具
-sudo apt-get install tmux tumx用于保持工作现场
-sudo apt-get install lnav 安装终端看访问日志的神器 lnav观看
-sudo apt-get install openssh-server 安装ssh-server,可供远程登录
-sudo apt-get install git 安装git,用于管理代码
-sudo apt-get install unrar 安装rar解压工具, unrar x test.rar 解压到当前文件夹
-sudo apt-get install zsh 安装zsh 配置oh-my-zsh
-```
-
-# dpkg
-```bash
-dpkg -c package.deb 列出 deb 包的内容
-dpkg -i <.deb file name> 安装软件
-dpkg -L package 用此命令查看软件安装到什么地方
-dpkg -l 列出系统安装的所有apt包
-dpkg -r package  移除软件（保留配置）
-dpkg -P package 移除软件（不保留配置）
-dpkg -s package 查找包的详细信息
-dpkg –unpack package.deb     解开 deb 包的内容
-dpkg -S keyword     搜索所属的包内容
-dpkg –configure package     配置包
-dpkg–reconfigure package    重新配置包
-```
-
-# apt-get/apt-cache
-```bash
-apt-cache search keyword 搜寻软件
-apt-get install package 安装软件
-apt-get remove package 删除软件
-apt-get --purge remove package 彻底删除
-apt-get update 更新软件仓库
-apt-get upgrade 更新软件包
-```
-
-# aptitude
-```bash
-sudo apt-get install aptitude 安装
-sudo aptitude 打开软件包字符操作界面
-sudo aptitude search package 搜索
-sudo aptitude install package
-sudo aptitude remove package
-sudo aptitude purge package 彻底删除
-sudo aptitude update
-sudo aptitude upgrade
-```
-
-# ppa
-```bash
-sudo add-apt-repository ppa:ppsspp/stable 添加ppa源，（实质是个Python脚本，在source.list里添加 ppa 源了，同时完成导入key）
-sudo aptitude update
-sudo aptitude search ppsspp
-sudo aptitude purge -y ppsspp
-sudo add-apt-repository -r ppa:ppsspp/stable 删除ppa源
-sudo aptitude update
-```
-
-# 利用源码构建软件
-```bash
-# 安装编译工具先
-sudo aptitude install automake autoconf libtool pkg-config intltool libxml2-dev libgtk2.0-dev libnotify-dev libglib2.0-dev libevent-dev build-essential checkinstall libcurl4-openssl-dev libssl-dev linux-headers-$(uname -r)
-# 安装编译wireshark工具
-sudo apt-get build-dep wireshark
-# 下载wireshark源码包
-./configure
-make
-sudo checkinstall # 构建debian包并且安装
-```
-
 # snap 安装软件包
+
 - snap包思路模仿苹果软件包,没有依赖关系，体积大，下载安装包后，将下载的安装文件挂载到`/snap`目录下并自动创建挂载点，然后复制文件到指定位置
+
 ```bash
 snap find htop # 查找软件
 sudo snap install htop # 安装软件
@@ -152,28 +32,26 @@ sudo snap remove stop # 删除一个应用
 snap list # 列出安装的应用
 ```
 
-# 安装python开发环境
+## 安装python开发环境
+
 ```bash
 sudo aptitude install -y python2.7-dev python3.5-dev libssl-dev libevent-dev libjpeg-dev libxml2-dev libxslt1-dev
 sudo aptitude install python-pip 安装包管理工具
 sudo pip install virtualenv 安装 python 版本的虚拟环境,先不管，学python时候再看
 ```
 
-# 构建嵌入式开发环境(交叉编译)
-```bash
-# 暂时不学
-```
+## NFS(Network File System)文件共享服务
 
-# NFS(Network File System)文件共享服务
+## FTP(File Transfer Protocol)
 
-# FTP(File Transfer Protocol)
+## Samba
 
-# Samba
+## linux用于完成特定任务的用户
 
-# linux用于完成特定任务的用户
 - `nobody` `admin` `ftp` ，无密码,无home目录，无shell,主要就是为了运行某些特定的进程，比如 nginx 使用nobody用户来运行
 
-# 特殊权限
+## 特殊权限
+
 ```bash
 000 , --- , 0 , 不使用任何特殊权限
 001 , --t , 1 ,
@@ -189,16 +67,17 @@ sudo pip install virtualenv 安装 python 版本的虚拟环境,先不管，学p
 ➜  ~ ls -alh /bin/su
 -rwsr-xr-x 1 root root 40K 5月  16 10:28 /bin/su
 ```
+
 - s 特殊权限
 - 只对二进制程序有效 , 执行者拥有该程序的执行权限，且只在执行该程序的过程中有效
 - 执行者将具有该程序拥有者的权限，比如 su 的 s 权限,可以让用户暂时拥有 root 用户的权限
 - 通过 `chmod u+s file` 或者 `chmod 4755 file` 来设置
 
-
 ```bash
 ➜  ~ ls -alh /usr/bin/mlocate
 -rwxr-sr-x 1 root mlocate 39K 11月 18  2014 /usr/bin/mlocate
 ```
+
 - SGID 权限,与 s 权限相同，不同的是，SGID在执行过程中还会得到该程序的用户组的支持
 - 对于设置了SGID权限的目录来说,用户拥有r x权限时，可以进入该目录,用户在此目录下的有效用户变为该目录的用户，创建的文件的所属用户也是该目录的用户
 - 使用 `chmod g+s file` 来添加此权限
@@ -206,6 +85,7 @@ sudo pip install virtualenv 安装 python 版本的虚拟环境,先不管，学p
 ```bash
 ➜  / ls -alh / |grep tmp
 drwxrwxrwt  16 root root 4.0K 6月   3 13:01 tmp
+
 ```
 - SBIT 权限, `--t` ,该权限只对目录有效,用户在该目录下创建的文件或目录，权限默认为`-rw-r--r--`,即只有该用户和root可以删除
 - 使用命令 `chmod o+t /tmp` 来添加此权限
@@ -217,9 +97,6 @@ drwxrwxrwt  16 root root 4.0K 6月   3 13:01 tmp
 ```bash
 *   hard    nproc   200
 ```
-
-# [安装包的依赖库版本过高问题](http://blog.csdn.net/Moolight_shadow/article/details/44833711)
-
 
 # Nginx 
 ```bash
@@ -335,7 +212,6 @@ sudo apt-get install php7.0-mysql
 /etc/init.d/mysql start｜stop|restart
 ```
 
-
 # 开启 Mcrypt 模块
 sudo php5enmod mcrypt
 sudo service apache2 restart
@@ -374,7 +250,9 @@ http://www.example.com/USA/California/San_Diego  
 “/USA/California/San_Diego” 是能够Rewrite的字符串！
 重写：就是实现URL的跳转和隐藏真实地址，基于Perl语言的正则表达式规范。平时帮助我们实现拟静态，拟目录，域名跳转，防止盗链等
 ```
+
 ## .htaccess
+
 ```bash
 RewriteEnine on
 RewriteRule  ^/t_(.*).html$  /test.php?id = $1#当访问任何以t_开头，以.html结尾的文件时，将$1用与(.*)匹配的字符替换后，访问相应的test.php页面
@@ -402,7 +280,9 @@ RewriteCond %{HTTP_HOST} !^www.163.com [NC]RewriteRule ^/(.*) http://www.163.com
 ```bash
 core_module,so_module,http_module,mpm
 ```
+
 ## 全局配置指令
+
 ```bash
 #表示apache2这个软件安装的目录
 ServerRoot  "/usr/local/apache2"
@@ -441,7 +321,8 @@ AllowOverride None      不允许 .htaccess 重写这个目录，改为 All �
 </Directory>
 ```
 
-# Set Search Domain
+## Set Search Domain
+
 在Ubuntu设置IPv4时，
 ip 地址 : 10.10.10.19
 子网掩码 : 24
@@ -497,11 +378,6 @@ PING sina.com (66.102.251.33) 56(84) bytes of data.
 2 packets transmitted, 0 received, 100% packet loss, time 1007ms
 ```
 
-# 安装monaco字体
-进入github下载这个字体，github地址是`https://github.com/cstrap/monaco-font`
-`sudo ./install-font-ubuntu.sh https://github.com/todylu/monaco.ttf/blob/master/monaco.ttf?raw=true` 这个命令
-
-
 # 追踪路由
 ```bash
 ➜  blog git:(master)  sudo traceroute m.dev.yunchongba.com
@@ -520,6 +396,3 @@ traceroute to m.dev.yunchongba.com (120.25.71.101), 30 hops max, 60 byte packets
 12  42.120.253.6 (42.120.253.6)  50.913 ms  51.081 ms 42.120.253.2 (42.120.253.2)  54.589 ms
 13  42.120.253.6 (42.120.253.6)  50.205 ms * *
 ```
-
-# 截图
-自带的截图软件,使用 `shift + printscreen` 截图
