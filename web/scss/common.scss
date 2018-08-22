@@ -192,14 +192,16 @@ body
     }
     pre{
         margin: 0px 20px;
+        background-color: #fffde2;
+        padding:10px;
+        overflow:auto;
+        border-radius:5px;
         code{
-            font-family: "Ubuntu Mono",Monaco,Menlo, Consolas, "Courier New", monospace;
+            width:100%;
+            font-family: Monaco, "微软雅黑", Menlo, Consolas, "Courier New", monospace;
             line-height: 1.5;
             font-size: 13px;
-            padding:10px;
-            border-radius:5px;
             letter-spacing:0px;
-            background-color: #fffde2;
         }
     }
     ol{
