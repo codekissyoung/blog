@@ -6,7 +6,10 @@
     display: block;
 }
 $article_width: 1020px;
-$backgroud_color:#f5f5d5;
+// $backgroud_color:#f5f5d5;
+$backgroud_color:white;
+$border_line_color:grey;
+
 
 body
 {
@@ -52,47 +55,48 @@ body
         }
         #search-article
         {
-            form{
-                background-color: #fffde2;
-                border-radius: 10px;
-            }
-            color:black;
+            // color:black;
             position: absolute;
             right: 0px;
             bottom: 10px;
             // width:240px;
             form{
                 text-align:left;
+                border:1px solid #ddd;
+                // border-radius: 10px;
                 input[type="text"]{
-                    height: 18px;
-                    padding:2px 0px;
-                    padding-left:10px;
-                    border:0px;
                     width:180px;
-                    background-color: #fffde2;
-                    border-top-left-radius: 10px;
-                    border-bottom-left-radius: 10px;
+                    height: 18px;
+                    // padding:2px 0px;
+                    padding: 0px;
+                    padding-left:10px;
+                    margin: 0px;
+                    padding-right: 10px;
+                    border:0px;
+                    // border-top-left-radius: 10px;
+                    // border-bottom-left-radius: 10px;
                     color: #636b6f;
-                    vertical-align:middle;
+                    // vertical-align:middle;
                     outline: none;
                     letter-spacing: 1px;
                 }
                 input[type="submit"]
                 {
-                    cursor:pointer;
+                    border:0px;
+                    border-left: 1px solid #ddd;
+                    // cursor:pointer;
                     padding-top:2px;
                     padding-bottom:2px;
-                    background-color: #fffde2;
-                    border-top-right-radius: 10px;
-                    border-bottom-right-radius: 10px;
+                    // border-top-right-radius: 10px;
+                    // border-bottom-right-radius: 10px;
                     font-weight:normal;
-                    border:1px solid #dcdcdc;
-                    text-decoration:none;
+                    // border:1px solid #dcdcdc;
+                    // text-decoration:none;
                     color:#636b6f;
-                    display:inline-block;
-                    text-shadow:1px 1px 0px #ffffff;
-                    box-shadow:inset 1px 1px 0px 0px #ffffff;
-                    box-shadow:1px 0px 13px -1px #ffffff;
+                    // display:inline-block;
+                    // text-shadow:1px 1px 0px #ffffff;
+                    // box-shadow:inset 1px 1px 0px 0px #ffffff;
+                    // box-shadow:1px 0px 13px -1px #ffffff;
                     outline: none;
                 }
             }
@@ -132,7 +136,9 @@ body
         padding-top: 6px;
         padding-bottom: 4px;
         padding-right: 6px;
-        background-color: #fffbbb;
+        // background-color: #fffbbb;
+        border: 1px solid #ddd;
+        border-left: 0px;
         a{
             writing-mode: vertical-lr;
             color: #706b6e;
@@ -165,7 +171,7 @@ body
         text-align:center;
     }
     h2{
-        font-size:22px;
+        font-size:20px;
         margin:20px 0px 5px 0px;
         margin-top: 40px;
     }
@@ -192,7 +198,7 @@ body
     }
     pre{
         margin: 0px 20px;
-        background-color: #fffde2;
+        background-color:rgb(248, 248, 248);
         padding:10px;
         overflow:auto;
         border-radius:5px;
@@ -220,12 +226,12 @@ body
         color: #706b6e;
         font-family: "Monaco","Ubuntu mono";
         code{
-            color:#FF6600;
+            // color:#FF6600;
             border-radius: 4px;
             font-size: 13px;
             padding: 2px;
             // background-color: #fffbc4;
-            background-color: #fffde2;
+            // background-color: #fffde2;
             font-family: "Monaco","Ubuntu mono";
         }
     }

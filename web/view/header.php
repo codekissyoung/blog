@@ -7,6 +7,7 @@
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <link href="/css/normalize.css" rel="stylesheet"/>
         <link href="/css/github.css" rel="stylesheet">
+        <link href="/css/github-markdown.css" rel="stylesheet">
         <link href="/css/common.css" rel="stylesheet"/>
         <script src="/js/jquery-3.3.1.min.js"></script>
         <script src="/js/highlight.pack.js"></script>
@@ -16,7 +17,7 @@
         <div id="site-category">
             <div id="site-category-content">
                 <div id="blog-name">
-                    <a href="http://blog.codekissyoung.com">CodekissYoung Blog</a>
+                    <a href="/"><?=BLOG_TITLE?></a>
                 </div>
                 <div id="blog-category-list">
                     <!-- <a href="/img.php">图片库</a> -->
@@ -24,7 +25,7 @@
                 <div id="search-article">
                     <form action="/" method="GET" autocomplete="off">
                     <input type="text" name="search_key" value="<?=$search_key?>" placeholder=""/>
-                        <input type="submit" value="Search" />
+                        <input type="submit" value="搜索" />
                     </form>
                 </div>
             </div>

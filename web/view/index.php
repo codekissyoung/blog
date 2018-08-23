@@ -9,7 +9,7 @@
         <a  href="javascript:void();">目录</a>
     </div>
     <div id="article-content">
-        <div>
+        <div class="markdown-body">
             <?=$html;?>
         </div>
     </div>

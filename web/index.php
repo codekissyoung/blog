@@ -9,11 +9,9 @@ if( isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROT
     $protocol = 'https://';
 
 $current_article = isset($_SERVER['PATH_INFO']) ? $_SERVER["PATH_INFO"] : '';
+$article = DEFAULT_ARTICLE;
 if( $current_article )
     $article = MD_ROOT."{$current_article}.md";
-else
-    $article = MD_ROOT.'/link.md';
-
 
 $title  = trim(join('-',explode("/",$current_article))."-CodeKissYoung Blog",'-');
 
