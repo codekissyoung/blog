@@ -6,7 +6,7 @@
         <title><?=$title?></title>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <link href="/css/normalize.css" rel="stylesheet"/>
-        <link href="/css/highlight_styles/github.css" rel="stylesheet">
+        <link href="/css/github.css" rel="stylesheet">
         <link href="/css/common.css" rel="stylesheet"/>
         <script src="/js/jquery-3.3.1.min.js"></script>
         <script src="/js/highlight.pack.js"></script>
