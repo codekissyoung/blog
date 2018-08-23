@@ -1,5 +1,6 @@
 <?php
 include_once '../config.php';
+error_reporting(E_ALL);
 $host         = $_SERVER["HTTP_HOST"];
 
 $protocol = 'http://';
@@ -24,21 +25,34 @@ $html    = $parser -> makeHtml( $content );
 $search_key = isset($_GET['search_key']) ? $_GET['search_key'] : '';
 if( $search_key )
 {
-    $html = "<ul>";
-    exec( "grep -inr \"$search_key\" ./md/", $ret_arr, $ret_code );
-    if( is_array($ret_arr) )
+    $html = "";
+    $last_search_article = "";
+    $li = "";
+    exec( "grep -ir \"$search_key\" ".MD_ROOT, $ret_arr, $ret_code );
+    if( !empty($ret_arr) )
     {
         foreach( $ret_arr as $key => $value )
         {
-            $ret                = preg_match("/\.\/.*md:/", $value, $matchs );
-            $href               = substr($matchs[0],5,-4);
-            $search_article_tag = "<a href='$protocol$host/$href'>$href</a>&nbsp;";
-            $value              = htmlentities(str_replace( $matchs[0], '', $value ));
-            $value              = str_replace( $search_key ,'<span class=search_key>'.$search_key.'</span>', $value );
-            $html               = $html."<li class=search-list> $search_article_tag $value </li>";
+            $ret            = explode(".md:",$value);
+            $href           = str_replace(MD_ROOT,"",$ret[0]);
+            $value          = htmlentities( $ret[1] );
+            $value          = str_replace( $search_key ,'<span class=search_key>'.$search_key.'</span>', $value );
+            $li             = $li."<li class=search-list> $value </li>";
+
+            if( $last_search_article != $href )
+            {
+                $html  = $html."<h2><a href='$protocol$host/$href'>$href</a></h2>";
+                $html  = $html."<lu>".$li."</ul>";
+
+                $li = "";
+                $last_search_article = $href;
+            }
         }
     }
-    $html .= "</ul>";
+    else
+    {
+        $html = "未能搜索到 <span class=search_key>".$search_key."</span>";
+    }
 }
 
 // 视图

@@ -6,11 +6,10 @@
 define("BLOG_TITLE","CodekissYoung Blog");
 
 // markdown文件所在目录
-define("MD_ROOT","/home/cky/workspace/blog/md/");
+define("MD_ROOT","/home/cky/workspace/md/");
 
 // 博客首页加载的 markdown 文件
 define("DEFAULT_ARTICLE",MD_ROOT."link.md");
-
 
 /////////////////////////// Blog 系统配置 ///////////////////////////
 
